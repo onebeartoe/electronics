@@ -45,7 +45,10 @@ public class FXMLController
     private Label label;
     
     @FXML
-    private ChoiceBox dropdown;
+    private ChoiceBox dropdown1;
+    
+    @FXML
+    private ChoiceBox dropdown2;
     
     private SerialPort serialPort;
     
@@ -55,14 +58,27 @@ public class FXMLController
     
     private OutputStream serialOutstream;
 
-    @FXML
-    private void handleButtonAction(ActionEvent event) 
+    private void handleButtonAction(int waveformId)
     {
-        int waveformId = dropdown.getSelectionModel().getSelectedIndex();
-        
         label.setText("Haptic Controller: Waveform " + waveformId);
         
         sendWaveformId(waveformId);
+    }
+    
+    @FXML
+    private void handleButton1Action(ActionEvent event) 
+    {
+        int waveformId = dropdown1.getSelectionModel().getSelectedIndex();
+        
+        handleButtonAction(waveformId);
+    }
+    
+    @FXML
+    private void handleButton2Action(ActionEvent event)
+    {
+        int waveformId = dropdown2.getSelectionModel().getSelectedIndex();
+        
+        handleButtonAction(waveformId);
     }
 
     @Override
@@ -80,14 +96,11 @@ public class FXMLController
         {
             String name = hardcodedWaveforms.get(i);
             effectNames.add(name);
-        }        
+        }
 
         ObservableList<String> ol = FXCollections.observableList(effectNames);
         
-        dropdown.setItems(ol);
-        dropdown.getSelectionModel().selectFirst();
-        
-        dropdown.getSelectionModel().selectedIndexProperty().addListener( new ChangeListener<Number>()
+        ChangeListener changeListener = new ChangeListener<Number>()
         {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
@@ -95,11 +108,20 @@ public class FXMLController
                 int i = newValue.intValue();
                 sendWaveformId(i);
             }
-        });
+        };
+        
+        dropdown1.setItems(ol);
+        dropdown1.getSelectionModel().selectFirst();        
+        dropdown1.getSelectionModel().selectedIndexProperty().addListener( changeListener);
+        
+        dropdown2.setItems(ol);
+        dropdown2.getSelectionModel().selectedIndexProperty().addListener( changeListener);
         
         System.out.println("items added");
-        
-        initializeSerialPort();
+
+
+// comment this to quickly start the app with no SerialPort features activated.        
+//        initializeSerialPort();
     }
     
     private void initializeSerialPort()
@@ -147,7 +169,14 @@ public class FXMLController
 
         try
         {
-            serialOutstream.write( message.getBytes() );
+            if(serialOutstream == null)
+            {
+                System.out.println("Not writing to null outstream: serialOutstream");
+            }
+            else
+            {
+                serialOutstream.write( message.getBytes() );
+            }
         }
         catch (IOException ex)
         {

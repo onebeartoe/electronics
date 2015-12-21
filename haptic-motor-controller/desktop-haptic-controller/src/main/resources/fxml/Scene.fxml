@@ -6,10 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
     <children>
-        <Button fx:id="button" layoutX="128.0" layoutY="137.0" onAction="#handleButtonAction" text="Send" />
-        <Label fx:id="label" layoutX="120.0" layoutY="30.0" minHeight="16" minWidth="69" text="Haptic Controller" />
-      <ChoiceBox fx:id="dropdown" layoutX="79.0" layoutY="88.0" prefWidth="150.0" />
+        <Button fx:id="button1" layoutX="247.0" layoutY="88.0" onAction="#handleButton1Action" text="Send" />
+        <Label fx:id="label" layoutX="28.0" layoutY="30.0" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="261.0" text="Haptic Controller" />
+      <ChoiceBox fx:id="dropdown1" layoutX="29.0" layoutY="88.0" prefHeight="25.0" prefWidth="205.0" />
+      <ChoiceBox fx:id="dropdown2" layoutX="29.0" layoutY="125.0" prefHeight="25.0" prefWidth="205.0" />
+      <Button fx:id="button2" layoutX="246.0" layoutY="125.0" onAction="#handleButton2Action" text="Send" />
     </children>
 </AnchorPane>
