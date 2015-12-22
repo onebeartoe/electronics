@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
@@ -37,7 +38,6 @@ import org.onebeartoe.io.serial.SerialPorts;
  * @author Roberto Marquez
  */
 public class FXMLController 
-//        extends Application 
         implements SerialPortEventListener,
                    Initializable
 {    
@@ -50,6 +50,8 @@ public class FXMLController
     @FXML
     private ChoiceBox dropdown2;
     
+    private List<ChoiceBox> dropdownList;
+    
     private SerialPort serialPort;
     
     private Map<Integer, String> hardcodedWaveforms;
@@ -58,27 +60,64 @@ public class FXMLController
     
     private OutputStream serialOutstream;
 
-    private void handleButtonAction(int waveformId)
+    private String buildWaveformList(List<Integer> waveformIds)
     {
-        label.setText("Haptic Controller: Waveform " + waveformId);
+        List<String> strs = waveformIds.stream()
+                    .map( (i) -> {return String.valueOf(i);} )
+                    .collect( Collectors.toList() );
         
-        sendWaveformId(waveformId);
+        String list = String.join(",", strs);
+                
+        return list;
+    }
+    
+    private int dropdownIndexToId(ChoiceBox dropdown)
+    {
+        int i = dropdown.getSelectionModel().getSelectedIndex();
+        
+        // The ChoiceBox index is zero-based, but the datasheet says the IDs start at 1.
+        int id = i + 1;
+        
+        return id;
+    }
+    
+    private void handleSendOneButtonAction(ChoiceBox dropdown)
+    {
+        int waveformId = dropdownIndexToId(dropdown);
+        
+        sendOneWaveformId(waveformId);
     }
     
     @FXML
     private void handleButton1Action(ActionEvent event) 
     {
-        int waveformId = dropdown1.getSelectionModel().getSelectedIndex();
-        
-        handleButtonAction(waveformId);
+        handleSendOneButtonAction(dropdown1);
     }
     
     @FXML
     private void handleButton2Action(ActionEvent event)
+    {        
+        handleSendOneButtonAction(dropdown2);
+    }
+    
+    @FXML
+    private void handleSendAllButton(ActionEvent event)
     {
-        int waveformId = dropdown2.getSelectionModel().getSelectedIndex();
+        List<Integer> waveformIds = new ArrayList();
+        for(ChoiceBox dropdown : dropdownList)
+        {
+            int id = dropdownIndexToId(dropdown);                        
+
+            
+            if(id > 0)
+            {
+                System.out.println(id + " ");
+                
+                waveformIds.add(id);
+            }
+        }
         
-        handleButtonAction(waveformId);
+        sendWaveformIds(waveformIds);
     }
 
     @Override
@@ -106,7 +145,13 @@ public class FXMLController
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue)
             {
                 int i = newValue.intValue();
-                sendWaveformId(i);
+                
+                // The ChoiceBox index is zero-based, but the datasheet says the IDs start at 1.
+                i += 1;
+                
+                label.setText("Haptic Controller: Waveform " + i);
+                
+                sendOneWaveformId(i);
             }
         };
         
@@ -117,11 +162,16 @@ public class FXMLController
         dropdown2.setItems(ol);
         dropdown2.getSelectionModel().selectedIndexProperty().addListener( changeListener);
         
+        dropdownList = new ArrayList();
+        
+        dropdownList.add(dropdown1);
+        dropdownList.add(dropdown2);
+        
         System.out.println("items added");
 
 
 // comment this to quickly start the app with no SerialPort features activated.        
-//        initializeSerialPort();
+        initializeSerialPort();
     }
     
     private void initializeSerialPort()
@@ -162,10 +212,22 @@ public class FXMLController
         return id;
     }
     
-    private void sendWaveformId(int waveformId)
+    private void sendOneWaveformId(int waveformId)
     {
-        System.out.println("sending " + waveformId + " to serial port");
-        String message = waveformId + "" + '\n';
+        List waveformList = new ArrayList();
+        waveformList.add(waveformId);
+        
+        sendWaveformIds(waveformList);
+    }
+    
+    private void sendWaveformIds(List<Integer> waveformIds)
+    {
+        String waveformList = buildWaveformList(waveformIds);
+        
+        System.out.println("sending >" + waveformList + "< to serial port");
+        
+        String message = waveformList + "" + '\n';
+//        String message = waveformId + "" + '\n';
 
         try
         {
@@ -180,7 +242,7 @@ public class FXMLController
         }
         catch (IOException ex)
         {
-            message = "could not send >" + waveformId + "< to serial port";
+            message = "could not send >" + waveformList + "< to serial port";
             logger.log(Level.SEVERE, message, ex);
         }
     }
