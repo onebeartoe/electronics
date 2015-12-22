@@ -50,6 +50,15 @@ public class FXMLController
     @FXML
     private ChoiceBox dropdown2;
     
+    @FXML
+    private ChoiceBox dropdown3;
+    
+    @FXML
+    private ChoiceBox dropdown4;
+    
+    @FXML
+    private ChoiceBox dropdown5;
+    
     private List<ChoiceBox> dropdownList;
     
     private SerialPort serialPort;
@@ -85,6 +94,9 @@ public class FXMLController
     {
         int waveformId = dropdownIndexToId(dropdown);
         
+        int id = dropdownIndexToId(dropdown);
+        label.setText("Haptic Controller: Waveform " + id);
+        
         sendOneWaveformId(waveformId);
     }
     
@@ -98,6 +110,24 @@ public class FXMLController
     private void handleButton2Action(ActionEvent event)
     {        
         handleSendOneButtonAction(dropdown2);
+    }
+    
+    @FXML
+    private void handleButton3Action(ActionEvent event)
+    {        
+        handleSendOneButtonAction(dropdown3);
+    }
+    
+    @FXML
+    private void handleButton4Action(ActionEvent event)
+    {        
+        handleSendOneButtonAction(dropdown4);
+    }
+    
+    @FXML
+    private void handleButton5Action(ActionEvent event)
+    {        
+        handleSendOneButtonAction(dropdown5);
     }
     
     @FXML
@@ -157,15 +187,27 @@ public class FXMLController
         
         dropdown1.setItems(ol);
         dropdown1.getSelectionModel().selectFirst();        
-        dropdown1.getSelectionModel().selectedIndexProperty().addListener( changeListener);
+        dropdown1.getSelectionModel().selectedIndexProperty().addListener(changeListener);
         
         dropdown2.setItems(ol);
-        dropdown2.getSelectionModel().selectedIndexProperty().addListener( changeListener);
+        dropdown2.getSelectionModel().selectedIndexProperty().addListener(changeListener);
+        
+        dropdown3.setItems(ol);
+        dropdown3.getSelectionModel().selectedIndexProperty().addListener(changeListener);
+        
+        dropdown4.setItems(ol);
+        dropdown4.getSelectionModel().selectedIndexProperty().addListener(changeListener);
+        
+        dropdown5.setItems(ol);
+        dropdown5.getSelectionModel().selectedIndexProperty().addListener(changeListener);
         
         dropdownList = new ArrayList();
         
         dropdownList.add(dropdown1);
         dropdownList.add(dropdown2);
+        dropdownList.add(dropdown3);
+        dropdownList.add(dropdown4);
+        dropdownList.add(dropdown5);
         
         System.out.println("items added");
 
