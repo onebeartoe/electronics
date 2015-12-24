@@ -6,19 +6,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
     <children>
-        <Button fx:id="button1" layoutX="247.0" layoutY="88.0" onAction="#handleButton1Action" text="Send" />
+        <Button fx:id="button1" layoutX="345.0" layoutY="88.0" onAction="#handleButton1Action" text="Send" />
         <Label fx:id="label" layoutX="28.0" layoutY="30.0" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="261.0" text="Haptic Controller" />
-      <ChoiceBox fx:id="dropdown1" layoutX="29.0" layoutY="88.0" prefHeight="25.0" prefWidth="205.0" />
-      <ChoiceBox fx:id="dropdown2" layoutX="29.0" layoutY="125.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button fx:id="button2" layoutX="246.0" layoutY="125.0" onAction="#handleButton2Action" text="Send" />
-      <Button fx:id="sendAllButton" layoutX="129.0" layoutY="288.0" onAction="#handleSendAllButton" text="Send All" />
-      <ChoiceBox fx:id="dropdown3" layoutX="29.0" layoutY="169.0" prefHeight="25.0" prefWidth="205.0" />
-      <ChoiceBox fx:id="dropdown4" layoutX="29.0" layoutY="207.0" prefHeight="25.0" prefWidth="205.0" />
-      <ChoiceBox fx:id="dropdown5" layoutX="29.0" layoutY="245.0" prefHeight="25.0" prefWidth="205.0" />
-      <Button fx:id="button3" layoutX="247.0" layoutY="169.0" onAction="#handleButton3Action" text="Send" />
-      <Button fx:id="button4" layoutX="246.0" layoutY="207.0" onAction="#handleButton4Action" text="Send" />
-      <Button fx:id="button5" layoutX="246.0" layoutY="245.0" onAction="#handleButton5Action" text="Send" />
+      <ChoiceBox fx:id="dropdown1" layoutX="29.0" layoutY="88.0" prefHeight="25.0" prefWidth="305.0" />
+      <ChoiceBox fx:id="dropdown2" layoutX="29.0" layoutY="125.0" prefHeight="25.0" prefWidth="305.0" />
+      <Button fx:id="button2" layoutX="345.0" layoutY="125.0" onAction="#handleButton2Action" text="Send" />
+      <Button fx:id="sendAllButton" layoutX="183.0" layoutY="288.0" onAction="#handleSendAllButton" text="Send All" />
+      <ChoiceBox fx:id="dropdown3" layoutX="29.0" layoutY="169.0" prefHeight="25.0" prefWidth="305.0" />
+      <ChoiceBox fx:id="dropdown4" layoutX="29.0" layoutY="207.0" prefHeight="25.0" prefWidth="305.0" />
+      <ChoiceBox fx:id="dropdown5" layoutX="29.0" layoutY="245.0" prefHeight="25.0" prefWidth="305.0" />
+      <Button fx:id="button3" layoutX="345.0" layoutY="169.0" onAction="#handleButton3Action" text="Send" />
+      <Button fx:id="button4" layoutX="345.0" layoutY="207.0" onAction="#handleButton4Action" text="Send" />
+      <Button fx:id="button5" layoutX="345.0" layoutY="245.0" onAction="#handleButton5Action" text="Send" />
     </children>
 </AnchorPane>
