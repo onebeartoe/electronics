@@ -1,15 +1,19 @@
 
 use <../../../../3D-Modeling/OpenSCAD/shapes/open-cylinder/open-cylinder.scad>
 
+baseInnerRadius = 7.8 / 2.0;
+
 slipRingAttachment();
+
+
 
 /**
  * If an arithmatic operation is specified for a property, then the left operand if what the 
  * data sheet says and the right operand is the offset for the attchment.
  */
 module slipRingAttachment(baseHeight = 9 - 2,
-                          baseInnerRadius = 3,    
-                          baseOuterDiameter = 7.8 + 0.4,
+                          baseInnerRadius = baseInnerRadius,    
+                          baseOuterDiameter = (baseInnerRadius * 2) + 4,
                           channelLength = 50,
                           channelWidth = 5)
 {
@@ -28,7 +32,7 @@ module slipRingAttachment(baseHeight = 9 - 2,
         xTranslate = -channelLength / 2.0;
         yTranslate = baseOuterDiameter / 2.0;
         zTranslate = baseHeight - 0.001;
-        wiresCutoutRadius = baseInnerRadius - 2;
+        wiresCutoutRadius = baseInnerRadius - 1;
         color("blue")    
         translate([xTranslate, -yTranslate, baseHeight])
         slipRingLedChannel(channelLength = xLength,
