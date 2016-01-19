@@ -1,33 +1,25 @@
 
 use <../../../../3D-Modeling/OpenSCAD/shapes/open-cylinder/open-cylinder.scad>
 
-baseInnerRadius = 7.8 / 2.0;
+baseInnerRadius = (7.8 / 2.0);
 
 slipRingAttachment();
-
-
 
 /**
  * If an arithmatic operation is specified for a property, then the left operand if what the 
  * data sheet says and the right operand is the offset for the attchment.
  */
 module slipRingAttachment(baseHeight = 9 - 2,
-                          baseInnerRadius = baseInnerRadius,    
-                          baseOuterDiameter = (baseInnerRadius * 2) + 4,
+                          baseInnerRadius = baseInnerRadius +
+                          0.3,   
+//                          0.1, // too tight
+//                          0.5, // about 1.5 mm to big
+                          baseOuterDiameter = baseInnerRadius * 2 + 4,
                           channelLength = 50,
                           channelWidth = 5)
 {
     union()
     {
-//        xDelta = -baseOuterDiameter / 2.0;
-//        yDelta = -channelWidth;
-//        zDelta = (baseHeight * 2) -0.002;        
-//        color("red")
-//        translate([xDelta, yDelta, zDelta])
-//        plexiglassHolder(width = baseOuterDiameter,
-//                         channelLength = channelLength,
-//                         baseHeight = baseHeight);
-        
         xLength = channelLength; 
         xTranslate = -channelLength / 2.0;
         yTranslate = baseOuterDiameter / 2.0;
@@ -41,8 +33,9 @@ module slipRingAttachment(baseHeight = 9 - 2,
                            wiresCutoutRadius = wiresCutoutRadius);
 
         outerRadius = baseOuterDiameter / 2.0;
+        innerRadius = baseInnerRadius;
         slipRingBase(baseHeight = baseHeight,
-                     baseInnerRadius = baseInnerRadius,
+                     baseInnerRadius = innerRadius,
                      baseOuterRadius = outerRadius);        
     }
 }
