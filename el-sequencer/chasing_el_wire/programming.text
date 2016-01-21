@@ -1,0 +1,3 @@
+board: LilyPad Arduino
+Processor: ATmega328
+Programmer: AVR ISP
