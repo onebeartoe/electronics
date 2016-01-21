@@ -12,23 +12,22 @@ slipRingAttachment();
 module slipRingAttachment(baseHeight = 9 - 2,
                           baseInnerRadius = baseInnerRadius +
                           0.3,   
-//                          0.1, // too tight
-//                          0.5, // about 1.5 mm to big
                           baseOuterDiameter = baseInnerRadius * 2 + 4,
                           channelLength = 50,
                           channelWidth = 5)
 {
     union()
     {
-        xLength = channelLength; 
+        xLength = channelLength;
+        yLength = baseOuterDiameter + 0; //5;
         xTranslate = -channelLength / 2.0;
-        yTranslate = baseOuterDiameter / 2.0;
+        yTranslate = yLength / 2.0;
         zTranslate = baseHeight - 0.001;
         wiresCutoutRadius = baseInnerRadius - 1;
         color("blue")    
         translate([xTranslate, -yTranslate, baseHeight])
         slipRingLedChannel(channelLength = xLength,
-                           yLength = baseOuterDiameter,
+                           yLength = yLength,
                            baseHeight = 3,
                            wiresCutoutRadius = wiresCutoutRadius);
 
