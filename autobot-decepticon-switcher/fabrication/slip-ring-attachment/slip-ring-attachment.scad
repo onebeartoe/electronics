@@ -26,7 +26,7 @@ module slipRingAttachment(baseHeight = 9 - 2,
         wiresCutoutRadius = baseInnerRadius - 1;
         color("blue")    
         translate([xTranslate, -yTranslate, baseHeight])
-        slipRingLedChannel(channelLength = xLength,
+        ledWireChannel(channelLength = xLength,
                            yLength = yLength,
                            baseHeight = 3,
                            wiresCutoutRadius = wiresCutoutRadius);
@@ -49,7 +49,7 @@ module plexiglassHolder(width,
     ]);    
 }
 
-module slipRingLedChannel(channelLength,
+module ledWireChannel(channelLength,
                           yLength,
                           baseHeight,
                           wiresCutoutRadius)
