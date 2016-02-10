@@ -18,15 +18,14 @@ module slipRingAttachment(baseHeight = 9 - 2,
 {
     union()
     {
-        xLength = channelLength;
-        yLength = baseOuterDiameter + 0; //5;
+        yLength = baseOuterDiameter + 5;
         xTranslate = -channelLength / 2.0;
         yTranslate = yLength / 2.0;
         zTranslate = baseHeight - 0.001;
         wiresCutoutRadius = baseInnerRadius - 1;
         color("blue")    
         translate([xTranslate, -yTranslate, baseHeight])
-        ledWireChannel(channelLength = xLength,
+        ledWireChannel(channelLength = channelLength,
                            yLength = yLength,
                            baseHeight = 3,
                            wiresCutoutRadius = wiresCutoutRadius);
