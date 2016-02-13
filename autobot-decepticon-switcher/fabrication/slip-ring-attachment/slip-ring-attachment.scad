@@ -81,7 +81,6 @@ module ledWireChannel(channelLength,
 
         // channel for the slip ring wires             
         slipRingWiresChannelLengthX = channelLength + 5 + 0.001; 
-//        slipRingWiresChannelLengthY = yLength / 2.0;
         slipRingWiresChannelLengthY = wiresCutoutRadius * 2.0;        
         slipRingWiresChannelLengthZ = (baseHeight / 2.0) + 0.001; 
         channelCutoutOffsetY = (yLength / 2.0) - (slipRingWiresChannelLengthY / 2.0);
@@ -96,16 +95,13 @@ module ledWireChannel(channelLength,
         // channel for the LED strip
         stripLengthX = channelLength + 0.002; 
         stripLengthY = 9;
-        stripLengthY = 9;
         stripTranslateX = -0.001;        
         stripTranslateY = (yLength / 2.0) - (stripLengthY / 2.0);
-//        stripTranslateY = channelCutoutOffsetY;        
         stripTranslateZ = slipRingWiresChannelLengthZ + channelCutoutOffsetZ - 0.001;
         translate([stripTranslateX, stripTranslateY, stripTranslateZ])
-//        translate([stripTranslateX, 0, stripTranslateZ])
         cube([stripLengthX, stripLengthY, 3]);
 
-        // cylinder cutout for the wires
+        // cylinder for the slip ring wires
         wireCutoutLengthZ = baseHeight + slipRingWiresChannelLengthZ + 0.001;
         wireCutoutOffsetX = channelLength / 2.0; 
         wireCutoutOffsetY = yLength / 2.0;
