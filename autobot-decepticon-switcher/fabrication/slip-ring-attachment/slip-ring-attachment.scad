@@ -1,15 +1,34 @@
 
 use <../../../../3D-Modeling/OpenSCAD/shapes/open-cylinder/open-cylinder.scad>
 
+// the is the height of the slipring's attachment point
+slipringBaseHeight = 9;
+
+// used a caliper!
+plexiglassWidth = 5.4;
+
 baseInnerRadius = (7.8 / 2.0);
 
 slipRingAttachment();
+
+//plexiglass();
+
+module plexiglass()
+{
+    // simulate the two glass panes
+    width = plexiglassWidth * 2;
+    
+    translateY = -width / 2.0;
+    translateZ = slipringBaseHeight;
+    translate([0, translateY, translateZ])
+    cube([10, width, 20]);
+}
 
 /**
  * If an arithmatic operation is specified for a property, then the left operand if what the 
  * data sheet says and the right operand is the offset for the attchment.
  */
-module slipRingAttachment(baseHeight = 9 - 2,
+module slipRingAttachment(baseHeight = slipringBaseHeight - 2,
                           baseInnerRadius = baseInnerRadius +
                           0.3,   
                           baseOuterDiameter = baseInnerRadius * 2 + 4,
@@ -58,23 +77,36 @@ module ledWireChannel(channelLength,
         // whole block
         cube([channelLength,
               yLength,
-              baseHeight]);
+              baseHeight+2]);
 
-        // cutout for the LED stick              
-        channelCutoutLengthX = channelLength + 5 + 0.001; 
-        channelCutoutLengthY = yLength / 2.0;
-        channelCutoutLengthZ = (baseHeight / 2.0) + 0.001; 
-        channelCutoutOffsetY = channelCutoutLengthY / 2.0;
-        channelCutoutOffsetZ = (baseHeight - channelCutoutLengthZ) + 0.001;
-        translate([-1.001, 
+        // channel for the slip ring wires             
+        slipRingWiresChannelLengthX = channelLength + 5 + 0.001; 
+//        slipRingWiresChannelLengthY = yLength / 2.0;
+        slipRingWiresChannelLengthY = wiresCutoutRadius * 2.0;        
+        slipRingWiresChannelLengthZ = (baseHeight / 2.0) + 0.001; 
+        channelCutoutOffsetY = (yLength / 2.0) - (slipRingWiresChannelLengthY / 2.0);
+        channelCutoutOffsetZ = (baseHeight - slipRingWiresChannelLengthZ) + 0.001;
+        translate([-.001, 
                    channelCutoutOffsetY, 
                    channelCutoutOffsetZ]) 
-        cube([channelCutoutLengthX,
-              channelCutoutLengthY,
-              channelCutoutLengthZ]);
+        cube([slipRingWiresChannelLengthX,
+              slipRingWiresChannelLengthY,
+              slipRingWiresChannelLengthZ]);
 
-        // cutout for the wires
-        wireCutoutLengthZ = baseHeight + channelCutoutLengthZ + 0.001;
+        // channel for the LED strip
+        stripLengthX = channelLength + 0.002; 
+        stripLengthY = 9;
+        stripLengthY = 9;
+        stripTranslateX = -0.001;        
+        stripTranslateY = (yLength / 2.0) - (stripLengthY / 2.0);
+//        stripTranslateY = channelCutoutOffsetY;        
+        stripTranslateZ = slipRingWiresChannelLengthZ + channelCutoutOffsetZ - 0.001;
+        translate([stripTranslateX, stripTranslateY, stripTranslateZ])
+//        translate([stripTranslateX, 0, stripTranslateZ])
+        cube([stripLengthX, stripLengthY, 3]);
+
+        // cylinder cutout for the wires
+        wireCutoutLengthZ = baseHeight + slipRingWiresChannelLengthZ + 0.001;
         wireCutoutOffsetX = channelLength / 2.0; 
         wireCutoutOffsetY = yLength / 2.0;
         wireCutoutOffsetZ = -0.001; 
