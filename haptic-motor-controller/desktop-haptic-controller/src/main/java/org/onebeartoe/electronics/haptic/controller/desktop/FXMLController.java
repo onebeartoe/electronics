@@ -211,8 +211,7 @@ public class FXMLController
         
         System.out.println("items added");
 
-
-// comment this to quickly start the app with no SerialPort features activated.        
+        // comment this to quickly start the app with no SerialPort features activated.        
         initializeSerialPort();
     }
     

@@ -4,9 +4,10 @@ use <../../../../3D-Modeling/OpenSCAD/shapes/open-cylinder/open-cylinder.scad>
 // the is the height of the slipring's attachment point
 slipringBaseHeight = 9;
 
-// used a caliper!
+// yea, got to use calipers for the first time!
 plexiglassWidth = 5.4;
 
+//TODO: measure this with the calipers!
 baseInnerRadius = (7.8 / 2.0);
 
 slipRingAttachment();
@@ -83,17 +84,18 @@ module ledWireChannel(channelLength,
         slipRingWiresChannelLengthX = channelLength + 5 + 0.001; 
         slipRingWiresChannelLengthY = wiresCutoutRadius * 2.0;        
         slipRingWiresChannelLengthZ = (baseHeight / 2.0) + 0.001; 
+        channelCutoutOffsetX = -0.001;
         channelCutoutOffsetY = (yLength / 2.0) - (slipRingWiresChannelLengthY / 2.0);
         channelCutoutOffsetZ = (baseHeight - slipRingWiresChannelLengthZ) + 0.001;
-        translate([-.001, 
-                   channelCutoutOffsetY, 
+        translate([channelCutoutOffsetX, 
+                   channelCutoutOffsetY,
                    channelCutoutOffsetZ]) 
         cube([slipRingWiresChannelLengthX,
               slipRingWiresChannelLengthY,
               slipRingWiresChannelLengthZ]);
 
         // channel for the LED strip
-        stripLengthX = channelLength + 0.002; 
+        stripLengthX = channelLength + 0.002;         
         stripLengthY = 9;
         stripTranslateX = -0.001;        
         stripTranslateY = (yLength / 2.0) - (stripLengthY / 2.0);
