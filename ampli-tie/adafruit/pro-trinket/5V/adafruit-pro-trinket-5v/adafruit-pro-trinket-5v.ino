@@ -1,3 +1,20 @@
+
+/// !!!!move these links to the ampmli-tie top level directory!
+
+// setting up the Arduino for Adafruit boards see https://learn.adafruit.com/adafruit-arduino-ide-setup/arduino-1-dot-6-x-ide
+
+// introducing     Trinket turorial see https://learn.adafruit.com/introducing-trinket/introduction
+
+// introducing Pro Trinket tutorial see https://learn.adafruit.com/introducing-pro-trinket?view=all
+
+// trinket with neopixels see https://learn.adafruit.com/trinket-neopixel-led-longboard?view=all
+
+// trinket with microphone see https://learn.adafruit.com/trinket-sound-reactive-led-color-organ?view=all
+                        
+// mic amp max446 see https://www.adafruit.com/product/1063
+
+// ampli-tie tutorial see https://learn.adafruit.com/led-ampli-tie?view=all
+
 /*
 LED VU meter for Arduino and Adafruit NeoPixel LEDs.
 
