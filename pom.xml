@@ -31,7 +31,7 @@
                 <updatePolicy>always</updatePolicy>
             </snapshots>
 	</repository>
-    </repositories> 
+    </repositories>
 
     <build>
         <!-- To define the plugin version in your parent POM -->
