@@ -5,27 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
     
     <parent>
-		<groupId>org.onebeartoe</groupId>
-		<artifactId>onebeartoe-electronics-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+        <groupId>org.onebeartoe</groupId>
+        <artifactId>onebeartoe-electronics-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     
-    <name>onebeartoe-electronics-haptic-motor-controller</name>
+    <name>onebeartoe-electronics-fiesta-medals</name>
     
-	<groupId>org.onebeartoe.electronics</groupId>
-	<artifactId>onebeartoe-electronics-haptic-motor-controller</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>org.onebeartoe.electronics</groupId>
+    <artifactId>onebeartoe-electronics-fiesta-medals</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
-    
-    <modules>
-        <module>datasheet-waveform-list-parser</module>
-        <module>desktop-haptic-controller</module>
-    </modules>
 </project>

@@ -18,6 +18,7 @@
     <name>onebeartoe-electronics-parent</name>
 
     <modules>
+        <module>fiesta-medals</module>
         <module>haptic-motor-controller</module>
     </modules>    
 
