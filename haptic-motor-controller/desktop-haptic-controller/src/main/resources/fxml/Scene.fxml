@@ -6,7 +6,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="426.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
+<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="426.0" 
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="org.onebeartoe.electronics.haptic.controller.desktop.FXMLController">
     <children>
         <Button fx:id="button1" layoutX="345.0" layoutY="88.0" onAction="#handleButton1Action" text="Send" />
         <Label fx:id="label" layoutX="28.0" layoutY="30.0" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="261.0" text="Haptic Controller" />
