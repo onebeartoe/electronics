@@ -16,11 +16,7 @@
     
     <packaging>jar</packaging>
     
-<<<<<<< HEAD
-    <name>onebeartoe-electronics-haptic-controller-datasheet-waveform-list-parser</name>
-=======
     <name>onebeartoe-electronics-haptic-motor-controller-datasheet-waveform-list-parser</name>
->>>>>>> 4e78da5cf64f5ee2722af6ec8fa97be24ca8d4aa
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
