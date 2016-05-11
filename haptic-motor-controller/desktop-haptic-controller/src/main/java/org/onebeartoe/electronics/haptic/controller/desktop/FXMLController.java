@@ -219,7 +219,7 @@ public class FXMLController
     {
         try
         {
-            serialPort = SerialPorts.get();
+            serialPort = SerialPorts.get("COM17");
             serialOutstream = serialPort.getOutputStream();
             
 // we are not using serial events in this app, so far
