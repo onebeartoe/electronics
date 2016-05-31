@@ -24,11 +24,10 @@
 
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(32, PIN);
 
-uint8_t  mode   = 0; // Current animation effect
-
 uint8_t  offset = 0; // Position of spinny eyes
 
 uint32_t pink  = 0xFF00FF;
+//uint32_t green  = 0x00FF00;
 uint32_t purple  = 0x7D26CD;
 uint32_t color  = pink; // start out with pink as the color
 
@@ -45,11 +44,7 @@ const long interval = 1000;           // interval at which to blink (millisecond
 
 void loop() 
 {
-  // perform medal opertions first
   medal();
-  
-  // perform ribbon dimming second
-//  ribbon();
 }
 
 void medal()
@@ -57,17 +52,15 @@ void medal()
   uint8_t  i;
   uint32_t t;
 
-  switch(mode) 
-  {
-   case 0: // Random sparks - just one LED on at a time!
+
+
     i = random(32);
     pixels.setPixelColor(i, color);
     pixels.show();
     delay(10);
     pixels.setPixelColor(i, 0);
-    break;
-  }
-
+    
+  
   t = millis();
   if((t - prevTime) > 8000) 
   {      
@@ -83,9 +76,6 @@ void medal()
       color = purple;
     }
 
-    // set color to purple
-//    color = 0x7D26CD;
-
     for(i=0; i<32; i++) 
     {
       pixels.setPixelColor(i, 0);
@@ -94,19 +84,6 @@ void medal()
     prevTime = t;
   }  
 }
-
-/*
-void ribbon()
-{
-  unsigned long currentMillis = millis();
- 
-  if(currentMillis - previousMillis >= interval) 
-  {
-    // save the last time you blinked the LED 
-    previousMillis = currentMillis;   
-  }  
-}
-*/
 
 void setup() 
 {
