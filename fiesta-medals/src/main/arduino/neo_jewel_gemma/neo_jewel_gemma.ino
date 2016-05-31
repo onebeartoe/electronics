@@ -11,9 +11,6 @@
      Gemma
      https://www.adafruit.com/products/1222
 
-     LED Backlight
-     https://www.adafruit.com/products/1621
-
      NeoPixel Ring (16 count)
      https://www.adafruit.com/product/1463
 
@@ -64,7 +61,8 @@ void medal()
     delay(10);
     pixels.setPixelColor(i, 0);
     break;
- 
+
+ /*
    case 1: // Spinny wheels (8 LEDs on at a time)
     for(i=0; i<16; i++) {
       uint32_t c = 0;
@@ -76,17 +74,29 @@ void medal()
     offset++;
     delay(50);
     break;
+*/    
   }
 
   t = millis();
-  if((t - prevTime) > 8000) {      // Every 8 seconds...
-    mode++;                        // Next mode
-    if(mode > 1) {                 // End of modes?
-      mode = 0;                    // Start modes over
-      color >>= 8;                 // Next color R->G->B
-      if(!color) color = 0xffae00; // Reset to red
+  if((t - prevTime) > 8000) 
+  {      // Every 8 seconds...
+//    mode++;                        // Next mode
+//    if(mode > 1) 
+//    {                 // End of modes?
+ //     mode = 0;                    // Start modes over
+  //    color >>= 8;                 // Next color R->G->B
+//      if(!color) 
+//      {
+//        color = 0xffae00; // Reset color
+        color = 0x7D26CD;
+//      }
+//    }
+
+    for(i=0; i<32; i++) 
+    {
+      pixels.setPixelColor(i, 0);
     }
-    for(i=0; i<32; i++) pixels.setPixelColor(i, 0);
+    
     prevTime = t;
   }  
 }
@@ -99,8 +109,6 @@ void ribbon()
   {
     // save the last time you blinked the LED 
     previousMillis = currentMillis;   
-
-
   }  
 }
 
@@ -112,5 +120,6 @@ void setup()
   prevTime = millis();
   
   // badge
-  pinMode(ledPin, OUTPUT);   
+//  pinMode(ledPin, OUTPUT);   
 }
+

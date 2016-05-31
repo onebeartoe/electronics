@@ -1,0 +1,20 @@
+
+Circuit Playground
+
+	https://www.adafruit.com/product/3000
+
+Overview
+
+	https://learn.adafruit.com/introducing-circuit-playground?view=all
+
+Demo apps
+
+	simple - https://github.com/adafruit/Adafruit_CircuitPlayground/blob/master/examples/demo/demo.ino
+	
+	  mega - https://github.com/adafruit/Adafruit_CircuitPlayground/blob/master/examples/mega_demo/mega_demo.ino
+	  
+RTTTL example
+
+	https://github.com/onebeartoe/media-players/tree/master/pi-ezo/src/main/java/org/onebeartoe/media/piezo/ports/rtttl
+	
+	
