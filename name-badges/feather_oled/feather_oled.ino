@@ -1,3 +1,16 @@
+
+/**
+ * source code origianlly from
+ * 
+ *    https://learn.adafruit.com/adafruit-oled-featherwing?view=all
+ *    
+ * uses the following products   
+ * 
+ *    https://www.adafruit.com/products/2900
+ *    
+ *    
+ */
+
 #include <SPI.h>
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -60,19 +73,51 @@ void setup() {
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.print("Connecting to SSID\n'adafruit':");
-  display.print("connected!");
-  display.println("IP: 10.0.1.23");
-  display.println("Sending val #0");
+  display.println("Roberto Marquez");
+  display.println("Software Developer");
+  display.println("CWT Sato Travel");
+  display.println("rmarquez@cwtsatotravel.com");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
 }
 
 
-void loop() {
-  if (! digitalRead(BUTTON_A)) display.print("A");
-  if (! digitalRead(BUTTON_B)) display.print("B");
-  if (! digitalRead(BUTTON_C)) display.print("C");
+void loop() 
+{
+  display.setTextSize(1);
+  if (! digitalRead(BUTTON_A)) 
+  {
+    
+    display.clearDisplay();
+    
+    display.setCursor(0,0);
+    display.println("Roberto Marquez");
+    display.println("Maker");
+    display.println("github.com/onebeartoe");
+  }
+  
+  if (! digitalRead(BUTTON_B)) 
+  {
+    display.clearDisplay();
+    
+    display.setCursor(0,0);
+    display.println("Roberto Marquez");
+    display.println("Dude");
+    display.println("twitter.com/onebeartoe");
+    display.println("210 370 7207");
+  }
+  
+  if (! digitalRead(BUTTON_C))
+  {
+    display.clearDisplay();
+
+    display.setTextSize(2);
+    
+    display.setCursor(4,2);
+    display.print("I love you");
+//    display.startscrollright(0x00, 0x0F);
+  }
+  
   delay(10);
   yield();
   display.display();

@@ -9,7 +9,7 @@
 
     <packaging>pom</packaging>
 
-no syntax for you
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
