@@ -6,9 +6,13 @@
  *    
  * uses the following products   
  * 
- *    https://www.adafruit.com/products/2900
+ *    FeatherWing OLED - 128x32        
+
+ *          https://www.adafruit.com/products/2900
  *    
  *    
+ *    Feather 32u4 Bluefruit LE
+ *          https://www.adafruit.com/products/2829
  */
 
 #include <SPI.h>
