@@ -63,12 +63,12 @@ const uint16_t colors[] =
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
 };
 
-const int maxSegments = 10;
+//const int maxSegments = 10;
+
 /**
  * The elements at segmentLocations[0][0] and  segmentLocations[0][1] are the (x,y) coordinates of the head of the worm.
  */
-int segmentLocations [maxSegments][2] = {0};
-//int segmentLocations [4] [2] = {0};
+//int segmentLocations [maxSegments][2] = {0};
 
 int validMovesCount;
 
@@ -82,8 +82,8 @@ void drawWorm()
     // go over each worm segment
     for(int i=0; i<worm.length; i++)
     {        
-        int x = segmentLocations[i][0];
-        int y = segmentLocations[i][1];
+        int x = worm.segmentLocations[i][0];
+        int y = worm.segmentLocations[i][1];
 
         matrix.drawPixel(x,y, colors[2]);
     }
@@ -106,8 +106,8 @@ void moveWorm()
 {
     for(int i=worm.length-1; i>0; i--)
     {
-        segmentLocations[i][0] = segmentLocations[i-1][0];
-        segmentLocations[i][1] = segmentLocations[i-1][1];
+        worm.segmentLocations[i][0] = worm.segmentLocations[i-1][0];
+        worm.segmentLocations[i][1] = worm.segmentLocations[i-1][1];
     }
 
     updateValidMoves();
@@ -117,8 +117,8 @@ void moveWorm()
     int x = validMoves[m][0];
     int y = validMoves[m][1];
 
-    segmentLocations[0][0] = x;
-    segmentLocations[0][1] = y;
+    worm.segmentLocations[0][0] = x;
+    worm.segmentLocations[0][1] = y;
 }
 
 void setup() 
@@ -130,8 +130,8 @@ void setup()
 
 void updateValidMoves()
 {
-    int headX = segmentLocations[0][0];
-    int headY = segmentLocations[0][1];
+    int headX = worm.segmentLocations[0][0];
+    int headY = worm.segmentLocations[0][1];
 
     int i = 0;
 
