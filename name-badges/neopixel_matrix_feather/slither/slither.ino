@@ -98,10 +98,14 @@ void loop()
 
 void moveWorm()
 {
-    for(int i=0; i<wormLength; i++)
+    for(int i=wormLength-1; i>0; i--)
     {
-        worm[i][0]++;
+      
+        worm[i][0] = worm[i-1][0];
+        worm[i][1] = worm[i-1][1];
     }
+
+    worm[0][0] += 1;
 }
 
 void setup() 
