@@ -1,3 +1,10 @@
+/**
+ * This display is a take on the work game slither.io
+ * 
+ * The work is not allowed to swirm off of the display.  The worm
+ * looks for a locaiton on the board if it is against a wall.
+ */
+
 
 // Adafruit_NeoMatrix example for single NeoPixel Shield.
 // Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
@@ -46,16 +53,30 @@ const uint16_t colors[] =
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
 };
 
-void setup() 
-{
-  matrix.begin();
-//  matrix.setTextWrap(false);
-  matrix.setBrightness(40);
-//  matrix.setTextColor(colors[0]);
-}
+int wormLength = 3;
 
-int x    = matrix.width();
-int pass = 0;
+/**
+ * the element at snake1[0][0] is the head of the worm
+ */
+int worm [3] [2] = 
+{
+  {2, 0},
+  {1, 0},
+  {0, 0}
+};
+
+void drawWorm()
+{
+    // go over each worm segment
+    for(int i=0; i<wormLength; i++)
+    {
+        
+        int x = worm[i][0];
+        int y = worm[i][1];
+
+        matrix.drawPixel(x,y, colors[2]);
+    }
+}
 
 void loop() 
 {
@@ -63,7 +84,28 @@ void loop()
   
   matrix.drawPixel(1,1, colors[1]);
   matrix.drawPixel(0,0, colors[1]);
+
+  matrix.drawPixel(3,3, colors[0]);
+  matrix.drawPixel(4,3, colors[0]);
+  matrix.drawPixel(3,4, colors[0]);
+
+  moveWorm();
+  drawWorm();
   
   matrix.show();
-  delay(100);
+  
+  delay(500);
 }
+
+void moveWorm()
+{
+  
+}
+
+void setup() 
+{
+  matrix.begin();
+
+  matrix.setBrightness(5);
+}
+
