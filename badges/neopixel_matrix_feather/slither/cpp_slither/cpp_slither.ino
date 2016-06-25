@@ -65,17 +65,7 @@ const uint16_t colors[] =
 
 //const int maxSegments = 10;
 
-/**
- * The elements at segmentLocations[0][0] and  segmentLocations[0][1] are the (x,y) coordinates of the head of the worm.
- */
 //int segmentLocations [maxSegments][2] = {0};
-
-int validMovesCount;
-
-/**
- * This two dimentional array holds the x,y coordinates for a total of 4 possible move locations; up, down, left, and right.
- */
-volatile int validMoves [4][2];
 
 void drawWorm()
 {
@@ -112,10 +102,10 @@ void moveWorm()
 
     updateValidMoves();
 
-    int m = random(0, validMovesCount);
+    int m = random(0, worm.validMovesCount);
 
-    int x = validMoves[m][0];
-    int y = validMoves[m][1];
+    int x = worm.validMoves[m][0];
+    int y = worm.validMoves[m][1];
 
     worm.segmentLocations[0][0] = x;
     worm.segmentLocations[0][1] = y;
@@ -138,8 +128,8 @@ void updateValidMoves()
     // up
     if(headY > 0)
     {
-        validMoves[i][1] = headY - 1;
-        validMoves[i][0] = headX;
+        worm.validMoves[i][1] = headY - 1;
+        worm.validMoves[i][0] = headX;
         
         i++;
     }
@@ -147,8 +137,8 @@ void updateValidMoves()
     // down
     if(headY < height-1)
     {
-        validMoves[i][1] = headY + 1;
-        validMoves[i][0] = headX;
+        worm.validMoves[i][1] = headY + 1;
+        worm.validMoves[i][0] = headX;
 
         i++;
     }
@@ -156,8 +146,8 @@ void updateValidMoves()
     // left
     if(headX > 0)
     {
-        validMoves[i][0] = headX - 1;
-        validMoves[i][1] = headY;
+        worm.validMoves[i][0] = headX - 1;
+        worm.validMoves[i][1] = headY;
 
         i++;
     }
@@ -165,11 +155,11 @@ void updateValidMoves()
     // right
     if(headX < width-1)
     {
-        validMoves[i][0] = headX + 1;
-        validMoves[i][1] = headY;
+        worm.validMoves[i][0] = headX + 1;
+        worm.validMoves[i][1] = headY;
 
         i++;
     }
 
-    validMovesCount = i;
+    worm.validMovesCount = i;
 }
