@@ -59,18 +59,9 @@ const uint16_t colors[] =
 const int wormLength = 5;
 
 /**
- * the element at snake1[0][0] is the head of the worm
+ * The elements at worm[0][0] and  worm[0][1] are the (x,y) coordinates of the head of the worm.
  */
-int worm [wormLength] [2];
-/*
-= 
-{
-  {3, 0},
-  {2, 0},
-  {1, 0},
-  {0, 0}
-};
-*/
+int worm [wormLength] [2] = {0};
 
 int validMovesCount;
 
@@ -95,15 +86,6 @@ void loop()
 {
   matrix.fillScreen(0);
 
-/*  
-  matrix.drawPixel(1,1, colors[1]);
-  matrix.drawPixel(0,0, colors[1]);
-
-  matrix.drawPixel(3,3, colors[0]);
-  matrix.drawPixel(4,3, colors[0]);
-  matrix.drawPixel(2,3, colors[0]);
-*/
-
   moveWorm();
   
   drawWorm();
@@ -117,7 +99,6 @@ void moveWorm()
 {
     for(int i=wormLength-1; i>0; i--)
     {
-      
         worm[i][0] = worm[i-1][0];
         worm[i][1] = worm[i-1][1];
     }
