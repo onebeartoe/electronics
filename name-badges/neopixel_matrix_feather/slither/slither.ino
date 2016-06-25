@@ -56,18 +56,21 @@ const uint16_t colors[] =
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
 };
 
-int wormLength = 4;
+const int wormLength = 5;
 
 /**
  * the element at snake1[0][0] is the head of the worm
  */
-int worm [4] [2] = 
+int worm [wormLength] [2];
+/*
+= 
 {
   {3, 0},
   {2, 0},
   {1, 0},
   {0, 0}
 };
+*/
 
 int validMovesCount;
 
