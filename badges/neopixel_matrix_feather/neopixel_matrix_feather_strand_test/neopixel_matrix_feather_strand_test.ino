@@ -1,5 +1,17 @@
+
+/**
+ *  Required Libraries:
+ *  
+ *    Use Adafruit NeoMatrix version 1.1.0
+ * 
+ * 
+ */
+
 #include <Adafruit_NeoPixel.h>
 
+/**
+ * This pin was soldered on the Adafruit NeoPixel Feather
+ */
 #define PIN 15
 
 // Parameter 1 = number of pixels in strip
@@ -19,7 +31,7 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(32, PIN, NEO_GRB + NEO_KHZ800);
 void setup() 
 {
   strip.begin();
-  strip.setBrightness(25);
+  strip.setBrightness(5);
   strip.show(); // Initialize all pixels to 'off'
 }
 
@@ -108,7 +120,8 @@ void theaterChaseRainbow(uint8_t wait)
        
         delay(wait);
        
-        for (int i=0; i < strip.numPixels(); i=i+3) {
+        for (int i=0; i < strip.numPixels(); i=i+3) 
+        {
           strip.setPixelColor(i+q, 0);        //turn every third pixel off
         }
     }

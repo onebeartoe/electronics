@@ -4,8 +4,13 @@
  * 
  * The work is not allowed to swirm off of the display.  The worm
  * looks for a locaiton on the board if it is against a wall.
+ * 
+ * 
+ *  Required Libraries:
+ *  
+ *    Use Adafruit NeoMatrix version 1.1.0
+ * 
  */
-
 
 // Adafruit_NeoMatrix example for single NeoPixel Shield.
 // Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
