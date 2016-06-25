@@ -7,9 +7,15 @@ class Worm
 
         Worm();
 
+        int getLength();
+
+        int length;
+
     private:
     
-        int length;
+        int color;
+        
+        
 };
 
 #endif

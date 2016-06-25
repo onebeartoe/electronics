@@ -4,6 +4,6 @@
 
 Worm::Worm()
 {
-    this->length = 5;
+    this->length = 3;
 }
 

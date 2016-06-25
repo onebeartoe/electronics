@@ -16,7 +16,7 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
 
-//#include "Worm.h"
+#include "Worm.h"
 
 #ifndef PSTR
  #define PSTR // Make Arduino Due happy
@@ -56,17 +56,19 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
   NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
+Worm worm = Worm();
+
 const uint16_t colors[] = 
 {
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
 };
 
-const int wormLength = 5;
-
+const int maxSegments = 10;
 /**
- * The elements at worm[0][0] and  worm[0][1] are the (x,y) coordinates of the head of the worm.
+ * The elements at segmentLocations[0][0] and  segmentLocations[0][1] are the (x,y) coordinates of the head of the worm.
  */
-int worm [wormLength] [2] = {0};
+int segmentLocations [maxSegments][2] = {0};
+//int segmentLocations [4] [2] = {0};
 
 int validMovesCount;
 
@@ -78,10 +80,10 @@ volatile int validMoves [4][2];
 void drawWorm()
 {
     // go over each worm segment
-    for(int i=0; i<wormLength; i++)
+    for(int i=0; i<worm.length; i++)
     {        
-        int x = worm[i][0];
-        int y = worm[i][1];
+        int x = segmentLocations[i][0];
+        int y = segmentLocations[i][1];
 
         matrix.drawPixel(x,y, colors[2]);
     }
@@ -102,10 +104,10 @@ void loop()
 
 void moveWorm()
 {
-    for(int i=wormLength-1; i>0; i--)
+    for(int i=worm.length-1; i>0; i--)
     {
-        worm[i][0] = worm[i-1][0];
-        worm[i][1] = worm[i-1][1];
+        segmentLocations[i][0] = segmentLocations[i-1][0];
+        segmentLocations[i][1] = segmentLocations[i-1][1];
     }
 
     updateValidMoves();
@@ -115,8 +117,8 @@ void moveWorm()
     int x = validMoves[m][0];
     int y = validMoves[m][1];
 
-    worm[0][0] = x;
-    worm[0][1] = y;
+    segmentLocations[0][0] = x;
+    segmentLocations[0][1] = y;
 }
 
 void setup() 
@@ -128,8 +130,8 @@ void setup()
 
 void updateValidMoves()
 {
-    int headX = worm[0][0];
-    int headY = worm[0][1];
+    int headX = segmentLocations[0][0];
+    int headY = segmentLocations[0][1];
 
     int i = 0;
 
