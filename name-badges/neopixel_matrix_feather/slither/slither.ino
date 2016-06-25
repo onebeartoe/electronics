@@ -43,9 +43,9 @@
 // Arduino.  When held that way, the first pixel is at the top right, and
 // lines are arranged in columns, progressive order.  The shield uses
 // 800 KHz (v2) pixels that expect GRB color data.
-Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(4, 8, PIN,
-  NEO_MATRIX_TOP     + NEO_MATRIX_RIGHT +
-  NEO_MATRIX_COLUMNS + NEO_MATRIX_PROGRESSIVE,
+Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(8, 4, PIN,
+  NEO_MATRIX_TOP     + NEO_MATRIX_LEFT +
+  NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
 const uint16_t colors[] = 
@@ -69,8 +69,7 @@ void drawWorm()
 {
     // go over each worm segment
     for(int i=0; i<wormLength; i++)
-    {
-        
+    {        
         int x = worm[i][0];
         int y = worm[i][1];
 
@@ -87,19 +86,22 @@ void loop()
 
   matrix.drawPixel(3,3, colors[0]);
   matrix.drawPixel(4,3, colors[0]);
-  matrix.drawPixel(3,4, colors[0]);
+  matrix.drawPixel(2,3, colors[0]);
 
   moveWorm();
   drawWorm();
   
   matrix.show();
   
-  delay(500);
+  delay(1500);
 }
 
 void moveWorm()
 {
-  
+    for(int i=0; i<wormLength; i++)
+    {
+        worm[i][0]++;
+    }
 }
 
 void setup() 
