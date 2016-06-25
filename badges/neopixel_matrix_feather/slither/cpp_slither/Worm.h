@@ -7,9 +7,7 @@ class Worm
 {
     public:
 
-        Worm();
-
-        int getLength();
+        Worm(int displayWidth, int displayHeight);
 
         int length;
 
@@ -23,13 +21,22 @@ class Worm
         /**
          * This two dimentional array holds the x,y coordinates for a total of 4 possible move locations; up, down, left, and right.
          */
-        volatile int validMoves [4][2];        
+        int validMoves [4][2];
+
+        int displayWidth;
+        
+        int displayHeight;
+
+        void move();
+        
 
     private:
     
         int color;
         
         int s[WORM_MAX_SEGMENTS][2];
+
+        void updateValidMoves();
 };
 
 #endif

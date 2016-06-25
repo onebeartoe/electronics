@@ -56,16 +56,12 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
   NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
-Worm worm = Worm();
+Worm worm = Worm(width, height);
 
 const uint16_t colors[] = 
 {
   matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
 };
-
-//const int maxSegments = 10;
-
-//int segmentLocations [maxSegments][2] = {0};
 
 void drawWorm()
 {
@@ -83,7 +79,7 @@ void loop()
 {
   matrix.fillScreen(0);
 
-  moveWorm();
+  worm.move();
   
   drawWorm();
   
@@ -92,74 +88,11 @@ void loop()
   delay(500);
 }
 
-void moveWorm()
-{
-    for(int i=worm.length-1; i>0; i--)
-    {
-        worm.segmentLocations[i][0] = worm.segmentLocations[i-1][0];
-        worm.segmentLocations[i][1] = worm.segmentLocations[i-1][1];
-    }
 
-    updateValidMoves();
-
-    int m = random(0, worm.validMovesCount);
-
-    int x = worm.validMoves[m][0];
-    int y = worm.validMoves[m][1];
-
-    worm.segmentLocations[0][0] = x;
-    worm.segmentLocations[0][1] = y;
-}
 
 void setup() 
 {
   matrix.begin();
 
   matrix.setBrightness(5);
-}
-
-void updateValidMoves()
-{
-    int headX = worm.segmentLocations[0][0];
-    int headY = worm.segmentLocations[0][1];
-
-    int i = 0;
-
-    // up
-    if(headY > 0)
-    {
-        worm.validMoves[i][1] = headY - 1;
-        worm.validMoves[i][0] = headX;
-        
-        i++;
-    }
-
-    // down
-    if(headY < height-1)
-    {
-        worm.validMoves[i][1] = headY + 1;
-        worm.validMoves[i][0] = headX;
-
-        i++;
-    }
-    
-    // left
-    if(headX > 0)
-    {
-        worm.validMoves[i][0] = headX - 1;
-        worm.validMoves[i][1] = headY;
-
-        i++;
-    }
-
-    // right
-    if(headX < width-1)
-    {
-        worm.validMoves[i][0] = headX + 1;
-        worm.validMoves[i][1] = headY;
-
-        i++;
-    }
-
-    worm.validMovesCount = i;
 }
