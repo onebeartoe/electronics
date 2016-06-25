@@ -12,12 +12,12 @@
  * 
  */
 
-// Adafruit_NeoMatrix example for single NeoPixel Shield.
-// Scrolls 'Howdy' across the matrix in a portrait (vertical) orientation.
-
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_NeoPixel.h>
+
+//#include "Worm.h"
+
 #ifndef PSTR
  #define PSTR // Make Arduino Due happy
 #endif
@@ -171,4 +171,3 @@ void updateValidMoves()
 
     validMovesCount = i;
 }
-
