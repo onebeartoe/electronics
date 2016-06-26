@@ -1,3 +1,4 @@
+
 #ifndef onebeartoe_Worm_h
 #define onebeartoe_Worm_h
 
@@ -7,7 +8,7 @@ class Worm
 {
     public:
 
-        Worm(int displayWidth, int displayHeight);
+        Worm(int displayWidth, int displayHeight, int length);
 
         int length;
 

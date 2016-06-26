@@ -56,7 +56,7 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
   NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
-Worm worm = Worm(width, height);
+Worm worm = Worm(width, height, 4);
 
 void loop() 
 {

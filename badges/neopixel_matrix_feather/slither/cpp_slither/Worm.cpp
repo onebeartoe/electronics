@@ -4,9 +4,9 @@
 #include "Arduino.h"
 #include "Worm.h"
 
-Worm::Worm(int displayWidth, int displayHeight)
+Worm::Worm(int displayWidth, int displayHeight, int length)
 {
-    this->length = 6;
+    this->length = length;
 
     this->displayWidth = displayWidth;
     this->displayHeight = displayHeight;
