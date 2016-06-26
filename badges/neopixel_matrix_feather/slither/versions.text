@@ -1,0 +1,11 @@
+
+cpp_slither/
+
+	This version moves members and method to a Worm class.
+
+
+c_slither/
+
+	This is a basic version of a worm app on a NeoPixel Matrix.
+	
+
