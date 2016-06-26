@@ -29,6 +29,9 @@ class Worm
 
         uint16_t Color(uint8_t r, uint8_t g, uint8_t b);
 
+        /**
+         * A pointer to the matrix was needed. For some reason it would not work a concrete object passed as a method parameter.
+         */
         void draw(Adafruit_NeoMatrix* matrix);
 
         void move();
