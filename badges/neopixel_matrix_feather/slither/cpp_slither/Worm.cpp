@@ -30,7 +30,8 @@ void Worm::draw(Adafruit_NeoMatrix* matrix)
         int y = segmentLocations[i][1];
 
 // A pointer to the matrix was needed. For some reason it would not work a concrete object passed as a method parameter.
-        matrix->drawPixel(x,y, Color(255, 0, 0));
+        matrix->drawPixel(x,y, colors[2]);
+//        matrix->drawPixel(x,y, Color(255, 0, 0));
 //        matrix.drawPixel(x,y, colors[0]);
     }
 }
