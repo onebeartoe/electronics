@@ -58,37 +58,18 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
 
 Worm worm = Worm(width, height);
 
-const uint16_t colors[] = 
-{
-  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255) 
-};
-
-void drawWorm()
-{
-    // go over each worm segment
-    for(int i=0; i<worm.length; i++)
-    {        
-        int x = worm.segmentLocations[i][0];
-        int y = worm.segmentLocations[i][1];
-
-        matrix.drawPixel(x,y, colors[2]);
-    }
-}
-
 void loop() 
 {
   matrix.fillScreen(0);
 
   worm.move();
   
-  drawWorm();
+  worm.draw(&matrix);
   
   matrix.show();
   
   delay(500);
 }
-
-
 
 void setup() 
 {

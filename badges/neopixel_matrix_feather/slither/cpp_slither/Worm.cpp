@@ -1,13 +1,38 @@
 
+#include <Adafruit_NeoMatrix.h>
+
 #include "Arduino.h"
 #include "Worm.h"
 
 Worm::Worm(int displayWidth, int displayHeight)
 {
-    this->length = 2;
+    this->length = 6;
 
     this->displayWidth = displayWidth;
     this->displayHeight = displayHeight;
+}
+
+
+uint16_t Worm::Color(uint8_t r, uint8_t g, uint8_t b) 
+{
+  return ((uint16_t)(r & 0xF8) << 8) |
+         ((uint16_t)(g & 0xFC) << 3) |
+                    (b         >> 3);
+}
+
+
+void Worm::draw(Adafruit_NeoMatrix* matrix)
+{
+    // go over each worm segment
+    for(int i=0; i<length; i++)
+    {        
+        int x = segmentLocations[i][0];
+        int y = segmentLocations[i][1];
+
+// A pointer to the matrix was needed. For some reason it would not work a concrete object passed as a method parameter.
+        matrix->drawPixel(x,y, Color(255, 0, 0));
+//        matrix.drawPixel(x,y, colors[0]);
+    }
 }
 
 void Worm::move()

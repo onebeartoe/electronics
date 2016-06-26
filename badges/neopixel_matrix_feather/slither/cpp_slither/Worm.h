@@ -27,12 +27,21 @@ class Worm
         
         int displayHeight;
 
+        uint16_t Color(uint8_t r, uint8_t g, uint8_t b);
+
+        void draw(Adafruit_NeoMatrix* matrix);
+
         void move();
         
 
     private:
     
-        int color;
+        const uint16_t colors[3] = 
+        {
+            Color(255, 0, 0), 
+            Color(0, 255, 0), 
+            Color(0, 0, 255) 
+        };
         
         int s[WORM_MAX_SEGMENTS][2];
 
