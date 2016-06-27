@@ -20,7 +20,6 @@ uint16_t Worm::Color(uint8_t r, uint8_t g, uint8_t b)
                     (b         >> 3);
 }
 
-
 void Worm::draw(Adafruit_NeoMatrix* matrix)
 {
     // go over each worm segment
