@@ -88,9 +88,9 @@ void loop()
 void setup() 
 {
     worm1.segmentColor = worm1.Color(255, 0, 0);
-    worm3.segmentColor = worm2.Color(0, 0, 255) ;
-    worm2.segmentColor = worm3.Color(0, 255, 0);
-
+    worm2.segmentColor = worm2.Color(0, 255, 0);
+    worm3.segmentColor = worm3.Color(0, 0, 255);
+    
     matrix.begin();
     matrix.setBrightness(5);
 }

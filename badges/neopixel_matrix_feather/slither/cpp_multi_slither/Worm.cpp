@@ -30,7 +30,7 @@ void Worm::draw(Adafruit_NeoMatrix* matrix)
         int x = segmentLocations[i][0];
         int y = segmentLocations[i][1];
 
-        matrix->drawPixel(x,y, segmentColor);
+        matrix->drawPixel(x,y, this->segmentColor);
     }
 }
 
