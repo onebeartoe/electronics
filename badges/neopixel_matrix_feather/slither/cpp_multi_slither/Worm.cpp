@@ -12,7 +12,6 @@ Worm::Worm(int displayWidth, int displayHeight, int length)
     this->displayHeight = displayHeight;
 }
 
-
 uint16_t Worm::Color(uint8_t r, uint8_t g, uint8_t b) 
 {
   return ((uint16_t)(r & 0xF8) << 8) |
