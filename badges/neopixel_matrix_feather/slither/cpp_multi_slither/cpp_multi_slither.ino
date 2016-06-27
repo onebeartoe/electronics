@@ -57,9 +57,9 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
   NEO_GRB            + NEO_KHZ800);
 
 Worm worm1 = Worm(width, height, 4);
-Worm worm2 = Worm(width, height, 5);
+Worm worm2 = Worm(width, height, 5);            
 Worm worm3 = Worm(width, height, 6);
-
+                    
 int wormCount = 3;
 
 Worm worms [] = 
@@ -87,7 +87,10 @@ void loop()
 
 void setup() 
 {
-  matrix.begin();
+    worm1.segmentColor = worm.Color(255, 0, 0);
+    worm3.segmentColor = worm.Color(0, 0, 255) ;
+    worm2.segmentColor = worm.Color(0, 255, 0);
 
-  matrix.setBrightness(5);
+    matrix.begin();
+    matrix.setBrightness(5);
 }

@@ -10,6 +10,9 @@ Worm::Worm(int displayWidth, int displayHeight, int length)
 
     this->displayWidth = displayWidth;
     this->displayHeight = displayHeight;
+    
+    // the default color is green
+    this->segmentColor = colors[1];
 }
 
 uint16_t Worm::Color(uint8_t r, uint8_t g, uint8_t b) 
@@ -27,7 +30,7 @@ void Worm::draw(Adafruit_NeoMatrix* matrix)
         int x = segmentLocations[i][0];
         int y = segmentLocations[i][1];
 
-        matrix->drawPixel(x,y, colors[2]);
+        matrix->drawPixel(x,y, segmentColor);
     }
 }
 
