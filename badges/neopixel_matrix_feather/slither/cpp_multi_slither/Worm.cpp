@@ -4,7 +4,7 @@
 #include "Arduino.h"
 #include "Worm.h"
 
-Worm::Worm(int displayWidth, int displayHeight, int length)
+Worm::Worm(int displayWidth, int displayHeight, int length, uint16_t color)
 {
     this->length = length;
 
@@ -12,7 +12,8 @@ Worm::Worm(int displayWidth, int displayHeight, int length)
     this->displayHeight = displayHeight;
     
     // the default color is green
-    this->segmentColor = colors[1];
+    this->segmentColor = color;
+//    this->segmentColor = colors[1];
 }
 
 uint16_t Worm::Color(uint8_t r, uint8_t g, uint8_t b) 

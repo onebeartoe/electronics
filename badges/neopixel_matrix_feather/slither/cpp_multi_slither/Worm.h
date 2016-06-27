@@ -8,7 +8,7 @@ class Worm
 {
     public:
 
-        Worm(int displayWidth, int displayHeight, int length);
+        Worm(int displayWidth, int displayHeight, int length, uint16_t color);
 
         int length;
 
@@ -28,7 +28,7 @@ class Worm
         
         int displayHeight;
         
-        uint16_t segmentColor;
+        volatile uint16_t segmentColor;
 
         uint16_t Color(uint8_t r, uint8_t g, uint8_t b);
 
@@ -49,7 +49,7 @@ class Worm
             Color(0, 0, 255) 
         };
         
-        int s[WORM_MAX_SEGMENTS][2];
+//        int s[WORM_MAX_SEGMENTS][2];
 
         void updateValidMoves();
 };

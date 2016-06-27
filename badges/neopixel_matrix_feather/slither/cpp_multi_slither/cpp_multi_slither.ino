@@ -56,9 +56,11 @@ Adafruit_NeoMatrix matrix = Adafruit_NeoMatrix(width, height, PIN,
   NEO_MATRIX_ROWS + NEO_MATRIX_PROGRESSIVE,
   NEO_GRB            + NEO_KHZ800);
 
-Worm worm1 = Worm(width, height, 4);
-Worm worm2 = Worm(width, height, 5);            
-Worm worm3 = Worm(width, height, 6);
+Worm colorWorm = Worm(0,0, 0, 0);
+
+Worm worm1 = Worm(width, height, 5, colorWorm.Color(255, 0, 0));
+Worm worm2 = Worm(width, height, 6, colorWorm.Color(0, 255, 0));            
+Worm worm3 = Worm(width, height, 7, colorWorm.Color(0, 0, 255));
                     
 int wormCount = 3;
 
@@ -87,9 +89,9 @@ void loop()
 
 void setup() 
 {
-    worm1->segmentColor = worm1.Color(255, 0, 0);
-    worm2->segmentColor = worm2.Color(0, 255, 0);
-    worm3->segmentColor = worm3.Color(0, 0, 255);
+    worm1.segmentColor = worm1.Color(255, 0, 0);
+    worm2.segmentColor = worm2.Color(0, 255, 0);
+    worm3.segmentColor = worm3.Color(0, 0, 255);
     
     matrix.begin();
     matrix.setBrightness(5);
