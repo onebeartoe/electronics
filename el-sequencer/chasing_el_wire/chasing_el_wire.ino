@@ -1,5 +1,11 @@
 /**
- * This demontration of chasing EL wire uses the following hardware compontents:
+ * This demontration of cchasing_el_wire/
+Latest commit 8e2eff1  on Jan 21￼ onebeartoe This is the code for flowing/chasing EL wire, of the 3 channel variety.
+..   
+chasing_el_wire.ino hchasing_el_wire/
+Latest commit 8e2eff1  on Jan 21￼ onebeartoe This is the code for flowing/chasing EL wire, of the 3 channel variety.
+..    
+chasing_el_wire.ino asing EL wire uses the following hardware compontents:
  *
  *      microcontroller: https://www.sparkfun.com/products/12781
  *              pigtail: https://www.sparkfun.com/products/12934
