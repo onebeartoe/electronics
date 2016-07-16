@@ -20,22 +20,12 @@
  *    
  */
 
-//#include "Waveforms.h"
-
 #include <Wire.h>
 
+//#include <Adafruit_IS31FL3731.h>
 #include "beto_Adafruit_IS31FL3731.h"
 
 Adafruit_IS31FL3731 matrix = Adafruit_IS31FL3731();
-
-//#define oneHzSample 1000000/maxSamplesNum  // sample for the 1Hz signal expressed in microseconds 
-
-const int button0 = 2, button1 = 3;
-volatile int wave0 = 0, wave1 = 0;
-
-
-int sample;
-
 
 void setup() 
 {
@@ -43,29 +33,18 @@ void setup()
 
   if (! matrix.begin()) 
   {
-  //  Serial.println("IS31 not found");
+    // the IS31 has not been found yet
     while (1);
   }
-
+  
+  // This next method was moved from the protected to public section of the method declartions in the .h file.
+  matrix.writeRegister8(ISSI_BANK_FUNCTIONREG, ISSI_REG_CONFIG, ISSI_REG_CONFIG_AUDIOPLAYMODE);
   matrix.audioSync(true);
 }
 
 void loop() 
 {
-  // Read the the potentiometer and map the value  between the maximum and the minimum sample available
-  // 1 Hz is the minimum freq for the complete wave
-  // 170 Hz is the maximum freq for the complete wave. Measured considering the loop and the analogRead() time
-//  sample = map(analogRead(A0), 0, 4095, 0, oneHzSample);
-//  sample = constrain(sample, 0, oneHzSample);
-
-
-
- // audio mode
-  matrix.writeRegister8(ISSI_BANK_FUNCTIONREG, ISSI_REG_CONFIG, ISSI_REG_CONFIG_AUDIOPLAYMODE);
-  matrix.audioSync(true);
-
-
-
-//  delayMicroseconds(sample);  // Hold the sample value for the sample time
+  // the main loop does nothing
   delay(500);
 }
+
