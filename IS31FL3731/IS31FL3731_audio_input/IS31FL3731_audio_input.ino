@@ -1,21 +1,23 @@
 
 /**
- * This code was originally from these two sources:
+ * This example uses these products:
+ * 
+ *    Adafruit 16x9 Charlieplexed PWM LED Matrix Driver - IS31FL3731
+ *    https://www.adafruit.com/products/2946
+ *    
+ *    LED Charlieplexed Matrix - 9x16 LEDs - Green
+ *    https://www.adafruit.com/products/2972
+ * 
+ *    Adafruit Pro Trinket - 5V 16MHz
+ *    https://www.adafruit.com/product/2000
+ *    
+ *    Electret Microphone Amplifier - MAX9814 with Auto Gain Control
+ *    https://www.adafruit.com/products/1713
+ *    
+ * Here is a tutorial on the LED matrix and driver:
  *  
  *    https://learn.adafruit.com/i31fl3731-16x9-charliplexed-pwm-led-driver?view=all
  *    
- *    https://www.arduino.cc/en/Tutorial/DueSimpleWaveformGenerator
- */
-
-/*
-  Simple Waveform generator with Arduino Due
-
-  * connect two push buttons to the digital pins 2 and 3 
-    with a 10 kilohm pulldown resistor to choose the waveform
-    to send to the DAC0 and DAC1 channels
-  * connect a 10 kilohm potentiometer to A0 to control the 
-    signal frequency
-
  */
 
 #include "Waveforms.h"
@@ -38,14 +40,9 @@ int sample;
 void setup() 
 {
   pinMode(A0, OUTPUT);
-//  analogWriteResolution(12);  // set the analog output resolution to 12 bit (4096 levels)
-//  analogReadResolution(12);   // set the analog input resolution to 12 bit 
 
-//  attachInterrupt(button0, wave0Select, RISING);  // Interrupt attached to the button connected to pin 2
-//  attachInterrupt(button1, wave1Select, RISING);  // Interrupt attached to the button connected to pin 3
-
-
-  if (! matrix.begin()) {
+  if (! matrix.begin()) 
+  {
   //  Serial.println("IS31 not found");
     while (1);
   }
@@ -53,7 +50,8 @@ void setup()
   matrix.audioSync(true);
 }
 
-void loop() {
+void loop() 
+{
   // Read the the potentiometer and map the value  between the maximum and the minimum sample available
   // 1 Hz is the minimum freq for the complete wave
   // 170 Hz is the maximum freq for the complete wave. Measured considering the loop and the analogRead() time
@@ -61,9 +59,6 @@ void loop() {
   sample = constrain(sample, 0, oneHzSample);
 
   analogWrite(A0, waveformsTable[wave0][i]);  // write the selected waveform on DAC0
-//  analogWrite(DAC0, waveformsTable[wave0][i]);  // write the selected waveform on DAC0
-//  analogWrite(DAC1, waveformsTable[wave1][i]);  // write the selected waveform on DAC1
-
 
  // audio mode
   matrix.writeRegister8(ISSI_BANK_FUNCTIONREG, ISSI_REG_CONFIG, ISSI_REG_CONFIG_AUDIOPLAYMODE);
@@ -75,18 +70,3 @@ void loop() {
 
   delayMicroseconds(sample);  // Hold the sample value for the sample time
 }
-
-// function hooked to the interrupt on digital pin 2
-void wave0Select() {
-  wave0++;
-  if(wave0 == 4)
-    wave0 = 0;
-}
-
-// function hooked to the interrupt on digital pin 3
-void wave1Select() {
-  wave1++;
-  if(wave1 == 4)
-    wave1 = 0;
-}
-
