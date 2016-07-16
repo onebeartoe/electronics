@@ -20,7 +20,7 @@
  *    
  */
 
-#include "Waveforms.h"
+//#include "Waveforms.h"
 
 #include <Wire.h>
 
@@ -28,7 +28,7 @@
 
 Adafruit_IS31FL3731 matrix = Adafruit_IS31FL3731();
 
-#define oneHzSample 1000000/maxSamplesNum  // sample for the 1Hz signal expressed in microseconds 
+//#define oneHzSample 1000000/maxSamplesNum  // sample for the 1Hz signal expressed in microseconds 
 
 const int button0 = 2, button1 = 3;
 volatile int wave0 = 0, wave1 = 0;
@@ -55,8 +55,8 @@ void loop()
   // Read the the potentiometer and map the value  between the maximum and the minimum sample available
   // 1 Hz is the minimum freq for the complete wave
   // 170 Hz is the maximum freq for the complete wave. Measured considering the loop and the analogRead() time
-  sample = map(analogRead(A0), 0, 4095, 0, oneHzSample);
-  sample = constrain(sample, 0, oneHzSample);
+//  sample = map(analogRead(A0), 0, 4095, 0, oneHzSample);
+//  sample = constrain(sample, 0, oneHzSample);
 
 
 
@@ -66,5 +66,6 @@ void loop()
 
 
 
-  delayMicroseconds(sample);  // Hold the sample value for the sample time
+//  delayMicroseconds(sample);  // Hold the sample value for the sample time
+  delay(500);
 }
