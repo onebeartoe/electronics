@@ -33,7 +33,7 @@ Adafruit_IS31FL3731 matrix = Adafruit_IS31FL3731();
 const int button0 = 2, button1 = 3;
 volatile int wave0 = 0, wave1 = 0;
 
-int i = 0;
+
 int sample;
 
 
@@ -58,15 +58,13 @@ void loop()
   sample = map(analogRead(A0), 0, 4095, 0, oneHzSample);
   sample = constrain(sample, 0, oneHzSample);
 
-  analogWrite(A0, waveformsTable[wave0][i]);  // write the selected waveform on DAC0
+
 
  // audio mode
   matrix.writeRegister8(ISSI_BANK_FUNCTIONREG, ISSI_REG_CONFIG, ISSI_REG_CONFIG_AUDIOPLAYMODE);
   matrix.audioSync(true);
 
-  i++;
-  if(i == maxSamplesNum)  // Reset the counter to repeat the wave
-    i = 0;
+
 
   delayMicroseconds(sample);  // Hold the sample value for the sample time
 }
