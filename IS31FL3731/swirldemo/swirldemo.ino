@@ -1,5 +1,10 @@
 
-// used 'USBtinyISP' as the programmer 
+/**
+  * Use 'USBtinyISP' as the programmer. 
+  * 
+  * 
+  */
+
 
 #include <Wire.h>
 #include <Adafruit_GFX.h>
