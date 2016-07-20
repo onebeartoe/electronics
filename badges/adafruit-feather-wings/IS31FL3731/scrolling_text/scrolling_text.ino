@@ -17,6 +17,7 @@
 
 Adafruit_IS31FL3731_Wing matrix = Adafruit_IS31FL3731_Wing();
 
+/*
 static const uint8_t PROGMEM
   smile_bmp[] =
   { B00111100,
@@ -45,7 +46,7 @@ static const uint8_t PROGMEM
     B10100101,
     B01000010,
     B00111100 };
-
+*/
 
 void setup() {
 
