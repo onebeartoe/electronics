@@ -29,7 +29,7 @@ void setup() {
   Serial.println("IS31 Found!");
 
   matrix.setRotation(0);
-  matrix.setCursor(0,0,);
+  matrix.setCursor(0,0);
   matrix.setTextSize(1);
   matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
   matrix.setTextColor(100);  
