@@ -34,7 +34,7 @@ void setup() {
   matrix.setTextColor(100);  
 }
 
-int iterationLimit = -200
+int iterationLimit = -200;
 //                 = -100;  // too short
 //                 = -300;  // too long
 
