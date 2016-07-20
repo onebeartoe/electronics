@@ -18,6 +18,7 @@
  *  
  *    https://learn.adafruit.com/i31fl3731-16x9-charliplexed-pwm-led-driver?view=all
  *    
+ * Use 'USBtinyISP' as the programmer.
  */
 
 #include <Wire.h>

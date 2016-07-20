@@ -1,8 +1,14 @@
 
 /**
+  * This source works with the following products:
+  * 
+  *      Adafruit 16x9 Charlieplexed PWM LED Matrix Driver - IS31FL3731
+  *      https://www.adafruit.com/products/2946
+  * 
+  *      LED Charlieplexed Matrix - 9x16 LEDs - Green
+  *      https://www.adafruit.com/products/2972
+  * 
   * Use 'USBtinyISP' as the programmer. 
-  * 
-  * 
   */
 
 
@@ -11,9 +17,9 @@
 #include <Adafruit_IS31FL3731.h>
 
 // If you're using the full breakout...
-//Adafruit_IS31FL3731 ledmatrix = Adafruit_IS31FL3731();
+Adafruit_IS31FL3731 ledmatrix = Adafruit_IS31FL3731();
 // If you're using the FeatherWing version
-Adafruit_IS31FL3731_Wing ledmatrix = Adafruit_IS31FL3731_Wing();
+//Adafruit_IS31FL3731_Wing ledmatrix = Adafruit_IS31FL3731_Wing();
 
 
 // The lookup table to make the brightness changes be more visible

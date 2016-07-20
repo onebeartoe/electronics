@@ -1,3 +1,16 @@
+
+/**
+ * This source works with the following products:
+ * 
+ *      Adafruit 16x9 Charlieplexed PWM LED Matrix Driver - IS31FL3731
+ *      https://www.adafruit.com/products/2946
+ * 
+ *      LED Charlieplexed Matrix - 9x16 LEDs - Green
+ *      https://www.adafruit.com/products/2972
+ * 
+ * Use 'USBtinyISP' as the programmer.
+ */
+
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_IS31FL3731.h>
