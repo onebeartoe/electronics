@@ -29,29 +29,25 @@ void setup() {
   Serial.println("IS31 Found!");
 
   matrix.setRotation(0);
-  matrix.setCursor(0,0);
   matrix.setTextSize(1);
   matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
   matrix.setTextColor(100);  
 }
 
+int iterationLimit = -200
+//                 = -100;  // too short
+//                 = -300;  // too long
+
+String message = "Hola me llamo Roberto";
+//String message = "Hello, my name is Roberto!";
+
 void loop() 
 {
-
-  for (int8_t x=0;
-            x>=-200;
-//            x>=-100;  // too short
-//            x>=-300;  // too long
-//            x>=-400;
-//          x>=-500;
-//          x>=-550;
-//        x>=-600;
-//        x>=-632; 
-        x--) 
+  for (int8_t x=0; x>=iterationLimit; x--) 
   {
     matrix.clear();
-    matrix.setCursor(x,1);
-    matrix.print("Hello, my name is Roberto!");
+    matrix.setCursor(x,0);
+    matrix.print(message);
     delay(100);
   }
 }
