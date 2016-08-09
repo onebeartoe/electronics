@@ -1,8 +1,4 @@
 
-
-// https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/example-sketch-ap-web-server
-
-
 /**
  *  Required Libraries:
  *  

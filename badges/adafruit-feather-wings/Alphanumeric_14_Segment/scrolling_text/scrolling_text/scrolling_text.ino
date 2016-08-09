@@ -26,7 +26,7 @@ void setup()
     Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
 
-String message = "  Love   *   My name is Roberto   *   Go Spurs Go   *";
+String message = "  Go Spurs Go   *";
 int messageLength = message.length();
 
 /**
