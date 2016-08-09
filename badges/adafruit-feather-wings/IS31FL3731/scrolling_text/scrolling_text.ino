@@ -38,8 +38,8 @@ int iterationLimit = -200;
 //                 = -100;  // too short
 //                 = -300;  // too long
 
-String message = "Hola me llamo Roberto";
-//String message = "Hello, my name is Roberto!";
+//String message = "Hola me llamo Roberto";
+String message = "Bueno, my name is Roberto!";
 
 void loop() 
 {
