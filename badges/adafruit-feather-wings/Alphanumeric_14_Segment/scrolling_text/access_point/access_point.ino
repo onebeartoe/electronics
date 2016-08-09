@@ -9,6 +9,16 @@
 
 #include <ESP8266WiFi.h>
 
+// Demo the quad alphanumeric display LED backpack kit
+// scrolls through every character, then scrolls Serial
+// input onto the display
+
+#include <Wire.h>
+#include "Adafruit_LEDBackpack.h"
+#include "Adafruit_GFX.h"
+
+Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
+
 //////////////////////
 // WiFi Definitions //
 //////////////////////
@@ -123,4 +133,24 @@ void initHardware()
   digitalWrite(LED_PIN, LOW);
   // Don't need to set ANALOG_PIN as input, 
   // that's all it can be.
+
+    initQuadAlpha();
+}
+
+void initQuadAlpha()
+{
+    // pass in the address
+    alpha4.begin(0x70);  
+
+  
+    alpha4.clear();
+
+    alpha4.writeDigitAscii(0, 'N');
+    alpha4.writeDigitAscii(1, 'I');
+    alpha4.writeDigitAscii(2, 'C');
+    alpha4.writeDigitAscii(3, 'E');
+
+    alpha4.writeDisplay();
+   
+    Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }

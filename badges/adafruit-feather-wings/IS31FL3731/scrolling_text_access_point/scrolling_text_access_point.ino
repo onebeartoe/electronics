@@ -1,5 +1,12 @@
+
+
 /**
  * Use 'USBtinyISP' as the programmer.
+ *
+ * The was originally from here
+ *
+ *      https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/example-sketch-ap-web-server
+ *
  */
 #include <ESP8266WiFi.h>
 
