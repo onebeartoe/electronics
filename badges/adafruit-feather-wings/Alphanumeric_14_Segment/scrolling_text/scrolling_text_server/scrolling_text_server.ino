@@ -1,4 +1,15 @@
 
+// 
+
+/**
+ *  on the beto network: 
+ * 
+ *      http://192.168.1.64:5000/woww
+ * 
+ * 
+ */
+
+
 /**
  * This was originally from the video, "Raspberry Pi Talking To WiFi Things Part 3"
  *
@@ -31,7 +42,7 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 /**
  * !!!!! DO NOT COMMIT THE REA PASSWORD!!!!!jhg
  */
-#define WIFI_PASSWORD   "w" // Your WiFi AP password.
+#define WIFI_PASSWORD   "wwfartwwpass" // Your WiFi AP password.
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -50,11 +61,15 @@ String localhostIp;
 // Create an instance of the server listening on the server port.
 WiFiServer server(SERVER_PORT);
 
+unsigned long currentMillis;
+
+unsigned long lightPreviousMillis = 0;
+
 void displayInitMessage()
 {
     alpha4.clear();
 
-    alpha4.writeDigitAscii(0, 'R');
+    alpha4.writeDigitAscii(0, 'L');
     alpha4.writeDigitAscii(1, 'I');
     alpha4.writeDigitAscii(2, 'G');
     alpha4.writeDigitAscii(3, 'T');
@@ -64,7 +79,18 @@ void displayInitMessage()
 
 WiFiClient client;
 
-void handleClient()
+String message = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
+
+int messageLength = message.length();
+
+/**
+  * This array holds the current values of the 4 alphanumeric segments.
+  */
+char displaybuffer[] = {' ', ' ', ' ', ' '};
+
+int indecies[] = {0,1,2,3};
+
+void handleHttpClient()
 {
     // Read a line of input.
     // Use a simple character buffer instead of Arduino's String class
@@ -83,6 +109,18 @@ void handleClient()
         return;
     }
 
+    //
+    
+    
+    alpha4.writeDigitAscii(0, 'H');
+    alpha4.writeDigitAscii(1, 'i');
+    alpha4.writeDigitAscii(2, 't');
+    alpha4.writeDigitAscii(3, '!');
+
+    alpha4.writeDisplay();    
+    
+    //
+    
     // Match the command.
     if (strncmp(received, "toggle_led", 10) == 0) 
     {
@@ -104,20 +142,37 @@ void handleClient()
     client.flush();
 }
 
-
+/**
+ * This is the delay in milliseconds for the scrolling text.
+ */
+long scrollDelay = 350;
 
 void loop() 
 {
+    currentMillis = millis();
+    
+    if(currentMillis - lightPreviousMillis >= scrollDelay) 
+    {
+        // save the last time you blinked the LED
+        lightPreviousMillis = currentMillis;
+
+        updateDisplay();
+    }    
+    
+    
     // Check if a client has connected.
     client = server.available();
     if (!client) 
     {
-        // No client connected, start the loop over again.
+        // No client connected, do some other non-HTTP client stuff.
+        
+        
+        
         return;
     }
     else
     {
-        handleClient();
+        handleHttpClient();
     }
 }
 
@@ -129,7 +184,7 @@ void initQuadAlpha()
 
     alpha4.clear();
 
-    alpha4.writeDigitAscii(0, '7');
+    alpha4.writeDigitAscii(0, 'L');
     alpha4.writeDigitAscii(1, 'I');
     alpha4.writeDigitAscii(2, 'C');
     alpha4.writeDigitAscii(3, 'E');
@@ -192,4 +247,48 @@ void setup()
     }
     
     displayInitMessage();
+}
+
+void updateDisplay()
+{
+    // shift the index into the message for each segment 
+    indecies[0] += 1;
+    indecies[1] += 1;
+    indecies[2] += 1;
+    indecies[3] += 1;
+
+    if(indecies[0] == messageLength)
+    {
+        indecies[0] = 0;
+    }
+
+    if(indecies[1] == messageLength)
+    {
+        indecies[1] = 0;
+    }
+
+    if(indecies[2] == messageLength)
+    {
+        indecies[2] = 0;
+    }
+
+    if(indecies[3] == messageLength)
+    {
+        indecies[3] = 0;
+    }
+  
+  // scroll down display
+  displaybuffer[0] = message[indecies[0]];
+  displaybuffer[1] = message[indecies[1]];
+  displaybuffer[2] = message[indecies[2]];
+  displaybuffer[3] = message[indecies[3]];
+ 
+  // set every digit to the buffer
+  alpha4.writeDigitAscii(0, displaybuffer[0]);
+  alpha4.writeDigitAscii(1, displaybuffer[1]);
+  alpha4.writeDigitAscii(2, displaybuffer[2]);
+  alpha4.writeDigitAscii(3, displaybuffer[3]);
+ 
+  // write it out!
+  alpha4.writeDisplay();    
 }
