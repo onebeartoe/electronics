@@ -42,7 +42,7 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
 
 #define PI_ADDRESS      "192.168.1.133"   // IP address (or hostname) of the Raspberry Pi
-                                         // to connect to and toggle its LED on button press.
+// to connect to and toggle its LED on button press.
 
 
 String localhostIp;
@@ -52,130 +52,129 @@ WiFiServer server(SERVER_PORT);
 
 void setup() 
 {
-  Serial.begin(115200);
-  delay(10);
+    Serial.begin(115200);
+    delay(10);
 
-  // Setup LED and turn it off.
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW);
+    // Setup LED and turn it off.
+    pinMode(LED_PIN, OUTPUT);
+    digitalWrite(LED_PIN, LOW);
 
-  // Setup button as an input with internal pull-up.
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+    // Setup button as an input with internal pull-up.
+    pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-  
-  // setup the quadalpha dispaly
-  initQuadAlpha();
-  
-  
-  // Connect to WiFi network
-  Serial.println();
-  Serial.println();
-  Serial.print("Connecting to ");
-  Serial.println(WIFI_NAME);
 
-  WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+    // setup the quadalpha dispaly
+    initQuadAlpha();
 
-  while (WiFi.status() != WL_CONNECTED) 
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("");
-  Serial.println("WiFi connected");
 
-  // Start the server
-  server.begin();
-  Serial.println("Server started");
+    // Connect to WiFi network
+    Serial.println();
+    Serial.println();
+    Serial.print("Connecting to ");
+    Serial.println(WIFI_NAME);
 
-  localhostIp = WiFi.localIP().toString();
-  
-  // Print the IP address
-  Serial.println(localhostIp);
+    WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-  // Setup mDNS responder.
-  if (!MDNS.begin(SERVER_NAME)) 
-  {
-    Serial.println("Error setting up MDNS responder!");
-    while(1) {
-      delay(1000);
+    while (WiFi.status() != WL_CONNECTED) 
+    {
+        delay(500);
+        Serial.print(".");
     }
-  }
+    Serial.println("");
+    Serial.println("WiFi connected");
+
+    // Start the server
+    server.begin();
+    Serial.println("Server started");
+
+    localhostIp = WiFi.localIP().toString();
+
+    // Print the IP address
+    Serial.println(localhostIp);
+
+    // Setup mDNS responder.
+    if (!MDNS.begin(SERVER_NAME)) 
+    {
+        Serial.println("Error setting up MDNS responder!");
+        while (1) 
+        {
+            delay(1000);
+        }
+    }
 }
 
 void loop() 
 {
-  // Check if the button has been pressed by looking for a change from high to
-  // low signal (with a small delay to debounce).
-  int button_first = digitalRead(BUTTON_PIN);
-  delay(20);
-  int button_second = digitalRead(BUTTON_PIN);
-  if ((button_first == HIGH) && (button_second == LOW)) 
-  {
-    // Button was pressed!
-    Serial.println("Button pressed!");
-    // Send 'toggle_led' command to the Raspberry Pi server.
-    WiFiClient pi;
-    if (!pi.connect(PI_ADDRESS, SERVER_PORT)) {
-      Serial.println("Failed to connect to Pi!");
-      return;
+    // Check if the button has been pressed by looking for a change from high to
+    // low signal (with a small delay to debounce).
+    int button_first = digitalRead(BUTTON_PIN);
+    delay(20);
+    int button_second = digitalRead(BUTTON_PIN);
+    if ((button_first == HIGH) && (button_second == LOW)) {
+        // Button was pressed!
+        Serial.println("Button pressed!");
+        // Send 'toggle_led' command to the Raspberry Pi server.
+        WiFiClient pi;
+        if (!pi.connect(PI_ADDRESS, SERVER_PORT)) {
+            Serial.println("Failed to connect to Pi!");
+            return;
+        }
+        pi.println("toggle_led");
+        pi.flush();
+        // Now close the connection and continue processing.
+        pi.stop();
     }
-    pi.println("toggle_led");
-    pi.flush();
-    // Now close the connection and continue processing.
-    pi.stop();
-  }
 
-  // Check if a client has connected.
-  WiFiClient client = server.available();
-  if (!client) 
-  {
-    // No client connected, start the loop over again.
-    return;
-  }
+    // Check if a client has connected.
+    WiFiClient client = server.available();
+    if (!client) {
+        // No client connected, start the loop over again.
+        return;
+    }
 
-  // Read a line of input.
-  // Use a simple character buffer instead of Arduino's String class
-  // because String uses dynamic memory which can be problematic with low
-  // memory chips.
-  #define RECEIVED_SIZE 11
-  char received[RECEIVED_SIZE] = {0};
-  if (client.readBytesUntil('\n', received, RECEIVED_SIZE-1) == 0) 
-  {
-    // Exceeded 1 second timeout waiting for data.
-    // Send the client an error and then disconnect them by starting the
-    // loop over again (which will clean up and close the client connection).
-    client.println("ERROR: Timeout!");
+    // Read a line of input.
+    // Use a simple character buffer instead of Arduino's String class
+    // because String uses dynamic memory which can be problematic with low
+    // memory chips.
+#define RECEIVED_SIZE 11
+    char received[RECEIVED_SIZE] = {0};
+    if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
+    {
+        // Exceeded 1 second timeout waiting for data.
+        // Send the client an error and then disconnect them by starting the
+        // loop over again (which will clean up and close the client connection).
+        client.println("ERROR: Timeout!");
+        client.flush();
+        return;
+    }
+
+    // Match the command.
+    if (strncmp(received, "toggle_led", 10) == 0) 
+    {
+        // Toggle the LED.
+        digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+        Serial.println("Toggle LED!");
+    } 
+    else 
+    {
+        // Unknown command, send an error and exit early to close the connection.
+        client.print("ERROR: Unknown command: ");
+        client.println(received);
+        client.flush();
+        return;
+    }
+
+    // Client will automatically be disconnected at the end of the loop!
+    // Call flush to make sure any queued up data finishes sending to the client.
     client.flush();
-    return;
-  }
-
-  // Match the command.
-  if (strncmp(received, "toggle_led", 10) == 0) 
-  {
-    // Toggle the LED.
-    digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-    Serial.println("Toggle LED!");
-  }
-  else 
-  {
-    // Unknown command, send an error and exit early to close the connection.
-    client.print("ERROR: Unknown command: ");
-    client.println(received);
-    client.flush();
-    return;
-  }
-
-  // Client will automatically be disconnected at the end of the loop!
-  // Call flush to make sure any queued up data finishes sending to the client.
-  client.flush();
 }
 
-void initQuadAlpha()
+void initQuadAlpha() 
 {
     // pass in the address
-    alpha4.begin(0x70);  
+    alpha4.begin(0x70);
 
-  
+
     alpha4.clear();
 
     alpha4.writeDigitAscii(0, 'N');
@@ -184,6 +183,6 @@ void initQuadAlpha()
     alpha4.writeDigitAscii(3, 'E');
 
     alpha4.writeDisplay();
-   
+
     Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
