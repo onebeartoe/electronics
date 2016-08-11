@@ -26,8 +26,8 @@
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
-#define SERVER_NAME     "esp8266-thing"  // mDNS name to use for the server.
-#define PI_ADDRESS      "192.168.1.43"   // IP address (or hostname) of the Raspberry Pi
+#define SERVER_NAME     "esp8266-scrolling-text"  // mDNS name to use for the server.
+#define PI_ADDRESS      "192.168.1.133"   // IP address (or hostname) of the Raspberry Pi
                                          // to connect to and toggle its LED on button press.
 
 // Create an instance of the server listening on the server port.
@@ -52,7 +52,8 @@ void setup() {
 
   WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED) 
+  {
     delay(500);
     Serial.print(".");
   }
@@ -75,7 +76,8 @@ void setup() {
   }
 }
 
-void loop() {
+void loop() 
+{
   // Check if the button has been pressed by looking for a change from high to
   // low signal (with a small delay to debounce).
   int button_first = digitalRead(BUTTON_PIN);
