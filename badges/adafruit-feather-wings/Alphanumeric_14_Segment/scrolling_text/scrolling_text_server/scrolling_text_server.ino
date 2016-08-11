@@ -29,9 +29,9 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 #define WIFI_NAME       "beto-land-0"  // Your WiFi AP.
 
 /**
- * !!!!! DO NOT COMMIT THE REA PASSWORD!!!!!
+ * !!!!! DO NOT COMMIT THE REA PASSWORD!!!!!jhg
  */
-#define WIFI_PASSWORD   "love" // Your WiFi AP password.
+#define WIFI_PASSWORD   "w" // Your WiFi AP password.
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -54,12 +54,89 @@ void displayInitMessage()
 {
     alpha4.clear();
 
-    alpha4.writeDigitAscii(0, 'I');
-    alpha4.writeDigitAscii(1, 'N');
-    alpha4.writeDigitAscii(2, 'I');
+    alpha4.writeDigitAscii(0, 'R');
+    alpha4.writeDigitAscii(1, 'I');
+    alpha4.writeDigitAscii(2, 'G');
     alpha4.writeDigitAscii(3, 'T');
 
     alpha4.writeDisplay();    
+}
+
+WiFiClient client;
+
+void handleClient()
+{
+    // Read a line of input.
+    // Use a simple character buffer instead of Arduino's String class
+    // because String uses dynamic memory which can be problematic with low
+    // memory chips.
+    #define RECEIVED_SIZE 11
+    char received[RECEIVED_SIZE] = {0};
+    
+    if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
+    {
+        // Exceeded 1 second timeout waiting for data.
+        // Send the client an error and then disconnect them by starting the
+        // loop over again (which will clean up and close the client connection).
+        client.println("ERROR: Timeout!");
+        client.flush();
+        return;
+    }
+
+    // Match the command.
+    if (strncmp(received, "toggle_led", 10) == 0) 
+    {
+        // Toggle the LED.
+        digitalWrite(LED_PIN, !digitalRead(LED_PIN));
+        Serial.println("Toggle LED!");
+    } 
+    else 
+    {
+        // Unknown command, send an error and exit early to close the connection.
+        client.print("ERROR: Unknown command: ");
+        client.println(received);
+        client.flush();
+        return;
+    }
+
+    // Client will automatically be disconnected at the end of the loop!
+    // Call flush to make sure any queued up data finishes sending to the client.
+    client.flush();
+}
+
+
+
+void loop() 
+{
+    // Check if a client has connected.
+    client = server.available();
+    if (!client) 
+    {
+        // No client connected, start the loop over again.
+        return;
+    }
+    else
+    {
+        handleClient();
+    }
+}
+
+void initQuadAlpha() 
+{
+    // pass in the address
+    alpha4.begin(0x70);
+
+
+    alpha4.clear();
+
+    alpha4.writeDigitAscii(0, '7');
+    alpha4.writeDigitAscii(1, 'I');
+    alpha4.writeDigitAscii(2, 'C');
+    alpha4.writeDigitAscii(3, 'E');
+
+    alpha4.writeDisplay();
+
+    Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
 
 void setup() 
@@ -115,70 +192,4 @@ void setup()
     }
     
     displayInitMessage();
-}
-
-void loop() 
-{
-    // Check if a client has connected.
-    WiFiClient client = server.available();
-    if (!client) 
-    {
-        // No client connected, start the loop over again.
-        return;
-    }
-
-    // Read a line of input.
-    // Use a simple character buffer instead of Arduino's String class
-    // because String uses dynamic memory which can be problematic with low
-    // memory chips.
-    #define RECEIVED_SIZE 11
-    char received[RECEIVED_SIZE] = {0};
-    
-    if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
-    {
-        // Exceeded 1 second timeout waiting for data.
-        // Send the client an error and then disconnect them by starting the
-        // loop over again (which will clean up and close the client connection).
-        client.println("ERROR: Timeout!");
-        client.flush();
-        return;
-    }
-
-    // Match the command.
-    if (strncmp(received, "toggle_led", 10) == 0) 
-    {
-        // Toggle the LED.
-        digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-        Serial.println("Toggle LED!");
-    } 
-    else 
-    {
-        // Unknown command, send an error and exit early to close the connection.
-        client.print("ERROR: Unknown command: ");
-        client.println(received);
-        client.flush();
-        return;
-    }
-
-    // Client will automatically be disconnected at the end of the loop!
-    // Call flush to make sure any queued up data finishes sending to the client.
-    client.flush();
-}
-
-void initQuadAlpha() 
-{
-    // pass in the address
-    alpha4.begin(0x70);
-
-
-    alpha4.clear();
-
-    alpha4.writeDigitAscii(0, 'N');
-    alpha4.writeDigitAscii(1, 'I');
-    alpha4.writeDigitAscii(2, 'C');
-    alpha4.writeDigitAscii(3, 'E');
-
-    alpha4.writeDisplay();
-
-    Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
