@@ -1,17 +1,13 @@
 
 /**
  * 
- * This example was originally from this source code
+ * This ESP8266 specific source code was originally from Sparkfun's example here
  *
  *        https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/example-sketch-ap-web-server
  * 
  */
 
 #include <ESP8266WiFi.h>
-
-// Demo the quad alphanumeric display LED backpack kit
-// scrolls through every character, then scrolls Serial
-// input onto the display
 
 #include <Wire.h>
 #include "Adafruit_LEDBackpack.h"
