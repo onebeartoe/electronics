@@ -31,7 +31,7 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 /**
  * !!!!! DO NOT COMMIT THE REA PASSWORD!!!!!
  */
-#define WIFI_PASSWORD   "lalalalalalalal" // Your WiFi AP password.
+#define WIFI_PASSWORD   "love" // Your WiFi AP password.
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -49,6 +49,18 @@ String localhostIp;
 
 // Create an instance of the server listening on the server port.
 WiFiServer server(SERVER_PORT);
+
+void displayInitMessage()
+{
+    alpha4.clear();
+
+    alpha4.writeDigitAscii(0, 'I');
+    alpha4.writeDigitAscii(1, 'N');
+    alpha4.writeDigitAscii(2, 'I');
+    alpha4.writeDigitAscii(3, 'T');
+
+    alpha4.writeDisplay();    
+}
 
 void setup() 
 {
@@ -101,34 +113,12 @@ void setup()
             delay(1000);
         }
     }
+    
+    displayInitMessage();
 }
 
 void loop() 
 {
-    // Check if the button has been pressed by looking for a change from high to
-    // low signal (with a small delay to debounce).
-    int button_first = digitalRead(BUTTON_PIN);
-    delay(20);
-    int button_second = digitalRead(BUTTON_PIN);
-    if ((button_first == HIGH) && (button_second == LOW)) 
-    {
-        // Button was pressed!
-        Serial.println("Button pressed!");
-        
-        // Send 'toggle_led' command to the Raspberry Pi server.
-        WiFiClient pi;
-        if (!pi.connect(PI_ADDRESS, SERVER_PORT)) 
-        {
-            Serial.println("Failed to connect to Pi!");
-            return;
-        }
-        pi.println("toggle_led");
-        pi.flush();
-        
-        // Now close the connection and continue processing.
-        pi.stop();
-    }
-
     // Check if a client has connected.
     WiFiClient client = server.available();
     if (!client) 
