@@ -1,3 +1,4 @@
+
 /**
   * Lovely
   */
@@ -11,6 +12,11 @@
 #include "Adafruit_GFX.h"
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
+
+/**
+ * This is the delay in milliseconds for the scrolling text.
+ */
+long scrollDelay = 350;
 
 void setup() 
 {
@@ -26,7 +32,8 @@ void setup()
     Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
 
-String message = "  Go Spurs Go   *";
+String message = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
+
 int messageLength = message.length();
 
 /**
@@ -36,7 +43,24 @@ char displaybuffer[] = {' ', ' ', ' ', ' '};
 
 int indecies[] = {0,1,2,3};
 
+unsigned long lightPreviousMillis = 0;
+
+unsigned long currentMillis;
+
 void loop() 
+{
+    currentMillis = millis();
+    
+    if(currentMillis - lightPreviousMillis >= scrollDelay) 
+    {
+        // save the last time you blinked the LED
+        lightPreviousMillis = currentMillis;
+
+        updateDisplay();
+    } 
+}
+
+void updateDisplay()
 {
     // shift the index into the message for each segment 
     indecies[0] += 1;
@@ -77,6 +101,5 @@ void loop()
   alpha4.writeDigitAscii(3, displaybuffer[3]);
  
   // write it out!
-  alpha4.writeDisplay();
-  delay(200);
+  alpha4.writeDisplay();    
 }

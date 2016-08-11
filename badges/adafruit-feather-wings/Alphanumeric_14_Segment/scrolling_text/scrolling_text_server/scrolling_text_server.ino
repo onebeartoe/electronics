@@ -110,24 +110,29 @@ void loop()
     int button_first = digitalRead(BUTTON_PIN);
     delay(20);
     int button_second = digitalRead(BUTTON_PIN);
-    if ((button_first == HIGH) && (button_second == LOW)) {
+    if ((button_first == HIGH) && (button_second == LOW)) 
+    {
         // Button was pressed!
         Serial.println("Button pressed!");
+        
         // Send 'toggle_led' command to the Raspberry Pi server.
         WiFiClient pi;
-        if (!pi.connect(PI_ADDRESS, SERVER_PORT)) {
+        if (!pi.connect(PI_ADDRESS, SERVER_PORT)) 
+        {
             Serial.println("Failed to connect to Pi!");
             return;
         }
         pi.println("toggle_led");
         pi.flush();
+        
         // Now close the connection and continue processing.
         pi.stop();
     }
 
     // Check if a client has connected.
     WiFiClient client = server.available();
-    if (!client) {
+    if (!client) 
+    {
         // No client connected, start the loop over again.
         return;
     }
@@ -136,8 +141,9 @@ void loop()
     // Use a simple character buffer instead of Arduino's String class
     // because String uses dynamic memory which can be problematic with low
     // memory chips.
-#define RECEIVED_SIZE 11
+    #define RECEIVED_SIZE 11
     char received[RECEIVED_SIZE] = {0};
+    
     if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
     {
         // Exceeded 1 second timeout waiting for data.
