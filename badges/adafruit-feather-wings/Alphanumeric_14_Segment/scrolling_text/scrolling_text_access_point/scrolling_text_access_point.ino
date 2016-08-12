@@ -77,7 +77,8 @@ void loop()
     s += (val)?"on":"off";
   }
   else if (val == -2)
-  { // If we're reading pins, print out those values:
+  { 
+    // If we're reading pins, print out those values:
     s += "Analog Pin = ";
     s += String(analogRead(ANALOG_PIN));
     s += "<br>"; // Go to the next line.
