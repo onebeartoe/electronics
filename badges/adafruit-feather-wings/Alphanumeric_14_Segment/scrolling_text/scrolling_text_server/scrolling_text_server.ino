@@ -245,7 +245,10 @@ void setup()
     localhostIp = WiFi.localIP().toString();
 
     // Print the IP address
+    Serial.println();
+    Serial.print("local IP: ");
     Serial.println(localhostIp);
+    Serial.println();
 
     // Setup mDNS responder.
     if (!MDNS.begin(SERVER_NAME)) 

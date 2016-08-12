@@ -11,6 +11,8 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
+#include "scrolling_text.h"
+
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
 /**
@@ -20,6 +22,8 @@ long scrollDelay = 350;
 
 void setup() 
 {
+    w = 3;
+    
     Serial.begin(9600);
   
     // pass in the address

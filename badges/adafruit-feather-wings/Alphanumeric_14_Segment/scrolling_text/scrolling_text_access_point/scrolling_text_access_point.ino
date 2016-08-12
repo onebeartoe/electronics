@@ -1,6 +1,13 @@
 
 /**
  * 
+ * The default IP of the access point is 
+ * 
+ *      192.168.4.1
+ * 
+ *      Here is some documentation on changing the default IP address of the 
+ *      access point.
+ * 
  * This ESP8266 specific source code was originally from Sparkfun's example here
  *
  *        https://learn.sparkfun.com/tutorials/esp8266-thing-hookup-guide/example-sketch-ap-web-server
@@ -12,6 +19,8 @@
 #include <Wire.h>
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
+
+#include "scrolling_text.h"
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
@@ -29,18 +38,36 @@ const int DIGITAL_PIN = 12; // Digital pin to be read
 
 WiFiServer server(80);
 
+String localhostIp;
+
 void setup() 
 {
-  initHardware();
-  setupWiFi();
-  server.begin();
+    w = 3;
+    
+    Serial.begin(115200);
+    
+    initHardware();
+    setupWiFi();
+  
+    // start the server
+    server.begin();
+    Serial.println("Server started");
+
+    localhostIp = WiFi.localIP().toString();
+
+    // Print the IP address
+    Serial.println();
+    Serial.print("local IP: ");
+    Serial.println(localhostIp);
+    Serial.println();
 }
 
 void loop() 
 {
   // Check if a client has connected
   WiFiClient client = server.available();
-  if (!client) {
+  if (!client) 
+  {
     return;
   }
 
@@ -102,7 +129,7 @@ void loop()
 
 void setupWiFi()
 {
-  WiFi.mode(WIFI_AP);
+    WiFi.mode(WIFI_AP);
 
   // Do a little work to get a unique-ish name. Append the
   // last two bytes of the MAC (HEX'd) to "Thing-":
@@ -124,7 +151,7 @@ void setupWiFi()
 
 void initHardware()
 {
-  Serial.begin(115200);
+  
   pinMode(DIGITAL_PIN, INPUT_PULLUP);
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
