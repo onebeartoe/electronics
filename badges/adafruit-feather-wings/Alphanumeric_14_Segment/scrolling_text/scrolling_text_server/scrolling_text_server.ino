@@ -33,12 +33,13 @@
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
 // Configuration:
-#define WIFI_NAME       "beto-land-0"  // Your WiFi AP.
+//#define WIFI_NAME       "beto-land-0"  // Your WiFi AP.
+
 
 /**
- * !!!!! DO NOT COMMIT THE REA PASSWORD!!!!!jhg
+ * !!!!! DO NOT COMMIT THE REAL PASSWORD!!!!!
  */
-#define WIFI_PASSWORD   "not-the-passwrod" // Your WiFi AP password.
+#define WIFI_PASSWORD   "not the real passowrke" // Your WiFi AP password.
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -120,10 +121,10 @@ void handleHttpClient()
         }
         else
         {
+// TODO            
             // URL decode the received message
             // like this 
-            //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
-            sss            
+            //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88            
             
             message = received;
         }
@@ -227,6 +228,10 @@ void setup()
     Serial.println();
     Serial.print("Connecting to ");
     Serial.println(WIFI_NAME);
+    
+    // Explicitly turn off the Access Point mode, in case it was activated the last time the 
+    // esp8266 was programmed.
+    WiFi.mode(WIFI_STA);
 
     WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
 
