@@ -39,17 +39,16 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 /**
  * !!!!! DO NOT COMMIT THE REAL PASSWORD!!!!!
  */
+<<<<<<< HEAD
 #define WIFI_PASSWORD   "not the real passowrke" // Your WiFi AP password.
+=======
+#define WIFI_PASSWORD   "not-the-real-password" // Your WiFi AP password.
+>>>>>>> 4f595b0e3e7d81b812732fbc25b0c0f405176532
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
 
 #define SERVER_NAME     "esp8266-NOTNOTNOT-text"  // mDNS name to use for the server.
-
-
-#define PI_ADDRESS      "192.168.1.133"   // IP address (or hostname) of the Raspberry Pi
-// to connect to and toggle its LED on button press.
-
 
 String localhostIp;
 
@@ -60,6 +59,15 @@ unsigned long currentMillis;
 
 unsigned long lightPreviousMillis = 0;
 
+/**
+ *
+ * This is how long the IP address scrolls when the microcontroller first 
+ * powered.
+ *
+ */
+unsigned long ipDisplayDelay = 1000 * 60;
+
+/*
 void displayInitMessage()
 {
     alpha4.clear();
@@ -71,12 +79,17 @@ void displayInitMessage()
 
     alpha4.writeDisplay();    
 }
+*/
 
 WiFiClient client;
 
-String message = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
 
-int messageLength = message.length();
+String message = "Nice";
+
+String initialMessage = "Hello World   ";
+//String initialMessage = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
+
+//int messageLength = message.length();
 
 /**
   * This array holds the current values of the 4 alphanumeric segments.
@@ -121,12 +134,19 @@ void handleHttpClient()
         }
         else
         {
+<<<<<<< HEAD
 // TODO            
             // URL decode the received message
             // like this 
             //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88            
+=======
+// TODO
+            // URL decode the received message
+            // like this 
+            //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
+>>>>>>> 4f595b0e3e7d81b812732fbc25b0c0f405176532
             
-            message = received;
+            message = received;          
         }
 
         Serial.println();
@@ -171,8 +191,12 @@ void loop()
         lightPreviousMillis = currentMillis;
 
         updateDisplay();
-    }    
-    
+    }
+
+    if(currentMillis >= ipDisplayDelay)
+    {
+        message = initialMessage;
+    }
     
     // Check if a client has connected.
     client = server.available();
@@ -265,7 +289,9 @@ void setup()
         }
     }
     
-    displayInitMessage();
+//    displayInitMessage();
+
+    message = localhostIp;
 }
 
 void updateDisplay()
@@ -276,22 +302,22 @@ void updateDisplay()
     indecies[2] += 1;
     indecies[3] += 1;
 
-    if(indecies[0] == messageLength)
+    if(indecies[0] == message.length() )
     {
         indecies[0] = 0;
     }
 
-    if(indecies[1] == messageLength)
+    if(indecies[1] == message.length() )
     {
         indecies[1] = 0;
     }
 
-    if(indecies[2] == messageLength)
+    if(indecies[2] == message.length() )
     {
         indecies[2] = 0;
     }
 
-    if(indecies[3] == messageLength)
+    if(indecies[3] == message.length() )
     {
         indecies[3] = 0;
     }
