@@ -39,11 +39,7 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 /**
  * !!!!! DO NOT COMMIT THE REAL PASSWORD!!!!!
  */
-<<<<<<< HEAD
-#define WIFI_PASSWORD   "not the real passowrke" // Your WiFi AP password.
-=======
 #define WIFI_PASSWORD   "not-the-real-password" // Your WiFi AP password.
->>>>>>> 4f595b0e3e7d81b812732fbc25b0c0f405176532
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -134,18 +130,11 @@ void handleHttpClient()
         }
         else
         {
-<<<<<<< HEAD
 // TODO            
             // URL decode the received message
             // like this 
-            //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88            
-=======
-// TODO
-            // URL decode the received message
-            // like this 
-            //            http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
->>>>>>> 4f595b0e3e7d81b812732fbc25b0c0f405176532
-            
+            //         http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
+
             message = received;          
         }
 
@@ -213,6 +202,8 @@ void loop()
         handleHttpClient();
     }
 }
+
+
 
 void initQuadAlpha() 
 {
@@ -337,3 +328,4 @@ void updateDisplay()
   // write it out!
   alpha4.writeDisplay();    
 }
+

@@ -20,7 +20,7 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
-#include "scrolling_text.h"
+//#include "scrolling_text.h"
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
@@ -42,9 +42,7 @@ String localhostIp;
 
 int indecies[] = {0,1,2,3};
 
-String message = "  Go Spurs Go   *   Timmy Rules!   * Bruce Bruce!!!    *";
-
-int messageLength = message.length();
+String message = "Go Spurs Go   *   ";
 
 /**
   * This array holds the current values of the 4 alphanumeric segments.
@@ -60,10 +58,139 @@ unsigned long currentMillis;
  */
 long scrollDelay = 350;
 
-void setup() 
+/**
+ * 
+ * This function is from this answer:
+ * TODO: up vote this answer, didn't have have enough rep when I found it.
+ *      http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
+ * 
+ * @param input
+ * @return 
+ */
+String decodeRequest(String input)
 {
-    w = 3;
+    int arraySize = 50;
+    char data[arraySize];
     
+    input.toCharArray(data, arraySize);
+
+    // Create two pointers that point to the start of the data
+    char *leader = data;
+    char *follower = leader;
+
+    // While we're not at the end of the string (current character not NULL)
+    while (*leader) {
+        // Check to see if the current character is a %
+        if (*leader == '%') {
+
+            // Grab the next two characters and move leader forwards
+            leader++;
+            char high = *leader;
+            leader++;
+            char low = *leader;
+
+            // Convert ASCII 0-9A-F to a value 0-15
+            if (high > 0x39) high -= 7;
+            high &= 0x0f;
+
+            // Same again for the low byte:
+            if (low > 0x39) low -= 7;
+            low &= 0x0f;
+
+            // Combine the two into a single byte and store in follower:
+            *follower = (high << 4) | low;
+        } else {
+            // All other characters copy verbatim
+            *follower = *leader;
+        }
+
+        // Move both pointers to the next character:
+        leader++;
+        follower++;
+    }
+    // Terminate the new string with a NULL character to trim it off
+    *follower = 0;
+    
+    String output(data);
+    
+    return output;
+}
+
+void handleHttpClient()
+{
+    // Check if a client has connected
+    WiFiClient client = server.available();
+    if(client) 
+    {
+        // Read the first line of the request
+        String req = client.readStringUntil('\r');
+        Serial.println(req);
+
+        // skip the HTTP requests for the favicon.ico
+        char * faviconTarget = "GET /favicon.i";
+        int index = req.indexOf(faviconTarget);
+        
+        if(index == -1)
+        {
+            // the request was not for the favicon
+            
+            // ignore requests with less than 3 characters in length
+            String temp = req.substring(5) + "";
+            if(temp.length() < 3)
+            {
+                Serial.println("invalid message");
+            }
+            else
+            {
+                // remove the HTTP request version
+                int i = temp.indexOf(" HTTP/1.1");
+                if(i >= 0)
+                {
+                    Serial.println("http header found");
+                    temp = temp.substring(0, i) + "";
+                }
+                else
+                {
+                    Serial.println("HTTP HEADER not found");
+                }
+                
+                // remove HTTP encoded characters
+                temp = decodeRequest(temp);
+                
+                message = temp;
+            }
+            
+            Serial.println();
+            Serial.println("Message was set from an HTTP request: >" + message + "<");
+            
+            
+        }
+        else
+        {
+            Serial.println();
+            Serial.println("skipping request for the favorite icon");
+        }
+
+        // Prepare the response. Start with the common header:
+        String s = "HTTP/1.1 200 OK\r\n";
+        s += "Content-Type: text/html\r\n\r\n";
+        s += "<!DOCTYPE HTML>\r\n<html>\r\n";
+        
+        s += "A request was received: >" + req + "<";
+        
+        s += "</html>\n";
+
+        // Send the response to the client
+        client.print(s);
+        client.flush();
+        
+        delay(1);
+        Serial.println("Client disconnected");
+    }
+}
+
+void setup() 
+{    
     Serial.begin(115200);
     
     initHardware();
@@ -94,68 +221,7 @@ void loop()
         updateDisplay();
     }     
     
-    
-  // Check if a client has connected
-  WiFiClient client = server.available();
-  if (!client) 
-  {
-    return;
-  }
-
-  // Read the first line of the request
-  String req = client.readStringUntil('\r');
-  Serial.println(req);
-  client.flush();
-
-  // Match the request
-  int val = -1; // We'll use 'val' to keep track of both the
-                // request type (read/set) and value if set.
-  if (req.indexOf("/led/0") != -1)
-    val = 0; // Will write LED low
-  else if (req.indexOf("/led/1") != -1)
-    val = 1; // Will write LED high
-  else if (req.indexOf("/read") != -1)
-    val = -2; // Will print pin reads
-  // Otherwise request will be invalid. We'll say as much in HTML
-
-  // Set GPIO5 according to the request
-  if (val >= 0)
-    digitalWrite(LED_PIN, val);
-
-  client.flush();
-
-  // Prepare the response. Start with the common header:
-  String s = "HTTP/1.1 200 OK\r\n";
-  s += "Content-Type: text/html\r\n\r\n";
-  s += "<!DOCTYPE HTML>\r\n<html>\r\n";
-  // If we're setting the LED, print out a message saying we did
-  if (val >= 0)
-  {
-    s += "LED is now ";
-    s += (val)?"on":"off";
-  }
-  else if (val == -2)
-  { 
-    // If we're reading pins, print out those values:
-    s += "Analog Pin = ";
-    s += String(analogRead(ANALOG_PIN));
-    s += "<br>"; // Go to the next line.
-    s += "Digital Pin 12 = ";
-    s += String(digitalRead(DIGITAL_PIN));
-  }
-  else
-  {
-    s += "Invalid Request.<br> Try /led/1, /led/0, or /read.";
-  }
-  s += "</html>\n";
-
-  // Send the response to the client
-  client.print(s);
-  delay(1);
-  Serial.println("Client disonnected");
-
-  // The client will actually be disconnected 
-  // when the function returns and 'client' object is detroyed
+    handleHttpClient();
 }
 
 void setupWiFi()
@@ -218,22 +284,22 @@ void updateDisplay()
     indecies[2] += 1;
     indecies[3] += 1;
 
-    if(indecies[0] == messageLength)
+    if(indecies[0] == message.length())
     {
         indecies[0] = 0;
     }
 
-    if(indecies[1] == messageLength)
+    if(indecies[1] == message.length())
     {
         indecies[1] = 0;
     }
 
-    if(indecies[2] == messageLength)
+    if(indecies[2] == message.length())
     {
         indecies[2] = 0;
     }
 
-    if(indecies[3] == messageLength)
+    if(indecies[3] == message.length())
     {
         indecies[3] = 0;
     }
