@@ -7,20 +7,23 @@
 
 #include <Adafruit_CircuitPlayground.h>
 
+#define TONE_DURATION_MS 100  // Duration in milliseconds to play a tone when touched.
+
 const int NUMBER_OF_LEDS_ON_RING = 10;  // NeoPixels on Circuit Playground
 const int brightness = 25;              // Change this value to change the NeoPixel brightness
 
 int ledPosition, led, previousLed = 0;
 float x, y, nx, ny, angle; 
 
-void setup() {
+void setup() 
+{
   CircuitPlayground.begin();                   // Circuit Playground startup
   CircuitPlayground.setBrightness(brightness);
   CircuitPlayground.clearPixels();
 }
 
-void loop(){
-
+void loop()
+{
   x = CircuitPlayground.motionX();   // Get the CP accelerometer x and y positions 
   y = CircuitPlayground.motionY();   //   (we ignore the z axis for this one)
   nx = x / 10.0;
@@ -40,6 +43,14 @@ void loop(){
   if(angle == 360.0)      // a 360 degree angle is the same as a zero degree angle 
     angle = 0;
 
+  // check if the slide switch is to the right/on
+  if( CircuitPlayground.slideSwitch() )
+  {
+    // play a tone based on the angle
+    int pitch = map(angle, 0, 360, 50, 4000);
+    CircuitPlayground.playTone(pitch, TONE_DURATION_MS);      
+  }
+  
   led = circularize(angle / (360 / NUMBER_OF_LEDS_ON_RING));
 
   if(previousLed == led) { 
@@ -57,7 +68,8 @@ void loop(){
   delay(20);
 }
 
-int circularize(int pos){
+int circularize(int pos)
+{
   if(pos >= NUMBER_OF_LEDS_ON_RING)
     return(pos - NUMBER_OF_LEDS_ON_RING);
   else if(pos < 0)
@@ -66,7 +78,8 @@ int circularize(int pos){
     return(pos);
 }
 
-int counterClockwiseDistanceBetweenLeds(int prevPos, int nextPos){
+int counterClockwiseDistanceBetweenLeds(int prevPos, int nextPos)
+{
   int distance;
   distance = nextPos - prevPos;
   if(distance < 0)
@@ -77,7 +90,8 @@ int counterClockwiseDistanceBetweenLeds(int prevPos, int nextPos){
 
 static int speeds[] = { 0, 5, 10, 20, 35, 50, 70, 90, 120 };
 
-void rainbowCycle(int currentSpeed)  {
+void rainbowCycle(int currentSpeed)  
+{
     // Make an offset based on the current millisecond count scaled by the current speed.
     uint32_t offset = millis() / speeds[currentSpeed];
     // Loop through each pixel and set it to an incremental color wheel value.
@@ -87,4 +101,3 @@ void rainbowCycle(int currentSpeed)  {
     // Show all the pixels.
     CircuitPlayground.strip.show();
 }
-
