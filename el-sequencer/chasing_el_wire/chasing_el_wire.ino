@@ -1,13 +1,17 @@
 /**
- * This demontration of cchasing_el_wire/
-Latest commit 8e2eff1  on Jan 21￼ onebeartoe This is the code for flowing/chasing EL wire, of the 3 channel variety.
-..   
-chasing_el_wire.ino hchasing_el_wire/
-Latest commit 8e2eff1  on Jan 21￼ onebeartoe This is the code for flowing/chasing EL wire, of the 3 channel variety.
-..    
-chasing_el_wire.ino asing EL wire uses the following hardware compontents:
+ * 
+ * This is the code for flowing/chasing EL wire, of the 3 channel variety.
+ * 
+ * This sketch uses the following hardware compontents:
  *
  *      microcontroller: https://www.sparkfun.com/products/12781
+ *      
+ *                       programming notes:
+ *                       
+ *                           board: LilyPad Arduino
+ *                           Processor: ATmega328
+ *                           Programmer: AVR ISP
+ *      
  *              pigtail: https://www.sparkfun.com/products/12934
  *      3 EL wire stand: https://www.sparkfun.com/products/12931 (or similar)
  *    
@@ -42,6 +46,10 @@ const long interval = 60;//300;//100;//500;           // interval at which to bl
 int wireCount = 3;
 int currentElWire = 1;
 
+/**
+ * a status of false (or zero) indicates that the EL wire should be off and a 
+ * status of true indicates the EL wire should be on.
+ */
 boolean wireStati [] = {0,0,0};
 
 void loop()
