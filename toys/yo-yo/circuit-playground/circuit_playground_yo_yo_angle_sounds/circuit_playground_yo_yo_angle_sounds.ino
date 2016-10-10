@@ -1,3 +1,11 @@
+
+// Yo-yo model: http://www.thingiverse.com/thing:1695697
+//
+
+// original source code: 
+//         
+//         https://learn.adafruit.com/circuit-playground-kaleidoscope
+// 
 // CP Kaleidoscope  Make an inexpensive, fun Kaleidoscope with Adafruit's Circuit Playground
 //
 // Change the LED effect on the Circuit Playground NeoPixel ring based on orientation from
