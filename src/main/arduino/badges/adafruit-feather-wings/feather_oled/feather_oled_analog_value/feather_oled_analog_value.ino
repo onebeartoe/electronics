@@ -48,7 +48,8 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
  #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-void setup() {
+void setup() 
+{
   Serial.begin(9600);
 
   Serial.println("OLED FeatherWing test");
@@ -85,13 +86,12 @@ void setup() {
   display.display(); // actually display all of the above
 }
 
-
 void loop() 
 {
     display.setTextSize(1);
     if (! digitalRead(BUTTON_A)) 
     {
-        int read = analogRead(A);
+        int read = analogRead(A0);
         
         display.clearDisplay();
     
