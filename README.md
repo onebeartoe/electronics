@@ -19,3 +19,10 @@ Motion Activated Sound for Circuit Playground Yo-yo
 Serial Plotter
 [![onebeartoe serial plotter](https://img.youtube.com/vi/DtDyoXgr7aA/0.jpg)](https://www.youtube.com/watch?v=DtDyoXgr7aA)
 
+<hr>
+
+Amplitie
+
+[![ALT TEXT](https://img.youtube.com/vi/gRTPPbYACCI/0.jpg)](https://www.youtube.com/watch?v=gRTPPbYACCI)
+
+
