@@ -29,10 +29,14 @@ public class RaspberryPiRgbLedMatrixHat
      *      ./led-image-viewer --led-no-hardware-pulse --led-gpio-mapping=adafruit-hat -l200 ../../bubbles.gif
      */
     public void startAnimationCommand() throws IOException, InterruptedException
-    {
+    {        
         String executable = "/home/pi/rpi-rgb-led-matrix/utils/led-image-viewer";
         int loopCount = 20;
         String loopParameter = "-l" + loopCount;
+        
+        // loop forever!
+        loopParameter = "-f";
+        
         String gifPath = "/home/pi/bubbles.gif";
         String [] list = {executable, "--led-no-hardware-pulse", "--led-gpio-mapping=adafruit-hat", loopParameter, gifPath, "", ""};
         List<String> command = Arrays.asList(list);
@@ -40,10 +44,11 @@ public class RaspberryPiRgbLedMatrixHat
         logger.log(Level.INFO, "staring animation process");
         ProcessBuilder builder = new ProcessBuilder(command);
 
+        
         commandProcess = builder.start();
                 
         logger.log(Level.INFO, "waiting for animation process");
-        int waitValue = commandProcess.waitFor();
+//        int waitValue = commandProcess.waitFor();
         
         logger.log(Level.INFO, "animation process wait over");
     }
@@ -51,8 +56,12 @@ public class RaspberryPiRgbLedMatrixHat
     /**
      * This sends a destroy message to the process, stopping execution.
      */
-    public void stopCommand()
+    public void stopCommand() throws InterruptedException
     {
-        commandProcess.destroy();
+        if(commandProcess != null)
+        {
+            commandProcess.destroy();
+            commandProcess.waitFor();
+        }
     }
 }

@@ -32,6 +32,13 @@
                     style="margin-left: auto; margin-right: auto;">
                 Animation
             </button>
+            
+            &nbsp;&nbsp;&nbsp;
+            
+            <button onclick="stopAnimation()" 
+                    style="margin-left: auto; margin-right: auto;">
+                Stop Animation
+            </button>
         </div>
         
         <div id="logs" class="logs" style="">
@@ -39,4 +46,3 @@
         </div>        
     </body>
 </html>
-
