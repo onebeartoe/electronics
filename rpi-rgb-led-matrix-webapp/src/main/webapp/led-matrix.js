@@ -1,12 +1,12 @@
 
-function displayAnimation(imagePath, name)
+function displayAnimation(name)
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {
         logServerResponse(xmlhttp);
     }
-    var url = "animation/play/" + name;
+    var url = "../animation/play/" + name;
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");    
@@ -37,7 +37,7 @@ function stopAnimation()
     {
         logServerResponse(xmlhttp);
     }
-    var url = "ploop/w";
+    var url = "../ploop/w";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");        

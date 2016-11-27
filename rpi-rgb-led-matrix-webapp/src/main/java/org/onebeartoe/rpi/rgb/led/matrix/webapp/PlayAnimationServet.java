@@ -14,22 +14,23 @@ import javax.servlet.http.HttpServletResponse;
  * is always an attribute in the ServletContext for the application.
  * 
  */
-@WebServlet(name = "AnimationServet", urlPatterns = {"/animation/play/*"}, loadOnStartup = 1)
-public class AnimationServet extends RaspberryPiRgbLedMatrixHatServlet
+@WebServlet(name = "PlayAnimationServet", urlPatterns = {"/animation/play/*"}, loadOnStartup = 1)
+public class PlayAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response) 
     {
         String pi = request.getPathInfo();
-        String operation = pi.substring(1); // remove the slash character                                                            
+        String animationName = pi.substring(1); // remove the slash character
 
         logger.log(Level.INFO, "sending initial data to user..");
         StringBuilder sb = new StringBuilder("request recieved");
 
         try 
         {
+            String gifPath = AnimationsServlet.animationsPath + animationName;
             ledMatrixHat.stopCommand();
-            ledMatrixHat.startAnimationCommand();
+            ledMatrixHat.startAnimationCommand(gifPath);
         } 
         catch (Exception ex) 
         {

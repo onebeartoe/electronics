@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
  */
 @WebServlet(name = "StopAnimationServet", urlPatterns = {"/ploop/*"})
-public class StopAnimationServet extends RaspberryPiRgbLedMatrixHatServlet
+public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response) 
@@ -38,5 +38,4 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixHatServlet
         
         return sb.toString();
     }
-    
 }

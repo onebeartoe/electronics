@@ -12,13 +12,13 @@ import java.util.logging.Logger;
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
  * 
  */
-public class RaspberryPiRgbLedMatrixHat 
+public class RaspberryPiRgbLedMatrix 
 {
     private Logger logger;
     
     private Process commandProcess;
     
-    public RaspberryPiRgbLedMatrixHat()
+    public RaspberryPiRgbLedMatrix()
     {
         logger = Logger.getLogger(getClass().getName());
     }
@@ -28,7 +28,7 @@ public class RaspberryPiRgbLedMatrixHat
      * 
      *      ./led-image-viewer --led-no-hardware-pulse --led-gpio-mapping=adafruit-hat -l200 ../../bubbles.gif
      */
-    public void startAnimationCommand() throws IOException, InterruptedException
+    public void startAnimationCommand(String gifPath) throws IOException, InterruptedException
     {        
         String executable = "/home/pi/rpi-rgb-led-matrix/utils/led-image-viewer";
         int loopCount = 20;
@@ -37,7 +37,7 @@ public class RaspberryPiRgbLedMatrixHat
         // loop forever!
         loopParameter = "-f";
         
-        String gifPath = "/home/pi/bubbles.gif";
+//        String gifPath = "/home/pi/bubbles.gif";
         String [] list = {executable, "--led-no-hardware-pulse", "--led-gpio-mapping=adafruit-hat", loopParameter, gifPath, "", ""};
         List<String> command = Arrays.asList(list);
         
