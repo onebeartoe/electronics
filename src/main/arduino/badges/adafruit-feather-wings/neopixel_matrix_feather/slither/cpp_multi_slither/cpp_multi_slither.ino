@@ -9,6 +9,8 @@
  *  Required Libraries:
  *  
  *    Use Adafruit NeoMatrix version 1.1.0
+ *    and Adafruit GFX 1.0.2
+ *    and Adafruit_Neopixel 1.0.4
  * 
  */
 
