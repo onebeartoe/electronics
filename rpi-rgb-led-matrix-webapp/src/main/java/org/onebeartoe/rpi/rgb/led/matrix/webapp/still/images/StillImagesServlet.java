@@ -1,5 +1,5 @@
 
-package org.onebeartoe.rpi.rgb.led.matrix.webapp;
+package org.onebeartoe.rpi.rgb.led.matrix.webapp.still.images;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -8,11 +8,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static org.onebeartoe.rpi.rgb.led.matrix.webapp.AnimationsServlet.animationsPath;
-import org.onebeartoe.system.OperatingSystem;
+import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 
 /**
  *
@@ -20,16 +18,12 @@ import org.onebeartoe.system.OperatingSystem;
  * 
  */
 @WebServlet(name = "StillImagesServet", urlPatterns = {"/still-images/*"})
-public class StillImagesServlet extends HttpServlet 
+public class StillImagesServlet extends RaspberryPiRgbLedMatrixServlet
 {
-    //TODO: Make this a member of the RaspberryPiRgbedMatrix class!
-    public static String stillImagesPath = "/home/pi/rpi-rgb-led-matrix-images/stills/";
-    
-    private File stillImagesDirectory;
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        File stillImagesDirectory = new File( ledMatrix.getStillImagesPath() );
         String[] fileNames = stillImagesDirectory.list(new FilenameFilter() 
         {
             @Override
@@ -42,22 +36,5 @@ public class StillImagesServlet extends HttpServlet
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/still-images/index.jsp");
         rd.forward(request, response);
-    }
-    
-    @Override
-    public void init() throws ServletException
-    {
-        OperatingSystem os = new OperatingSystem();
-        if( os.seemsLikeMsWindows() )
-        {
-            // adjust the target host from explicit paths on Raspberry Pi to 
-            // development development location (user home).
-            String userhome = System.getProperty("user.home") + "/";
-            
-            stillImagesPath = stillImagesPath.replace("/home/pi/", userhome);
-        }
-        
-        stillImagesDirectory = new File(stillImagesPath);
-        stillImagesDirectory.mkdirs();
-    }    
+    } 
 }

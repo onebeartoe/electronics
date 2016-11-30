@@ -17,6 +17,8 @@
             <a href="<%= request.getContextPath() %>/animations/">Animations</a>
             |
             <a href="<%= request.getContextPath() %>/still-images/">Still Images</a>
+            |
+            <a href="<%= request.getContextPath() %>/settings/">Settings</a>
         </div>
         
-        <h1>Raspberry Pi RGB LED Matrix Controls</h1>
+        <h1>Raspberry Pi RGB LED Matrix</h1>

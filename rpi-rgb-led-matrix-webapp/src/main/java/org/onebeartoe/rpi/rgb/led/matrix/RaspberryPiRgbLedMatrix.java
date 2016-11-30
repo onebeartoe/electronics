@@ -1,26 +1,51 @@
 
 package org.onebeartoe.rpi.rgb.led.matrix;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.onebeartoe.system.OperatingSystem;
 
 /**
- *
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
- * 
  */
-public class RaspberryPiRgbLedMatrix 
+public class RaspberryPiRgbLedMatrix implements Serializable
 {
     private Logger logger;
     
     private Process commandProcess;
     
+    private String animationsPath;
+    
+    private String stillImagesPath;
+    
     public RaspberryPiRgbLedMatrix()
     {
         logger = Logger.getLogger(getClass().getName());
+    }
+    
+    public String getAnimationsPath()
+    {
+        return animationsPath;
+    }
+    
+    public void setAnimationsPath(String animationsPath)
+    {
+        this.animationsPath = animationsPath;
+    }
+    
+    public String getStillImagesPath()
+    {
+        return stillImagesPath;
+    }
+    
+    public void setStillImagesPath(String path)
+    {
+        stillImagesPath = path;
     }
     
     /**
@@ -28,29 +53,57 @@ public class RaspberryPiRgbLedMatrix
      * 
      *      ./led-image-viewer --led-no-hardware-pulse --led-gpio-mapping=adafruit-hat -l200 ../../bubbles.gif
      */
-    public void startAnimationCommand(String gifPath) throws IOException, InterruptedException
-    {        
-        String executable = "/home/pi/rpi-rgb-led-matrix/utils/led-image-viewer";
+    public void startAnimationCommand(String gifName) throws IOException, InterruptedException
+    {
         int loopCount = 20;
         String loopParameter = "-l" + loopCount;
         
         // loop forever!
         loopParameter = "-f";
         
-//        String gifPath = "/home/pi/bubbles.gif";
-        String [] list = {executable, "--led-no-hardware-pulse", "--led-gpio-mapping=adafruit-hat", loopParameter, gifPath, "", ""};
-        List<String> command = Arrays.asList(list);
+        UserOptions options = new UserOptions();
+        options.loopParameter = loopParameter;
         
-        logger.log(Level.INFO, "staring animation process");
-        ProcessBuilder builder = new ProcessBuilder(command);
-
-        
-        commandProcess = builder.start();
+        String gifPath = animationsPath + gifName;
+//        String imagePath = "/home/pi/bubbles.gif";
                 
-        logger.log(Level.INFO, "waiting for animation process");
-//        int waitValue = commandProcess.waitFor();
+        startLedImageViewerCommand(options, gifPath);
         
         logger.log(Level.INFO, "animation process wait over");
+    }
+    
+    private void startLedImageViewerCommand(UserOptions userOptions, String gifPath) throws IOException
+    {
+        String executable = "/home/pi/rpi-rgb-led-matrix/utils/led-image-viewer";
+        
+        String [] list = {executable, "--led-no-hardware-pulse", "--led-gpio-mapping=adafruit-hat", userOptions.loopParameter, gifPath, "", ""};
+        String debugList = "";
+        for(String s : list)
+        {
+            debugList += s + ":";
+        }
+        logger.log(Level.INFO, "command list: " + debugList);
+        List<String> command = Arrays.asList(list);
+        
+        logger.log(Level.INFO, "staring still image process");
+        ProcessBuilder builder = new ProcessBuilder(command);
+
+        commandProcess = builder.start();
+
+        // do not wait for the process to finish, so as to keep the Web UI responsive
+        
+//        logger.log(Level.INFO, "waiting for animation process");
+//        int waitValue = commandProcess.waitFor();
+    }
+
+    public void startShowStillImageCommand(String stillImageName) throws IOException
+    {        
+        UserOptions options = new UserOptions();        
+        String imagePath = stillImagesPath + stillImageName;
+                
+        startLedImageViewerCommand(options, imagePath);
+        
+        logger.log(Level.INFO, "still image process wait over for: " + imagePath);        
     }
     
     /**
@@ -63,5 +116,14 @@ public class RaspberryPiRgbLedMatrix
             commandProcess.destroy();
             commandProcess.waitFor();
         }
+    }
+    
+    /**
+     * This class represents the command line options that the led-image-viewer 
+     * program supports.
+     */
+    private class UserOptions
+    {
+        String loopParameter = "";
     }
 }

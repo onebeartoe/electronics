@@ -13,8 +13,12 @@ div.navigation
     font-size: 2em;
 }
 
-div.section
+div.saveMessages
 {
     
 }
 
+input.settingsSaveButton
+{
+    font-size: 2em;
+}

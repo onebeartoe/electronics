@@ -1,3 +1,10 @@
+
+    <div>
+        <h3>Still Images</h3>
+        
+        <form
+    </div>
+
     <div>
         <c:forEach items="${stillImageNames}" var="name">
             <button onclick="displayStillImage('${name}')" 

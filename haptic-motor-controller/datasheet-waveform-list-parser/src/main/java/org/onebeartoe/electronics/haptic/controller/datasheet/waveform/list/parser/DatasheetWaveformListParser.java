@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.onebeartoe.io.TextFileReader;
+import org.onebeartoe.io.buffered.BufferedTextFileReader;
 
 /**
  * @author Roberto Marquez
@@ -36,7 +37,8 @@ public class DatasheetWaveformListParser
 
     private static void parseList(String infilePath)
     {
-        String html = TextFileReader.readText(infilePath);
+        TextFileReader textReader = new BufferedTextFileReader();
+        String html = textReader.readText(infilePath);
 
         Document doc = Jsoup.parse(html);
         Elements tables = doc.select("table");

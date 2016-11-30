@@ -1,10 +1,15 @@
 
-package org.onebeartoe.rpi.rgb.led.matrix.webapp;
+package org.onebeartoe.rpi.rgb.led.matrix.webapp.animations;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.logging.Level;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 
 /**
  *
@@ -14,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected String buildText(HttpServletRequest request, HttpServletResponse response) 
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         StringBuilder sb = new StringBuilder();
         
@@ -22,7 +27,7 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
         {
             sb.append("<br/>");
             sb.append("stop request received");
-            ledMatrixHat.stopCommand();
+            ledMatrix.stopCommand();
         } 
         catch (InterruptedException ex) 
         {
@@ -36,6 +41,10 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
         sb.append("<br/>");
         sb.append("stop request processed");
         
-        return sb.toString();
+        OutputStream os = response.getOutputStream();
+        PrintWriter pw = new PrintWriter(os);
+        pw.print( sb.toString() );
+        pw.flush();
+        pw.close();
     }
 }

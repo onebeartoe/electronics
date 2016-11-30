@@ -9,6 +9,19 @@ function displayAnimation(name)
     var url = "../animation/play/" + name;
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("&p=3");
+}
+
+function displayStillImage(name)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        logServerResponse(xmlhttp);
+    }
+    var url = "../still-image/show/" + name;
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");    
 }
 
