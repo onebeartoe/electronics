@@ -15,11 +15,11 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
  *
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
  */
-@WebServlet(name = "StopAnimationServet", urlPatterns = {"/ploop/*"})
+@WebServlet(name = "StopAnimationServet", urlPatterns = {"/animation/stop/*"})
 public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         StringBuilder sb = new StringBuilder();
         
