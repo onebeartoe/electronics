@@ -23,6 +23,11 @@ public class AnimationsServlet extends RaspberryPiRgbLedMatrixServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
+        doResponse(request, response);
+    }
+    
+    protected void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
         File animationsDir = new File( ledMatrix.getAnimationsPath() );
         String [] fileNames = animationsDir.list(new FilenameFilter() 
         {
@@ -33,11 +38,7 @@ public class AnimationsServlet extends RaspberryPiRgbLedMatrixServlet
             }
         });
         request.setAttribute("animationNames", fileNames);
-        
-        String entries = "lnmop";        
-        request.setAttribute("cronTable", entries);
-        
-        
+
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/animations/index.jsp");
         rd.forward(request, response);

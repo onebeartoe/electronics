@@ -1,14 +1,12 @@
 
 package org.onebeartoe.rpi.rgb.led.matrix;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.onebeartoe.system.OperatingSystem;
 
 /**
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
@@ -22,6 +20,9 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     private String animationsPath;
     
     private String stillImagesPath;
+    
+    // loop forever!
+    private final String loopForeverParameter = "-f";
     
     public RaspberryPiRgbLedMatrix()
     {
@@ -56,16 +57,12 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     public void startAnimationCommand(String gifName) throws IOException, InterruptedException
     {
         int loopCount = 20;
-        String loopParameter = "-l" + loopCount;
-        
-        // loop forever!
-        loopParameter = "-f";
+//        String loopParameter = "-l" + loopCount;
         
         UserOptions options = new UserOptions();
-        options.loopParameter = loopParameter;
+        options.loopParameter = loopForeverParameter;
         
         String gifPath = animationsPath + gifName;
-//        String imagePath = "/home/pi/bubbles.gif";
                 
         startLedImageViewerCommand(options, gifPath);
         
@@ -90,8 +87,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
 
         commandProcess = builder.start();
 
-        // do not wait for the process to finish, so as to keep the Web UI responsive
-        
+        // do not wait for the process to finish, so as to keep the Web UI responsive        
 //        logger.log(Level.INFO, "waiting for animation process");
 //        int waitValue = commandProcess.waitFor();
     }
@@ -99,6 +95,10 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     public void startShowStillImageCommand(String stillImageName) throws IOException
     {        
         UserOptions options = new UserOptions();        
+        
+        // The image would only stay on for 1.5 seconds without the  -f flag.
+        options.loopParameter = loopForeverParameter;
+        
         String imagePath = stillImagesPath + stillImageName;
                 
         startLedImageViewerCommand(options, imagePath);

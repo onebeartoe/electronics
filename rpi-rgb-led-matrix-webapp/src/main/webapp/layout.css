@@ -15,7 +15,8 @@ div.navigation
 
 div.saveMessages
 {
-    
+    color: green;
+    font-size: 2em;
 }
 
 input.settingsSaveButton

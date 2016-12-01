@@ -21,7 +21,14 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class StillImagesServlet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException
+    {
+        doResponse(request, response);
+    }
+    
+    protected void doResponse(HttpServletRequest request, HttpServletResponse response) 
+        throws ServletException, IOException
     {
         File stillImagesDirectory = new File( ledMatrix.getStillImagesPath() );
         String[] fileNames = stillImagesDirectory.list(new FilenameFilter() 
@@ -35,6 +42,6 @@ public class StillImagesServlet extends RaspberryPiRgbLedMatrixServlet
         
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/still-images/index.jsp");
-        rd.forward(request, response);
-    } 
+        rd.forward(request, response);        
+    }
 }

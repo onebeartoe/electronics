@@ -30,6 +30,23 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
 
     static protected File configFile;
             
+    private void adjustIfOnWindows()
+    {
+        if( os.seemsLikeMsWindows() )
+        {
+            // adjust the target host from explicit paths on Raspberry Pi to 
+            // development development location (user home).
+            String userhome = os.currentUserHome() + "/";
+            String badUserhome = "/home/pi/";
+            
+            String animationsPath = ledMatrix.getAnimationsPath().replace(badUserhome, userhome);
+            String stillImagesPath = ledMatrix.getStillImagesPath().replace(badUserhome, userhome);
+            
+            ledMatrix.setAnimationsPath(animationsPath);
+            ledMatrix.setStillImagesPath(stillImagesPath);
+        }
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
@@ -76,14 +93,16 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
             }
             catch(Exception e)
             {
-                logger.log(Level.SEVERE,
-                           "The ledMatix configuration was not retieved from storage.", e);
+                String message = "The ledMatix configuration was not retieved from storage.";
+                logger.log(Level.SEVERE, message, e);
             }
             
             if(ledMatrix == null)
             {
                 loadDefaults();
             }
+            
+            adjustIfOnWindows();
 
             // make the RaspberryPiRgbLedMatrix object available to the servlet context
             servletContext.setAttribute(LED_MATRIX_HAT_CONTEXT_KEY, ledMatrix);
@@ -98,17 +117,6 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         // set up the default image/animation paths
         String animationsPath = "/home/pi/rpi-rgb-led-matrix-images/animations/";        
         String stillImagesPath = "/home/pi/rpi-rgb-led-matrix-images/stills/";
-
-        if( os.seemsLikeMsWindows() )
-        {
-            // adjust the target host from explicit paths on Raspberry Pi to 
-            // development development location (user home).
-            String userhome = os.currentUserHome() + "/";
-            String badUserhome = "/home/pi/";
-            
-            animationsPath = animationsPath.replace(badUserhome, userhome);
-            stillImagesPath = stillImagesPath.replace(badUserhome, userhome);
-        }
         
         ledMatrix.setAnimationsPath(animationsPath);
         ledMatrix.setStillImagesPath(stillImagesPath);
