@@ -1,8 +1,9 @@
 
-package org.onebeartoe.rpi.rgb.led.matrix.webapp.settings;
+package org.onebeartoe.rpi.rgb.led.matrix.webapp.scrolling.text;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -13,11 +14,15 @@ import org.onebeartoe.io.ObjectSaver;
 import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 
 /**
- *
+ * Here is a sample command with the --text (-t) option to specify the text to 
+ * scroll on the RGB LED matrix:
+ * 
+ *      sudo ./runtext.py -t "I love-you! <3"
+ * 
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
  */
-@WebServlet(name = "SettingsServet", urlPatterns = {"/settings/*"})
-public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
+@WebServlet(name = "ScrollingTextServet", urlPatterns = {"/scrolling-text/*"})
+public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -28,25 +33,26 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        String stillsDirtory = request.getParameter("stillImagesDirectory");
-        ledMatrix.setStillImagesPath(stillsDirtory);
-        
-        String animationsDirectory = request.getParameter("animationsDirectory");
-        ledMatrix.setAnimationsPath(animationsDirectory);
-        
-        String s = request.getParameter("commandLineFlags");
-        if(s == null)
+        String text = request.getParameter("text");
+        String saveMessages;
+        try
         {
-            s = "";
+            ledMatrix.setScrollingText(text);        
+            ledMatrix.startScrollingTextCommand(text);
+            saveMessages = "The scrolling text was updated.";
         }
-        String[] flags = s.split("\\s+");
-        ledMatrix.setCommandLineFlags(flags);
+        catch(Exception e)
+        {
+            saveMessages = "An error occured while updating the scrolling text: "
+                            + e.getMessage();
+            logger.log(Level.SEVERE, saveMessages, e);
+        }
         
         File outfile = RaspberryPiRgbLedMatrixServlet.configFile;
         ObjectSaver.encodeObject(ledMatrix, outfile);
         
-        String saveMessages = "Settings changes were saved.";        
-        request.setAttribute("saveMessages", saveMessages);
+        
+        request.setAttribute("responseMessages", saveMessages);
         doResponse(request, response);
     }
     
@@ -55,7 +61,7 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         request.setAttribute("ledMatrix", ledMatrix);
                 
         ServletContext c = getServletContext();
-        RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/settings/index.jsp");
+        RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/scrolling-text/index.jsp");
         rd.forward(request, response);        
-    }
+    }    
 }

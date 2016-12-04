@@ -1,6 +1,6 @@
 
     <div>
-        <h3>Still Images</h3>
+        <h1>Still Images</h1>
         
         <div class="responseMessages">
             ${responseMessages}

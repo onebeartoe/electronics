@@ -8,7 +8,7 @@
     <hr/>
 
     <div>
-        <h3>Animations</h3>
+        <h1>Animations</h1>
         
         <div class="responseMessages">
             ${responseMessages}

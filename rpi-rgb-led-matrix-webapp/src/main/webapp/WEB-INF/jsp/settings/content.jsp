@@ -1,6 +1,6 @@
 
     <div class="copyspace">
-        <h3>Settings</h3>
+        <h1>Settings</h1>
         
         <div class="saveMessages">
             ${saveMessages}
@@ -19,6 +19,14 @@
             
             <p>		
                 <input name="stillImagesDirectory" type="text" value="${ledMatrix.stillImagesPath}" size="60"/>
+            </p>
+        </div>
+            
+        <div>
+            <h3>Command Line Flags</h3>
+            
+            <p>
+                <input name="commandLineFlags" type="text" value="${ledMatrix.commandLineFlags}" class="jkljj"/>
             </p>
             
             <input type="submit" class="settingsSaveButton" value="Save"/>

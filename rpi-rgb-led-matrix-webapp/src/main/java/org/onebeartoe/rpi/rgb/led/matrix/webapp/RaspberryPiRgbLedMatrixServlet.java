@@ -112,20 +112,29 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     private void loadDefaults()
     {
         // retore didn't work
-        ledMatrix = new RaspberryPiRgbLedMatrix();        
-        
+        ledMatrix = new RaspberryPiRgbLedMatrix();
+
+        String rpiLgbLedMatrixHome = "/home/pi/rpi-rgb-led-matrix";
+        ledMatrix.setRpiLgbLedMatrixHome(rpiLgbLedMatrixHome);
+                
         // set up the default image/animation paths
         String animationsPath = "/home/pi/rpi-rgb-led-matrix-images/animations/";        
-        String stillImagesPath = "/home/pi/rpi-rgb-led-matrix-images/stills/";
-        
         ledMatrix.setAnimationsPath(animationsPath);
-        ledMatrix.setStillImagesPath(stillImagesPath);
-        
         File animationsDir = new File(animationsPath);
         animationsDir.mkdirs();
         
+        String stillImagesPath = "/home/pi/rpi-rgb-led-matrix-images/stills/";        
+        ledMatrix.setStillImagesPath(stillImagesPath);
         File stillImagesDirectory = new File(stillImagesPath);
         stillImagesDirectory.mkdirs();
+        
+        // default to what worked with this panel and hat
+        //      https://www.adafruit.com/products/1484
+        //      https://www.adafruit.com/products/2345
+        //
+        String [] commandLineFlags = {"--led-no-hardware-pulse", 
+                                      "--led-gpio-mapping=adafruit-hat"};
+        ledMatrix.setCommandLineFlags(commandLineFlags);
     }
     
     private void restoreFromPersistence() throws FileNotFoundException
