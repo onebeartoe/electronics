@@ -36,7 +36,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
      * This is the directory where the rpi-rgb-led-matrix project was cloned to 
      * on the filesystem.
      */
-    private String rpiLgbLedMatrixHome =  "/home/pi/rpi-rgb-led-matrix";
+    private String rpiRgbLedMatrixHome =  "/home/pi/rpi-rgb-led-matrix";
     
     // loop forever!
     private static final String loopForeverParameter = "-f";
@@ -101,7 +101,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     
     public String getRpiRgbLedMatrixHome()
     {
-        return rpiLgbLedMatrixHome;
+        return rpiRgbLedMatrixHome;
     }
     
     public String getScrollingText()
@@ -126,7 +126,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     
     public void setRpiLgbLedMatrixHome(String rpiLgbLedMatrixHome)
     {
-        this.rpiLgbLedMatrixHome = rpiLgbLedMatrixHome;
+        this.rpiRgbLedMatrixHome = rpiLgbLedMatrixHome;
     }
     
     public void setScrollingText(String text)
@@ -163,7 +163,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     private void startLedImageViewerCommand(String gifPath) throws IOException
 //    private void startLedImageViewerCommand(UserOptions userOptions, String gifPath) throws IOException
     {
-        String executable = rpiLgbLedMatrixHome + "/utils/led-image-viewer";
+        String executable = rpiRgbLedMatrixHome + "/utils/led-image-viewer";
         
         List<String> command = new ArrayList();
         command.add(executable);
@@ -201,7 +201,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
             logger.log(Level.SEVERE, message, ex);
         }
         
-        String execuableParent = rpiLgbLedMatrixHome + "/python/samples/";
+        String execuableParent = rpiRgbLedMatrixHome + "/python/samples/";
         File workingDir = new File(execuableParent);
         String executable = execuableParent + "runtext.py";
         

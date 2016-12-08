@@ -3,6 +3,8 @@ package org.onebeartoe.rpi.rgb.led.matrix.webapp.settings;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -34,6 +36,9 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         String animationsDirectory = request.getParameter("animationsDirectory");
         ledMatrix.setAnimationsPath(animationsDirectory);
         
+        String rpiRgbLedMatrixHome = request.getParameter("rpiRgbLedMatrixHome");
+        ledMatrix.setRpiLgbLedMatrixHome(rpiRgbLedMatrixHome);
+        
         String s = request.getParameter("commandLineFlags");
         if(s == null)
         {
@@ -53,6 +58,10 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
     private void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         request.setAttribute("ledMatrix", ledMatrix);
+        
+        List list = Arrays.asList( ledMatrix.getCommandLineFlags() );
+        String rpiRgbLedMatrixHome = String.join(" ", list);                
+        request.setAttribute("commandLineFlags", rpiRgbLedMatrixHome);
                 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/settings/index.jsp");

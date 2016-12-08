@@ -23,10 +23,18 @@
         </div>
             
         <div>
+            <h3 class="settingsSaveButton">rpi-rgb-led-matrix Home:</h3>
+            
+            <p>		
+                <input name="rpiRgbLedMatrixHome" type="text" value="${ledMatrix.rpiRgbLedMatrixHome}" size="60"/>
+            </p>
+        </div>
+            
+        <div>
             <h3>Command Line Flags</h3>
             
             <p>
-                <input name="commandLineFlags" type="text" value="${ledMatrix.commandLineFlags}" class="jkljj"/>
+                <input name="commandLineFlags" type="text" value="${commandLineFlags}" class="jkljj"/>
             </p>
             
             <input type="submit" class="settingsSaveButton" value="Save"/>
