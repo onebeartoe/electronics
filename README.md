@@ -26,3 +26,12 @@ Amplitie
 [![ALT TEXT](https://img.youtube.com/vi/gRTPPbYACCI/0.jpg)](https://www.youtube.com/watch?v=gRTPPbYACCI)
 
 
+[![NeoPixel Pendant with Jewel ](http://img.youtube.com/vi/49TzEfVjwh8/0.jpg)](https://www.youtube.com/watch?v=49TzEfVjwh8 "NeoPixel Pendant with Jewel")
+
+More from the author:
+
+https://plus.google.com/u/0/104101484714566033177
+
+https://twitter.com/onebeartoe
+
+https://www.youtube.com/user/onebeartoe/videos
