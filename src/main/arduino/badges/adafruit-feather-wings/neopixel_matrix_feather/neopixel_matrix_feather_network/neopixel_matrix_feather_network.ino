@@ -33,8 +33,12 @@
 
 #include <ESP8266WiFi.h>
 
-const char* ssid     = "beto-land-0";
-const char* password = "!!!CORRECT-ME!!!";
+
+//TODO: move this configuration to a header (.h) file outside of the project source code
+#include "C:\home\owner\workspace\info.h"
+//const char* ssid     = "beto-land-0";
+//!!!!!!!!!!!!! DO NOT COMMIT THE PASSWORD !!!!!!!!!!!!11
+//const char* password = "!!!CORRECT-ME!!!";
 
 const char* host = "www.adafruit.com";
 
@@ -64,7 +68,8 @@ void setup() {
 
 int value = 0;
 
-void loop() {
+void loop() 
+{
   delay(5000);
   ++value;
 
@@ -74,7 +79,8 @@ void loop() {
   // Use WiFiClient class to create TCP connections
   WiFiClient client;
   const int httpPort = 80;
-  if (!client.connect(host, httpPort)) {
+  if (!client.connect(host, httpPort)) 
+  {
     Serial.println("connection failed");
     return;
   }
@@ -91,7 +97,8 @@ void loop() {
   delay(500);
   
   // Read all the lines of the reply from server and print them to Serial
-  while(client.available()){
+  while(client.available())
+  {
     String line = client.readStringUntil('\r');
     Serial.print(line);
   }
@@ -99,4 +106,3 @@ void loop() {
   Serial.println();
   Serial.println("closing connection");
 }
-    
