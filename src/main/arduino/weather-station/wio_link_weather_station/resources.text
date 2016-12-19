@@ -1,6 +1,56 @@
 
 	https://github.com/Seeed-Studio/Wio_Link/wiki/Advanced-User-Guide
 	
+            https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor/blob/master/examples/DHTtester/DHTtester.ino
+
+            Are they using an analog pin (A0)?
+
+
 	https://github.com/Seeed-Studio/Wio_Link
 
+        MCP9808 Guide
         https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide?view=all#wiring
+
+        Adafruit IO Arduino Examples
+        https://learn.adafruit.com/adafruit-io/mqtt-api?view=all#arduino
+
+            Huzzah Feather
+            https://learn.adafruit.com/adafruit-io-basics-digital-input/esp8266
+
+
+
+---------------------------------------------------------
+
+Stuff That Didn't Work
+
+    Integration with Groove DHT sensor
+
+
+        // I tried digital pins and Analog pins 
+        #define DHTPIN 14
+        #define DHTPIN A0     // temperature and humidity sensor pin 
+
+        #define DHTTYPE DHT11    // sensor type: http://www.seeedstudio.com/depot/Grove-TempHumi-Sensor-p-745.html
+        //#define DHTTYPE DHT11    // sensor type: http://www.seeedstudio.com/depot/Grove-TempHumi-Sensor-p-745.html
+        //DHT htSensor(DHTPIN, DHTTYPE);
+        float humidity;
+        float internalFahrenheitTemperature;
+
+        // I think i thas something to do with this 'needed' code below that is 
+        // mentioned in the Seeed documentation
+        void humidityTemperatureSensor()
+        {
+            // Reading temperature or humidity takes about 250 milliseconds!
+            // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
+        //    humidity = htSensor.readHumidity();
+          //  internalCelsiusTemperature = htSensor.readTemperature();
+            internalFahrenheitTemperature  = internalCelsiusTemperature * 9 / 5 + 32;
+
+            Serial.println();
+            Serial.print(internalCelsiusTemperature);
+            Serial.print("C - ");
+
+            Serial.print(internalFahrenheitTemperature);
+            Serial.println("F");  
+        }
+

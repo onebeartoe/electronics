@@ -1,52 +1,36 @@
 
-#include "DHT.h"   //  https://github.com/adafruit/DHT-sensor-library
+#include <AdafruitIO_WiFi.h>
+#include <Adafruit_MCP9808.h>
 #include <ESP8266WiFi.h>
+#include <PubSubClient.h>
+#include <Wire.h>
 
-// The following two (commented) char pointers are stored in a file that is not
-// committed to the source code repository for security.
-#include "C:\home\owner\workspace\info.h"
-//const char* ssid     = "wifi-access-point-ssid";
-//const char* password = "!!!CORRECT-ME!!!";
+#include "configuration.h"
 
-/* 
- ESP8266 BlinkWithoutDelay by Simon Peter
- Blink the blue LED on the ESP-01 module
- Based on the Arduino Blink without Delay example
- This example code is in the public domain
- 
- The blue LED on the ESP-01 module is connected to GPIO1 
- (which is also the TXD pin; so we cannot use Serial.print() at the same time)
- 
- Note that this sketch uses LED_BUILTIN to find the pin with the internal LED
-*/
+// Create the MCP9808 temperature sensor object
+Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
+float degreesCelsius;
 
-// digital pins
-#define DHTPIN 14     // temperature and humidity sensor pin 
-
-#define DHTTYPE DHT11    // sensor type: http://www.seeedstudio.com/depot/Grove-TempHumi-Sensor-p-745.html
-DHT htSensor(DHTPIN, DHTTYPE);
-float humidity;
-float internalCelsiusTemperature;
-float internalFahrenheitTemperature;
-
-int ledState = LOW;     
+//int ledState = LOW;     
 
 unsigned long previousMillis = 0;
 const long interval = 2500;
 
-const char* host = "www.google.com";
+const char* host = "www.adafruit.com";
+
+// set up the Adafruit IO temperature feed
+AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+AdafruitIO_Feed *digital = io.feed("rainmaker-backyard-bottom-temperature");
 
 void connectToWifiNetwork()
 {
-    connecting to a WiFi network
-
   Serial.println();
   Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(ssid);
+  Serial.println(wifi_ssid);
   
-  WiFi.begin(ssid, password);
+  WiFi.begin(wifi_ssid, wifi_password);
   
   while (WiFi.status() != WL_CONNECTED) 
   {
@@ -96,60 +80,99 @@ void httpRequest()
   Serial.println("closing connection");    
 }
 
-void humidityTemperatureSensor()
+void initializeMcp9808()
 {
-    // Reading temperature or humidity takes about 250 milliseconds!
-    // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-    humidity = htSensor.readHumidity();
-    internalCelsiusTemperature = htSensor.readTemperature();
-    internalFahrenheitTemperature  = internalCelsiusTemperature * 9 / 5 + 32;
-  
-    Serial.println();
-    Serial.print(internalCelsiusTemperature);
-    Serial.print("C - ");
-    
-    Serial.print(internalFahrenheitTemperature);
-    Serial.println("F");  
+    // Make sure the sensor is found, you can also pass in a different i2c
+  // address with tempsensor.begin(0x19) for example
+  if (!tempsensor.begin()) 
+  {
+    Serial.println("Couldn't find MCP9808!");
+    while (1);
+  }
 }
 
 void loop()
 {
     unsigned long currentMillis = millis();
+    
     if(currentMillis - previousMillis >= interval) 
     {
+        // this is for the light sensor
         long a0 = analogRead(A0);
         Serial.print("a0: ");
         Serial.println(a0);
     
-        previousMillis = currentMillis;   
+        previousMillis = currentMillis;
 
-        if (ledState == LOW)
-          ledState = HIGH;  // Note that this switches the LED *off*
-        else
-          ledState = LOW;   // Note that this switches the LED *on*
-        digitalWrite(LED_BUILTIN, ledState);
-
-        humidityTemperatureSensor();
+        mcp9808Temp();
         
-        httpRequest();
+        mqttpUpdate();
     }
+}
+
+void mcp9808Temp()
+{
+    // Read and print out the temperature, then convert to *F
+    degreesCelsius = tempsensor.readTempC();
+    float f = degreesCelsius * 9.0 / 5.0 + 32;
+    Serial.print("\nTemperature: "); Serial.print(degreesCelsius); Serial.print("*C\t\t\t"); 
+    Serial.print(f); Serial.println("*F");
+//TODO: do we really need the next call to delay?    
+    delay(250);
+
+//    Serial.println("Shutdown MCP9808.... ");
+    tempsensor.shutdown_wake(1); // shutdown MSP9808 - power consumption ~0.1 mikro Ampere
+
+    delay(2000);
+
+//    Serial.println("wake up MCP9808.... "); // wake up MSP9808 - power consumption ~200 mikro Ampere
+    tempsensor.shutdown_wake(0);    
+}
+
+void mqttpSetup()
+{
+    // connect to io.adafruit.com
+    Serial.print("Connecting to Adafruit IO");
+    io.connect();
+
+    // wait for a connection
+    while(io.status() < AIO_CONNECTED) 
+    {
+      Serial.print(".");
+      delay(500);
+    }
+
+    // we are connected
+    Serial.println();
+    Serial.println(io.statusText());    
+}
+
+void mqttpUpdate()
+{
+  // The io.run() call is required to keep the client connection to
+  // io.adafruit.com, and processes any incoming data.
+  io.run();
+
+  // save the current state to the 'digital' feed on adafruit io
+  Serial.print("updating via MQTTP with: ");
+  Serial.println(degreesCelsius);
+  digital->save(degreesCelsius);    
 }
 
 void setup() 
 {
     pinMode(LED_BUILTIN, OUTPUT);
   
-    // from the 'Advanced' page
+    // from the Seeed Studio Wio Link 'Advanced' guide,
     pinMode(15, OUTPUT);
-//    digitalWrite(15, 0);
-    digitalWrite(15, 1);
+//    digitalWrite(15, 0);  // gives 0 degrees reading
+    digitalWrite(15, 1); // gives 32 degrees reading
   
     Serial.begin(9600);
-  
-    htSensor.begin();
-    
-    Serial.print("built-in LED pin: ");
-    Serial.println(LED_BUILTIN);
     
     connectToWifiNetwork();
+    
+    initializeMcp9808();
+    
+    mqttpSetup();
 }
