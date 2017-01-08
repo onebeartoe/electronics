@@ -7,22 +7,24 @@
 
 #include "configuration.h"
 
-// Create the MCP9808 temperature sensor object
+int photocell;
+
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
 
+// These next two variables hold the values that are read from the sensors and sent
+// to Adafruit IO MQTTP feeds.
 float degreesCelsius;
-
-//int ledState = LOW;     
+int lightReading;
 
 unsigned long previousMillis = 0;
-const long interval = 2500;
+const long interval = 1000 * 60;  // once a minute
 
 const char* host = "www.adafruit.com";
 
 // set up the Adafruit IO temperature feed
 AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
-AdafruitIO_Feed *digital = io.feed("rainmaker-backyard-bottom-temperature");
-
+AdafruitIO_Feed *temperatureFeed = io.feed("rainmaker-backyard-bottom-temperature");
+AdafruitIO_Feed *lightFeed = io.feed("rainmaker-backyard-bottom-light");
 void connectToWifiNetwork()
 {
   Serial.println();
@@ -44,42 +46,6 @@ void connectToWifiNetwork()
   Serial.println(WiFi.localIP());    
 }
 
-void httpRequest()
-{
-  Serial.print("connecting to ");
-  Serial.println(host);
-  
-  // Use WiFiClient class to create TCP connections
-  WiFiClient client;
-  const int httpPort = 80;
-  if (!client.connect(host, httpPort)) 
-  {
-    Serial.println("connection failed");
-    return;
-  }
-  
-  // We now create a URI for the request
-  String url = "/testwifi/index.html";
-  Serial.print("Requesting URL: ");
-  Serial.println(url);
-  
-  // This will send the request to the server
-  client.print(String("GET ") + url + " HTTP/1.1\r\n" +
-               "Host: " + host + "\r\n" + 
-               "Connection: close\r\n\r\n");
-  delay(500);
-  
-  // Read all the lines of the reply from server and print them to Serial
-  while(client.available())
-  {
-    String line = client.readStringUntil('\r');
-    Serial.print(line);
-  }
-  
-  Serial.println();
-  Serial.println("closing connection");    
-}
-
 void initializeMcp9808()
 {
     // Make sure the sensor is found, you can also pass in a different i2c
@@ -91,18 +57,23 @@ void initializeMcp9808()
   }
 }
 
+void lightSensor()
+{
+    long a0 = analogRead(A0);
+    Serial.print("a0: ");
+    Serial.println(a0);
+    lightReading = a0;
+}
+
 void loop()
 {
     unsigned long currentMillis = millis();
     
     if(currentMillis - previousMillis >= interval) 
     {
-        // this is for the light sensor
-        long a0 = analogRead(A0);
-        Serial.print("a0: ");
-        Serial.println(a0);
-    
         previousMillis = currentMillis;
+        
+        lightSensor();
 
         mcp9808Temp();
         
@@ -116,8 +87,7 @@ void mcp9808Temp()
     degreesCelsius = tempsensor.readTempC();
     float f = degreesCelsius * 9.0 / 5.0 + 32;
     Serial.print("\nTemperature: "); Serial.print(degreesCelsius); Serial.print("*C\t\t\t"); 
-    Serial.print(f); Serial.println("*F");
-//TODO: do we really need the next call to delay?    
+    Serial.print(f); Serial.println("*F"); 
     delay(250);
 
 //    Serial.println("Shutdown MCP9808.... ");
@@ -153,26 +123,31 @@ void mqttpUpdate()
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // save the current state to the 'digital' feed on adafruit io
-  Serial.print("updating via MQTTP with: ");
+  // save the current state to the 'temperatureFeed' feed on adafruit io
+  Serial.print("updating temperature via MQTTP with: ");
   Serial.println(degreesCelsius);
-  digital->save(degreesCelsius);    
+  temperatureFeed->save(degreesCelsius);
+  
+  lightFeed->save(lightReading);
 }
 
 void setup() 
-{
-    pinMode(LED_BUILTIN, OUTPUT);
-  
-    // from the Seeed Studio Wio Link 'Advanced' guide,
-    pinMode(15, OUTPUT);
-//    digitalWrite(15, 0);  // gives 0 degrees reading
-    digitalWrite(15, 1); // gives 32 degrees reading
-  
+{  
     Serial.begin(9600);
+    
+    wioLinkSetup();
     
     connectToWifiNetwork();
     
     initializeMcp9808();
     
     mqttpSetup();
+}
+
+void wioLinkSetup()
+{
+    // from the Seeed Studio Wio Link 'Advanced' guide,
+    pinMode(15, OUTPUT);
+//    digitalWrite(15, 0);  // gives 0 degrees reading
+    digitalWrite(15, 1); // gives 32 degrees reading    
 }

@@ -23,8 +23,17 @@
 
 Stuff That Didn't Work
 
-    Integration with Groove DHT sensor
+    
+    ask seed if the code I created is correct:
 
+	http://www.seeedstudio.com/forum/viewtopic.php?f=72&t=6889
+	
+	http://www.instructables.com/id/DIY-an-Automatic-Plant-Watering-Device/
+
+	https://github.com/Seeed-Studio/Grove_Temperature_And_Humidity_Sensor/blob/master/examples/DHTtester/DHTtester.ino
+ 
+
+    Integration with Groove DHT sensor
 
         // I tried digital pins and Analog pins 
         #define DHTPIN 14
@@ -38,6 +47,15 @@ Stuff That Didn't Work
 
         // I think i thas something to do with this 'needed' code below that is 
         // mentioned in the Seeed documentation
+
+        void setup()
+        {
+            // from the Seeed Studio Wio Link 'Advanced' guide,
+            pinMode(15, OUTPUT);
+        //    digitalWrite(15, 0);  // gives 0 degrees reading
+            digitalWrite(15, 1); // gives 32 degrees reading
+        }
+
         void humidityTemperatureSensor()
         {
             // Reading temperature or humidity takes about 250 milliseconds!
