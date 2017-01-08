@@ -1,10 +1,7 @@
 
 /**
   * Use 'USBtinyISP' as the programmer. 
-  * 
-  * 
   */
-
 
 #include <Wire.h>
 #include <Adafruit_GFX.h>
@@ -14,7 +11,6 @@
 //Adafruit_IS31FL3731 ledmatrix = Adafruit_IS31FL3731();
 // If you're using the FeatherWing version
 Adafruit_IS31FL3731_Wing ledmatrix = Adafruit_IS31FL3731_Wing();
-
 
 // The lookup table to make the brightness changes be more visible
 uint8_t sweep[] = {1, 2, 3, 4, 6, 8, 10, 15, 20, 30, 40, 60, 60, 40, 30, 20, 15, 10, 8, 6, 4, 3, 2, 1};

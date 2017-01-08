@@ -39,7 +39,7 @@ int iterationLimit = -200;
 //                 = -300;  // too long
 
 //String message = "Hola me llamo Roberto";
-String message = "Bueno, my name is Roberto!";
+String message = "Go Spurs Go!    ";
 
 void loop() 
 {
@@ -48,6 +48,6 @@ void loop()
     matrix.clear();
     matrix.setCursor(x,0);
     matrix.print(message);
-    delay(100);
+    delay(90);
   }
 }
