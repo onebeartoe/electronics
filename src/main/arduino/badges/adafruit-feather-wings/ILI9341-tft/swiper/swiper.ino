@@ -67,11 +67,15 @@ int oldcolor, currentcolor;
 
 bool debugStatements = false;
 
-const int POINT_COUNT = 50;
-int x = 0;
-int xPoints[POINT_COUNT];
+int oldX = 0;
+int xIncrementCount = 0;
+int X_INCREMENT_THRESHOLD = 30;
 
-int yPoints[POINT_COUNT];
+//const int POINT_COUNT = 50;
+//int x = 0;
+//int xPoints[POINT_COUNT];
+//
+//int yPoints[POINT_COUNT];
 
 void setup(void) 
 {
@@ -167,39 +171,37 @@ void loop()
         // the current point is in the 'drawing area'
         
         tft.fillCircle(p.x, p.y, PENRADIUS, currentcolor);
-    
-        if(p.x != xPoints[x])
-        {
-            // move the x index becuase we have a new point
-            x++;
-            
-            // move the x index back to 0 if the end of the array is reached
-            x = x == POINT_COUNT ? 0 : x;
-            
-            xPoints[x] = p.x;
-        }
         
         // check for a swipe in the x direction
-        xSwipeCheck();
+        xSwipeCheck(p.x);
     }    
 }
 
 int const SWIPE_LENGTH = 20;
 int swipePoints[SWIPE_LENGTH];
 
-void xSwipeCheck()
+void xSwipeCheck(int currentX)
 {
-    // check the last 20 points for incremental changes
-    for(int c=0; c<SWIPE_LENGTH; c++)
+    if(oldX != currentX)
     {
-        int index = x - c;
+        // the posistion has changed
         
-        index = x < 0 ? POINT_COUNT + x : x;
-        
-        swipePoints[c] = xPoints[index];
-        
-        Serial.print(swipePoints[c]);
+        if(currentX > oldX)
+        {
+            // the pointer moved in an increment direction
+            xIncrementCount++;
+            
+            if(xIncrementCount >= X_INCREMENT_THRESHOLD)
+            {
+                Serial.print("swipe detected; x=");
+                Serial.println(currentX);
+                
+                // reset the increment count, now that swipe was detected
+                xIncrementCount = 0;
+            }
+        }
     }
     
-    Serial.println();
+    // adjust the old X position for the next loop iteration
+    oldX = currentX;
 }
