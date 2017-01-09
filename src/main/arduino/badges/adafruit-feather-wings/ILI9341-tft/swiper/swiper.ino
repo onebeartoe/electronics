@@ -68,7 +68,8 @@ int oldcolor, currentcolor;
 bool debugStatements = false;
 
 int oldX = 0;
-int xIncrementCount = 0;
+int xDownCount = 0;
+int xUpCount = 0;
 int X_INCREMENT_THRESHOLD = 30;
 
 //const int POINT_COUNT = 50;
@@ -184,20 +185,40 @@ void xSwipeCheck(int currentX)
 {
     if(oldX != currentX)
     {
-        // the posistion has changed
+        // the position has changed
         
         if(currentX > oldX)
         {
-            // the pointer moved in an increment direction
-            xIncrementCount++;
+            // reset the up counter, since directions changed
+  //          xUpCount = 0;
             
-            if(xIncrementCount >= X_INCREMENT_THRESHOLD)
+            // the X point moved in the down direction (from the SD card slot toward the reset button)
+            xDownCount++;
+            
+            if(xDownCount >= X_INCREMENT_THRESHOLD)
             {
-                Serial.print("swipe detected; x=");
+                Serial.print("swipe down detected; x=");
                 Serial.println(currentX);
                 
-                // reset the increment count, now that swipe was detected
-                xIncrementCount = 0;
+                // reset the down count, now that swipe was detected
+                xDownCount = 0;
+            }
+        }
+        else
+        {
+            // reset the down counter, since direction changed
+//            xDownCount = 0;
+            
+            // the X point moved in the up direction (from the reset button toward the SD card slot)
+            xUpCount++;
+            
+            if(xUpCount >= X_INCREMENT_THRESHOLD)
+            {
+                Serial.print("swipe UP detected; x = ");
+                Serial.println(currentX);
+                
+                // reset the up count, now that the swipe was detected
+                xUpCount = 0;
             }
         }
     }
