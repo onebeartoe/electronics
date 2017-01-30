@@ -85,7 +85,8 @@ void setup(void) {
   }
   Serial.println("OK!");
 
-  bmpDraw("purple.bmp", 0, 0);
+//  bmpDraw("purple.bmp", 0, 0);
+  bmpDraw("red.bmp", 0, 0);
 }
 
 void loop() {
