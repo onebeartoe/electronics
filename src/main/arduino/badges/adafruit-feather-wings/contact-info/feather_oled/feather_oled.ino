@@ -4,6 +4,8 @@
  * 
  *    https://learn.adafruit.com/adafruit-oled-featherwing?view=all
  *    
+ * This project works with esp8266 Community version 2.2.0 (or better) library for Arduino 1.6.13
+ * 
  * uses the following products   
  * 
  *    FeatherWing OLED - 128x32        
@@ -48,7 +50,10 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
  #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-void setup() {
+char  displayText [4][50];
+
+void setup() 
+{
   Serial.begin(9600);
 
   Serial.println("OLED FeatherWing test");
@@ -107,7 +112,7 @@ void loop()
     display.setCursor(0,0);
     display.println("Roberto Marquez");
     display.println("Dude");
-    display.println("twitter.com/onebeartoe");
+    display.print("twiter.com/onebeartoe");
     display.println("210 370 7207");
   }
   
