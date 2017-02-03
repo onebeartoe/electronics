@@ -1,4 +1,4 @@
-add the state diagram to the documentation
+
 /**
  * source code originally from
  * 
@@ -9,11 +9,12 @@ add the state diagram to the documentation
  * uses the following products   
  * 
  *    FeatherWing OLED - 128x32        
-
+ *
  *          https://www.adafruit.com/products/2900
  *    
  *    
  *    Feather 32u4 Bluefruit LE
+ * 
  *          https://www.adafruit.com/products/2829
  */
 
@@ -50,7 +51,39 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
  #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
+const int P1_STATE = 1;
+const int P2_STATE = 2;
+
+int state = P1_STATE;
+
+// TODO: DELETE THESE ONCE NETWORKING IS IMPLEMENTED
+int p1Score = 0;
+int p2Score = 0;
+
 char  displayText [4][50];
+
+void aButtonPressed()
+{
+    if(state == P1_STATE)
+    {
+        p1Score++;        
+    }
+    else if(state == P2_STATE)
+    {
+        p2Score++;
+    }
+    else
+    {
+        Serial.println("ERROR: an unknown state was found: " + state);
+    }
+    
+    display.clearDisplay();    
+    display.setCursor(0,0);
+    display.print("P1: ");
+    display.print(p1Score);
+    display.print(" - P2:");
+    display.print(p2Score);    
+}
 
 void setup() 
 {
@@ -82,27 +115,21 @@ void setup()
   display.setTextSize(1);
   display.setTextColor(WHITE);
   display.setCursor(0,0);
-  display.println("Roberto Marquez");
-  display.println("Maker");
-  display.println("onebeartoe.com");
+  display.println("     Score Keeper");
+  display.println("          by");
+  display.println("electronics.onebeartoe.org");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
 }
 
-
 void loop() 
 {
-  display.setTextSize(1);
-  if (! digitalRead(BUTTON_A)) 
-  {
+    display.setTextSize(1);
     
-    display.clearDisplay();
-    
-    display.setCursor(0,0);
-    display.println("Roberto Marquez");
-    display.println("Maker");
-    display.println("github.com/onebeartoe");
-  }
+    if (! digitalRead(BUTTON_A)) 
+    {
+        aButtonPressed();
+    }
   
   if (! digitalRead(BUTTON_B)) 
   {
