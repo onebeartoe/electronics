@@ -169,10 +169,7 @@ void setup()
   for (int i=0; i<NUMBUTTONS; i++)
   {
     pinMode(buttons[i], INPUT_PULLUP);
-  }  
-//  pinMode(BUTTON_A, INPUT_PULLUP);
-//  pinMode(BUTTON_B, INPUT_PULLUP);
-//  pinMode(BUTTON_C, INPUT_PULLUP);
+  }
 
   // text display tests
   display.setTextSize(1);
@@ -187,89 +184,56 @@ void setup()
 
 void loop() 
 {
-    check_switches();      // when we check the switches we'll get the current state
+    // when we check the switches we'll get the current state
+    check_switches();      
 
-  for (byte i = 0; i<NUMBUTTONS; i++){
-    if (pressed[i]) 
+    for (byte i = 0; i<NUMBUTTONS; i++)
     {
-//      digitalWrite(13, HIGH);
-      // is the button pressed down at this moment
-        Serial.printf("button %d is pressed.\n", i);
-                
-    }
-    
-    
-    if (justreleased[i])
-    {
-      if (i == 0)
-      {  
-        HUE=190;
-        Serial.printf("button %d is released.\n", i);
-      }
-      else if (i == 1)
-      {
-        HUE=170;
-        Serial.printf("button %d is released.\n", i);
-      }
-      else if (i == 2)
-      {
-        HUE=140;
-        Serial.printf("button %d is released.\n", i);
-      }
-      else if (i == 3)
-      {
-        HUE=100;
-      }else if (i == 4){
-        HUE=70;
-      }else if (i == 5){
-        HUE=30;
-      }
-      else if (i == 6)
-      {
-        HUE=0;
-      }
+        if (pressed[i]) 
+        {
+            // is the button pressed down at this moment
+            Serial.printf("button %d is pressed.\n", i);            
+        }
         
-      
-        for (byte i=0; i<NUMBUTTONS; i++)
-        {  
-            // remember, check_switches() will necessitate clearing the 'just pressed' flag
-            justpressed[i] = 0;
+        if (justreleased[i])
+        {
+            if (i == 0)
+            {  
+              HUE=190;
+              Serial.printf("button %d is released.\n", i);
+            }
+            else if (i == 1)
+            {
+              HUE=170;
+              Serial.printf("button %d is released.\n", i);
+            }
+            else if (i == 2)
+            {
+              HUE=140;
+              Serial.printf("button %d is released.\n", i);
+            }
+            else if (i == 3)
+            {
+              HUE=100;
+            }else if (i == 4){
+              HUE=70;
+            }else if (i == 5){
+              HUE=30;
+            }
+            else if (i == 6)
+            {
+              HUE=0;
+            }
+
+            for (byte i=0; i<NUMBUTTONS; i++)
+            {  
+                // remember, check_switches() will necessitate clearing the 'just pressed' flag
+                justpressed[i] = 0;
+            }
         }
     }
-  }    
     
-/* old/original non-debouncing code
-    display.setTextSize(1);
-    
-    if (! digitalRead(BUTTON_A)) 
-    {
-        aButtonPressed();
-    }
-  
-  if (! digitalRead(BUTTON_B)) 
-  {
-    display.clearDisplay();
-    
-    display.setCursor(0,0);
-    display.println("Roberto Marquez");
-    display.println("Dude");
-    display.print("twiter.com/onebeartoe");
-    display.println("210 370 7207");
-  }
-  
-  if (! digitalRead(BUTTON_C))
-  {
-    display.clearDisplay();
-
-    display.setTextSize(2);
-    
-    display.setCursor(4,2);
-    display.print("I love you");
-//    display.startscrollright(0x00, 0x0F);
-  }
-*/  
-    
-  delay(10);
-  yield();
-  display.display();
+    delay(10);
+    yield();
+    display.display();
 }
