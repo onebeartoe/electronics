@@ -1,5 +1,10 @@
 
 /**
+ * 
+ * This code demonstrates how to debounce the 3 buttons on the Adafruit OLED 
+ * Feather Wing.  See the 'if (justreleased[i])' conditional in the loop() function
+ * to see how/where to execute code when one of the buttons is released after being pressed.
+ * 
  * source code originally from
  * 
  *    https://learn.adafruit.com/adafruit-oled-featherwing?view=all
@@ -48,8 +53,18 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
 #endif
 
 #if (SSD1306_LCDHEIGHT != 32)
- #error("Height incorrect, please fix Adafruit_SSD1306.h!");
+// TODO: Uncomment this next line for production.
+//       It is only commented because Netbeans takes it for an unrecognized command
+//       and syntax highlighting is broken after this line.
+// #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
+
+// here is where we define the buttons that we'll use. button "1" is the first, button "6" is the 6th, etc
+byte buttons[] = {BUTTON_A, BUTTON_B, BUTTON_C}; 
+// This handy macro lets us determine how big the array up above is, by checking the size
+#define NUMBUTTONS sizeof(buttons)
+// we will track if a button is just pressed, just released, or 'currently pressed' 
+byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
 
 const int P1_STATE = 1;
 const int P2_STATE = 2;
@@ -61,6 +76,10 @@ int p1Score = 0;
 int p2Score = 0;
 
 char  displayText [4][50];
+
+#define DEBOUNCE     10 // button debouncer, how many ms to debounce, 5+ ms is usually plenty
+
+int HUE;
 
 void aButtonPressed()
 {
@@ -85,6 +104,45 @@ void aButtonPressed()
     display.print(p2Score);    
 }
 
+void check_switches()
+{
+  static byte previousstate[NUMBUTTONS];
+  static byte currentstate[NUMBUTTONS];
+  static long lasttime;
+  byte index;
+
+  if (millis() < lasttime){ // we wrapped around, lets just try again
+     lasttime = millis();
+  }
+  
+  if ((lasttime + DEBOUNCE) > millis()) {
+    // not enough time has passed to debounce
+    return; 
+  }
+  // ok we have waited DEBOUNCE milliseconds, lets reset the timer
+  lasttime = millis();
+  
+  for (index = 0; index<NUMBUTTONS; index++){ // when we start, we clear out the "just" indicators
+    justreleased[index] = 0;
+     
+    currentstate[index] = digitalRead(buttons[index]);   // read the button
+   
+    if (currentstate[index] == previousstate[index]) {
+      if ((pressed[index] == LOW) && (currentstate[index] == LOW)) {
+          // just pressed
+          justpressed[index] = 1;
+      }
+      else if ((pressed[index] == HIGH) && (currentstate[index] == HIGH)) {
+          // just released
+          justreleased[index] = 1;
+      }
+      pressed[index] = !currentstate[index];  // remember, digital HIGH means NOT pressed
+    }
+    //Serial.println(pressed[index], DEC);
+    previousstate[index] = currentstate[index];   // keep a running tally of the buttons
+  }
+}
+
 void setup() 
 {
   Serial.begin(9600);
@@ -107,9 +165,14 @@ void setup()
   
   Serial.println("IO test");
 
-  pinMode(BUTTON_A, INPUT_PULLUP);
-  pinMode(BUTTON_B, INPUT_PULLUP);
-  pinMode(BUTTON_C, INPUT_PULLUP);
+  // Make input & enable pull-up resistors on switch pins
+  for (int i=0; i<NUMBUTTONS; i++)
+  {
+    pinMode(buttons[i], INPUT_PULLUP);
+  }  
+//  pinMode(BUTTON_A, INPUT_PULLUP);
+//  pinMode(BUTTON_B, INPUT_PULLUP);
+//  pinMode(BUTTON_C, INPUT_PULLUP);
 
   // text display tests
   display.setTextSize(1);
@@ -124,6 +187,58 @@ void setup()
 
 void loop() 
 {
+    check_switches();      // when we check the switches we'll get the current state
+
+  for (byte i = 0; i<NUMBUTTONS; i++){
+    if (pressed[i]) 
+    {
+//      digitalWrite(13, HIGH);
+      // is the button pressed down at this moment
+        Serial.printf("button %d is pressed.\n", i);
+                
+    }
+    
+    
+    if (justreleased[i])
+    {
+      if (i == 0)
+      {  
+        HUE=190;
+        Serial.printf("button %d is released.\n", i);
+      }
+      else if (i == 1)
+      {
+        HUE=170;
+        Serial.printf("button %d is released.\n", i);
+      }
+      else if (i == 2)
+      {
+        HUE=140;
+        Serial.printf("button %d is released.\n", i);
+      }
+      else if (i == 3)
+      {
+        HUE=100;
+      }else if (i == 4){
+        HUE=70;
+      }else if (i == 5){
+        HUE=30;
+      }
+      else if (i == 6)
+      {
+        HUE=0;
+      }
+        
+      
+        for (byte i=0; i<NUMBUTTONS; i++)
+        {  
+            // remember, check_switches() will necessitate clearing the 'just pressed' flag
+            justpressed[i] = 0;
+        }
+    }
+  }    
+    
+/* old/original non-debouncing code
     display.setTextSize(1);
     
     if (! digitalRead(BUTTON_A)) 
@@ -152,7 +267,8 @@ void loop()
     display.print("I love you");
 //    display.startscrollright(0x00, 0x0F);
   }
-  
+*/  
+    
   delay(10);
   yield();
   display.display();
