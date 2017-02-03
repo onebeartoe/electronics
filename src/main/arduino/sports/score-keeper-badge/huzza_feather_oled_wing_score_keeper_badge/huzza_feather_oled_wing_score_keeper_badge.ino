@@ -106,80 +106,89 @@ void aButtonPressed()
 
 void check_switches()
 {
-  static byte previousstate[NUMBUTTONS];
-  static byte currentstate[NUMBUTTONS];
-  static long lasttime;
-  byte index;
+    static byte previousstate[NUMBUTTONS];
+    static byte currentstate[NUMBUTTONS];
+    static long lasttime;
+    byte index;
 
-  if (millis() < lasttime){ // we wrapped around, lets just try again
-     lasttime = millis();
-  }
-  
-  if ((lasttime + DEBOUNCE) > millis()) {
-    // not enough time has passed to debounce
-    return; 
-  }
-  // ok we have waited DEBOUNCE milliseconds, lets reset the timer
-  lasttime = millis();
-  
-  for (index = 0; index<NUMBUTTONS; index++){ // when we start, we clear out the "just" indicators
-    justreleased[index] = 0;
-     
-    currentstate[index] = digitalRead(buttons[index]);   // read the button
-   
-    if (currentstate[index] == previousstate[index]) {
-      if ((pressed[index] == LOW) && (currentstate[index] == LOW)) {
-          // just pressed
-          justpressed[index] = 1;
-      }
-      else if ((pressed[index] == HIGH) && (currentstate[index] == HIGH)) {
-          // just released
-          justreleased[index] = 1;
-      }
-      pressed[index] = !currentstate[index];  // remember, digital HIGH means NOT pressed
+    if (millis() < lasttime)
+    { 
+        // we wrapped around, lets just try again
+       lasttime = millis();
     }
-    //Serial.println(pressed[index], DEC);
-    previousstate[index] = currentstate[index];   // keep a running tally of the buttons
-  }
+  
+    if ((lasttime + DEBOUNCE) > millis()) 
+    {
+      // not enough time has passed to debounce
+      return; 
+    }
+    
+    // ok we have waited DEBOUNCE milliseconds, lets reset the timer
+    lasttime = millis();
+  
+    for (index = 0; index<NUMBUTTONS; index++)
+    { 
+        // when we start, we clear out the "just" indicators
+        justreleased[index] = 0;
+
+        currentstate[index] = digitalRead(buttons[index]);   // read the button
+
+        if (currentstate[index] == previousstate[index]) 
+        {
+          if ((pressed[index] == LOW) && (currentstate[index] == LOW)) 
+          {
+              // just pressed
+              justpressed[index] = 1;
+          }
+          else if ((pressed[index] == HIGH) && (currentstate[index] == HIGH)) 
+          {
+              // just released
+              justreleased[index] = 1;
+          }
+          pressed[index] = !currentstate[index];  // remember, digital HIGH means NOT pressed
+        }
+        //Serial.println(pressed[index], DEC);
+        previousstate[index] = currentstate[index];   // keep a running tally of the buttons
+    }
 }
 
 void setup() 
 {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
-  Serial.println("OLED FeatherWing test");
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-  // init done
-  Serial.println("OLED begun");
+    Serial.println("OLED FeatherWing test");
+    // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+    // init done
+    Serial.println("OLED begun");
   
-  // Show image buffer on the display hardware.
-  // Since the buffer is intialized with an Adafruit splashscreen
-  // internally, this will display the splashscreen.
-  display.display();
-  delay(1000);
+    // Show image buffer on the display hardware.
+    // Since the buffer is intialized with an Adafruit splashscreen
+    // internally, this will display the splashscreen.
+    display.display();
+    delay(1000);
 
-  // Clear the buffer.
-  display.clearDisplay();
-  display.display();
-  
-  Serial.println("IO test");
+    // Clear the buffer.
+    display.clearDisplay();
+    display.display();
 
-  // Make input & enable pull-up resistors on switch pins
-  for (int i=0; i<NUMBUTTONS; i++)
-  {
-    pinMode(buttons[i], INPUT_PULLUP);
-  }
+    Serial.println("IO test");
 
-  // text display tests
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,0);
-  display.println("     Score Keeper");
-  display.println("          by");
-  display.println("electronics.onebeartoe.org");
-  display.setCursor(0,0);
-  display.display(); // actually display all of the above
+    // Make input & enable pull-up resistors on switch pins
+    for (int i=0; i<NUMBUTTONS; i++)
+    {
+      pinMode(buttons[i], INPUT_PULLUP);
+    }
+
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,0);
+    display.println("     Score Keeper");
+    display.println("          by");
+    display.println("electronics.onebeartoe.org");
+    display.setCursor(0,0);
+    display.display(); // actually display all of the above
 }
 
 void loop() 
