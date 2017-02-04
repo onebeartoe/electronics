@@ -151,45 +151,6 @@ void check_switches()
     }
 }
 
-void setup() 
-{
-    Serial.begin(9600);
-
-    Serial.println("OLED FeatherWing test");
-    // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
-    // init done
-    Serial.println("OLED begun");
-  
-    // Show image buffer on the display hardware.
-    // Since the buffer is intialized with an Adafruit splashscreen
-    // internally, this will display the splashscreen.
-    display.display();
-    delay(1000);
-
-    // Clear the buffer.
-    display.clearDisplay();
-    display.display();
-
-    Serial.println("IO test");
-
-    // Make input & enable pull-up resistors on switch pins
-    for (int i=0; i<NUMBUTTONS; i++)
-    {
-      pinMode(buttons[i], INPUT_PULLUP);
-    }
-
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,0);
-    display.println("     Score Keeper");
-    display.println("          by");
-    display.println("electronics.onebeartoe.org");
-    display.setCursor(0,0);
-    display.display(); // actually display all of the above
-}
-
 void loop() 
 {
     // when we check the switches we'll get the current state
@@ -234,4 +195,43 @@ void loop()
     delay(10);
     yield();
     display.display();
+}
+
+void setup() 
+{
+    Serial.begin(9600);
+
+    Serial.println("OLED FeatherWing test");
+    // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
+    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+    // init done
+    Serial.println("OLED begun");
+  
+    // Show image buffer on the display hardware.
+    // Since the buffer is intialized with an Adafruit splashscreen
+    // internally, this will display the splashscreen.
+    display.display();
+    delay(1000);
+
+    // Clear the buffer.
+    display.clearDisplay();
+    display.display();
+
+    Serial.println("IO test");
+
+    // Make input & enable pull-up resistors on switch pins
+    for (int i=0; i<NUMBUTTONS; i++)
+    {
+      pinMode(buttons[i], INPUT_PULLUP);
+    }
+
+    // text display tests
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+    display.setCursor(0,0);
+    display.println("     Score Keeper");
+    display.println("          by");
+    display.println("electronics.onebeartoe.org");
+    display.setCursor(0,0);
+    display.display(); // actually display all of the above
 }
