@@ -198,7 +198,8 @@ void loop()
                 
     }
     
-    
+    // this is the code block to use for detecting button presses (when the 
+    // button is actually releaed).    
     if (justreleased[i])
     {
       if (i == 0)

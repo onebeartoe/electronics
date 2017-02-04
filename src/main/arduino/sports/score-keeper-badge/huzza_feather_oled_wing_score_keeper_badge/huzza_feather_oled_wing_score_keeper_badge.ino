@@ -17,7 +17,6 @@
  *
  *          https://www.adafruit.com/products/2900
  *    
- *    
  *    Feather 32u4 Bluefruit LE
  * 
  *          https://www.adafruit.com/products/2829
@@ -204,6 +203,8 @@ void loop()
             Serial.printf("button %d is pressed.\n", i);            
         }
         
+        // this is the code block to use for detecting button presses (when the 
+        // button is actually releaed).
         if (justreleased[i])
         {
             if (i == 0)
@@ -220,18 +221,6 @@ void loop()
             {
               HUE=140;
               Serial.printf("button %d is released.\n", i);
-            }
-            else if (i == 3)
-            {
-              HUE=100;
-            }else if (i == 4){
-              HUE=70;
-            }else if (i == 5){
-              HUE=30;
-            }
-            else if (i == 6)
-            {
-              HUE=0;
             }
 
             for (byte i=0; i<NUMBUTTONS; i++)
