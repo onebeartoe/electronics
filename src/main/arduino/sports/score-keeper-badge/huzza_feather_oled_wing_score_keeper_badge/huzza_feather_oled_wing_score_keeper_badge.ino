@@ -11,7 +11,7 @@
  *    
  * This project works with esp8266 Community version 2.2.0 (or better) library for Arduino 1.6.13
  * 
- * uses the following products   
+ * uses the following products
  * 
  *    FeatherWing OLED - 128x32        
  *
@@ -27,7 +27,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-Adafruit_SSD1306 display = Adafruit_SSD1306();
+Adafruit_SSD1306 oled = Adafruit_SSD1306();
 
 #if defined(ESP8266)
   #define BUTTON_A 0
@@ -78,7 +78,7 @@ char  displayText [4][50];
 
 #define DEBOUNCE     10 // button debouncer, how many ms to debounce, 5+ ms is usually plenty
 
-int HUE;
+//int HUE;
 
 void aButtonPressed()
 {
@@ -94,13 +94,42 @@ void aButtonPressed()
     {
         Serial.println("ERROR: an unknown state was found: " + state);
     }
+
+    oled.display();
+}
+
+/**
+ * This function is called when ever the 'mode' button is pressed.
+ */
+void bButtonPressed()
+{
+    char * stateLabel;
+    if(state == P1_STATE)
+    {
+        state = P2_STATE;
+        stateLabel = "Player1";
+    }
+    else if(state == P2_STATE)
+    {
+        state = P1_STATE;
+        stateLabel = "Player2";
+    }
     
-    display.clearDisplay();    
-    display.setCursor(0,0);
-    display.print("P1: ");
-    display.print(p1Score);
-    display.print(" - P2:");
-    display.print(p2Score);    
+    Serial.printf("state changed to %s", stateLabel);
+}
+
+void cButtonPressed()
+{
+    if(state == P1_STATE)
+    {
+        p1Score--;
+    }
+    else if(state == P2_STATE)
+    {
+        p2Score--;
+    }
+    
+    // TODO: Implement the rest
 }
 
 void check_switches()
@@ -151,6 +180,17 @@ void check_switches()
     }
 }
 
+void displayScore()
+{
+    oled.clearDisplay();    
+    oled.setCursor(0,0);
+    oled.print("P1: ");
+    oled.print(p1Score);
+    oled.print(" - P2:");
+    oled.print(p2Score);
+    oled.display();
+}
+
 void loop() 
 {
     // when we check the switches we'll get the current state
@@ -170,18 +210,21 @@ void loop()
         {
             if (i == 0)
             {  
-              HUE=190;
               Serial.printf("button %d is released.\n", i);
+              
+              aButtonPressed();
             }
             else if (i == 1)
             {
-              HUE=170;
-              Serial.printf("button %d is released.\n", i);
+                Serial.printf("button B is released.\n", i);
+                
+                bButtonPressed();
             }
             else if (i == 2)
             {
-              HUE=140;
-              Serial.printf("button %d is released.\n", i);
+                Serial.printf("button %d is released.\n", i);
+                
+                cButtonPressed();
             }
 
             for (byte i=0; i<NUMBUTTONS; i++)
@@ -194,7 +237,7 @@ void loop()
     
     delay(10);
     yield();
-    display.display();
+    oled.display();
 }
 
 void setup() 
@@ -203,35 +246,35 @@ void setup()
 
     Serial.println("OLED FeatherWing test");
     // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-    display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
+    oled.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
     // init done
     Serial.println("OLED begun");
   
-    // Show image buffer on the display hardware.
+    // Show image buffer on the OLED display hardware.
     // Since the buffer is intialized with an Adafruit splashscreen
     // internally, this will display the splashscreen.
-    display.display();
+    oled.display();
     delay(1000);
 
     // Clear the buffer.
-    display.clearDisplay();
-    display.display();
+    oled.clearDisplay();
+    oled.display();
 
-    Serial.println("IO test");
+    Serial.println("Score Keeper Badge");
 
-    // Make input & enable pull-up resistors on switch pins
+    // set the button pins as inputs and enable their pull-up resistors
     for (int i=0; i<NUMBUTTONS; i++)
     {
       pinMode(buttons[i], INPUT_PULLUP);
     }
 
-    // text display tests
-    display.setTextSize(1);
-    display.setTextColor(WHITE);
-    display.setCursor(0,0);
-    display.println("     Score Keeper");
-    display.println("          by");
-    display.println("electronics.onebeartoe.org");
-    display.setCursor(0,0);
-    display.display(); // actually display all of the above
+    oled.setTextSize(1);
+    oled.setTextColor(WHITE);
+    oled.setCursor(0,0);
+    oled.println("     Score Keeper");
+    oled.println("          by");
+    oled.println("electronics.onebeartoe.org");
+    oled.setCursor(0,0);
+    
+    oled.display(); // actually display all of the above on the OLED
 }

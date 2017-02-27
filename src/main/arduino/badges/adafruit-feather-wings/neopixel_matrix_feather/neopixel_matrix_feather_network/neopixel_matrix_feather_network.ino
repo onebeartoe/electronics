@@ -33,11 +33,10 @@
 
 #include <ESP8266WiFi.h>
 
-
-//TODO: move this configuration to a header (.h) file outside of the project source code
+// The next two commented lines are configuration with actutal values 
+// in the header (info.h) file outside of the project source code.
 #include "C:\home\owner\workspace\info.h"
 //const char* ssid     = "beto-land-0";
-//!!!!!!!!!!!!! DO NOT COMMIT THE PASSWORD !!!!!!!!!!!!11
 //const char* password = "!!!CORRECT-ME!!!";
 
 const char* host = "www.adafruit.com";

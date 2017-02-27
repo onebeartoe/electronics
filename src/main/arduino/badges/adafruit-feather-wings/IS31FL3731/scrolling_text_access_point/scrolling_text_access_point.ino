@@ -1,6 +1,11 @@
 
 
 /**
+ * 
+ * The default IP of the access point is 
+ * 
+ *      192.168.4.1
+ * 
  * Use 'USBtinyISP' as the programmer.
  *
  * The was originally from here
