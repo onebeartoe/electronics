@@ -20,7 +20,7 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
 // The next two commented lines are configuration with actutal values 
 // in the header (info.h) file outside of the project source code.
-#include "C:\home\owner\workspace\info.h"
+#include "C:\home\owner\workspace\arduino\sensitive.h"
 //const char* wifi_ssid     = "beto-landia-105";
 //const char* wifi_password = "!!!CORRECT-ME!!!";
 

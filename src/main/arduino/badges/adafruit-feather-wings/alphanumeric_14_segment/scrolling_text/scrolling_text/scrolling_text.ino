@@ -36,7 +36,7 @@ void setup()
     Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
 
-String message = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
+String message = "Do not disturb.   *    Please Disturb   *";
 
 int messageLength = message.length();
 

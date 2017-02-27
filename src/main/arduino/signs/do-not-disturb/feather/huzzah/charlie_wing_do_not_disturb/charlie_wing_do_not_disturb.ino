@@ -4,7 +4,12 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 
+#include "C:\home\owner\workspace\arduino\sensitive.h"
+
 String message = "Nice";
+
+#define SERVER_PORT     5000             // Port the server will listen for connections.
+WiFiServer server(SERVER_PORT);
 
 void setup() 
 {
@@ -22,13 +27,13 @@ void setup()
     Serial.println();
     Serial.println();
     Serial.print("Connecting to ");
-    Serial.println(WIFI_NAME);
+    Serial.println(wifi_ssid);
     
     // Explicitly turn off the Access Point mode, in case it was activated the last time the 
     // esp8266 was programmed.
     WiFi.mode(WIFI_STA);
 
-    WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+    WiFi.begin(wifi_ssid, wifi_password);
 
     while (WiFi.status() != WL_CONNECTED) 
     {
