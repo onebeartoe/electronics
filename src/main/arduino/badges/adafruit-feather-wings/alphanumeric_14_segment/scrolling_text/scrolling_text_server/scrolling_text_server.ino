@@ -1,14 +1,5 @@
 
 /**
- *  on the beto network: 
- * 
- *      http://192.168.1.64:5000/woww
- * 
- * 
- * 
- */
-
-/**
  * This was originally from the video, "Raspberry Pi Talking To WiFi Things Part 3"
  *
  *     https://www.youtube.com/watch?v=4K-0iQBalfs
@@ -18,13 +9,6 @@
  *     https://github.com/adafruit/Raspberry_Pi_Talk_To_Things/tree/master/Part_3
  */
 
-// Raspberry Pi Talking To WiFi Things Part 3
-// Use a push button connected to an ESP8266 to toggle a LED on a Raspberry Pi
-// on and off, and a push button connected to Pi to toggle a LED on the ESP8266
-// on and off.  A special Python server must be running on the Pi and it will listen
-// for LED toggle commands from the ESP8266 and send LED toggle commands when its
-// button is pressed.
-// Author: Tony DiCola
 #include <ESP8266WiFi.h>
 #include <ESP8266mDNS.h>
 
@@ -34,14 +18,12 @@
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
-// Configuration:
-//#define WIFI_NAME       "beto-land-0"  // Your WiFi AP.
+// The next two commented lines are configuration with actutal values 
+// in the header (info.h) file outside of the project source code.
+#include "C:\home\owner\workspace\info.h"
+//const char* wifi_ssid     = "beto-landia-105";
+//const char* wifi_password = "!!!CORRECT-ME!!!";
 
-
-/**
- * !!!!! DO NOT COMMIT THE REAL PASSWORD!!!!!
- */
-#define WIFI_PASSWORD   "not-the-real-password" // Your WiFi AP password.
 #define LED_PIN         2                // Pin connected to the LED.
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
@@ -65,29 +47,11 @@ unsigned long lightPreviousMillis = 0;
  */
 unsigned long ipDisplayDelay = 1000 * 60;
 
-/*
-void displayInitMessage()
-{
-    alpha4.clear();
-
-    alpha4.writeDigitAscii(0, 'L');
-    alpha4.writeDigitAscii(1, 'I');
-    alpha4.writeDigitAscii(2, 'G');
-    alpha4.writeDigitAscii(3, 'T');
-
-    alpha4.writeDisplay();    
-}
-*/
-
 WiFiClient client;
-
 
 String message = "Nice";
 
 String initialMessage = "Hello World   ";
-//String initialMessage = "  Go Spurs Go   *   Timmy Rules!   * Burce Bruce   *";
-
-//int messageLength = message.length();
 
 /**
   * This array holds the current values of the 4 alphanumeric segments.
@@ -195,8 +159,6 @@ void loop()
     {
         // No client connected, do some other non-HTTP client stuff.
         
-        
-        
         return;
     }
     else
@@ -204,8 +166,6 @@ void loop()
         handleHttpClient();
     }
 }
-
-
 
 void initQuadAlpha() 
 {
@@ -244,13 +204,13 @@ void setup()
     Serial.println();
     Serial.println();
     Serial.print("Connecting to ");
-    Serial.println(WIFI_NAME);
+    Serial.println(wifi_ssid);
     
     // Explicitly turn off the Access Point mode, in case it was activated the last time the 
     // esp8266 was programmed.
     WiFi.mode(WIFI_STA);
 
-    WiFi.begin(WIFI_NAME, WIFI_PASSWORD);
+    WiFi.begin(wifi_ssid, wifi_password);
 
     while (WiFi.status() != WL_CONNECTED) 
     {
@@ -281,8 +241,6 @@ void setup()
             delay(1000);
         }
     }
-    
-//    displayInitMessage();
 
     message = localhostIp;
 }
@@ -330,4 +288,3 @@ void updateDisplay()
   // write it out!
   alpha4.writeDisplay();    
 }
-

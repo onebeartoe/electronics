@@ -2,6 +2,9 @@
 #define LED_PIN         2                // Pin connected to the LED.
 
 #include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>
+
+String message = "Nice";
 
 void setup() 
 {

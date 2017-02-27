@@ -36,8 +36,8 @@
 // The next two commented lines are configuration with actutal values 
 // in the header (info.h) file outside of the project source code.
 #include "C:\home\owner\workspace\info.h"
-//const char* ssid     = "beto-land-0";
-//const char* password = "!!!CORRECT-ME!!!";
+//const char* wifi_ssid     = "beto-landia-105";
+//const char* wifi_password = "!!!CORRECT-ME!!!";
 
 const char* host = "www.adafruit.com";
 
