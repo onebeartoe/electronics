@@ -8,6 +8,7 @@
  * 
  * Parts of this sketch were inspired by the Seeed Studio example code:
  * 
+ *    https://www.seeedstudio.com/Grove-Alcohol-Sensor-p-764.html
  *    https://github.com/Seeed-Studio/Grove_Alcohol_Sensor
  *    http://wiki.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
  * 
