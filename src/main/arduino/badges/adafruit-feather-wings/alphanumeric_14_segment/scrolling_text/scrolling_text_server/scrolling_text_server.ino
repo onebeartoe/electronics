@@ -28,7 +28,8 @@ Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 #define BUTTON_PIN      0                // Pin connected to the button.
 #define SERVER_PORT     5000             // Port the server will listen for connections.
 
-#define SERVER_NAME     "esp8266-NOTNOTNOT-text"  // mDNS name to use for the server.
+// mDNS name to use for the server.
+#define SERVER_NAME "esp8266-NOTNOTNOT-text"  
 
 String localhostIp;
 
@@ -39,19 +40,9 @@ unsigned long currentMillis;
 
 unsigned long lightPreviousMillis = 0;
 
-/**
- *
- * This is how long the IP address scrolls when the microcontroller first 
- * powered.
- *
- */
-unsigned long ipDisplayDelay = 1000 * 60;
-
 WiFiClient client;
 
-String message = "Nice";
-
-String initialMessage = "Hello World   ";
+String message = "";
 
 /**
   * This array holds the current values of the 4 alphanumeric segments.
@@ -68,14 +59,17 @@ void handleHttpClient()
     alpha4.writeDigitAscii(3, '!');
     alpha4.writeDisplay();
     delay(250);
-    
-    
+    alpha4.clear();
+    alpha4.writeDisplay();
+
     // Read a line of input.
     // Use a simple character buffer instead of Arduino's String class
     // because String uses dynamic memory which can be problematic with low
     // memory chips.
-    #define RECEIVED_SIZE 25
+    #define RECEIVED_SIZE 50
     char received[RECEIVED_SIZE] = {0};
+    
+    Serial.printf("arg count: %d", client.args() );
     
     if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
     {
@@ -86,13 +80,15 @@ void handleHttpClient()
     }
     else
     {
-        char * faviconTarget = "GET /favicon.i";
+        char * faviconTarget = "GET /favicon.ico";
         char * targetFound = strstr(received, faviconTarget);
         
         if(targetFound != '\0')
         {
+            String s = "skipping request for the favorite icon: " + String(targetFound);
             Serial.println();
-            Serial.println("skipping request for the favorite icon");
+            Serial.println(s);
+            client.println(s);
         }
         else
         {
@@ -100,30 +96,32 @@ void handleHttpClient()
             // URL decode the received message
             // like this 
             //         http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
-
-            message = received;          
-        }
-
-        Serial.println();
-        Serial.println("received over HTTP: ");
-        Serial.println(received);
-
-        // Match the command.
-        if (strncmp(received, "toggle_led", RECEIVED_SIZE-1) == 0) 
-        {
-            // Toggle the LED.
-            digitalWrite(LED_PIN, !digitalRead(LED_PIN));
-            
+                        
             Serial.println();
-            Serial.println("Toggle LED!");
-            client.println("Toggle LED!");
-        } 
-        else 
-        {
-            // Unknown command, send an error and exit early to close the connection.
-            client.print("ERROR: Unknown command: ");
-            client.println(received);
-        }   
+            Serial.println("received over HTTP: ");
+            Serial.println(received);
+
+            // Match the command.
+            String s(received);
+            if( s.indexOf("do-not-disturb") >= 0)
+            {
+                message = "Do not Disturb   -   ";
+                client.println(message);
+            }
+            else if(s.indexOf("please-disturb") >= 0)
+            {
+                message = "   Disturb   -";
+                client.println(message);
+            }
+            else 
+            {
+                message = received;
+                
+                // Unknown command, send an error and exit early to close the connection.
+                client.print("ERROR: Unknown command : ");
+                client.println(received);
+            }            
+        }
     }
 
     // Client will automatically be disconnected at the end of the loop!
@@ -147,21 +145,10 @@ void loop()
 
         updateDisplay();
     }
-
-    if(currentMillis >= ipDisplayDelay)
-    {
-        message = initialMessage;
-    }
     
     // Check if a client has connected.
     client = server.available();
-    if (!client) 
-    {
-        // No client connected, do some other non-HTTP client stuff.
-        
-        return;
-    }
-    else
+    if (client) 
     {
         handleHttpClient();
     }
@@ -228,6 +215,7 @@ void setup()
 
     // Print the IP address
     Serial.println();
+    
     Serial.print("local IP: ");
     Serial.println(localhostIp);
     Serial.println();

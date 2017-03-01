@@ -6,10 +6,12 @@
 
 #include "C:\home\owner\workspace\arduino\sensitive.h"
 
-String message = "Nice";
-
+// mDNS name to use for the server.
+#define SERVER_NAME "esp8266-NOTNOTNOT-text"  
 #define SERVER_PORT     5000             // Port the server will listen for connections.
 WiFiServer server(SERVER_PORT);
+
+String message = "Nice";
 
 void setup() 
 {
