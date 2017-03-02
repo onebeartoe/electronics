@@ -69,7 +69,7 @@ void handleHttpClient()
     #define RECEIVED_SIZE 50
     char received[RECEIVED_SIZE] = {0};
     
-    Serial.printf("arg count: %d", client.args() );
+//    Serial.printf("arg count: %d", client.args() );
     
     if (client.readBytesUntil('\n', received, RECEIVED_SIZE - 1) == 0) 
     {
