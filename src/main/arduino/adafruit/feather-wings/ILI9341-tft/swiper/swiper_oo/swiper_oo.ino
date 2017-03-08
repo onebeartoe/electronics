@@ -14,7 +14,8 @@
 #include <Adafruit_ILI9341.h> // Hardware-specific library
 #include <Adafruit_STMPE610.h>
 
-#include "board-compatibility.h"
+#include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
+#include "TftFeatherWing.c"
 #include "tft.h"
 
 bool debugStatements = false;
@@ -23,6 +24,12 @@ int oldX = 0;
 int xDownCount = 0;
 int xUpCount = 0;
 int X_INCREMENT_THRESHOLD = 30;
+
+int MODE_DRAWING        = 40;
+int MODE_IMAGE_BROWSING = 41;
+int mode = MODE_DRAWING;
+
+TftFeatherWing tftAssembly;
 
 void setup(void) 
 {
@@ -75,7 +82,9 @@ void loop()
        currentcolor = ILI9341_CYAN;
        tft.drawRect(BOXSIZE*3, 0, BOXSIZE, BOXSIZE, ILI9341_WHITE);
        
+       Serial.println("Switching modes to image browsing");
        
+       mode = MODE_IMAGE_BROWSING;
      } 
      else if (p.x < BOXSIZE*5) 
      {
@@ -105,22 +114,39 @@ void loop()
      }
   }
 
+    // check if the touchscreen has a hit on the area that is to the 
+    // right of the color/menu selectors
     if (((p.y-PENRADIUS) > 0) && ((p.y+PENRADIUS) < tft.height())) 
     {
         // the current point is in the 'drawing area'
         
-        tft.fillCircle(p.x, p.y, PENRADIUS, currentcolor);
-        
+        if(mode == MODE_DRAWING)
+        {
+            tft.fillCircle(p.x, p.y, PENRADIUS, currentcolor);
+        }
+
         // check for a swipe in the x direction
-        xSwipeCheck(p.x);
+        boolean swiped = xSwipeCheck(p.x);
+        
+        if(swiped && mode == MODE_IMAGE_BROWSING)
+        {
+            Serial.println("gonna draw an image in image mode");
+            
+            // look here next to create the class:
+            
+            https://learn.adafruit.com/multi-tasking-the-arduino-part-1/a-classy-solution
+            
+            (and sorta) https://www.arduino.cc/en/Hacking/libraryTutorial
+        }
     }    
 }
 
 int const SWIPE_LENGTH = 20;
 int swipePoints[SWIPE_LENGTH];
 
-void xSwipeCheck(int currentX)
+boolean xSwipeCheck(int currentX)
 {
+    boolean swiped = false;
     if(oldX != currentX)
     {
         // the position has changed
@@ -132,6 +158,8 @@ void xSwipeCheck(int currentX)
             
             if(xDownCount >= X_INCREMENT_THRESHOLD)
             {
+                swiped = true;
+                
                 Serial.print("swipe down detected; x=");
                 Serial.println(currentX);
                 
@@ -146,6 +174,8 @@ void xSwipeCheck(int currentX)
             
             if(xUpCount >= X_INCREMENT_THRESHOLD)
             {
+                swiped = true;
+                
                 Serial.print("swipe UP detected; x = ");
                 Serial.println(currentX);
                 
@@ -157,4 +187,6 @@ void xSwipeCheck(int currentX)
     
     // adjust the old X position for the next loop iteration
     oldX = currentX;
+    
+    return swiped;
 }

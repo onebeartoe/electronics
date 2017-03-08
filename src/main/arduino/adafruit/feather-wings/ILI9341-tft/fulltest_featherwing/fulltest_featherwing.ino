@@ -89,7 +89,8 @@ void setup(void) {
   bmpDraw("red.bmp", 0, 0);
 }
 
-void loop() {
+void loop() 
+{
   // Retrieve a point  
   TS_Point p = ts.getPoint();
   
