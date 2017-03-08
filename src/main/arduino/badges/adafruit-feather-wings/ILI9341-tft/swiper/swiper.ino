@@ -1,4 +1,10 @@
 
+/**
+ * Author: Roberto Marquez
+ *         https://www.youtube.com/onebeartoe/videos
+ *         http://electronics.onebeartoe.org/
+ */
+
 #include "license.h"
 
 #include <SPI.h>
