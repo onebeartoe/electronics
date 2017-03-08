@@ -1,5 +1,9 @@
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
+
+/**
+ * Setup the touch screen.
+ */
 Adafruit_STMPE610 ts = Adafruit_STMPE610(STMPE_CS);
 
 // This is calibration data for the raw touch data to the screen coordinates
