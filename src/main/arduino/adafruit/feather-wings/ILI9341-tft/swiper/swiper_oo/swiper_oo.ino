@@ -3,6 +3,10 @@
  * Author: Roberto Marquez
  *         https://www.youtube.com/onebeartoe/videos
  *         http://electronics.onebeartoe.org/
+ * 
+ * My C with classes (C++) was a little rusty, so I used the following as a 
+ * resource on how to create a class for reuse:
+ *      https://learn.adafruit.com/multi-tasking-the-arduino-part-1/a-classy-solution 
  */
 
 #include "license.h"
@@ -15,8 +19,8 @@
 #include <Adafruit_STMPE610.h>
 
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
-#include "TftFeatherWing.c"
 #include "tft.h"
+#include "TftFeatherWing.h"
 
 bool debugStatements = false;
 
@@ -132,11 +136,6 @@ void loop()
         {
             Serial.println("gonna draw an image in image mode");
             
-            // look here next to create the class:
-            
-            https://learn.adafruit.com/multi-tasking-the-arduino-part-1/a-classy-solution
-            
-            (and sorta) https://www.arduino.cc/en/Hacking/libraryTutorial
         }
     }    
 }

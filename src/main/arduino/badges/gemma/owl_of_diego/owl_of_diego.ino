@@ -122,4 +122,3 @@ void loop()
   strip.show();
   delay(colorChangeDelay); 
 }
-

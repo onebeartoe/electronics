@@ -1,5 +1,5 @@
 
-#include "Arduino.h"
+//#include "Arduino.h"
 
 class TftFeatherWing
 {
@@ -13,4 +13,4 @@ class TftFeatherWing
     private:
     
     
-}
+};
