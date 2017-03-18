@@ -18,6 +18,7 @@
 #include <Adafruit_ILI9341.h> // Hardware-specific library
 #include <Adafruit_STMPE610.h>
 
+//#include "../swiper/board-compatibility.h"
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
 #include "tft.h"
 #include "TftFeatherWing.h"
@@ -44,6 +45,15 @@ void setup(void)
     Serial.println("FeatherWing TFT");
 
     setupTft();
+    
+    // SD Card initialization 
+    yield();
+
+    Serial.print("Initializing SD card...");
+    if (!SD.begin(SD_CS)) {
+      Serial.println("failed!");
+    }
+    Serial.println("OK!");
 }
 
 void loop() 
@@ -136,6 +146,8 @@ void loop()
         {
             Serial.println("gonna draw an image in image mode");
             
+//            bmpDraw("red.bmp", 0, 0);
+            bmpDraw("purple.bmp", 0, 0);
         }
     }    
 }
