@@ -1,14 +1,38 @@
 
 /**
  * 
- * For project information, including wiring information, see the project Web
+ * This project is intended for Arduino compatibles with two analog input pins.
+ * 
+ * Alcohol sensor:
+ * 
+ *      https://www.seeedstudio.com/Grove-Alcohol-Sensor-p-764.html
+ *    
+ * 4-Digit 7-Segment LED Display Backpack
+ * 
+ *      https://www.adafruit.com/product/879
+ * 
+ * 4-Digit 7-Segment LED Display (yellow)
+ * 
+ *      https://www.adafruit.com/products/811
+ * 
+ * Lipo Charger & 5V Booster
+ * 
+ *      https://www.adafruit.com/product/1944
+ * 
+ *      charger connector for an Arduino Uno
+ * 
+ *          https://www.adafruit.com/product/2697
+ * 
+ *          
+ * 
+ * For more project information, including wiring information, see the project Web
  * site.
  * 
  *   oneweb.elctoncis/sensors
  * 
  * Parts of this sketch were inspired by the Seeed Studio example code:
  * 
- *    https://www.seeedstudio.com/Grove-Alcohol-Sensor-p-764.html
+ *    
  *    https://github.com/Seeed-Studio/Grove_Alcohol_Sensor
  *    http://wiki.seeedstudio.com/wiki/Grove_-_Alcohol_Sensor
  * 
@@ -93,4 +117,3 @@ void switchOffHeater()
 {
   digitalWrite(HEATER_SEL,HIGH);
 }
-
