@@ -88,7 +88,12 @@ void handleHttpClient()
 // TODO            
             // URL decode the received message
             // like this 
+            //
             //         http://arduino.stackexchange.com/questions/18007/simple-url-decoding/18008#18008?newreg=ee1a83d387c14220befe297697ca7e88
+            //    or 
+            //
+            // get HTTP args from Server object
+            //         https://techtutorialsx.wordpress.com/2016/10/22/esp8266-webserver-getting-query-parameters/
                         
             Serial.println();
             Serial.println("received over HTTP: ");
