@@ -27,7 +27,10 @@ rgb_lcd lcd;
 /**
  * The SERVO_DELAY of 300 give a real jerky almost like a baby chicken.
  * 
- * A value of 15 is from the Arduino examples
+ * A SERVO_DELAY of 150 is pretty responsive.
+ * 
+ * A value of 15 is from the Arduino examples, but does not give the servo enough 
+ * time to get into the angle position.
  * 
  *      http://playground.arduino.cc/ComponentLib/Servo
  */
