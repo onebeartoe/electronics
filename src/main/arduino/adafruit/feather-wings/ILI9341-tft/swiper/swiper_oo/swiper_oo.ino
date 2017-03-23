@@ -104,6 +104,9 @@ void loop()
      {
        currentcolor = ILI9341_BLUE;
        tft.drawRect(BOXSIZE*4, 0, BOXSIZE, BOXSIZE, ILI9341_WHITE);
+       
+       // change back to drawing mode
+       mode = MODE_DRAWING;
      } 
      else if (p.x < BOXSIZE*6) 
      {
@@ -147,7 +150,7 @@ void loop()
             Serial.println("gonna draw an image in image mode");
             
 //            bmpDraw("red.bmp", 0, 0);
-            bmpDraw("purple.bmp", 0, 0);
+            bmpDraw("purple.bmp", 0, BOXSIZE);
         }
     }    
 }
