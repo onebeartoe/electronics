@@ -42,6 +42,26 @@ const char BLANK_LINE[] = "                ";
 
 Servo vineServo;
 
+void loop()
+{
+    int read0 = analogRead(A0);
+    Serial.print("A0: ");
+    Serial.println(read0);
+    
+    if(analog0 != read0)
+    {
+        analog0 = read0;
+        
+        int angle = map(analog0, 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)
+        moveServo(angle);
+        
+        serialOutput(analog0);
+        updateLcdDisplay(analog0);
+    }
+
+    delay(80);
+}
+
 /**
  * This function has to attach and detach the servo each time to avoid the jitter issue seen while also using SerialSoftware.h
 */
@@ -71,25 +91,6 @@ void setup()
     lcd.print("Analog 0:");
     
     lcd.display();
-}
-
-void loop()
-{
-    int read0 = analogRead(A0);
-//    Serial.println(read0);
-    
-    if(analog0 != read0)
-    {
-        analog0 = read0;
-        
-        int angle = map(analog0, 0, 1023, 0, 179);     // scale it to use it with the servo (value between 0 and 180)
-        moveServo(angle);
-        
-        serialOutput(analog0);
-        updateLcdDisplay(analog0);
-    }
-
-    delay(80);
 }
 
 void serialOutput(long analog0)
