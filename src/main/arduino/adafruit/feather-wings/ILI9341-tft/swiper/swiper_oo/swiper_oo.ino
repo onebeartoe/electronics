@@ -25,11 +25,6 @@
 
 bool debugStatements = false;
 
-int oldX = 0;
-int xDownCount = 0;
-int xUpCount = 0;
-int X_INCREMENT_THRESHOLD = 30;
-
 int MODE_DRAWING        = 40;
 int MODE_IMAGE_BROWSING = 41;
 int mode = MODE_DRAWING;
@@ -153,54 +148,4 @@ void loop()
             bmpDraw("purple.bmp", 0, BOXSIZE);
         }
     }    
-}
-
-int const SWIPE_LENGTH = 20;
-int swipePoints[SWIPE_LENGTH];
-
-boolean xSwipeCheck(int currentX)
-{
-    boolean swiped = false;
-    if(oldX != currentX)
-    {
-        // the position has changed
-        
-        if(currentX > oldX)
-        {            
-            // the X point moved in the down direction (from the SD card slot toward the reset button)
-            xDownCount++;
-            
-            if(xDownCount >= X_INCREMENT_THRESHOLD)
-            {
-                swiped = true;
-                
-                Serial.print("swipe down detected; x=");
-                Serial.println(currentX);
-                
-                // reset the down count, now that swipe was detected
-                xDownCount = 0;
-            }
-        }
-        else
-        {            
-            // the X point moved in the up direction (from the reset button toward the SD card slot)
-            xUpCount++;
-            
-            if(xUpCount >= X_INCREMENT_THRESHOLD)
-            {
-                swiped = true;
-                
-                Serial.print("swipe UP detected; x = ");
-                Serial.println(currentX);
-                
-                // reset the up count, now that the swipe was detected
-                xUpCount = 0;
-            }
-        }
-    }
-    
-    // adjust the old X position for the next loop iteration
-    oldX = currentX;
-    
-    return swiped;
 }
