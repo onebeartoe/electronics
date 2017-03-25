@@ -18,9 +18,8 @@
     <name>onebeartoe-electronics-parent</name>
 
     <modules>
-        <module>fiesta-medals</module>
         <module>haptic-motor-controller</module>
-    <module>rpi-rgb-led-matrix-webapp</module>
+        <module>rpi-rgb-led-matrix-webapp</module>
   </modules>    
 
     <repositories>
