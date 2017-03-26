@@ -1,5 +1,11 @@
 
 /**
+ * 
+ * This application kinda just has the drawing area from the Adafruit example 
+ * and adds image loading when the user clicks the cyan square.
+ * 
+ * Return to drawing mode by clicing the blue square.
+ * 
  * Author: Roberto Marquez
  *         https://www.youtube.com/onebeartoe/videos
  *         http://electronics.onebeartoe.org/
@@ -7,6 +13,7 @@
  * My C with classes (C++) was a little rusty, so I used the following as a 
  * resource on how to create a class for reuse:
  *      https://learn.adafruit.com/multi-tasking-the-arduino-part-1/a-classy-solution 
+ *
  */
 
 #include "license.h"
@@ -31,7 +38,7 @@ int mode = MODE_DRAWING;
 
 TftFeatherWing tftAssembly;
 
-void setup(void) 
+void setup(void)
 {
     Serial.begin(115200);
 
