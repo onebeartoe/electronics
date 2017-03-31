@@ -6,6 +6,9 @@
 
 #include <SD.h>
 
+/**
+ * One day, hopefully, Arduino will support relative filesystem paths.
+ */
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
 
 const char* ROOT_DIR = "ALBUM/";
@@ -244,7 +247,9 @@ void next_wif()
 
 void open_cwd()
 {
+//TODO: can the call to SD.begin() be mored back to the setup() function, since the ePaper display is not used in this project?  
   SD.begin(SD_CS); // hack to wake SD up after detach.  returns false but seems to work.
+  
   get_cwd_path(); // copy current dir path to path
   cwd.close();
   cwd = SD.open(path);

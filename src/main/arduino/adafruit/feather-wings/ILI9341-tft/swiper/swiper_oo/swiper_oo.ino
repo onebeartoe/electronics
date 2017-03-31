@@ -27,7 +27,7 @@
 
 //#include "../swiper/board-compatibility.h"
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
-#include "tft.h"
+//#include "tft.h"
 #include "TftFeatherWing.h"
 
 bool debugStatements = false;
@@ -56,6 +56,8 @@ void setup(void)
       Serial.println("failed!");
     }
     Serial.println("OK!");
+    
+    bmpDraw("red.bmp", 0, 0);    
 }
 
 void loop() 
