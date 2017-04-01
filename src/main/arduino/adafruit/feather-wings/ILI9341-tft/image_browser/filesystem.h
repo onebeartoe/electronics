@@ -48,22 +48,24 @@ void display()
 
 void draw_img(File imageFile)
 {
-    int rootLength = strlen(ROOT_DIR);
-    int slashLength = 1;
-    int imageNameLength = strlen( imageFile.name() );
-    int terminaterCharLength = 1;
-    
-    int pathLength = rootLength + slashLength + imageNameLength + terminaterCharLength;
-    char path[pathLength];
-    
-    strcpy(path, ROOT_DIR);            // initialize
-    strcat(path, "/");                 // append
-    strcat(path, imageFile.name() );   // append
+//    int rootLength = strlen(path);
+//    int slashLength = 1;
+//    int imageNameLength = strlen( imageFile.name() );
+//    int terminaterCharLength = 1;
+//    
+//    int pathLength = rootLength + slashLength + imageNameLength + terminaterCharLength;
+//    char bmpPath[pathLength];
+//    
+//    strcpy(bmpPath, path);            // initialize
+//    strcat(path, "/");                 // append
+//    strcat(bmpPath, imageFile.name() );   // append
     
     Serial.print("bmp path: ");
     Serial.println(path);
+//    Serial.println(bmpPath);
     
     bmpDraw(path, 0,0);
+//    bmpDraw(bmpPath, 0,0);
   /*
     int temperature = S5813A.read();
     Serial.print("Temperature = ");
