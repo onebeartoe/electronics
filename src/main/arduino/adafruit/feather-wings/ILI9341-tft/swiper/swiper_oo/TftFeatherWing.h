@@ -252,6 +252,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y) {
     }
   }
 
+  Serial.println("TFW - closing bmpFile");
   bmpFile.close();
   if(!goodBmp) Serial.println(F("BMP format not recognized."));
 }

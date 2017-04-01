@@ -40,7 +40,7 @@ TftFeatherWing tftAssembly;
 
 void setup(void)
 {
-    Serial.begin(115200);
+    Serial.begin(9600);
 
     delay(10);
 
@@ -57,7 +57,7 @@ void setup(void)
     }
     Serial.println("OK!");
     
-    bmpDraw("red.bmp", 0, 0);    
+    bmpDraw("red.bmp", 0, 0);
 }
 
 void loop() 
