@@ -164,7 +164,7 @@ void loop()
         
         if(swiped != SwipeDirection::NO_SWIPE && mode == MODE_IMAGE_BROWSING)
         {
-            Serial.println("gonna draw an image in image mode");
+            Serial.println("drawing in image mode");
             
 //            bmpDraw("red.bmp", 0, 0);
             bmpDraw("purple.bmp", 0, BOXSIZE);
@@ -175,6 +175,8 @@ void loop()
                    || swiped == SwipeDirection::DOWN)
                )
         {
+            Serial.println("swipe direction: " + swiped);
+            
             tft.print(swiped);
             tft.print(" -  ");
         }

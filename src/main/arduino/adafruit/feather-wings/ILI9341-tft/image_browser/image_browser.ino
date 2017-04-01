@@ -22,40 +22,41 @@ void loop()
 {
     bool update_needed = false;
     
-  long current = millis();
+    long current = millis();
 
-  // ser_interact();
-  if(false)//analogRead(MODE_PIN) > 512)
-  {
-//    Serial.println("Mode");
-    prev_wif();
-    update_needed = true;
-  }
+    // ser_interact();
+    if(false)//analogRead(MODE_PIN) > 512)
+    {
+//      Serial.println("Mode");
+        prev_wif();
+        update_needed = true;
+    }
   
     // Retrieve a point  
     TS_Point p = ts.getPoint();
     
     // check the status of the swipe direction
-    boolean swiped = xSwipeCheck(p.x);    
-    if(swiped)//digitalRead(SEL_PIN))
+    SwipeDirection swiped = xSwipeCheck(p.x);
+    
+    if(false)//digitalRead(SEL_PIN))
     {
 //      Serial.println("Sel");
         next_wif();
         update_needed = true;
     }
     
-  if(false)//digitalRead(UP_PIN))
-  {
-//    Serial.println("Up");
-    prev_dir();
-    update_needed = true;
-  }
-  if(false)//digitalRead(DOWN_PIN))
-  {
-//     Serial.println("down");
-    next_dir();
-    update_needed = true;
-  }
+    if(swiped == SwipeDirection::UP)//digitalRead(UP_PIN))
+    {
+        Serial.println("Swipe up detected");
+        prev_dir();
+        update_needed = true;
+    }
+    else if(swiped == SwipeDirection::DOWN)//digitalRead(DOWN_PIN))
+    {
+        Serial.println("Swipe down detected");
+        next_dir();
+        update_needed = true;
+    }
   
   if(update_needed)
   {

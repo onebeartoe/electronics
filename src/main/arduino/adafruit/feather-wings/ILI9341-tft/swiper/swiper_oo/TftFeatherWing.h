@@ -176,6 +176,7 @@ void bmpDraw(char *filename, uint8_t x, uint16_t y) {
   Serial.print(F("Loading image '"));
   Serial.print(filename);
   Serial.println('\'');
+  Serial.println();
 
   // Open requested file on SD card
   if ((bmpFile = SD.open(filename)) == NULL) {
