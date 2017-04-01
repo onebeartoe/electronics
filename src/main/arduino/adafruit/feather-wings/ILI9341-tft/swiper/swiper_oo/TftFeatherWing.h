@@ -123,11 +123,8 @@ SwipeDirection xSwipeCheck(int currentX, int currentY)
             }
         }
     }
-    
-    
-    // check for Y swipe
 
-    
+    // check for Y swipe    
     if(oldY != currentY)
     {
         // the position has changed

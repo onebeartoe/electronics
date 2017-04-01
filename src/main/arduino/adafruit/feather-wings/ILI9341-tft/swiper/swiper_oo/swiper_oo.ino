@@ -124,8 +124,8 @@ void loop()
         currentcolor = ILI9341_MAGENTA;
         tft.drawRect(BOXSIZE*5, 0, BOXSIZE, BOXSIZE, ILI9341_WHITE);
        
-        tft.fillRect(BOXSIZE,BOXSIZE, tft.width(), tft.height(), ILI9341_MAGENTA);
-        tft.setCursor(0, 0);
+        tft.fillRect(0,BOXSIZE, tft.width(), tft.height(), ILI9341_MAGENTA);
+        tft.setCursor(BOXSIZE, BOXSIZE);
         tft.setTextColor(ILI9341_WHITE);  
         tft.setTextSize(1);
      }
@@ -169,18 +169,65 @@ void loop()
 //            bmpDraw("red.bmp", 0, 0);
             bmpDraw("purple.bmp", 0, BOXSIZE);
         }
-        else if(mode == MODE_SWIPE_DEBUGGING
-                && 
-                (swiped == SwipeDirection::UP 
-                   || swiped == SwipeDirection::DOWN
-                   || swiped == SwipeDirection::LEFT
-                   || swiped == SwipeDirection::RIGHT)
-               )
+        else if(mode == MODE_SWIPE_DEBUGGING)
+//                && 
+//                (swiped == SwipeDirection::UP 
+//                   || swiped == SwipeDirection::DOWN
+//                   || swiped == SwipeDirection::LEFT
+//                   || swiped == SwipeDirection::RIGHT)
         {
-            Serial.println("swipe direction: " + swiped);
-            
-            tft.print(swiped);
-            tft.print(" -  ");
-        }
+            switch(swiped)
+            {
+                case UP:
+                {
+                    char * direction = "up";
+                    
+                    printSwipeInfo(direction);
+                    
+                    break;
+                }
+                case DOWN:
+                {
+                    char * direction = "down";
+                    
+                    printSwipeInfo(direction);
+
+                    break;
+                }
+                case LEFT:
+                {
+                    char * direction = "left";
+                    
+                    printSwipeInfo(direction);
+
+                    break;                    
+                }
+                case RIGHT:
+                {
+                    char * direction = "right";
+                    
+                    printSwipeInfo(direction);
+
+                    break;                    
+                }
+                default:
+                {
+                    Serial.println("wha? " + swiped);
+                    
+//                    tft.print("wha? -  ");
+//                    tft.print(swiped);
+//                    tft.println();
+                }
+            }
+        }   
     }    
+}
+
+void printSwipeInfo(char * direction)
+{
+    Serial.print("swipe direction: ");
+    Serial.println(direction);
+
+    tft.print(direction);
+    tft.print(" -  ");
 }
