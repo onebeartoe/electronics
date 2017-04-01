@@ -25,14 +25,19 @@ enum SwipeDirection
 };
 
 int oldX = 0;
+int oldY = 0;
+
 int xDownCount = 0;
-int X_INCREMENT_THRESHOLD = 30;
+int yDownCount = 0;
 
 int xUpCount = 0;
+int yUpCount = 0;
 
+int SWIPE_DELTA_THRESHOLD = 30;
+//int X_INCREMENT_THRESHOLD = 30;
 
 int const SWIPE_LENGTH = 20;
-int swipePoints[SWIPE_LENGTH];
+//int swipePoints[SWIPE_LENGTH];
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
@@ -77,9 +82,10 @@ void setupTft()
     currentcolor = ILI9341_RED;
 }
 
-SwipeDirection xSwipeCheck(int currentX)
+SwipeDirection xSwipeCheck(int currentX, int currentY)
 {
     SwipeDirection swiped = NO_SWIPE;
+    
     if(oldX != currentX)
     {
         // the position has changed
@@ -89,7 +95,7 @@ SwipeDirection xSwipeCheck(int currentX)
             // the X point moved in the down direction (from the SD card slot toward the reset button)
             xDownCount++;
             
-            if(xDownCount >= X_INCREMENT_THRESHOLD)
+            if(xDownCount >= SWIPE_DELTA_THRESHOLD)
             {
                 swiped = SwipeDirection::DOWN;
                 
@@ -105,7 +111,7 @@ SwipeDirection xSwipeCheck(int currentX)
             // the X point moved in the up direction (from the reset button toward the SD card slot)
             xUpCount++;
             
-            if(xUpCount >= X_INCREMENT_THRESHOLD)
+            if(xUpCount >= SWIPE_DELTA_THRESHOLD)
             {
                 swiped = SwipeDirection::UP;
                 
@@ -118,8 +124,54 @@ SwipeDirection xSwipeCheck(int currentX)
         }
     }
     
+    
+    // check for Y swipe
+
+    
+    if(oldY != currentY)
+    {
+        // the position has changed
+        
+        if(currentY > oldY)
+        {
+            // the Y point moved in the right? direction (from the SD card slot toward the reset button)
+            yDownCount++;
+            
+            if(yDownCount >= SWIPE_DELTA_THRESHOLD)
+            {
+                swiped = SwipeDirection::RIGHT;
+                
+                Serial.print("swipe right? detected; y=");
+                Serial.println(currentY);
+                
+                // reset the down count, now that swipe was detected
+                yDownCount = 0;
+            }
+        }
+        else
+        {            
+            // the Y point moved in the left? direction (from the reset button toward the SD card slot)
+            yUpCount++;
+            
+            if(yUpCount >= SWIPE_DELTA_THRESHOLD)
+            {
+                swiped = SwipeDirection::LEFT;
+                
+                Serial.print("swipe left? detected; y = ");
+                Serial.println(currentY);
+                
+                // reset the up count, now that the swipe was detected
+                yUpCount = 0;
+            }
+        }
+    }
+    
+    
+    
+    
     // adjust the old X position for the next loop iteration
     oldX = currentX;
+    oldY = currentY;
     
     return swiped;
 }

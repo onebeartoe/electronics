@@ -159,7 +159,7 @@ void loop()
         }
 
         // check for a swipe in the x direction
-        SwipeDirection swiped = xSwipeCheck(p.x);
+        SwipeDirection swiped = xSwipeCheck(p.x, p.y);
 //        boolean swiped = xSwipeCheck(p.x);
         
         if(swiped != SwipeDirection::NO_SWIPE && mode == MODE_IMAGE_BROWSING)
@@ -172,7 +172,9 @@ void loop()
         else if(mode == MODE_SWIPE_DEBUGGING
                 && 
                 (swiped == SwipeDirection::UP 
-                   || swiped == SwipeDirection::DOWN)
+                   || swiped == SwipeDirection::DOWN
+                   || swiped == SwipeDirection::LEFT
+                   || swiped == SwipeDirection::RIGHT)
                )
         {
             Serial.println("swipe direction: " + swiped);
