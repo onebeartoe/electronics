@@ -22,28 +22,7 @@ void loop()
 {
     bool update_needed = false;
     
-//  int pulse = millis() % (2000 * (2 - ereader.attached));
-//  if(pulse  < 50){
-//    digitalWrite(LED_PIN, HIGH);
-//  }
-//  else if(150 < pulse && pulse < 250){
-//    digitalWrite(LED_PIN, HIGH);
-//  }
-//  else{
-//    digitalWrite(LED_PIN, LOW);
-//  }
-    
   long current = millis();
-  
-//  if ((current - lastWakeTime) > FOCUSTIME && ereader.attached){
-//    digitalWrite(LED_PIN, LOW);
-//    //ereader.spi_detach(); // this call takes .8 seconds to execute!
-//    // Serial.println("ereader detached");
-//  }
-//  else if ((current - lastWakeTime) > AWAKETIME){
-//    //   Serial.println("should sleep");
-//    //goToSleep();
-//  }
 
   // ser_interact();
   if(false)//analogRead(MODE_PIN) > 512)
@@ -52,7 +31,6 @@ void loop()
     prev_wif();
     update_needed = true;
   }
-  
   
     // Retrieve a point  
     TS_Point p = ts.getPoint();
@@ -83,9 +61,7 @@ void loop()
   {
     lastWakeTime = current;
     display();
-  }
-  
-  
+  } 
 }
 
 void setup() 

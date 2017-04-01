@@ -23,76 +23,33 @@ void reset_wif();
 //      unused carry over from Album.ino
 void display()
 {
-//  digitalWrite(LED_PIN, LOW);
-//  ereader.spi_attach();  
   erase_img(wif); // wif is still the old file
-//  wif.close();    // keep close and open calls in the same spot
+// had this commented while working after the refactor  
+  wif.close();    // keep close and open calls in the same spot
+  
   get_wif_path(); // store new wif name in path
   wif = SD.open(path); 
   draw_img(wif); // draw new wif
-//  uint16_t start = millis();
-//   ereader.spi_detach(); // this call takes .8 seconds to execute!
-   
-//  if(true)
-//  {
-//    for(int ii=0; ii<4; ii++)
-//    {
-//      digitalWrite(LED_PIN, ii % 2 == 0 );
-//      if(ii < 3)
-//      {
-//	delay(25);
-//      }
-//    }
-//  }
 }
 
 void draw_img(File imageFile)
-{
-//    int rootLength = strlen(path);
-//    int slashLength = 1;
-//    int imageNameLength = strlen( imageFile.name() );
-//    int terminaterCharLength = 1;
-//    
-//    int pathLength = rootLength + slashLength + imageNameLength + terminaterCharLength;
-//    char bmpPath[pathLength];
-//    
-//    strcpy(bmpPath, path);            // initialize
-//    strcat(path, "/");                 // append
-//    strcat(bmpPath, imageFile.name() );   // append
-    
+{    
     Serial.print("bmp path: ");
     Serial.println(path);
-//    Serial.println(bmpPath);
+
     
     bmpDraw(path, 0,0);
-//    bmpDraw(bmpPath, 0,0);
-  /*
-    int temperature = S5813A.read();
-    Serial.print("Temperature = ");
-    Serial.print(temperature);
-    Serial.println(" Celcius");
-  */
 
-  //*** maybe need to ensure clock is ok for EPD
-
+//TODO: are these still needed?    
   reset_wif();
-//  ereader.EPD->frame_cb(0, SD_reader, EPD_inverse);
-  reset_wif();
-//  ereader.EPD->frame_cb(0, SD_reader, EPD_normal);
-//  ereader.EPD->end();   // power down the EPD panel
-  
+  reset_wif();  
 }
 
 void erase_img(File imgFile)
 {
-
-  //*** maybe need to ensure clock is ok for EPD
-
-//  ereader.EPD->begin(); // power up the EPD panel
+//TODO: are these still needed?    
   reset_wif();
-//  ereader.EPD->frame_cb(0, SD_reader, EPD_compensate);
   reset_wif();
-//  ereader.EPD->frame_cb(0, SD_reader, EPD_white);
 }
 
 /*
@@ -135,10 +92,6 @@ void *get_wif_path()
     char *msg = "FILE NOT FOUND";
     
 //TODO: display the message on the TFT display
-    
-//    ereader.put_ascii(10, 50, msg, true);
-//    ereader.put_ascii(20, 50, path, true);
-//    ereader.show();
 
     Serial.println(msg);
   }
@@ -183,9 +136,7 @@ void next_dir()
   current_dir++;
   current_dir %= n_dir;
   open_cwd();
-  // if(current_wif > n_wif - 1){
   current_wif = 0;
-  //}
 }
 
 /*
@@ -215,9 +166,8 @@ void prev_dir()
     current_dir = n_dir - 1;
   }
   open_cwd();
-  //if(current_wif > n_wif - 1){
+
   current_wif = 0;
-  //}
 }
 
 /*
@@ -247,21 +197,11 @@ void setupSdCard()
   int n = strlen(ROOT_DIR);
   bool done = false;
 
-  // Serial.begin(115200);
-  // Serial.println("WyoLum, LLC 2013");
-  // Serial.println("Buy Open Source Hardware!");
-//  ereader.setup(EPD_2_7); // starts SD
-//  pinMode(UP_PIN, INPUT);
-//  pinMode(DOWN_PIN, INPUT);
-//  pinMode(SEL_PIN, INPUT);
-//  pinMode(MODE_PIN, INPUT);
-//  pinMode(LED_PIN, OUTPUT);
   root = SD.open(ROOT_DIR);
   if(!root)
   {
     Serial.print("Root not found:\n    ");
     Serial.println(ROOT_DIR);
-//    ereader.error(SD_ERROR_CODE);
   }
   get_cwd_path();
 
@@ -281,12 +221,4 @@ void setupSdCard()
   current_dir = -1;
   next_dir();
   display();
-
-//  for(int ii=0; ii < 3; ii++){
-//    digitalWrite(LED_PIN, HIGH);
-//    delay(100);
-//    digitalWrite(LED_PIN, LOW);
-//    delay(100);
-//  }
-  // ereader.spi_detach();    
 }
