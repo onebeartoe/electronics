@@ -25,15 +25,19 @@
 #include <Adafruit_ILI9341.h> // Hardware-specific library
 #include <Adafruit_STMPE610.h>
 
+/**
+ * One day, hopefully, Arduino will support relative filesystem paths.
+ */
 //#include "../swiper/board-compatibility.h"
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
-//#include "tft.h"
+
 #include "TftFeatherWing.h"
 
 bool debugStatements = false;
 
-int MODE_DRAWING        = 40;
-int MODE_IMAGE_BROWSING = 41;
+int MODE_DRAWING         = 40;
+int MODE_IMAGE_BROWSING  = 41;
+int MODE_SWIPE_DEBUGGING = 42;
 int mode = MODE_DRAWING;
 
 TftFeatherWing tftAssembly;
@@ -114,8 +118,16 @@ void loop()
      } 
      else if (p.x < BOXSIZE*6) 
      {
-       currentcolor = ILI9341_MAGENTA;
-       tft.drawRect(BOXSIZE*5, 0, BOXSIZE, BOXSIZE, ILI9341_WHITE);
+        // swipe debugging mode
+         
+        mode = MODE_SWIPE_DEBUGGING;
+        currentcolor = ILI9341_MAGENTA;
+        tft.drawRect(BOXSIZE*5, 0, BOXSIZE, BOXSIZE, ILI9341_WHITE);
+       
+        tft.fillRect(BOXSIZE,BOXSIZE, tft.width(), tft.height(), ILI9341_MAGENTA);
+        tft.setCursor(0, 0);
+        tft.setTextColor(ILI9341_WHITE);  
+        tft.setTextSize(1);
      }
 
      if (oldcolor != currentcolor) 
@@ -147,14 +159,24 @@ void loop()
         }
 
         // check for a swipe in the x direction
-        boolean swiped = xSwipeCheck(p.x);
+        SwipeDirection swiped = xSwipeCheck(p.x);
+//        boolean swiped = xSwipeCheck(p.x);
         
-        if(swiped && mode == MODE_IMAGE_BROWSING)
+        if(swiped != SwipeDirection::NO_SWIPE && mode == MODE_IMAGE_BROWSING)
         {
             Serial.println("gonna draw an image in image mode");
             
 //            bmpDraw("red.bmp", 0, 0);
             bmpDraw("purple.bmp", 0, BOXSIZE);
+        }
+        else if(mode == MODE_SWIPE_DEBUGGING
+                && 
+                (swiped == SwipeDirection::UP 
+                   || swiped == SwipeDirection::DOWN)
+               )
+        {
+            tft.print(swiped);
+            tft.print(" -  ");
         }
     }    
 }

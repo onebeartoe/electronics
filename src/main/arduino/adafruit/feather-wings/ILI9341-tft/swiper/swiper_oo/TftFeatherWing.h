@@ -15,6 +15,15 @@ class TftFeatherWing
     
 };
 
+enum SwipeDirection
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    NO_SWIPE
+};
+
 int oldX = 0;
 int xDownCount = 0;
 int X_INCREMENT_THRESHOLD = 30;
@@ -68,21 +77,21 @@ void setupTft()
     currentcolor = ILI9341_RED;
 }
 
-boolean xSwipeCheck(int currentX)
+SwipeDirection xSwipeCheck(int currentX)
 {
-    boolean swiped = false;
+    SwipeDirection swiped = NO_SWIPE;
     if(oldX != currentX)
     {
         // the position has changed
         
         if(currentX > oldX)
-        {            
+        {
             // the X point moved in the down direction (from the SD card slot toward the reset button)
             xDownCount++;
             
             if(xDownCount >= X_INCREMENT_THRESHOLD)
             {
-                swiped = true;
+                swiped = SwipeDirection::DOWN;
                 
                 Serial.print("swipe down detected; x=");
                 Serial.println(currentX);
@@ -98,7 +107,7 @@ boolean xSwipeCheck(int currentX)
             
             if(xUpCount >= X_INCREMENT_THRESHOLD)
             {
-                swiped = true;
+                swiped = SwipeDirection::UP;
                 
                 Serial.print("swipe UP detected; x = ");
                 Serial.println(currentX);
