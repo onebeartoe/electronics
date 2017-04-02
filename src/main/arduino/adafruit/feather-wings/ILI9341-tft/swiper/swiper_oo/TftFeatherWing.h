@@ -57,6 +57,15 @@ Adafruit_STMPE610 ts = Adafruit_STMPE610(STMPE_CS);
 #define PENRADIUS 3
 int oldcolor, currentcolor;
 
+resetSwipeIncrementCounts()
+{
+    xDownCount = 0;
+    yDownCount = 0;
+
+    xUpCount = 0;
+    yUpCount = 0;    
+}
+
 void setupTft()
 {
     if (!ts.begin()) 
@@ -103,11 +112,11 @@ SwipeDirection xSwipeCheck(int currentX, int currentY)
                 Serial.println(currentX);
                 
                 // reset the down count, now that swipe was detected
-                xDownCount = 0;
+                resetSwipeIncrementCounts();
             }
         }
         else
-        {            
+        {
             // the X point moved in the up direction (from the reset button toward the SD card slot)
             xUpCount++;
             
@@ -119,7 +128,7 @@ SwipeDirection xSwipeCheck(int currentX, int currentY)
                 Serial.println(currentX);
                 
                 // reset the up count, now that the swipe was detected
-                xUpCount = 0;
+                resetSwipeIncrementCounts();
             }
         }
     }
@@ -142,7 +151,7 @@ SwipeDirection xSwipeCheck(int currentX, int currentY)
                 Serial.println(currentY);
                 
                 // reset the down count, now that swipe was detected
-                yDownCount = 0;
+                resetSwipeIncrementCounts();
             }
         }
         else
@@ -158,13 +167,10 @@ SwipeDirection xSwipeCheck(int currentX, int currentY)
                 Serial.println(currentY);
                 
                 // reset the up count, now that the swipe was detected
-                yUpCount = 0;
+                resetSwipeIncrementCounts();
             }
         }
     }
-    
-    
-    
     
     // adjust the old X position for the next loop iteration
     oldX = currentX;

@@ -136,6 +136,7 @@ void next_dir()
   current_dir++;
   current_dir %= n_dir;
   open_cwd();
+  
   current_wif = 0;
 }
 
@@ -150,7 +151,7 @@ void next_wif()
 
 void open_cwd()
 {
-//TODO: can the call to SD.begin() be mored back to the setup() function, since the ePaper display is not used in this project?  
+//TODO: can the call to SD.begin() be moved back to the setup() function, since the ePaper display is not used in this project?  
   SD.begin(SD_CS); // hack to wake SD up after detach.  returns false but seems to work.
   
   get_cwd_path(); // copy current dir path to path
