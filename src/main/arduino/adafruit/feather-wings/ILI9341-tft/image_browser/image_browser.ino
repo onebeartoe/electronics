@@ -28,7 +28,7 @@ void loop()
     TS_Point p = ts.getPoint();
     
     // check the status of the swipe direction
-    SwipeDirection swiped = xSwipeCheck(p.x, p.y);
+    SwipeDirection swiped = tftWing.xSwipeCheck(p.x, p.y);
 
     if(swiped == SwipeDirection::LEFT)
     {

@@ -1,6 +1,16 @@
 
 #include <SD.h>
 
+// This is calibration data for the raw touch data to the screen coordinates
+#define TS_MINX 3800
+#define TS_MAXX 100
+#define TS_MINY 100
+#define TS_MAXY 3750
+
+// Size of the color selection boxes and the paintbrush size
+#define BOXSIZE 40
+#define PENRADIUS 3
+
 enum SwipeDirection
 {
     UP,
@@ -130,14 +140,7 @@ class TftFeatherWing
     }
 };
 
-
-
-
-//int X_INCREMENT_THRESHOLD = 30;
-
-int const SWIPE_LENGTH = 20;
-//int swipePoints[SWIPE_LENGTH];
-
+//int const SWIPE_LENGTH = 20;
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 /**
@@ -145,18 +148,9 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
  */
 Adafruit_STMPE610 ts = Adafruit_STMPE610(STMPE_CS);
 
-// This is calibration data for the raw touch data to the screen coordinates
-#define TS_MINX 3800
-#define TS_MAXX 100
-#define TS_MINY 100
-#define TS_MAXY 3750
 
-// Size of the color selection boxes and the paintbrush size
-#define BOXSIZE 40
-#define PENRADIUS 3
-int oldcolor, currentcolor;
-
-
+int oldcolor;
+int currentcolor;
 
 void setupTft()
 {
@@ -203,7 +197,7 @@ uint32_t read32(File &f) {
   return result;
 }
 
-
+/**
 // This function opens a Windows Bitmap (BMP) file and
 // displays it at the given coordinates.  It's sped up
 // by reading many pixels worth of data at a time
@@ -211,10 +205,10 @@ uint32_t read32(File &f) {
 // size takes more of the Arduino's precious RAM but
 // makes loading a little faster.  20 pixels seems a
 // good balance.
-
+*/
 #define BUFFPIXEL 20
-
-void bmpDraw(char *filename, uint8_t x, uint16_t y) {
+void bmpDraw(char *filename, uint8_t x, uint16_t y) 
+{
 
   File     bmpFile;
   int      bmpWidth, bmpHeight;   // W+H in pixels
