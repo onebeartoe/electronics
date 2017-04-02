@@ -40,7 +40,7 @@ int MODE_IMAGE_BROWSING  = 41;
 int MODE_SWIPE_DEBUGGING = 42;
 int mode = MODE_DRAWING;
 
-TftFeatherWing tftAssembly;
+TftFeatherWing tftWing;
 
 void setup(void)
 {
@@ -119,6 +119,13 @@ void loop()
      else if (p.x < BOXSIZE*6) 
      {
         // swipe debugging mode
+  
+/**
+ * A rotation of 3 put test facing the same direction 
+ * as the actual swipes, but caused other drawing coordinates issues.
+ * 
+ *      tft.setRotation(3);//21
+ */         
          
         mode = MODE_SWIPE_DEBUGGING;
         currentcolor = ILI9341_MAGENTA;
@@ -159,22 +166,15 @@ void loop()
         }
 
         // check for a swipe in the x direction
-        SwipeDirection swiped = xSwipeCheck(p.x, p.y);
-//        boolean swiped = xSwipeCheck(p.x);
+        SwipeDirection swiped = tftWing.xSwipeCheck(p.x, p.y);
         
         if(swiped != SwipeDirection::NO_SWIPE && mode == MODE_IMAGE_BROWSING)
         {
             Serial.println("drawing in image mode");
-            
-//            bmpDraw("red.bmp", 0, 0);
+
             bmpDraw("purple.bmp", 0, BOXSIZE);
         }
         else if(mode == MODE_SWIPE_DEBUGGING)
-//                && 
-//                (swiped == SwipeDirection::UP 
-//                   || swiped == SwipeDirection::DOWN
-//                   || swiped == SwipeDirection::LEFT
-//                   || swiped == SwipeDirection::RIGHT)
         {
             switch(swiped)
             {
