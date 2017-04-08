@@ -9,7 +9,15 @@
 #include <Adafruit_STMPE610.h>
 
 /**
+ * NOTE:  These next includes are actually in this same Github project!!!!
+ * 
+ * But they are included as hardcoded paths to overcome the 
+ * Arduino IDE's pipeline not supporting relative include paths (really they are mainly for reuse).
+ * 
  * One day, hopefully, Arduino will support relative filesystem paths.
+ * 
+ * Until then, replace "C:\home\owner\versioning\github\electronics" below with the path
+ * to where you cloned this Github project.
  */
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper\board-compatibility.h"
 #include "C:\home\owner\versioning\github\electronics\src\main\arduino\adafruit\feather-wings\ILI9341-tft\swiper\swiper_oo\TftFeatherWing.h"
@@ -75,6 +83,6 @@ void setup()
     setupSdCard();
  
     setupTft();
-    bmpDraw("ALBUM/B/A.bmp", 0, 0);
-//    bmpDraw("red.bmp", 0, 0);
+    // load the first image on the SD card
+    bmpDraw("ALBUM/A/A.bmp", 0, 0);
 }
