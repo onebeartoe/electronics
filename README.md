@@ -3,6 +3,14 @@ This is an open source repository for http://electronics.onebeartoe.org/ project
 
 Related Videos:
 
+
+TFT Display as Name Badge with Contact Information
+
+[![TFT Display as Name Badge with Contact Information](https://img.youtube.com/vi/27rReLsb9Ig/0.jpg)](https://www.youtube.com/watch?v=27rReLsb9Ig)
+
+
+<hr>
+
 Audio Input for the IS31FL3731
 
 [![Audio Input for the IS31FL3731](https://img.youtube.com/vi/4X1-fkl44NU/0.jpg)](https://www.youtube.com/watch?v=4X1-fkl44NU)
