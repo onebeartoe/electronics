@@ -39,6 +39,8 @@ void draw_img(File imageFile)
 
     
     bmpDraw(path, 0,0);
+    tft.setCursor(5,5);
+    tft.print(path);
 
 //TODO: are these still needed?    
   reset_wif();

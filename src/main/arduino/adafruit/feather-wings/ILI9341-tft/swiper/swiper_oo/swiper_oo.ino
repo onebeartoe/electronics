@@ -213,7 +213,8 @@ void loop()
                 default:
                 {
                     Serial.println("wha? " + swiped);
-                    
+
+// the tft was blasted with this print statements                    
 //                    tft.print("wha? -  ");
 //                    tft.print(swiped);
 //                    tft.println();
