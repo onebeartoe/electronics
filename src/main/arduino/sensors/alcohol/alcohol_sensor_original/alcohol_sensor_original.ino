@@ -5,7 +5,10 @@
  * 
  * Alcohol sensor:
  * 
+ *      SeeedStudio Grove Alcohol Sensor v1.1
+ *      
  *      https://www.seeedstudio.com/Grove-Alcohol-Sensor-p-764.html
+ * 
  *    
  * 4-Digit 7-Segment LED Display Backpack
  * 
