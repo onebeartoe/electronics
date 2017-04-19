@@ -145,23 +145,20 @@ public class RaspberryPiRgbLedMatrix implements Serializable
      *      ./led-image-viewer --led-no-hardware-pulse --led-gpio-mapping=adafruit-hat -l200 ../../bubbles.gif
      */
     public void startAnimationCommand(String gifName) throws IOException, InterruptedException
-    {
-//        int loopCount = 20;
-//        String loopParameter = "-l" + loopCount;
-        
-//        UserOptions options = new UserOptions();
-//        options.loopParameter = loopForeverParameter;
-        
+    {        
         String gifPath = animationsPath + gifName;
                 
         startLedImageViewerCommand(gifPath);
-//        startLedImageViewerCommand(options, gifPath);
-        
+
         logger.log(Level.INFO, "animation process wait over");
     }
     
+    /**
+     * The image would only stay on for 1.5 seconds without the -f flag.
+     * @param gifPath
+     * @throws IOException 
+     */
     private void startLedImageViewerCommand(String gifPath) throws IOException
-//    private void startLedImageViewerCommand(UserOptions userOptions, String gifPath) throws IOException
     {
         String executable = rpiRgbLedMatrixHome + "/utils/led-image-viewer";
         
@@ -184,7 +181,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
 
         commandProcess = builder.start();
 
-        // do not wait for the process to finish, so as to keep the Web UI responsive        
+        // do not waitFor() the process to finish, so as to keep the Web UI responsive        
 //        logger.log(Level.INFO, "waiting for animation process");
 //        int waitValue = commandProcess.waitFor();
     }
@@ -207,16 +204,39 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         
         List<String> command = new ArrayList();
         command.add(executable);
-        command.addAll( Arrays.asList(commandLineFlags) );
+        logger.log(Level.INFO, "commandLineFlags.length: " + commandLineFlags.length);
+        if(commandLineFlags.length > 0)
+        {
+            if(commandLineFlags.length == 1 && commandLineFlags[0].trim().equals("") )
+            {
+                logger.log(Level.INFO, "a single blank command line flag exists but will not be used");            
+            }
+            else
+            {
+                command.addAll( Arrays.asList(commandLineFlags) );
+                
+                StringBuilder cliFlags = new StringBuilder();
+                Arrays.stream(commandLineFlags)
+                                    .forEach(s -> cliFlags.append(s + "< >") );
+                
+                logger.log(Level.INFO, "command line flags: " + cliFlags);            
+            }
+        }
+        else
+        {
+            logger.log(Level.INFO, "no commandline flags are present");
+        }
+
+//        command.add("-t");
         command.add("--text");
         command.add(text);
         
-        String debugList = "";
+        StringBuilder debugList = new StringBuilder();
         for(String s : command)
         {
-            debugList += s + " ";
+            debugList.append(s + " ");
         }
-        logger.log(Level.INFO, "command list: >" + debugList + "<");
+        logger.log(Level.INFO, "command list: >" + debugList.toString() + "<");
         
         logger.log(Level.INFO, "starting scrolling text process...");
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -226,19 +246,39 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         builder.directory(workingDir);
         
         commandProcess = builder.start();
+        
+        logger.log(Level.INFO, "after process start, builder directory is: " + builder.directory() );
+        
+        InputStream errorStream = commandProcess.getErrorStream();
+        InputStreamReader errorIsr = new InputStreamReader(errorStream);
+        final BufferedReader stderrReader = new BufferedReader(errorIsr);
+        System.out.println("<stderr>");
+        String line = null;
+        while ((line = stderrReader.readLine()) != null) 
+        {
+            System.out.println(line);
+        }
+        stderrReader.close();
+        System.out.println("</stderr>");
+        
+        InputStream stdout = commandProcess.getInputStream();
+        InputStreamReader stdoutIsr = new InputStreamReader(stdout);
+        final BufferedReader stdoutBr = new BufferedReader(stdoutIsr);
+        String stdLine = null;
+        System.out.println("<stdout>");
+        while( (stdLine = stdoutBr.readLine()) != null)
+        {
+            System.out.println(stdLine);
+        }
+        stdoutBr.close();
+        System.out.println("</stdout>");
     }
     
     public void startShowStillImageCommand(String stillImageName) throws IOException
     {        
-//        UserOptions options = new UserOptions();        
-        
-        // The image would only stay on for 1.5 seconds without the  -f flag.
-//        options.loopParameter = loopForeverParameter;
-        
         String imagePath = stillImagesPath + stillImageName;
                 
         startLedImageViewerCommand(imagePath);
-//        startLedImageViewerCommand(options, imagePath);
         
         logger.log(Level.INFO, "still image process wait over for: " + imagePath);        
     }
@@ -257,13 +297,4 @@ public class RaspberryPiRgbLedMatrix implements Serializable
             commandProcess.waitFor();
         }
     }
-    
-    /**
-     * This class represents the command line options that the led-image-viewer 
-     * program supports.
-     */
-//    private class UserOptions
-//    {
-//        String loopParameter = "";
-//    }
 }

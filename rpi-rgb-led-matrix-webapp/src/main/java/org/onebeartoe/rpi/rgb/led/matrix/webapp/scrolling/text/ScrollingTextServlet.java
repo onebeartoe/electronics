@@ -45,12 +45,15 @@ public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
         {
             saveMessages = "An error occured while updating the scrolling text: "
                             + e.getMessage();
+            
             logger.log(Level.SEVERE, saveMessages, e);
+            
+            e.printStackTrace();
         }
-        
+
+        // save the updated scrolling text configuration
         File outfile = RaspberryPiRgbLedMatrixServlet.configFile;
         ObjectSaver.encodeObject(ledMatrix, outfile);
-        
         
         request.setAttribute("responseMessages", saveMessages);
         doResponse(request, response);

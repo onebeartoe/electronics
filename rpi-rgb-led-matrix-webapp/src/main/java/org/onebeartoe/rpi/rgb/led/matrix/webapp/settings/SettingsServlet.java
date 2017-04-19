@@ -46,7 +46,7 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         }
         String[] flags = s.split("\\s+");
         ledMatrix.setCommandLineFlags(flags);
-        
+
         File outfile = RaspberryPiRgbLedMatrixServlet.configFile;
         ObjectSaver.encodeObject(ledMatrix, outfile);
         
@@ -54,7 +54,7 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         request.setAttribute("saveMessages", saveMessages);
         doResponse(request, response);
     }
-    
+
     private void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         request.setAttribute("ledMatrix", ledMatrix);

@@ -23,4 +23,4 @@
             <a href="<%= request.getContextPath() %>/settings/">Settings</a>
         </div>
         
-        <h3>Raspberry Pi RGB LED Matrix ploop</h3>
+        <h3>Raspberry Pi RGB LED Matrix</h3>
