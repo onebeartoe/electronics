@@ -249,29 +249,29 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         
         logger.log(Level.INFO, "after process start, builder directory is: " + builder.directory() );
         
-        InputStream errorStream = commandProcess.getErrorStream();
-        InputStreamReader errorIsr = new InputStreamReader(errorStream);
-        final BufferedReader stderrReader = new BufferedReader(errorIsr);
-        System.out.println("<stderr>");
-        String line = null;
-        while ((line = stderrReader.readLine()) != null) 
-        {
-            System.out.println(line);
-        }
-        stderrReader.close();
-        System.out.println("</stderr>");
-        
-        InputStream stdout = commandProcess.getInputStream();
-        InputStreamReader stdoutIsr = new InputStreamReader(stdout);
-        final BufferedReader stdoutBr = new BufferedReader(stdoutIsr);
-        String stdLine = null;
-        System.out.println("<stdout>");
-        while( (stdLine = stdoutBr.readLine()) != null)
-        {
-            System.out.println(stdLine);
-        }
-        stdoutBr.close();
-        System.out.println("</stdout>");
+//        InputStream errorStream = commandProcess.getErrorStream();
+//        InputStreamReader errorIsr = new InputStreamReader(errorStream);
+//        final BufferedReader stderrReader = new BufferedReader(errorIsr);
+//        System.out.println("<stderr>");
+//        String line = null;
+//        while ((line = stderrReader.readLine()) != null) 
+//        {
+//            System.out.println(line);
+//        }
+//        stderrReader.close();
+//        System.out.println("</stderr>");
+//        
+//        InputStream stdout = commandProcess.getInputStream();
+//        InputStreamReader stdoutIsr = new InputStreamReader(stdout);
+//        final BufferedReader stdoutBr = new BufferedReader(stdoutIsr);
+//        String stdLine = null;
+//        System.out.println("<stdout>");
+//        while( (stdLine = stdoutBr.readLine()) != null)
+//        {
+//            System.out.println(stdLine);
+//        }
+//        stdoutBr.close();
+//        System.out.println("</stdout>");
     }
     
     public void startShowStillImageCommand(String stillImageName) throws IOException
