@@ -1,7 +1,7 @@
 
 /**
  * 
- * This project is intended for Arduino compatibles with two analog input pins.
+ * This project is intended for Adafruit 5V Trinket (Select USBtinyISP from the Tools->Programmer)
  * 
  * Alcohol sensor:
  * 
@@ -14,6 +14,12 @@
  * 4-Digit 7-Segment LED Display (yellow)
  * 
  *      https://www.adafruit.com/products/811
+ * 
+ * Adafrut 5V Trinket
+ * 
+ *     From Adafruit on Analog pins: 
+ * 
+ *          "Note the numbering of analog pins: Pin 2 is Analog 1, Pin 3 is Analog 3, Pin 4 is Analog 2. For the Uno, the terms A1, A2, and A3 are mapped for you. For ATtiny85's, they are not. So for the pinMode calls, use the Pin number (stenciled on Trinket), for analogRead, use the analog number."
  * 
  * Lipo Charger & 5V Booster
  * 
@@ -46,19 +52,14 @@
 
 Adafruit_7segment matrix = Adafruit_7segment();
 
-/**
- * macro definitions of Alcohol Sensor's pins
- * These next definitions of the ALCOHOL_DAT and HEATER_SEL
- * pins are for the Arduino Uno and Grove Base Shield
- */
-//#define ALCOHOL_DAT A0
-//#define HEATER_SEL  A1
 /*
  * These next definitions of the ALCOHOL_DAT and HEATER_SEL
  * pins are for the Adafruit Trinket
  */
-#define ALCOHOL_DAT A2
-#define HEATER_SEL  A3
+#define ALCOHOL_DAT_ANALOG_READ 2
+#define ALCOHOL_DAT_PIN 4   
+//#define HEATER_SEL  A3
+#define HEATER_SEL_PIN 3
 
 /** 
  * 
@@ -85,7 +86,7 @@ void setup()
 
 void loop()
 {
-    sensorValue = analogRead(ALCOHOL_DAT); //read the analog value
+    sensorValue = analogRead(ALCOHOL_DAT_ANALOG_READ); //read the analog value
   
     int value = 1023 - sensorValue;
   
@@ -105,9 +106,9 @@ void loop()
 
 void pinsInit()
 {
-  pinMode(HEATER_SEL,OUTPUT);// set the HEATER_SEL as digital output.
+  pinMode(HEATER_SEL_PIN,OUTPUT);// set the HEATER_SEL as digital output.
   switchOffHeater(); //when HEATER_SEL is set, heater is switched off.
-  pinMode(ALCOHOL_DAT,INPUT);
+  pinMode(ALCOHOL_DAT_PIN,INPUT);
 }
 
 void setupLcdDisplay()
@@ -118,10 +119,10 @@ void setupLcdDisplay()
 /*switch on the heater of Alcohol sensor*/
 void switchOnHeater()
 {
-  digitalWrite(HEATER_SEL,LOW);
+  digitalWrite(HEATER_SEL_PIN, LOW);
 }
 /*switch off the heater of Alcohol sensor*/
 void switchOffHeater()
 {
-  digitalWrite(HEATER_SEL,HIGH);
+  digitalWrite(HEATER_SEL_PIN, HIGH);
 }
