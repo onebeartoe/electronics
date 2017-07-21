@@ -1,4 +1,7 @@
 
+//NOTE: there are more scrolling text examples under:
+//             src\main\arduino\badges\scrolling-text\feather-wings\IS31FL3731
+
 /**
  * This source works with the following products:
  * 
