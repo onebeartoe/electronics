@@ -40,6 +40,7 @@ int iterationLimit = -200;
 
 //String message = "Hola me llamo Roberto";
 String message = "Go Spurs Go!    ";
+//String message = "US12190 - Merge New 17.2 Incremental Security Scans";
 
 void loop() 
 {
