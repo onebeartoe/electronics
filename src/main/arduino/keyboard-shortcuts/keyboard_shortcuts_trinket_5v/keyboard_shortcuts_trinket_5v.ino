@@ -16,18 +16,25 @@
 
 #include "relative-path-includes.h"
 
-#define PIN_BUTTON_CAPITAL_A 0
-#define PIN_BUTTON_STRING    2
+#define PIN_BUTTON_A 0
+#define PIN_BUTTON_B 2
+
+int buttonCount = 2;
+int buttonPins[] = {PIN_BUTTON_A,
+					PIN_BUTTON_B};
+
+NetbeansIdeShortcuts ideShortcuts = NetbeansIdeShortcuts();
+//IdeShortcuts ideShortcuts = NetbeansIdeShortcuts();
 
 void setup()
 {
   // button pins as inputs
-  pinMode(PIN_BUTTON_CAPITAL_A, INPUT);
-  pinMode(PIN_BUTTON_STRING, INPUT);
+  pinMode(PIN_BUTTON_A, INPUT);
+  pinMode(PIN_BUTTON_B, INPUT);
 
   // setting input pins to high means turning on internal pull-up resistors
-  digitalWrite(PIN_BUTTON_CAPITAL_A, HIGH);
-  digitalWrite(PIN_BUTTON_STRING, HIGH);
+  digitalWrite(PIN_BUTTON_A, HIGH);
+  digitalWrite(PIN_BUTTON_B, HIGH);
   // remember, the buttons are active-low, they read LOW when they are not pressed
 
   // start USB stuff
@@ -36,37 +43,30 @@ void setup()
 
 void loop()
 {
-  // the poll function must be called at least once every 10 ms
-  // or cause a keystroke
-  // if it is not, then the computer may think that the device
-  // has stopped working, and give errors
-  TrinketKeyboard.poll();
+	// the poll function must be called at least once every 10 ms
+	// or cause a keystroke
+	// if it is not, then the computer may think that the device
+	// has stopped working, and give errors
+	TrinketKeyboard.poll();
 
-  if (digitalRead(PIN_BUTTON_CAPITAL_A) == LOW)
-  {
-    // this should type a capital A
-    TrinketKeyboard.pressKey(KEYCODE_MOD_LEFT_SHIFT, KEYCODE_A);
+	pollButtonPins();
+}
 
-    // press 5 if it is setting
-    if(keyboardShortcutssss == 5)
-    {
-      TrinketKeyboard.pressKey(NO_MODIFIER, KEYCODE_5);
+void pollButtonPins()
+{
+	for(int i=0; i<buttonCount; i++)
+	{
+		int pinState = digitalRead(buttonPins[i]);
+
+		if(pinState == LOW)
+	    {
+			ideShortcuts.openType();
+
+	      	// this releases the key (otherwise it is held down!)
+	      	TrinketKeyboard.pressKey(0, 0);
+
+	  		// debounce a little
+	      	delay(1000);
+		}
     }
-    else
-    {
-      // alt + shift AO+ o
-      TrinketKeyboard.pressKey(KEYCODE_RIGHT_ALT, KEYCODE_RIGHT_SHIFT, KEYCODE_O);
-    }
-
-    // this releases the key (otherwise it is held down!)
-    TrinketKeyboard.pressKey(0, 0);
-
-    delay(1000);
-  }
-
-  if (digitalRead(PIN_BUTTON_STRING) == LOW)
-  {
-    // type out a string using the Print class
-    TrinketKeyboard.print("Hello World!");
-  }
 }
