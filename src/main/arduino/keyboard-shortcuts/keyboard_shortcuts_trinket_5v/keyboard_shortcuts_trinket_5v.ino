@@ -16,25 +16,6 @@
 
 #include "relative-path-includes.h"
 
-//-------------------------------------------------
-// Arduino #include relative paths; pound include baby!
-//
-// https://arduino.stackexchange.com/a/9575/25692
-//
-// Define your project's root folder:
-#define PROJECT_ROOT C:\home\owner\versioning\github\electronics\src\main\arduino\keyboard-shortcuts\keyboard-shortcuts\
-
-//Define a relative-to-absolute macro 'transformation' :
-#define TO_STRING(s) #s
-#define ABSOLUTE_PATH(root, relative_path) TO_STRING(root\relative_path)
-#define RELATIVE_PATH(library) ABSOLUTE_PATH(PROJECT_ROOT, library)
-
-// Include your files using the relative path :
-#include RELATIVE_PATH(KeyboardShortcuts.h)
-//#include RELATIVE_PATH(another\file\relative\path.h)
-//-------------------------------------------------
-
-
 #define PIN_BUTTON_CAPITAL_A 0
 #define PIN_BUTTON_STRING    2
 
