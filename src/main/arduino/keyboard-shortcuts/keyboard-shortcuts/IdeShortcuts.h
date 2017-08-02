@@ -13,16 +13,17 @@
 
  		https://www.tutorialspoint.com/cplusplus/cpp_polymorphism.htm
 
-		
+
  */
 class IdeShortcuts
 {
 	public:
 
-//		KeyboardShortcut openResource();
+		virtual
+		KeyboardShortcut openResource();
 
-//		virtual
-		KeyboardShortcut openType();
+		virtual
+		KeyboardShortcut openType();// = 0;
 
 //		KeyboardShortcut findInProjects();
 

@@ -16,26 +16,37 @@
 
 #include "relative-path-includes.h"
 
-#define PIN_BUTTON_A 0
-#define PIN_BUTTON_B 2
+#define PIN_BUTTON_A_OPEN_TYPE 0
+#define PIN_BUTTON_A_OPEN_RESOURCE 2
 
-int buttonCount = 2;
-int buttonPins[] = {PIN_BUTTON_A,
-					PIN_BUTTON_B};
+const int buttonCount = 1;
+int buttonPins[] = {PIN_BUTTON_A_OPEN_RESOURCE,
+					PIN_BUTTON_A_OPEN_TYPE};
 
-NetbeansIdeShortcuts ideShortcuts = NetbeansIdeShortcuts();
-//IdeShortcuts ideShortcuts = NetbeansIdeShortcuts();
+NetbeansIdeShortcuts netbeansShortcuts = NetbeansIdeShortcuts();
+
+/**
+ * Using the pionter allows for the 'polymorhism' as described in this
+ * stackoverflow answer:
+ *
+ *       https://stackoverflow.com/a/33123456/803890
+ */
+IdeShortcuts* ideShortcuts[1] = {&netbeansShortcuts};
+
+int ideIndex = 0;
 
 void setup()
 {
-  // button pins as inputs
-  pinMode(PIN_BUTTON_A, INPUT);
-  pinMode(PIN_BUTTON_B, INPUT);
+	for(int i=0; i++; i<buttonCount)
+	{
+		// button pins as inputs
+	    pinMode(buttonPins[i], INPUT);
 
-  // setting input pins to high means turning on internal pull-up resistors
-  digitalWrite(PIN_BUTTON_A, HIGH);
-  digitalWrite(PIN_BUTTON_B, HIGH);
-  // remember, the buttons are active-low, they read LOW when they are not pressed
+	    // setting input pins to high means turning on internal pull-up resistors
+	    digitalWrite(buttonPins[i], HIGH);
+
+	    // remember, the buttons are active-low, they read LOW when they are not pressed
+	}
 
   // start USB stuff
   TrinketKeyboard.begin();
@@ -58,15 +69,42 @@ void pollButtonPins()
 	{
 		int pinState = digitalRead(buttonPins[i]);
 
+//		if(pinState == HIGH)
 		if(pinState == LOW)
 	    {
-			ideShortcuts.openType();
+			pressKeysForPin(i);
 
 	      	// this releases the key (otherwise it is held down!)
 	      	TrinketKeyboard.pressKey(0, 0);
 
 	  		// debounce a little
-	      	delay(1000);
+	      	delay(50);
 		}
     }
+}
+
+void pressKeysForPin(int shorcutIndex)
+{
+
+	switch(shorcutIndex)
+	{
+		case 0:
+	  	{
+
+//			 ideShortcuts[ideIndex]->openType();
+			 ideShortcuts[ideIndex]->openResource();
+
+         	break;
+	 	}
+      	case 1:
+		{
+         	ideShortcuts[ideIndex]->openResource();
+//         	ideShortcuts[ideIndex].openResource();
+         	break;
+	 	}
+      	default :
+		{
+			// do nothing
+	 	}
+	}
 }

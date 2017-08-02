@@ -3,9 +3,13 @@
 
 class NetbeansIdeShortcuts : public IdeShortcuts //, public OtherExtendedClass
 {
+	private:
+
+		KeyboardShortcut openResourceShortcut;
+
 	public:
 
-//		virtual
+		virtual
 		KeyboardShortcut openType()
 		{
 			KeyboardShortcut openType;
@@ -17,5 +21,14 @@ class NetbeansIdeShortcuts : public IdeShortcuts //, public OtherExtendedClass
 			TrinketKeyboard.pressKey(KEYCODE_RIGHT_ALT, KEYCODE_RIGHT_SHIFT, KEYCODE_O);
 
 			return openType;
+		}
+
+		virtual KeyboardShortcut openResource()
+		{
+//			KeyboardShortcut openResource;
+
+TrinketKeyboard.print("Hello World!");
+
+			return openResourceShortcut;
 		}
 };

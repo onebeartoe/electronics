@@ -1,5 +1,0 @@
-
-class NetbeansOpenTypeShortcut : public KeyboardShortcut
-{
-
-};
