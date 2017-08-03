@@ -40,23 +40,31 @@ void loop()
   // has stopped working, and give errors
   TrinketKeyboard.poll();
 
-  if (digitalRead(PIN_BUTTON_CAPITAL_A) == LOW)
-  {
-    // this should type a capital A
-//    TrinketKeyboard.pressKey(KEYCODE_MOD_LEFT_SHIFT, KEYCODE_A);
+	pollButtons();
+}
 
-    // Press alt + shift + o
-    TrinketKeyboard.pressKey(KEYCODE_RIGHT_ALT, KEYCODE_RIGHT_SHIFT, KEYCODE_O);
+void pollButtons()
+{
+	if (digitalRead(PIN_BUTTON_CAPITAL_A) == LOW)
+    {
+      // this should type a capital A
+  //    TrinketKeyboard.pressKey(KEYCODE_MOD_LEFT_SHIFT, KEYCODE_A);
 
-    // this releases the key (otherwise it is held down!)
-    TrinketKeyboard.pressKey(0, 0);
+      // Press alt + shift + o (Open Resource in Netbeans)
+//      TrinketKeyboard.pressKey(KEYCODE_RIGHT_ALT, KEYCODE_RIGHT_SHIFT, KEYCODE_O);
 
-    delay(1000);
-  }
+      // Press Ctrl + a (select all)
+      TrinketKeyboard.pressKey(KEYCODE_MOD_LEFT_CONTROL, KEYCODE_A);
 
-  if (digitalRead(PIN_BUTTON_STRING) == LOW)
-  {
-    // type out a string using the Print class
-    TrinketKeyboard.print("Hello World!");
-  }
+      // this releases the key (otherwise it is held down!)
+      TrinketKeyboard.pressKey(0, 0);
+
+      delay(1000);
+    }
+
+    if (digitalRead(PIN_BUTTON_STRING) == LOW)
+    {
+      // type out a string using the Print class
+      TrinketKeyboard.print("Hello World!");
+    }
 }

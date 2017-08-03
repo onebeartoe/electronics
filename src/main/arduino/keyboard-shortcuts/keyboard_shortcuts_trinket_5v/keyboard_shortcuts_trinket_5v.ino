@@ -1,5 +1,9 @@
 
 /**
+ * This is an obect oriented approach to wring a keyboard application for Arduino.
+ */
+
+/**
  * I tried this but it didnto work on an installed library in the Arduino IDE.
  *
  *      https://learn.adafruit.com/trinket-usb-keyboard/overview
@@ -19,7 +23,7 @@
 #define PIN_BUTTON_A_OPEN_TYPE 0
 #define PIN_BUTTON_A_OPEN_RESOURCE 2
 
-const int buttonCount = 1;
+const int buttonCount = 2;
 int buttonPins[] = {PIN_BUTTON_A_OPEN_RESOURCE,
 					PIN_BUTTON_A_OPEN_TYPE};
 
@@ -37,6 +41,16 @@ int ideIndex = 0;
 
 void setup()
 {
+	pinMode(PIN_BUTTON_A_OPEN_TYPE, INPUT);
+    pinMode(PIN_BUTTON_A_OPEN_RESOURCE, INPUT);
+
+    // setting input pins to high means turning on internal pull-up resistors
+    digitalWrite(PIN_BUTTON_A_OPEN_TYPE, HIGH);
+    digitalWrite(PIN_BUTTON_A_OPEN_RESOURCE, HIGH);
+
+/*
+//	Doh! for some reasont using the for loop to initialize adn set the pull up resistors
+//	on the pins was causing unexpected behavior 
 	for(int i=0; i++; i<buttonCount)
 	{
 		// button pins as inputs
@@ -47,6 +61,7 @@ void setup()
 
 	    // remember, the buttons are active-low, they read LOW when they are not pressed
 	}
+*/
 
   // start USB stuff
   TrinketKeyboard.begin();
@@ -91,8 +106,8 @@ void pressKeysForPin(int shorcutIndex)
 		case 0:
 	  	{
 
-//			 ideShortcuts[ideIndex]->openType();
-			 ideShortcuts[ideIndex]->openResource();
+			 ideShortcuts[ideIndex]->openType();
+//			 ideShortcuts[ideIndex]->openResource();
 
          	break;
 	 	}

@@ -19,6 +19,7 @@ class NetbeansIdeShortcuts : public IdeShortcuts //, public OtherExtendedClass
 
 			// alt + shift AO+ o
 			TrinketKeyboard.pressKey(KEYCODE_RIGHT_ALT, KEYCODE_RIGHT_SHIFT, KEYCODE_O);
+//TrinketKeyboard.print("!bob!");
 
 			return openType;
 		}
