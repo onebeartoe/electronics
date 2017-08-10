@@ -6,14 +6,12 @@
  *      https://stackoverflow.com/questions/318064/how-do-you-declare-an-interface-in-c
  *
  *      https://stackoverflow.com/a/318137/803890
-
-
-
- whop whop,  what about his one:
-
- 		https://www.tutorialspoint.com/cplusplus/cpp_polymorphism.htm
-
-
+ *
+ *
+ * And to achieve polymorphism, without Java interfaces, I used this as a guide.
+ * 
+ * 	https://www.tutorialspoint.com/cplusplus/cpp_polymorphism.htm
+ * 
  */
 class IdeShortcuts
 {
