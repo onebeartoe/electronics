@@ -1,6 +1,6 @@
 
 /**
- * This is an obect oriented approach to wring a keyboard application for Arduino.
+ * This is an object oriented approach to wring a keyboard application for Arduino.
  */
 
 /**
@@ -49,7 +49,7 @@ void setup()
     digitalWrite(PIN_BUTTON_A_OPEN_RESOURCE, HIGH);
 
 /*
-//	Doh! for some reasont using the for loop to initialize adn set the pull up resistors
+//	Doh! for some reason using the for loop to initialize and set the pull up resistors
 //	on the pins was causing unexpected behavior 
 	for(int i=0; i++; i<buttonCount)
 	{
