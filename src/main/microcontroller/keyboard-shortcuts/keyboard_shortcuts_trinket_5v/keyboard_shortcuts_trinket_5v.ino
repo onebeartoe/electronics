@@ -1,29 +1,6 @@
 
-/**
- * This is an object oriented approach to wring a keyboard application for Arduino.
- * 
- * It uses an Trinket Mini 5V by Adafruit Industries.
- * 
- *    ARduinot IDE: 
- * 
- *        Tools -> Boards -> Adafruit -> Adafruit Trinket 16MHz
- * 
- *        Tools -> Programmer -> USBtinyISP
- * 
- *              Click the on-board button to get into boot loader mode, then click 
- *              upload in the IDE.
- */
-
-/**
- * I tried this but it didn't work on an installed library in the Arduino IDE.
- *
- *      https://learn.adafruit.com/trinket-usb-keyboard/overview
- *
- * To get the sketch to compile, this library was installed into the user Arduino folder
- *
- *      https://github.com/adafruit/Adafruit-Trinket-USB/tree/master/TrinketKeyboard
- *
-*/
+#include "board-setup.h"
+#include "troubleshooting.h"
 
 #include <TrinketKeyboard.h>
 
@@ -34,7 +11,7 @@
 
 const int buttonCount = 2;
 int buttonPins[] = {PIN_BUTTON_A_OPEN_RESOURCE,
-					PIN_BUTTON_A_OPEN_TYPE};
+                    PIN_BUTTON_A_OPEN_TYPE};
 
 NetbeansIdeShortcuts netbeansShortcuts = NetbeansIdeShortcuts();
 
