@@ -80,46 +80,42 @@ void loop()
 
 void pollButtonPins()
 {
-	for(int i=0; i<buttonCount; i++)
-	{
-		int pinState = digitalRead(buttonPins[i]);
+    for(int i=0; i<buttonCount; i++)
+    {
+        int pinState = digitalRead(buttonPins[i]);
 
-//		if(pinState == HIGH)
-		if(pinState == LOW)
-	    {
-			pressKeysForPin(i);
+        if(pinState == LOW)
+        {
+            pressKeysForPin(i);
 
-	      	// this releases the key (otherwise it is held down!)
-	      	TrinketKeyboard.pressKey(0, 0);
+            // this releases the key (otherwise it is held down!)
+            TrinketKeyboard.pressKey(0, 0);
 
-	  		// debounce a little
-	      	delay(50);
-		}
+            // debounce a little
+            delay(50);
+        }
     }
 }
 
 void pressKeysForPin(int shorcutIndex)
 {
+    switch(shorcutIndex)
+    {
+        case 0:
+        {
+            ideShortcuts[ideIndex]->openType();
 
-	switch(shorcutIndex)
-	{
-		case 0:
-	  	{
+            break;
+        }
+        case 1:
+        {
+            ideShortcuts[ideIndex]->openResource();
 
-			 ideShortcuts[ideIndex]->openType();
-//			 ideShortcuts[ideIndex]->openResource();
-
-         	break;
-	 	}
-      	case 1:
-		{
-         	ideShortcuts[ideIndex]->openResource();
-//         	ideShortcuts[ideIndex].openResource();
-         	break;
-	 	}
-      	default :
-		{
-			// do nothing
-	 	}
-	}
+            break;
+        }
+        default :
+        {
+                // do nothing
+        }
+    }
 }
