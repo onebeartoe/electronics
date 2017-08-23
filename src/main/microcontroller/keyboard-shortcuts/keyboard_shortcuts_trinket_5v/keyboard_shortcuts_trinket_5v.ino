@@ -8,6 +8,8 @@
 
 #define PIN_BUTTON_A_OPEN_TYPE 0
 #define PIN_BUTTON_A_OPEN_RESOURCE 2
+
+// these don't work for some reason, 3 neither
 #define BUTTON_PIN_ORGANIZE_IMPORTS 1
 #define BUTTON_PIN_FIND_IN_FILES 4
 
@@ -33,7 +35,7 @@ void setup()
 {
     pinMode(PIN_BUTTON_A_OPEN_TYPE, INPUT);
     pinMode(PIN_BUTTON_A_OPEN_RESOURCE, INPUT);
-    pinMode(BUTTON_PIN_ORGANIZE_IMPORTS, INPUT_PULLUP);
+    pinMode(BUTTON_PIN_ORGANIZE_IMPORTS, INPUT);
 //    pinMode(BUTTON_PIN_FIND_IN_FILES, INPUT_PULLUP);
 
     // setting input pins to high means turning on internal pull-up resistors
