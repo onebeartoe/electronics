@@ -8,15 +8,19 @@
 
 #define PIN_BUTTON_A_OPEN_TYPE 0
 #define PIN_BUTTON_A_OPEN_RESOURCE 2
+#define BUTTON_PIN_ORGANIZE_IMPORTS 1
+#define BUTTON_PIN_FIND_IN_FILES 4
 
 const int buttonCount = 2;
 int buttonPins[] = {PIN_BUTTON_A_OPEN_RESOURCE,
-                    PIN_BUTTON_A_OPEN_TYPE};
+                    PIN_BUTTON_A_OPEN_TYPE,
+                    BUTTON_PIN_ORGANIZE_IMPORTS,
+                    BUTTON_PIN_FIND_IN_FILES};
 
 NetbeansIdeShortcuts netbeansShortcuts = NetbeansIdeShortcuts();
 
 /**
- * Using the pionter allows for the 'polymorhism' as described in this
+ * Using the pointer allows for the 'polymorhism' as described in this
  * stackoverflow answer:
  *
  *       https://stackoverflow.com/a/33123456/803890
@@ -27,12 +31,16 @@ int ideIndex = 0;
 
 void setup()
 {
-	pinMode(PIN_BUTTON_A_OPEN_TYPE, INPUT);
+    pinMode(PIN_BUTTON_A_OPEN_TYPE, INPUT);
     pinMode(PIN_BUTTON_A_OPEN_RESOURCE, INPUT);
+    pinMode(BUTTON_PIN_ORGANIZE_IMPORTS, INPUT_PULLUP);
+//    pinMode(BUTTON_PIN_FIND_IN_FILES, INPUT_PULLUP);
 
     // setting input pins to high means turning on internal pull-up resistors
     digitalWrite(PIN_BUTTON_A_OPEN_TYPE, HIGH);
     digitalWrite(PIN_BUTTON_A_OPEN_RESOURCE, HIGH);
+//    digitalWrite(BUTTON_PIN_ORGANIZE_IMPORTS, HIGH);
+//    digitalWrite(BUTTON_PIN_FIND_IN_FILES, HIGH);
 
 /*
 //	Doh! for some reason using the for loop to initialize and set the pull up resistors
@@ -78,7 +86,7 @@ void pollButtonPins()
             TrinketKeyboard.pressKey(0, 0);
 
             // debounce a little
-            delay(50);
+//            delay(50);
         }
     }
 }
@@ -99,9 +107,21 @@ void pressKeysForPin(int shorcutIndex)
 
             break;
         }
+        case 2:
+        {
+            ideShortcuts[ideIndex]->findInProjects();
+            
+            break;
+        }
+        case 3:
+        {
+            ideShortcuts[ideIndex]->organizeImports();
+            
+            break;
+        }
         default :
         {
-                // do nothing
+            // do nothing
         }
     }
 }

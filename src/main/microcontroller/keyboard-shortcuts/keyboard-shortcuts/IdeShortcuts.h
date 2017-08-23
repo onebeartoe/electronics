@@ -15,17 +15,15 @@
  */
 class IdeShortcuts
 {
-	public:
+    public:
 
-		virtual
-		KeyboardShortcut openResource();
+        virtual KeyboardShortcut openResource();
 
-		virtual
-		KeyboardShortcut openType();// = 0;
+        virtual KeyboardShortcut openType();
 
-//		KeyboardShortcut findInProjects();
+        virtual KeyboardShortcut findInProjects();
 
-//		KeyboardShortcut organizeImports();
-
-		KeyboardShortcut gotoLastEdit(); // goto-last-edit for Atom
+        virtual KeyboardShortcut organizeImports();
+                
+        virtual KeyboardShortcut gotoLastEdit(); // goto-last-edit for Atom
 };
