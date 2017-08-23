@@ -5,10 +5,6 @@ int keyboardShortcutssss = 5;
 // TODO: MOVE THIS TO AND USE THE VERSION IN A CLASS!
 uint8_t NO_MODIFIER = 0;
 
-
-
-
-
 //-------------------------------------------------
 // Arduino #include relative paths; pound include baby!
 //
@@ -17,7 +13,7 @@ uint8_t NO_MODIFIER = 0;
 // https://arduino.stackexchange.com/a/9575/25692
 //
 // Be sure to define the  project's root folder in client .h files:
-//#define PROJECT_ROOT C:\home\owner\versioning\github\electronics\src\main\arduino\
+//#define PROJECT_ROOT C:\home\owner\versioning\github\electronics\src\main\microcontroller\
 
 //Define a relative-to-absolute macro 'transformation' :
 #define TO_STRING(s) #s
