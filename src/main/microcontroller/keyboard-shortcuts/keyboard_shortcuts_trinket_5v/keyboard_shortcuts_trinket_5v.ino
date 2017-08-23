@@ -10,6 +10,8 @@
 #define PIN_BUTTON_A_OPEN_RESOURCE 2
 
 // these don't work for some reason, 3 neither
+// this link kinda suggests that these pins don't work the way I expect them, I think
+//      https://learn.adafruit.com/tap-tempo-trinket/things-learned
 #define BUTTON_PIN_ORGANIZE_IMPORTS 1
 #define BUTTON_PIN_FIND_IN_FILES 4
 
