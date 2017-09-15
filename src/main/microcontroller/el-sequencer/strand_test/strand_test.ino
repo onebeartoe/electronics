@@ -1,4 +1,8 @@
 
+// More information on the board at 
+//
+//      https://learn.sparkfun.com/tutorials/el-sequencerescudo-dos-hookup-guide
+
 /**
  * product: Sparfun EL Sequencer
  * board: Arduino Lily Pad
