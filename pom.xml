@@ -19,6 +19,7 @@
 
     <modules>
         <module>haptic-motor-controller</module>
+	<module>microcontrollers</module>
         <module>rpi-rgb-led-matrix-webapp</module>
   </modules>    
 
