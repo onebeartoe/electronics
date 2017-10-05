@@ -1,7 +1,15 @@
+
+#**/*-proposed-baseline.png
+
+# eclipse IDE configuration fies
+**/.classpath
+**/.project
+**/.settings
+
+**/*.gcode
+
 /haptic-motor-controller/datasheet-waveform-list-parser/target/
 /haptic-motor-controller/desktop-haptic-controller/target/
-**/*.gcode
-**/*-proposed-baseline.png
 
 /rpi-rgb-led-matrix-webapp/target/
 /fiesta-medals/target/
