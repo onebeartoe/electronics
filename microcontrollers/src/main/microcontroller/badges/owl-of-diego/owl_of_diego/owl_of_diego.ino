@@ -2,6 +2,8 @@
 /**
   * This is from https://learn.adafruit.com/jewel-hair-stick#code
   *
+  * This is pretty much the hair stick example, using the colors that Diego suggested.
+  *
   * It is intended for use with these two products:
   *
   *        Adafruit Gemma - https://www.adafruit.com/product/1222
