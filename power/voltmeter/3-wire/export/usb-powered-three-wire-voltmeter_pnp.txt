@@ -1,0 +1,19 @@
+*Pick And Place List
+*Company=
+*Author=
+*eMail=
+*
+*Project=usb-powered-three-wire-voltmeter
+*Date=14:13:22
+*CreatedBy=Fritzing 0.9.2b.11.19.8d2d5970658f0bed09c661c9ea9a515b5f40f44c
+*
+*
+*Coordinates in mm, always center of component
+*Origin 0/0=Lower left corner of PCB
+*Rotation in degree (0-360, math. pos.)
+*
+*No;Value;Package;X;Y;Rotation;Side;Name
+1;;THT;10.8656;-39.7933;90;Bottom;J1 - JST Breakout Connector
+2;;THT;7.05556;-13.1233;90;Bottom;J3 - USB Cable
+3;;THT;9.59556;-23.0133;-90;Bottom;J4 - Voltmeter Connection
+4;;THT;10.8656;-49.9533;90;Bottom;J2 - JST Connector Spacer

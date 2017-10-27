@@ -1,0 +1,36 @@
+
+Voltmeter
+
+    Ebay
+
+        https://www.ebay.com/itm/5x-Mini-DC-0-30V-3-Wire-Voltmeter-Red-LED-Display-Volt-Meter-Digital-Panel-Meter/231574822319
+
+        Measurement accuracy: 1%
+        Refresh rate: about 200mS/times
+        Display: Three 0.36 "digital tube
+        Measuring range: DC 0V-30V
+        Input range: DC 5V-30V
+        Display Color: Red
+        Operating current: Less than 8mA
+        Operating temperature: -10°c -65°c
+        Input impedance: About 100K
+        Reverse polarity protection: Yes
+        Weight：10g
+        Dimensions: 35 x 14 x 10 mm (1 3/8 x 9/16 x 3/8 in )
+
+    Adafruit
+
+    
+    Fritzing Part
+
+        http://forum.fritzing.org/t/3-wire-3-digit-led-voltmeter/2252
+
+Connectors:
+
+    JST for Lipo Battery
+
+        https://www.adafruit.com/product/1862
+
+        or the switched version
+
+            https://www.adafruit.com/product/1863
