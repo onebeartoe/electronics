@@ -1,12 +1,4 @@
 
-// Forumn links:
-//
-//    https://forums.adafruit.com/viewtopic.php?f=31&t=124923
-//
-//    PWM/analog reference:
-//
-//        https://forums.adafruit.com/viewtopic.php?f=19&t=80478&p=560972&hilit=adafruit+TB6612#p560972
-
 /******************************************************************************
     This sketch i sbased on:
 
