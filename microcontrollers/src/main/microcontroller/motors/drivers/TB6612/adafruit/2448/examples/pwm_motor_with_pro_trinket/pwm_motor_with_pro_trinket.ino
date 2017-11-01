@@ -12,23 +12,24 @@ void setup()
     pinMode(MOTOR_A_INPUT_1, OUTPUT);
     pinMode(MOTOR_A_INPUT_2, OUTPUT);
 
+    digitalWrite(MOTOR_A_INPUT_1, HIGH);
+    digitalWrite(MOTOR_A_INPUT_2, LOW);
+
     // set the motor to a low speed
     analogWrite(MOTOR_A_PWM, 135);
+    delay(1000);
 }
 
 void loop()
 {
     Serial.println("top of the loop");
 
-    digitalWrite(MOTOR_A_INPUT_1, HIGH);
-    digitalWrite(MOTOR_A_INPUT_2, LOW);
-    delay(1000);
+    analogWrite(MOTOR_A_PWM, 255);
+    delay(3000);
     
-    digitalWrite(MOTOR_A_INPUT_1, LOW);
-    digitalWrite(MOTOR_A_INPUT_2, LOW);
-    delay(1000);
+//    analogWrite(MOTOR_A_PWM, 222);
+//    delay(4000);
     
-    digitalWrite(MOTOR_A_INPUT_1, LOW);
-    digitalWrite(MOTOR_A_INPUT_2, HIGH);
-    delay(1000);
+    analogWrite(MOTOR_A_PWM, 128);
+    delay(3000);
 }
