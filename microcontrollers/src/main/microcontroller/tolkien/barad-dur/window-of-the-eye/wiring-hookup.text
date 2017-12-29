@@ -1,0 +1,14 @@
+
+This is the wiring hookup as seen in the Adafruit Learn guide.
+
+	https://learn.adafruit.com/animated-electronic-eyes-using-teensy-3-1/overview#wiring
+
+For TFT LCD displays, use these connections:
+
+Vin to BAT+ (if LiPoly) or USB+
+Gnd to GND
+SCK to SPI CLK
+SI to SPI MOSI
+TCS to Digital Pin 9 (left eye) or 10 (right)
+RST to Digital Pin 8
+D/C to Digital Pin 7
