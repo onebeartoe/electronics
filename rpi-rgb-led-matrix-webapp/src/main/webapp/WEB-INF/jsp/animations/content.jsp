@@ -29,7 +29,7 @@
             <button onclick="displayAnimation('${name}')" >
                 <img src="<%= request.getContextPath() %>/files/animations/${name}" />
                 ${name}
-            </button>            
+            </button>
             
             <br/>
             <br/>

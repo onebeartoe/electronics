@@ -20,7 +20,6 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class PlayAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-//    protected String buildText(HttpServletRequest request, HttpServletResponse response) 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException            
     {
         String pi = request.getPathInfo();
@@ -54,5 +53,5 @@ public class PlayAnimationServet extends RaspberryPiRgbLedMatrixServlet
         pw.print( sb.toString() );
         pw.flush();
         pw.close();
-    }    
+    }
 }

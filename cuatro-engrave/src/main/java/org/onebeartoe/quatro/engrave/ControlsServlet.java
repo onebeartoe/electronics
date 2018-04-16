@@ -24,7 +24,7 @@ public class ControlsServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-//        startEngraving();
+        startEngraving();
         
         request.setAttribute("status", "status is all good");
                 
