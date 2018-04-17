@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static org.onebeartoe.quatro.engrave.StartEngraverServlet.ENGRAVER_CONTEXT_KEY;
+import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.ENGRAVER_CONTEXT_KEY;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
 
 /**
