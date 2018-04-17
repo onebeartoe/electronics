@@ -13,6 +13,11 @@ import java.util.logging.Logger;
  */
 public class NejeEngraver
 {
+    public void reset()
+    {
+        throw new UnsupportedOperationException();
+    }
+    
     public void startEngraving() throws IOException
     {        
         String executable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";

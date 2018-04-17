@@ -41,7 +41,7 @@ public class ResetEgraverServlet extends HttpServlet
 
         try 
         {
-            //TODO: send a message to the egraver object
+            engraver.reset();
         } 
         catch (Exception ex) 
         {
