@@ -10,11 +10,6 @@
         </form>
         
         <button onclick="resetEngraver('reset')" >Sure W</button>
-            
-            
-        
-        
-        
         
         <div id="logs" class="logs" style="">
     </body>
