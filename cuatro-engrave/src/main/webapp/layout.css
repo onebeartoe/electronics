@@ -1,0 +1,43 @@
+div.menu 
+{
+    border: 3px solid;
+    border-radius: 25px;
+    
+    display: block;    
+    
+    margin-top: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    padding-bottom: 1%;
+    
+    width: 85%;
+}
+
+div.menu a 
+{
+    border-width: 2px;
+    border-radius: 25px;
+    border-style: solid;
+    display: block;	
+    letter-spacing: 1px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1%;
+    text-align: left;
+    text-indent: 2%;
+    width: 95%;
+}
+
+div.menu a:hover 
+{
+    letter-spacing: 2px;
+}
+
+div.menu h3 
+{
+    font-size: large;
+    text-align: left;
+    padding: 5px;
+    margin: 0px;
+}

@@ -1,0 +1,29 @@
+
+
+div.menu 
+{
+    border-color:wheat;
+}
+
+div.menu a 
+{
+    border-color: wheat;    
+    color: black;    
+    font-weight: bold;          
+    text-decoration: none;
+}
+
+div.menu a:link
+{
+    background: lightgray;
+}
+
+div.menu a:visited 
+{
+    background: lightgray;
+}
+
+div.menu a:hover 
+{
+    background: orange;
+}
