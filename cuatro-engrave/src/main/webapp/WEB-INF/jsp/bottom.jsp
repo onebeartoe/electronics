@@ -2,8 +2,8 @@
 	<div class="menu">
 	    <h3>Neje Print</h3>
             
-            <a href="controls">Controls</a>
-	    <a href="http://www.onebeartoe.com/feedback/index.jsp">About</a>
+            <a href="<%= request.getContextPath() %>/controls">Controls</a>
+	    <a href="<%= request.getContextPath() %>/">About</a>
 	</div>        
         
     </body>

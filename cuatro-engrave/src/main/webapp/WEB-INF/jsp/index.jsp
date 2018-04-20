@@ -15,12 +15,21 @@
             
             <p>		
                  &nbsp;
+                 
             </p>
             
             <ul>
                 <li>
-                    <a href="" >
-                        </a>
+                    <a href="https://www.gearbest.com/3d-printers-3d-printer-kits/pp_343187.html" >
+                        NEJE DK-8-KZ 1000mW Laser Engraver Printer  -  1000MW  BLACK 148778102</a>
+                </li>
+                
+                <li>
+                    <a href="https://github.com/camrein/EzGraver">
+                        EzGraver by camrein
+                    </a>
+                    
+                       
                 </li>
             </ul>
         </div>

@@ -1,10 +1,8 @@
 
 package org.onebeartoe.quatro.engrave.controls;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -13,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.onebeartoe.quatro.engrave.ApplicationProfile;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
 
 /**
@@ -24,9 +23,13 @@ public class StartEngraverServlet extends HttpServlet
 {
     private Logger logger;
     
-    public static final String ENGRAVER_CONTEXT_KEY = "ENGRAVER_CONTEXT_KEY";
+    public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
     
     private NejeEngraver engraver;
+    
+    private ApplicationProfile applicationProfile;
+    
+    private final String  BASE_SUB_DIRECTORY = "/.config/neje-graver/uploads/";    
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -48,14 +51,28 @@ public class StartEngraverServlet extends HttpServlet
         logger = Logger.getLogger(getClass().getName());                
         
         ServletContext servletContext = getServletContext();
+
+        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
-        engraver = (NejeEngraver) servletContext.getAttribute(ENGRAVER_CONTEXT_KEY);
-        
-        if(engraver == null)
+        if(applicationProfile == null)
         {
+            applicationProfile = new ApplicationProfile();
+            
+            String homeDir = System.getProperty("user.home");
+        
+            File baseDir = new File(homeDir + BASE_SUB_DIRECTORY);
+            logger.info("basedDir: " + baseDir.getAbsolutePath() );
+
+            applicationProfile.setBaseDirectory(baseDir);
+            
+            boolean mkdirs = baseDir.mkdirs();
+            logger.info("basedDir: " + baseDir.getAbsolutePath() + " created: " + mkdirs);
+            
             engraver = new NejeEngraver();
             
-            servletContext.setAttribute(ENGRAVER_CONTEXT_KEY, engraver);
+            applicationProfile.setEngraver(engraver);
+
+            servletContext.setAttribute(APPLICTION_PROFILE_CONTEXT_KEY, applicationProfile);
         }
     }    
 }

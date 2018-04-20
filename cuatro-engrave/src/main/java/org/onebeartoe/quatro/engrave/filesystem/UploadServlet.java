@@ -1,5 +1,5 @@
 
-package org.onebeartoe.rpi.rgb.led.matrix.webapp.animations;
+package org.onebeartoe.quatro.engrave.filesystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,26 +7,37 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import org.onebeartoe.quatro.engrave.ApplicationProfile;
+import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
 
 /**
  * @author Roberto Marquez <https://www.youtube.com/user/onebeartoe>
  */
-@WebServlet(name = "UploadAnimationServlet", urlPatterns = {"/animations/upload"})
+@WebServlet(urlPatterns = {"/filesystem/upload"})
 @MultipartConfig
-public class UploadAnimationServlet extends AnimationsServlet
+public class UploadServlet extends HttpServlet
 {
+    protected Logger logger;
+
+    private ApplicationProfile applicationProfile;
+    
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse responseee) 
+    public void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException
     {
-        final Part filePart = request.getPart("animation");
+        final Part filePart = request.getPart("upload");
         final String fileName = getFileName(filePart);
 
         OutputStream out = null;
@@ -34,21 +45,23 @@ public class UploadAnimationServlet extends AnimationsServlet
         String message = "";
         try 
         {
-            String outpath = ledMatrix.getAnimationsPath() + fileName;
-            File outfile = new File(outpath);
+            File outdir = applicationProfile.getBaseDirectory();
+            File outfile = new File(outdir, fileName);
             out = new FileOutputStream(outfile);
             filecontent = filePart.getInputStream();
 
             int read = 0;
             final byte[] bytes = new byte[1024];
 
-            while ((read = filecontent.read(bytes)) != -1) {
+            while ((read = filecontent.read(bytes)) != -1) 
+            {
                 out.write(bytes, 0, read);
             }
+            
+            String outpath = outfile.getAbsolutePath();
             message += "New file " + fileName + " created at " + outpath;
             logger.log(Level.INFO, message);
-            logger.log(Level.INFO, "File{0}being uploaded to {1}", 
-                    new Object[]{fileName, outpath});
+            logger.log(Level.INFO, "File {0} being uploaded to {1}",  new Object[]{fileName, outpath});
         } 
         catch (FileNotFoundException fne) 
         {
@@ -76,7 +89,12 @@ public class UploadAnimationServlet extends AnimationsServlet
      
         request.setAttribute("responseMessages", message);
     
-        doResponse(request, responseee);
+        List fileNames = null;
+        request.setAttribute("animationNames", fileNames);
+
+        ServletContext c = getServletContext();
+        RequestDispatcher rd = c.getRequestDispatcher("/controls/index.jsp");
+        rd.forward(request, response);
     }
 
     private String getFileName(final Part part) 
@@ -94,4 +112,15 @@ public class UploadAnimationServlet extends AnimationsServlet
         return null;
     }
     
+        @Override
+    public void init() throws ServletException
+    {
+        super.init();
+        
+        logger = Logger.getLogger(getClass().getName());
+        
+        ServletContext servletContext = getServletContext();
+        
+        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+    }
 }

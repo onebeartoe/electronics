@@ -12,8 +12,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.ENGRAVER_CONTEXT_KEY;
+import org.onebeartoe.quatro.engrave.ApplicationProfile;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
+import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
 
 /**
  * @author Roberto Marquez
@@ -23,7 +24,7 @@ public class ResetEgraverServlet extends HttpServlet
 {
     protected Logger logger;
     
-    private NejeEngraver engraver;
+    private ApplicationProfile applicationProfile;
     
     public ResetEgraverServlet()
     {
@@ -41,7 +42,7 @@ public class ResetEgraverServlet extends HttpServlet
 
         try 
         {
-            engraver.reset();
+            applicationProfile.getEngraver().reset();
         } 
         catch (Exception ex) 
         {
@@ -70,10 +71,10 @@ public class ResetEgraverServlet extends HttpServlet
     {
         super.init();
         
-        logger = Logger.getLogger(getClass().getName());                
+        logger = Logger.getLogger(getClass().getName());
         
         ServletContext servletContext = getServletContext();
         
-        engraver = (NejeEngraver) servletContext.getAttribute(ENGRAVER_CONTEXT_KEY);
+        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
     }   
 }

@@ -7,13 +7,13 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
 
-    <groupId>org.onebeartoe.cuatro.engrave</groupId>
-    <artifactId>cuatro-engrave</artifactId>
+    <groupId>org.onebeartoe.electronics</groupId>
+    <artifactId>neje-engrave</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     
     <packaging>war</packaging>
 
-    <name>onebeartoe-electronics-cuatro-engrave</name>
+    <name>onebeartoe-electronics-neje-engrave</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
@@ -26,6 +26,12 @@
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.onebeartoe</groupId>
+            <artifactId>onebeartoe-web</artifactId>
+            <version>1.0-SNAPSHOT</version>            
         </dependency>
     </dependencies>
 
