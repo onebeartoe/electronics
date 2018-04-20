@@ -7,7 +7,9 @@ div.featuredProject
 
 div.menu 
 {
+    background: lightgray;
     border-color:wheat;
+    
 }
 
 div.menu a 

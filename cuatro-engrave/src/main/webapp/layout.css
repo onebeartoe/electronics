@@ -12,6 +12,8 @@ div.featuredProject
         margin-top: 1%;
     
         padding-bottom: 2%;
+        padding-left: 3%;
+        padding-right: 3%;
         padding-top: 1%;
         
         width: 90%;  
@@ -34,8 +36,11 @@ div.menu
     margin-right: auto;
     
     padding-bottom: 1%;
-    
-    width: 90%;
+/*    
+    padding-left: 3%;
+    padding-right: 3%;
+*/        
+    width: 95%;
 }
 
 div.menu a 
@@ -50,7 +55,7 @@ div.menu a
     margin-bottom: 1%;
     text-align: left;
     text-indent: 2%;
-    width: 95%;
+    width: 100%;
 }
 
 div.menu a:hover 
