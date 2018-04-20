@@ -2,19 +2,19 @@
 div.featuredProject
 {
         background: lightgray;
-        border-color: wheat;        
+        border-color: orange;        
 }
 
 div.menu 
 {
     background: lightgray;
-    border-color:wheat;
+    border-color:orange;
     
 }
 
 div.menu a 
 {
-    border-color: wheat;    
+    border-color: orange;    
     color: black;    
     font-weight: bold;          
     text-decoration: none;
@@ -22,12 +22,12 @@ div.menu a
 
 div.menu a:link
 {
-    background: lightgray;
+    background: wheat;
 }
 
 div.menu a:visited 
 {
-    background: lightgray;
+    background: wheat;
 }
 
 div.menu a:hover 

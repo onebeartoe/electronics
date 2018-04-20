@@ -46,7 +46,7 @@
 <button id="myBtn">Upload Image</button>
 
 <!-- The Modal -->
-<div id="myModal" class="modal">
+<div id="uploadModal" class="modal">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -83,7 +83,7 @@
     updateFilesystem("/");
                 
     // Get the modal
-    var modal = document.getElementById('myModal');
+    var modal = document.getElementById('uploadModal');
 
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
