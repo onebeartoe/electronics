@@ -22,6 +22,8 @@ public class FilesystemServlet extends PlainTextResponseServlet
 {    
     protected Logger logger;
     
+    private FilesystemValidationService filesystemValidationService;
+    
     private ApplicationProfile applicationProfile;
     
     @Override
@@ -29,34 +31,46 @@ public class FilesystemServlet extends PlainTextResponseServlet
     {
         String subpath = request.getPathInfo();
         
-        validatePath(subpath);
-
-        String responseText = "path infos: " + subpath;
-
-        File baseDir = applicationProfile.getBaseDirectory();
+        StringBuilder responseText = new StringBuilder("path infos: " + subpath);
         
+        String [] files = null;
+        
+        File baseDir = applicationProfile.getBaseDirectory();
+
         File directory = new File(baseDir, subpath);
         
-        logger.info("directory: " + directory.getAbsolutePath() );
-        
-        String [] files = directory.list();
-        
+        try
+        {
+            filesystemValidationService.validatePath(baseDir, subpath);        
+
+            logger.info("directory: " + directory.getAbsolutePath() );
+
+            files = directory.list();
+            
+        }
+        catch(IllegalArgumentException ex)
+        {
+            
+            
+            ex.printStackTrace();
+        }        
+                        
         if(files == null)
         {
-            responseText += "<br/>";
-            responseText += "no files are present: " + directory.getAbsolutePath();
+            responseText.append("<br/>");
+            responseText.append("no files are present: " + directory.getAbsolutePath() );
         }
         else
         {
             for(String f : files)
             {
-                responseText += "<br/>";
-                responseText += f;
-                responseText += "<br/>";
+                responseText.append("<br/>");
+                responseText.append(f);
+                responseText.append("<br/>");
             }
         }
         
-        return responseText;
+        return responseText.toString();
     }
     
     @Override
@@ -69,20 +83,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
         ServletContext servletContext = getServletContext();
         
         applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-    }
-    
-    private void validatePath(String path)
-    {
-        File baseDirectory = applicationProfile.getBaseDirectory();
-
-        String baseAbsolute = baseDirectory.getAbsolutePath();
         
-        File suspectPath = new File(baseDirectory, path);
-        String suspectAbsolute = suspectPath.getAbsolutePath();
-        
-        if( !suspectAbsolute.startsWith(baseAbsolute) )
-        {
-            throw new IllegalArgumentException("bad filesystem path: " + suspectAbsolute);
-        }
+        filesystemValidationService = applicationProfile.getFilesystemValidationService();
     }
 }

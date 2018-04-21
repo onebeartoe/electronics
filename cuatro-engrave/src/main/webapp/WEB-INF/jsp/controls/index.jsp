@@ -26,7 +26,8 @@
 
             <button onclick="resetEngraver('reset')" >Pause</button>
             
-            
+            <div id="logs" class="logs">
+            </div>
         </div>
             
         <div class="featuredProject">
@@ -76,9 +77,9 @@
 
                     <p>Create a directory:</p>
 
-                    <form action="../filesystem/create-directory" method="POST" enctype="multipart/form-data">
+                    <form action="../filesystem/create-directory" method="POST">
 
-                        <input name="path" type="text"/>
+                        <input id="path" name="path" type="text"/>
 
                         <br/>
                         <br/>
@@ -88,7 +89,9 @@
                 </div>
             </div>            
             
-            <div id="logs" class="logs" />
+            <div id="filesystemLogs" class="logs">
+                ${filesystemLog}
+            </div>
 
             <br class="clearingBreak">
         </div>

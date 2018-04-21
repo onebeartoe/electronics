@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onebeartoe.quatro.engrave.ApplicationProfile;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
+import org.onebeartoe.quatro.engrave.filesystem.FilesystemValidationService;
 
 /**
  *
@@ -25,7 +26,7 @@ public class StartEngraverServlet extends HttpServlet
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
     
-    private NejeEngraver engraver;
+//    private NejeEngraver engraver;
     
     private ApplicationProfile applicationProfile;
     
@@ -34,7 +35,7 @@ public class StartEngraverServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        engraver.startEngraving();
+        applicationProfile.getEngraver().startEngraving();
         
         request.setAttribute("status", "status is all good");
                 
@@ -68,7 +69,11 @@ public class StartEngraverServlet extends HttpServlet
             boolean mkdirs = baseDir.mkdirs();
             logger.info("basedDir: " + baseDir.getAbsolutePath() + " created: " + mkdirs);
             
-            engraver = new NejeEngraver();
+            NejeEngraver engraver = new NejeEngraver();
+
+            FilesystemValidationService service = new FilesystemValidationService();
+            
+            applicationProfile.setFilesystemValidationService(service);
             
             applicationProfile.setEngraver(engraver);
 
