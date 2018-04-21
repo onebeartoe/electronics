@@ -43,7 +43,7 @@
             
             
 <!-- Trigger/Open The Modal -->
-<button id="myBtn">Upload Image</button>
+<button id="uploadButton">Upload Image</button>
 
 <!-- The Modal -->
 <div id="uploadModal" class="modal">
@@ -86,7 +86,7 @@
     var modal = document.getElementById('uploadModal');
 
     // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    var btn = document.getElementById("uploadButton");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
@@ -102,8 +102,10 @@
     }
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
+    window.onclick = function(event) 
+    {
+        if (event.target == modal) 
+        {
             modal.style.display = "none";
         }
     }                
