@@ -61,7 +61,7 @@
 
             <div class="filesystemButtons">
             
-                <button id="uploadButton">Upload Image</button>
+                <button id="uploadButton">Upload to Filesystem</button>
 
                 <!-- The Modal -->
                 <div id="uploadModal" class="modal">

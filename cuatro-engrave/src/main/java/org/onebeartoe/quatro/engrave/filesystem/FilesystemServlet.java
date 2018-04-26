@@ -70,8 +70,12 @@ public class FilesystemServlet extends PlainTextResponseServlet
         else
         {
             List<File> sortedFiles = Arrays.stream(files)
-                                           .sorted( Comparator.comparing( File::isDirectory )
-                                                              .reversed() )
+                                           .sorted( Comparator.comparing( File::isDirectory ) 
+//                                                    .thenComparing(File::getName)
+                                           
+                                            .reversed() 
+                                                            )
+//                                           .collect( Collectors.groupingBy( f -> f.getName() ) ) ;
                                            .collect( Collectors.toList() );
             
             for(File f : sortedFiles)
