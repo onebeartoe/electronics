@@ -13,19 +13,22 @@ import java.util.logging.Logger;
  */
 public class NejeEngraver
 {
+    private final String executable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
+
+    private final String serialPort = "/dev/ttyUSB0";
+    
     public void reset()
     {
         throw new UnsupportedOperationException();
     }
     
-    public void startEngraving() throws IOException
-    {        
-        String executable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
-        
+    private void sendEngraverCommand(char commandChar) throws IOException
+    {
+
         List<String> command = new ArrayList();
         command.add(executable);
-        command.add("s");
-        command.add("/dev/ttyUSB0");
+        command.add( String.valueOf(commandChar) );
+        command.add(serialPort);
         
         String debugList = "";
         for(String s : command)
@@ -38,6 +41,13 @@ public class NejeEngraver
         logger.log(Level.INFO, "staring engraving process");
         ProcessBuilder builder = new ProcessBuilder(command);
 
-        Process commandProcess = builder.start();
+        builder.start();        
+    }
+    
+    public void startEngraving() throws IOException
+    {
+        char command = 's';
+        
+        sendEngraverCommand(command);
     }    
 }

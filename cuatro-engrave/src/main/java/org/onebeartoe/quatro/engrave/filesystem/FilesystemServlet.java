@@ -1,10 +1,12 @@
-/*
- */
+
 package org.onebeartoe.quatro.engrave.filesystem;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,9 +33,16 @@ public class FilesystemServlet extends PlainTextResponseServlet
     {
         String subpath = request.getPathInfo();
         
-        StringBuilder responseText = new StringBuilder("path infos: " + subpath);
+        request.setAttribute("subpath", subpath);
         
-        String [] files = null;
+        String currentDirectory = subpath;
+        
+        StringBuilder responseText = new StringBuilder();
+        
+        responseText.append(currentDirectory);
+        responseText.append("<br>\n<br>");
+        
+        File [] files = null;
         
         File baseDir = applicationProfile.getBaseDirectory();
 
@@ -45,13 +54,11 @@ public class FilesystemServlet extends PlainTextResponseServlet
 
             logger.info("directory: " + directory.getAbsolutePath() );
 
-            files = directory.list();
+            files = directory.listFiles();
             
         }
         catch(IllegalArgumentException ex)
         {
-            
-            
             ex.printStackTrace();
         }        
                         
@@ -62,10 +69,19 @@ public class FilesystemServlet extends PlainTextResponseServlet
         }
         else
         {
-            for(String f : files)
+            List<File> sortedFiles = Arrays.stream(files)
+                                           .sorted( Comparator.comparing( File::isDirectory )
+                                                              .reversed() )
+                                           .collect( Collectors.toList() );
+            
+            for(File f : sortedFiles)
             {
                 responseText.append("<br/>");
-                responseText.append(f);
+                
+                String markup = markup(f);
+                responseText.append(markup);
+                
+                responseText.append("<br/>");
                 responseText.append("<br/>");
             }
         }
@@ -85,5 +101,28 @@ public class FilesystemServlet extends PlainTextResponseServlet
         applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
         filesystemValidationService = applicationProfile.getFilesystemValidationService();
+    }
+    
+    private String markup(File file)
+    {
+        StringBuilder markup = new StringBuilder();
+        
+        String name = file.getName();
+
+        if( file.isDirectory() )
+        {
+// TODO: start using an object to toString() the HTML elemnts: org.onebeartoe.HtmlTag
+            
+            String s = "<a onclick=\"updateFilesystem('/" + name + "');\"  href='#'>" + name + "/</a>";
+            markup.append(s);
+        }
+        else if( file.isFile() )
+        {
+            
+            markup.append(name + "   "
+                          + "<button onclick=\"resetEngraver('reset')\" >Upload to Engraver</button>");
+        }
+        
+        return markup.toString();
     }
 }

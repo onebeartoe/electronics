@@ -2,93 +2,114 @@
     <script type="text/javascript" src="<%= request.getContextPath() %>/controls/controls.js"></script>
 
     <script type="text/javascript" src="<%= request.getContextPath() %>/controls/filesystem.js"></script>
-
-    <script type="text/javascript" src="<%= request.getContextPath() %>/controls/modal.js"></script>
-
+    
     <div class="copyspace">
                 
-        <div class="featuredProject">
-            <h3>
-                Neje Print
-            
-                <button onclick="resetEngraver('reset')" >Reset</button>
-            </h3>
+        <div class="featuredProject">            
+            <div class ="sideBySide">
+                <div class="sideBySideLeft" style="width: 45%;">
+                    <h3>
+                        Neje Print
+
+                        <button onclick="resetEngraver('reset')" >Reset</button>
+                    </h3>
+                </div>
+
+                <div class="sideBySideRight" style="width: 45%;">
+                    <div id="resetLog" class="logs">
+                    </div>                        
+                </div>
+            </div>
         </div>
         
         <div class="featuredProject">
             <h3>Current File</h3>
+                <p>		
+                    File: ${currentFile}                
+                </p>  
             
-            <p>		
-                File: ${currentFile}                
-            </p>
-            
-            <button onclick="resetEngraver('reset')" >Start</button>
+            	<div class ="sideBySide">
+                    <div class="sideBySideLeft" style="width: 45%;">
+                        <button onclick="resetEngraver('reset')" >Start</button>
 
-            <button onclick="resetEngraver('reset')" >Pause</button>
-            
-            <div id="logs" class="logs">
-            </div>
+                        <button onclick="resetEngraver('reset')" >Pause</button>                                    
+                    </div>
+                    
+                    <div class="sideBySideRight" style="width: 45%;">
+                        <div id="logs" class="logs">
+                        </div>                        
+                    </div>
+                </div>          
         </div>
+           
+        <br class="clearingBreak">
             
         <div class="featuredProject">
-            <h3>Filesystem</h3>
+            <h3>Filesystem ${subpath}</h3>
             
-            <p>		
-                 &nbsp;
-            </p>
+            <div id="filesystem" 
+                 class="logs" 
+                 style="">This is the default text for the filesystem div.</div>
+    
             
-            <div id="filesystem" class="logs" style="">This is the default text for the filesystem div.</div>
+            sample directory link:
+            
+            <a onclick="updateFilesystem('/larch');">larch</a>
             
             <br/>
             <br/>
 
-            <!-- Trigger/Open The Modal -->
-            <button id="uploadButton">Upload Image</button>
-
-            <!-- The Modal -->
-            <div id="uploadModal" class="modal">
-
-              <!-- Modal content -->
-              <div class="modal-content">
-                <span class="close">&times;</span>
-
-                <p>Upload an image to engrave:</p>
-
-                    <form action="../filesystem/upload" method="POST" enctype="multipart/form-data">
-
-                        <input name="upload" type="file"/>
-
-                        <br/>
-                        <br/>
-
-                        <input type="submit" class="uploadButton" value="Upload"/>
-                    </form>    
-
-              </div>
-
-            </div>
-
-            <button id="createDirButton" >Create Directory</button>
+            <div class="filesystemButtons">
             
-            <div id="createDirModal" class="modal">
-                <!-- Modal content -->
-                <div class="modal-content">
-                    <span id="createDirSpan" class="close">&times;</span>
+                <button id="uploadButton">Upload Image</button>
 
-                    <p>Create a directory:</p>
+                <!-- The Modal -->
+                <div id="uploadModal" class="modal">
 
-                    <form action="../filesystem/create-directory" method="POST">
+                  <!-- Modal content -->
+                  <div class="modal-content">
+                    <span class="close">&times;</span>
 
-                        <input id="path" name="path" type="text"/>
+                    <p>Upload an image to engrave:</p>
 
-                        <br/>
-                        <br/>
+                        <form action="../filesystem/upload" method="POST" enctype="multipart/form-data">
 
-                        <input type="submit" class="" value="Create"/>
-                    </form>
+                            <input name="upload" type="file"/>
+
+                            <br/>
+                            <br/>
+
+                            <input type="submit" class="uploadButton" value="Upload"/>
+                        </form>    
+
+                  </div>
+
                 </div>
-            </div>            
-            
+
+                <button id="createDirButton" >Create Directory</button>
+
+                <div id="createDirModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span id="createDirSpan" class="close">&times;</span>
+
+                        <p>Create a directory:</p>
+
+                        <form action="../filesystem/create-directory" method="POST">
+
+                            <input id="path" name="path" type="text"/>
+
+                            <br/>
+                            <br/>
+
+                            <input type="submit" class="" value="Create"/>
+                        </form>
+                    </div>
+                </div>
+                
+                
+            </div>
+                
             <div id="filesystemLogs" class="logs">
                 ${filesystemLog}
             </div>

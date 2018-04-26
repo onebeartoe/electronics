@@ -71,6 +71,37 @@ div.menu h3
     margin: 0px;
 }
 
+div.sideBySide
+{    
+	display: flex;
+}
+
+div.sideBySideLeft
+{
+    margin-top: 9px;
+    
+      flex: 0 0 50%;
+
+}
+
+div.sideBySideRight
+{
+      flex: 1;
+
+    vertical-align: top;
+}
+
+
+.filesystemButtons
+{
+    margin-left: 42%;    
+}
+
+.logs
+{
+    height: 40%;
+}
+
 .uploadButton
 {
     margin-left: 50%;
