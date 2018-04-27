@@ -1,6 +1,7 @@
 
 package org.onebeartoe.quatro.engrave;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,15 +17,21 @@ public class NejeEngraver
     private final String executable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
 
     private final String serialPort = "/dev/ttyUSB0";
+
+    private Logger logger;
+
+    public NejeEngraver()
+    {
+        logger = Logger.getLogger( getClass().getName() );
+    }        
     
     public void reset()
     {
         throw new UnsupportedOperationException();
     }
     
-    private void sendEngraverCommand(char commandChar) throws IOException
+    private void sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
     {
-
         List<String> command = new ArrayList();
         command.add(executable);
         command.add( String.valueOf(commandChar) );
@@ -35,13 +42,22 @@ public class NejeEngraver
         {
             debugList += s + " ";
         }
-        Logger logger = Logger.getAnonymousLogger();        
-        logger.log(Level.INFO, "command list: >" + debugList + "<");        
         
-        logger.log(Level.INFO, "staring engraving process");
+        for(String arg : additionalArguments)
+        {
+            command.add(arg);
+            
+            debugList += arg;
+        }
+        
+        logger.info("command list: >" + debugList + "<");        
+        
+        logger.info("staring process for the engraver commmand");
         ProcessBuilder builder = new ProcessBuilder(command);
 
         builder.start();        
+        
+        logger.info("process started");
     }
     
     public void startEngraving() throws IOException
@@ -50,4 +66,13 @@ public class NejeEngraver
         
         sendEngraverCommand(command);
     }    
+
+    public void uploadImage(File imageUpload) throws IOException
+    {
+        char command = 'u';
+        
+        String imagePath = imageUpload.getAbsolutePath();
+        
+        sendEngraverCommand(command, imagePath);
+    }
 }

@@ -30,7 +30,7 @@
             
             	<div class ="sideBySide">
                     <div class="sideBySideLeft" style="width: 45%;">
-                        <button onclick="resetEngraver('reset')" >Start</button>
+                        <button onclick="startEngraving()" >Start</button>
 
                         <button onclick="resetEngraver('reset')" >Pause</button>                                    
                     </div>

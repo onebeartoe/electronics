@@ -72,7 +72,6 @@ public class FilesystemServlet extends PlainTextResponseServlet
             List<File> sortedFiles = Arrays.stream(files)
                                            .sorted( Comparator.comparing( File::isDirectory ) 
 //                                                    .thenComparing(File::getName)
-                                           
                                             .reversed() 
                                                             )
 //                                           .collect( Collectors.groupingBy( f -> f.getName() ) ) ;
@@ -122,9 +121,19 @@ public class FilesystemServlet extends PlainTextResponseServlet
         }
         else if( file.isFile() )
         {
+            String path = file.getAbsolutePath();
             
-            markup.append(name + "   "
-                          + "<button onclick=\"resetEngraver('reset')\" >Upload to Engraver</button>");
+            File baseDir = applicationProfile.getBaseDirectory();
+            
+            String basePath = baseDir.getAbsolutePath() + "/";
+            
+            path = path.replace(basePath, "");
+                    
+            markup.append(name 
+                          + " "
+                          + "<button onclick=\"uploadImageToEngraver('" + path + "')\" >" 
+                          + "Upload to Engraver" 
+                          + "</button>");
         }
         
         return markup.toString();
