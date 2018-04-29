@@ -34,17 +34,22 @@ function pauseEngraver()
 
 function resetEngraver()
 {
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange=function()
+    var r = confirm("Confirm engraver reset, please.");
+    
+    if (r == true) 
     {
-        divId = "logs";
-        logServerResponse(xmlhttp, divId);
-    }
-    var url = "../engraver/reset";    
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function()
+        {
+            divId = "logs";
+            logServerResponse(xmlhttp, divId);
+        }
+        var url = "../engraver/reset";    
 
-    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("&p=3");
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("&p=3");
+    }
 }
 
 function startEngraving()

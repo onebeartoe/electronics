@@ -35,7 +35,7 @@ public class ResetEgraverServlet extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException            
     {
         
-        StringBuilder sb = new StringBuilder("sending initial data to user..");
+        StringBuilder sb = new StringBuilder("The Reset message was sent to the laser engraver");
         logger.info( sb.toString() );
         try 
         {
@@ -48,8 +48,6 @@ public class ResetEgraverServlet extends HttpServlet
             
             logger.log(Level.SEVERE, sb.toString(), ex);
         }
-
-        sb.append("request processed");
         
         logger.log(Level.INFO, sb.toString());
 
