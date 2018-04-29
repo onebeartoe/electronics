@@ -11,7 +11,7 @@
                     <h3>
                         Neje Print
 
-                        <button onclick="resetEngraver('reset')" >Reset</button>
+                        <button onclick="resetEngraver()" >Reset</button>
                     </h3>
                 </div>
 
@@ -24,7 +24,7 @@
         
         <div class="featuredProject">
             <h3>Current File</h3>
-                <p>		
+                <p id="currentFile">		
                     File: ${currentFile}                
                 </p>  
             
@@ -32,7 +32,7 @@
                     <div class="sideBySideLeft" style="width: 45%;">
                         <button onclick="startEngraving()" >Start</button>
 
-                        <button onclick="resetEngraver('reset')" >Pause</button>                                    
+                        <button onclick="pauseEngraver()" >Pause</button>                                    
                     </div>
                     
                     <div class="sideBySideRight" style="width: 45%;">

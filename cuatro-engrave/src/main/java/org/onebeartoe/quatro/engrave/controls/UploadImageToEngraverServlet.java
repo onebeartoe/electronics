@@ -32,7 +32,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
     {
         String subpath = request.getPathInfo();
         
-        String result = "The image was uploaded.";
+        String result = "The upload message was sent to the engraver for " + subpath + ".";
         
         File baseDir = applicationProfile.getBaseDirectory();
         

@@ -1,6 +1,6 @@
 
 function updateFilesystem(path)
-{
+{    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {

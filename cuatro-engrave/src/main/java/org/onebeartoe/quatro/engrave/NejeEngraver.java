@@ -5,12 +5,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Roberto Marquez
+ * 
+ * This class send messages to the physical Neje laser engraver via the command line 
+ * application from the EzGraver project:
+ * 
+ *      https://github.com/camrein/EzGraver/tree/master/EzGraverCli
+ * 
  */
 public class NejeEngraver
 {
@@ -25,9 +28,11 @@ public class NejeEngraver
         logger = Logger.getLogger( getClass().getName() );
     }        
     
-    public void reset()
-    {
-        throw new UnsupportedOperationException();
+    public void reset() throws IOException
+    {        
+        char command = 'r';
+        
+        sendEngraverCommand(command);
     }
     
     private void sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
@@ -40,6 +45,7 @@ public class NejeEngraver
         String debugList = "";
         for(String s : command)
         {
+            
             debugList += s + " ";
         }
         
@@ -55,8 +61,8 @@ public class NejeEngraver
         logger.info("staring process for the engraver commmand");
         ProcessBuilder builder = new ProcessBuilder(command);
 
-        builder.start();        
-        
+        builder.start();
+
         logger.info("process started");
     }
     
@@ -74,5 +80,12 @@ public class NejeEngraver
         String imagePath = imageUpload.getAbsolutePath();
         
         sendEngraverCommand(command, imagePath);
+    }  
+
+    public void pause() throws IOException
+    {
+        char command = 'p';
+        
+        sendEngraverCommand(command);
     }
 }

@@ -17,7 +17,7 @@ function logServerResponse(xmlhttp, divId)
     }
 }
 
-function resetEngraver(name)
+function pauseEngraver()
 {
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
@@ -25,8 +25,23 @@ function resetEngraver(name)
         divId = "logs";
         logServerResponse(xmlhttp, divId);
     }
-    var url = "../controls/reset";    
-//    var url = "../contorls/reset" + name;
+    var url = "../engraver/pause";    
+
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("&p=3");
+}
+
+function resetEngraver()
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        divId = "logs";
+        logServerResponse(xmlhttp, divId);
+    }
+    var url = "../engraver/reset";    
+
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");
@@ -48,6 +63,9 @@ function startEngraving()
 
 function uploadImageToEngraver(imagePath)
 {
+    var currentFile = document.getElementById("currentFile");
+    currentFile.innerHTML = "File: " + imagePath;
+    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {

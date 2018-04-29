@@ -37,7 +37,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {
-        String result = "status is all good";
+        String result = "The Start messge was sent to engraver.";
         
         try
         {

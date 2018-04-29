@@ -19,12 +19,12 @@ import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLIC
 /**
  * @author Roberto Marquez
  */
-@WebServlet(urlPatterns = {"/controls/reset/*"})
+@WebServlet(urlPatterns = {"/engraver/reset/*"})
 public class ResetEgraverServlet extends HttpServlet
 {
     protected Logger logger;
     
-    private ApplicationProfile applicationProfile;
+    private NejeEngraver engraver;
     
     public ResetEgraverServlet()
     {
@@ -34,29 +34,26 @@ public class ResetEgraverServlet extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException            
     {
-        String pi = request.getPathInfo();
-//        String animationName = pi.substring(1); // remove the slash character
-
-        logger.log(Level.INFO, "sending initial data to user..");
-        StringBuilder sb = new StringBuilder("request recieved");
-
+        
+        StringBuilder sb = new StringBuilder("sending initial data to user..");
+        logger.info( sb.toString() );
         try 
         {
-            applicationProfile.getEngraver().reset();
+            engraver.reset();
         } 
         catch (Exception ex) 
         {
-            String message = "Error: " + ex.getMessage();
-            sb.append("<br/><br/>" + message);
-            logger.log(Level.SEVERE, message, ex);
+            sb.append("Error: " + ex.getMessage() );
+            sb.append("<br/><br/>");
+            
+            logger.log(Level.SEVERE, sb.toString(), ex);
         }
 
-        String message = "request processed";
-        logger.log(Level.INFO, message);
+        sb.append("request processed");
+        
+        logger.log(Level.INFO, sb.toString());
 
-        String r = "<br/><br/>" + message;
-
-        sb.append(r);
+        sb.append("<br/><br/>");
 
         OutputStream os = response.getOutputStream();
         PrintWriter pw = new PrintWriter(os);
@@ -75,6 +72,8 @@ public class ResetEgraverServlet extends HttpServlet
         
         ServletContext servletContext = getServletContext();
         
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+        
+        engraver = applicationProfile.getEngraver();
     }   
 }
