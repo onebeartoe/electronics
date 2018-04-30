@@ -40,16 +40,13 @@ public class UploadServlet extends HttpServlet
         final Part filePart = request.getPart("upload");
         final String fileName = getFileName(filePart);
 
-        OutputStream out = null;
-        InputStream filecontent = null;
+        File outdir = applicationProfile.getBaseDirectory();
+        File outfile = new File(outdir, fileName);
+            
         String message = "";
-        try 
+        try(OutputStream out = new FileOutputStream(outfile);
+            InputStream filecontent = filePart.getInputStream();) 
         {
-            File outdir = applicationProfile.getBaseDirectory();
-            File outfile = new File(outdir, fileName);
-            out = new FileOutputStream(outfile);
-            filecontent = filePart.getInputStream();
-
             int read = 0;
             final byte[] bytes = new byte[1024];
 
@@ -77,15 +74,6 @@ public class UploadServlet extends HttpServlet
             message += sb.toString();
             logger.log(Level.SEVERE, message);
         } 
-        finally 
-        {
-            if (out != null) {
-                out.close();
-            }
-            if (filecontent != null) {
-                filecontent.close();
-            }
-        }
      
         request.setAttribute("responseMessages", message);
     
