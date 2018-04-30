@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "FilesystemServet", urlPatterns = {"/files/*"}, loadOnStartup = 1)
 public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
 {
-    protected Logger logger;
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
