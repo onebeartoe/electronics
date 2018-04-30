@@ -29,16 +29,13 @@ public class UploadAnimationServlet extends AnimationsServlet
         final Part filePart = request.getPart("animation");
         final String fileName = getFileName(filePart);
 
-        OutputStream out = null;
-        InputStream filecontent = null;
         String message = "";
-        try 
+        String outpath = ledMatrix.getAnimationsPath() + fileName;
+        File outfile = new File(outpath);
+        
+        try (OutputStream out = new FileOutputStream(outfile);
+             InputStream filecontent = filePart.getInputStream(); )
         {
-            String outpath = ledMatrix.getAnimationsPath() + fileName;
-            File outfile = new File(outpath);
-            out = new FileOutputStream(outfile);
-            filecontent = filePart.getInputStream();
-
             int read = 0;
             final byte[] bytes = new byte[1024];
 
@@ -64,15 +61,6 @@ public class UploadAnimationServlet extends AnimationsServlet
             message += sb.toString();
             logger.log(Level.SEVERE, message);
         } 
-        finally 
-        {
-            if (out != null) {
-                out.close();
-            }
-            if (filecontent != null) {
-                filecontent.close();
-            }
-        }
      
         request.setAttribute("responseMessages", message);
     
