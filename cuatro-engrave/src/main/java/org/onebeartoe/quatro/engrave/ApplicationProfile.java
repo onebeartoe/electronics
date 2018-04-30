@@ -9,6 +9,11 @@ import org.onebeartoe.quatro.engrave.filesystem.FilesystemValidationService;
  */
 public class ApplicationProfile
 {
+    
+    public static final String  BASE_SUB_DIRECTORY = "/.config/neje-graver/uploads/";    
+    
+    public static final String CONFIGURATION_FILENAME = "neje-engrver.properties";    
+    
     private NejeEngraver engraver;
     
     private File baseDirectory;

@@ -22,7 +22,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/filesystem/*"})
 public class FilesystemServlet extends PlainTextResponseServlet
 {    
-    protected Logger logger;
+    private Logger logger;
     
     private FilesystemValidationService filesystemValidationService;
     

@@ -3,6 +3,7 @@ package org.onebeartoe.quatro.engrave;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,18 +16,40 @@ import java.util.logging.Logger;
  *      https://github.com/camrein/EzGraver/tree/master/EzGraverCli
  * 
  */
-public class NejeEngraver
+public class NejeEngraver implements Serializable
 {
-    private final String executable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
+    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
 
     private final String serialPort = "/dev/ttyUSB0";
 
     private Logger logger;
 
+    public String getCliExecutable()
+    {
+        return cliExecutable;
+    }
+
+    public void setCliExecutable(String cliExecutable)
+    {
+        this.cliExecutable = cliExecutable;
+    }
+    
+    
+    
+    public Logger getLogger()
+    {
+        return logger;
+    }
+
+    public void setLogger(Logger logger)
+    {
+        this.logger = logger;
+    }
+
     public NejeEngraver()
     {
         logger = Logger.getLogger( getClass().getName() );
-    }        
+    }
     
     public void reset() throws IOException
     {        
@@ -38,7 +61,7 @@ public class NejeEngraver
     private void sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
     {
         List<String> command = new ArrayList();
-        command.add(executable);
+        command.add(cliExecutable);
         command.add( String.valueOf(commandChar) );
         command.add(serialPort);
         
