@@ -13,7 +13,7 @@
                     ${baseDir}
                 </p>
 
-                <h3 class="settingsSaveButton">Still Images Directory:</h3>
+                <h3 class="settingsSaveButton">EzGraver CLI Executable Path:</h3>
 
                 <p>		
                     <input name="EzGraverCli" type="text" value="${EzGraverCli}" size="80"/>
