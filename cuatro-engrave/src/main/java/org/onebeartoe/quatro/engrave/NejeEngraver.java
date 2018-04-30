@@ -22,7 +22,7 @@ public class NejeEngraver implements Serializable
 
     private final String serialPort = "/dev/ttyUSB0";
 
-    private Logger logger;
+    private transient Logger logger;
 
     public String getCliExecutable()
     {

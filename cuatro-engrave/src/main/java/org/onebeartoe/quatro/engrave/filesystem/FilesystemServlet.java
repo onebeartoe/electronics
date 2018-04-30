@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.onebeartoe.html.BreakTag;
 import org.onebeartoe.quatro.engrave.ApplicationProfile;
 import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
 import org.onebeartoe.web.PlainTextResponseServlet;
@@ -27,6 +28,8 @@ public class FilesystemServlet extends PlainTextResponseServlet
     private FilesystemValidationService filesystemValidationService;
     
     private ApplicationProfile applicationProfile;
+    
+    private final BreakTag br = new BreakTag();
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -64,7 +67,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
                         
         if(files == null)
         {
-            responseText.append("<br/>");
+            responseText.append( br.toString() );
             responseText.append("no files are present: " + directory.getAbsolutePath() );
         }
         else
@@ -79,13 +82,13 @@ public class FilesystemServlet extends PlainTextResponseServlet
             
             for(File f : sortedFiles)
             {
-                responseText.append("<br/>");
+                responseText.append( br.toString() );
                 
                 String markup = markup(f);
                 responseText.append(markup);
                 
-                responseText.append("<br/>");
-                responseText.append("<br/>");
+                responseText.append( br.toString() );
+                responseText.append( br.toString() );
             }
         }
         
