@@ -20,9 +20,14 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/pause"})
 public class PauseEgraverServlet extends PlainTextResponseServlet
 {
-    private Logger logger;
+    private final Logger logger;
     
     private NejeEngraver engraver;
+    
+    public PauseEgraverServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());                
+    }
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -45,9 +50,7 @@ public class PauseEgraverServlet extends PlainTextResponseServlet
     public void init() throws ServletException
     {
         super.init();
-        
-        logger = Logger.getLogger(getClass().getName());                
-        
+
         ServletContext servletContext = getServletContext();
 
         ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);

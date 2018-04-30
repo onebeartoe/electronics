@@ -22,7 +22,7 @@ import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLIC
 @WebServlet(urlPatterns = {"/engraver/reset/*"})
 public class ResetEgraverServlet extends HttpServlet
 {
-    protected Logger logger;
+    private final Logger logger;
     
     private NejeEngraver engraver;
     
@@ -65,9 +65,7 @@ public class ResetEgraverServlet extends HttpServlet
     public void init() throws ServletException
     {
         super.init();
-        
-        logger = Logger.getLogger(getClass().getName());
-        
+      
         ServletContext servletContext = getServletContext();
         
         ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
