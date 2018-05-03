@@ -1,0 +1,10 @@
+
+- hosts: raspberry-pis
+  vars:
+    githubCloneDirectory: /opt/ez-graver
+  remote_user: pi
+  serial: 1
+  become: true
+  roles:
+    - ez-graver
+

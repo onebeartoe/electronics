@@ -1,0 +1,14 @@
+
+- name: restart everything
+  command: echo "this task will restart the web services"
+
+- name: Creates github clone directory
+  file: path="{{ githubCloneDirectory }}" state=directory
+  
+#- name: pull the github code for 
+- git:
+    repo: 'https://github.com/camrein/EzGraver.git'
+    dest: "{{ githubCloneDirectory }}"
+
+- command: pwd
+  chdir: "{{ githubCloneDirectory }}"

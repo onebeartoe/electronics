@@ -1,0 +1,8 @@
+
+- hosts: raspberry-pis
+  remote_user: pi
+  serial: 1
+  become: true
+  roles:
+    - ansible
+    - apt-prerequisites

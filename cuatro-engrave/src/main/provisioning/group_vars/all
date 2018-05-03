@@ -1,0 +1,5 @@
+
+ip: "{{ facter_ipaddress }}"
+#ip: "{{ facter_ipaddress_eth0 }}"
+
+consul_extra: ""

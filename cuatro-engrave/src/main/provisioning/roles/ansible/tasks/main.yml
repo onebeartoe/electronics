@@ -1,0 +1,6 @@
+
+- name: ansible is present
+  apt:
+    name: ansible
+    force: yes
+  tags: [common]

@@ -1,0 +1,20 @@
+
+- name: build-essential is installed
+  apt:
+      name: build-essential
+  tags: [apt-prerequisites]
+
+- name: qt5-qmake is installed
+  apt:
+      name: qt5-qmake
+  tags: [apt-prerequisites]
+
+- name: qtbase5-dev is installed
+  apt:
+      name: qtbase5-dev
+  tags: [apt-prerequisites]
+
+- name: libqt5serialport5-dev is installed
+  apt:
+      name: libqt5serialport5-dev
+  tags: [apt-prerequisites]
