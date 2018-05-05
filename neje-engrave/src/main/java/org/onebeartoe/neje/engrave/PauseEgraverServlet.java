@@ -1,5 +1,5 @@
 
-package org.onebeartoe.quatro.engrave.controls;
+package org.onebeartoe.neje.engrave;
 
 import java.io.IOException;
 import java.util.logging.Level;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onebeartoe.quatro.engrave.ApplicationProfile;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
-import static org.onebeartoe.quatro.engrave.controls.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
+import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
 import org.onebeartoe.web.PlainTextResponseServlet;
 
 /**

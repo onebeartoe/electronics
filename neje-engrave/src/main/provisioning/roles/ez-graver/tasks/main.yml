@@ -12,3 +12,6 @@
 
 - command: pwd
   chdir: "{{ githubCloneDirectory }}"
+  
+- name: qmake an qmake
+  command: echo "this task will restart the web services"  
