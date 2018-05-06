@@ -1,17 +1,29 @@
 
-- name: restart everything
-  command: echo "this task will restart the web services"
-
 - name: Creates github clone directory
   file: path="{{ githubCloneDirectory }}" state=directory
-  
-#- name: pull the github code for 
+
+#- name: pull the github code for
 - git:
     repo: 'https://github.com/camrein/EzGraver.git'
     dest: "{{ githubCloneDirectory }}"
 
-- command: pwd
-  chdir: "{{ githubCloneDirectory }}"
-  
-- name: qmake an qmake
-  command: echo "this task will restart the web services"  
+- name: Ensure the desired QT version has been installed.
+  shell: qmake -qt=qt5 -v
+  args:
+    chdir: "{{ githubCloneDirectory }}"
+
+- name: Build EzGraver.
+  shell: qmake -qt=qt5 -config release EzGraver.pro
+  args:
+    chdir: "{{ githubCloneDirectory }}"
+
+- name: Build EzGraver.
+  shell: make
+  args:
+    chdir: "{{ githubCloneDirectory }}"
+
+- name: Install EzGraver binaries.
+  shell: qmake -qt=qt5 -config release EzGraver.pro
+  args:
+    chdir: make install
+
