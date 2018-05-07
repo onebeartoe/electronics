@@ -22,7 +22,12 @@
   args:
     chdir: "{{ githubCloneDirectory }}"
 
-- name: Install EzGraver binaries.
+- name: Install EzGraver binaries - A
+  shell: qmake -qt=qt5 -config release EzGraver.pro
+  args:
+    chdir: make install
+
+- name: Install EzGraver binaries - B 
   shell: qmake -qt=qt5 -config release EzGraver.pro
   args:
     chdir: make install
