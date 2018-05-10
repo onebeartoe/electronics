@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
  */
 public class RaspberryPiRgbLedMatrix implements Serializable
 {
-    private Logger logger;
+    private transient Logger logger;
     
-    private Process commandProcess;
+    private transient Process commandProcess;
     
     private String animationsPath;
     
