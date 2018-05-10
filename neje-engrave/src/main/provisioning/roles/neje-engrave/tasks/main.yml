@@ -2,6 +2,6 @@
   file: path="{{ optDirectory }}" state=directory
 
 - name: Download the application WAR file.
-  shell: wget 
+  shell: wget https://onebeartoe.ci.cloudbees.com/job/electronics/lastSuccessfulBuild/artifact/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
   args:
     chdir: "{{ optDirectory }}"
