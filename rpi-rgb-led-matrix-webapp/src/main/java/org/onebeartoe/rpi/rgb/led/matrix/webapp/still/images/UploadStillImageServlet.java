@@ -28,14 +28,14 @@ public class UploadStillImageServlet extends StillImagesServlet
     {
         final Part filePart = request.getPart("still-image");
         final String fileName = getFileName(filePart);
-        
-        InputStream filecontent = null;
+                
         String message = "";
         String outpath = ledMatrix.getStillImagesPath() + fileName;
         File outfile = new File(outpath);        
-        try (OutputStream out = new FileOutputStream(outfile);)
+        try (OutputStream out = new FileOutputStream(outfile);
+             InputStream filecontent = filePart.getInputStream();)
         {
-            filecontent = filePart.getInputStream();
+            
 
             int read = 0;
             final byte[] bytes = new byte[1024];
@@ -64,9 +64,6 @@ public class UploadStillImageServlet extends StillImagesServlet
         } 
         finally 
         {
-            if (out != null) {
-                out.close();
-            }
             if (filecontent != null) {
                 filecontent.close();
             }
