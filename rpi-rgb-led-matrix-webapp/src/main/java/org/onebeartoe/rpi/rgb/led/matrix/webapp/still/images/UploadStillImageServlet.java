@@ -31,7 +31,7 @@ public class UploadStillImageServlet extends StillImagesServlet
         
         InputStream filecontent = null;
         String message = "";
-        tring outpath = ledMatrix.getStillImagesPath() + fileName;
+        String outpath = ledMatrix.getStillImagesPath() + fileName;
         File outfile = new File(outpath);        
         try (OutputStream out = new FileOutputStream(outfile);)
         {
