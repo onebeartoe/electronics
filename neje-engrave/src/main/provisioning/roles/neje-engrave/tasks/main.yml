@@ -1,0 +1,7 @@
+- name: Create the directory for the application binaries.
+  file: path="{{ optDirectory }}" state=directory
+
+- name: Download the application WAR file.
+  shell: wget 
+  args:
+    chdir: "{{ optDirectory }}"
