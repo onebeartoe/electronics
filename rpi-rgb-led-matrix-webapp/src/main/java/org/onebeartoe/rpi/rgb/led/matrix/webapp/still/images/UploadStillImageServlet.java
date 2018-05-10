@@ -35,8 +35,6 @@ public class UploadStillImageServlet extends StillImagesServlet
         try (OutputStream out = new FileOutputStream(outfile);
              InputStream filecontent = filePart.getInputStream();)
         {
-            
-
             int read = 0;
             final byte[] bytes = new byte[1024];
 
@@ -61,12 +59,6 @@ public class UploadStillImageServlet extends StillImagesServlet
 
             message += sb.toString();
             logger.log(Level.SEVERE, message);
-        } 
-        finally 
-        {
-            if (filecontent != null) {
-                filecontent.close();
-            }
         }
     
         request.setAttribute("responseMessages", message);
@@ -87,6 +79,5 @@ public class UploadStillImageServlet extends StillImagesServlet
             }
         }
         return null;
-    }
-    
+    }    
 }
