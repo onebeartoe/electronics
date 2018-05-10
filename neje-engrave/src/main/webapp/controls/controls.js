@@ -74,7 +74,7 @@ function uploadImageToEngraver(imagePath)
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {
-        divId = "logs";
+        var divId = "logs";
         logServerResponse(xmlhttp, divId);
     }
     var url = "../engraver/upload-image" + "/" + imagePath;
