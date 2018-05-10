@@ -12,23 +12,18 @@
   args:
     chdir: "{{ githubCloneDirectory }}"
 
-- name: Build EzGraver.
+- name: Build EzGraver - A.
   shell: qmake -qt=qt5 -config release EzGraver.pro
   args:
     chdir: "{{ githubCloneDirectory }}"
 
-- name: Build EzGraver.
+- name: Build EzGraver - B.
   shell: make
   args:
     chdir: "{{ githubCloneDirectory }}"
 
-- name: Install EzGraver binaries - A
-  shell: qmake -qt=qt5 -config release EzGraver.pro
+- name: Install EzGraver binaries
+  shell: make install
   args:
-    chdir: make install
-
-- name: Install EzGraver binaries - B 
-  shell: qmake -qt=qt5 -config release EzGraver.pro
-  args:
-    chdir: make install
+    chdir: "{{ githubCloneDirectory }}"
 
