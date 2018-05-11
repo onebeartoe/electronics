@@ -27,4 +27,3 @@
   shell: make install
   args:
     chdir: "{{ githubCloneDirectory }}"
-

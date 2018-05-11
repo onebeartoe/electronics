@@ -1,7 +1,16 @@
 - name: Create the directory for the application binaries.
-  file: path="{{ optDirectory }}" state=directory
+  file: 
+    path: "{{ optDirectory }}" 
+    state: directory
+    owner: pi
+    group: pi
 
 - name: Download the application WAR file.
   shell: wget https://onebeartoe.ci.cloudbees.com/job/electronics/lastSuccessfulBuild/artifact/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
+  args:
+    chdir: "{{ optDirectory }}"
+
+- name: Make the binary executable.
+  script: roles/neje-engraver/chmod.sh --some-arguments 1234
   args:
     chdir: "{{ optDirectory }}"
