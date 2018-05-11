@@ -18,7 +18,9 @@ import java.util.logging.Logger;
  */
 public class NejeEngraver implements Serializable
 {
-    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
+    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
+//    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
+    
 
     private final String serialPort = "/dev/ttyUSB0";
 

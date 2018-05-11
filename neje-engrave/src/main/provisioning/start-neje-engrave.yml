@@ -1,9 +1,9 @@
 
 - hosts: raspberry-pis
+#  become: true
   vars:
     optDirectory: /opt/onebeartoe/neje-engrave
   remote_user: pi
   serial: 1
-  become: true
   roles:
-    - neje-engrave
+    - start-neje-engraver

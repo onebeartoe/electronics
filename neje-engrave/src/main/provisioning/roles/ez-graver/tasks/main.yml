@@ -5,6 +5,7 @@
 #- name: pull the github code for
 - git:
     repo: 'https://github.com/camrein/EzGraver.git'
+    version: unix_cli_fixes_clean
     dest: "{{ githubCloneDirectory }}"
 
 - name: Ensure the desired QT version has been installed.

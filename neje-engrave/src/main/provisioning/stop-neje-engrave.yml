@@ -4,6 +4,5 @@
     optDirectory: /opt/onebeartoe/neje-engrave
   remote_user: pi
   serial: 1
-  become: true
   roles:
-    - neje-engrave
+    - stop-neje-engraver

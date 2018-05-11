@@ -1,0 +1,5 @@
+
+- script: roles/stop-neje-engraver/stop.sh --some-arguments 1234
+  args:
+    chdir: "{{ optDirectory }}"
+

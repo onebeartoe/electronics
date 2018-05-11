@@ -38,7 +38,8 @@ public class UploadStillImageServlet extends StillImagesServlet
             int read = 0;
             final byte[] bytes = new byte[1024];
 
-            while ((read = filecontent.read(bytes)) != -1) {
+            while ((read = filecontent.read(bytes)) != -1) 
+            {
                 out.write(bytes, 0, read);
             }
             message += "New file " + fileName + " created at " + outpath;

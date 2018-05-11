@@ -1,0 +1,8 @@
+- name: Create the directory for the application binaries.
+  file: path="{{ optDirectory }}" state=directory
+
+- name: Download the WAR runner applicaton, Payara.
+  shell: wget https://repo.maven.apache.org/maven2/fish/payara/extras/payara-micro/5.181/payara-micro-5.181.jar
+  args:
+    chdir: "{{ optDirectory }}"
+

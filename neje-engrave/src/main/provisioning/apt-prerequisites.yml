@@ -4,5 +4,4 @@
   serial: 1
   become: true
   roles:
-    - ansible
     - apt-prerequisites

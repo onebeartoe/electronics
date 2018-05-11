@@ -1,4 +1,10 @@
 
+- name: ansible is present
+  apt:
+    name: ansible
+    force: yes
+  tags: [common]
+
 - name: build-essential is installed
   apt:
       name: build-essential

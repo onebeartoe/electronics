@@ -1,0 +1,4 @@
+
+- script: roles/start-neje-engraver/start.sh --some-arguments 1234
+  args:
+    chdir: "{{ optDirectory }}"
