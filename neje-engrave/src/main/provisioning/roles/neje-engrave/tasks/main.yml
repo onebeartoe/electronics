@@ -6,6 +6,6 @@
     group: pi
 
 - name: Download the application WAR file.
-  shell: wget https://onebeartoe.ci.cloudbees.com/job/electronics/lastSuccessfulBuild/artifact/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
-  args:
-    chdir: "{{ optDirectory }}"
+  get_url: 
+    url: https://onebeartoe.ci.cloudbees.com/job/electronics/lastSuccessfulBuild/artifact/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
+    dest: "{{ optDirectory }}"
