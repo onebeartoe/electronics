@@ -29,7 +29,9 @@ public class FilesystemServlet extends PlainTextResponseServlet
     
     private ApplicationProfile applicationProfile;
     
-    private final BreakTag br = new BreakTag();
+    private final BreakTag brTag = new BreakTag();
+    
+    private final String br = brTag.toHtml();
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -67,7 +69,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
                         
         if(files == null)
         {
-            responseText.append( br.toString() );
+            responseText.append(br);
             responseText.append("no files are present: " + directory.getAbsolutePath() );
         }
         else
@@ -82,13 +84,13 @@ public class FilesystemServlet extends PlainTextResponseServlet
             
             for(File f : sortedFiles)
             {
-                responseText.append( br.toString() );
+                responseText.append( br);
                 
                 String markup = markup(f);
                 responseText.append(markup);
                 
-                responseText.append( br.toString() );
-                responseText.append( br.toString() );
+                responseText.append( br);
+                responseText.append( br);
             }
         }
         
@@ -116,9 +118,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
         String name = file.getName();
 
         if( file.isDirectory() )
-        {
-// TODO: start using an object to toString() the HTML elemnts: org.onebeartoe.HtmlTag
-            
+        {            
             String s = "<a onclick=\"updateFilesystem('/" + name + "');\"  href='#'>" + name + "/</a>";
             markup.append(s);
         }
