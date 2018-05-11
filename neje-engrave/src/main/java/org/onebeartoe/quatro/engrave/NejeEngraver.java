@@ -61,6 +61,18 @@ public class NejeEngraver implements Serializable
         sendEngraverCommand(command);
     }
     
+    /**
+     * 
+     * The final form of the command could be something like the following:
+     * 
+     *      EzGraverCli/EzGraverCli s /dev/ttyUSB0 14
+     * 
+     * The 14 is the burn time and /dev/ttyUSB is the label for the engravers serial port
+     * 
+     * @param commandChar
+     * @param additionalArguments
+     * @throws IOException 
+     */
     private void sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
     {
         List<String> command = new ArrayList();
@@ -92,11 +104,11 @@ public class NejeEngraver implements Serializable
         logger.info("process started");
     }
     
-    public void startEngraving() throws IOException
+    public void startEngraving(String burnTime) throws IOException
     {
         char command = 's';
         
-        sendEngraverCommand(command);
+        sendEngraverCommand(command, burnTime);
     }    
 
     public void uploadImage(File imageUpload) throws IOException

@@ -39,7 +39,9 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         
         try
         {
-            engraver.startEngraving();
+            String burnTime = "14";
+            
+            engraver.startEngraving(burnTime);
         } 
         catch (IOException ex)
         {
