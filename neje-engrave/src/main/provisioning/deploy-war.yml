@@ -5,5 +5,6 @@
   remote_user: pi
   serial: 1
   roles:
-    - payara
-
+    - stop-neje-engraver
+    - neje-engrave
+    - start-neje-engraver
