@@ -1,4 +1,10 @@
 
 pwd
 
-cat pid | xargs kill
+cd /opt/onebeartoe/neje-engrave
+
+pwd
+
+cat pid
+
+cat pid | xargs skill

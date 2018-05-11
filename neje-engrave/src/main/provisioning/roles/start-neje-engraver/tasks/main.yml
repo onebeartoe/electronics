@@ -1,4 +1,9 @@
 
-- script: roles/start-neje-engraver/start.sh --some-arguments 1234
+#- script: roles/start-neje-engraver/start.sh --some-arguments 1234
+#  args:
+#    chdir: "{{ optDirectory }}"
+
+- name: start the server
+  shell: nohup java -jar payara-micro-5.181.jar neje-engrave-0.0.1-SNAPSHOT.war > out.text 2>&1 & echo $! > pid
   args:
     chdir: "{{ optDirectory }}"
