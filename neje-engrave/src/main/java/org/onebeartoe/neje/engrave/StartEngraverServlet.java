@@ -54,8 +54,9 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     private void defaultSettings()
     {
         engraver = new NejeEngraver();
-        
-        String ezGraverCliPath = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
+
+        String ezGraverCliPath = "/opt/ez-graver/EzGraverCli/EzGraverCli";
+//        String ezGraverCliPath = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
         
         engraver.setCliExecutable(ezGraverCliPath);
     }
