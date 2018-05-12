@@ -15,7 +15,7 @@
     
     <packaging>war</packaging>
 
-    <name>onebeartoe-electronics-neje-print</name>
+    <name>onebeartoe-electronics-neje-engrave</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
