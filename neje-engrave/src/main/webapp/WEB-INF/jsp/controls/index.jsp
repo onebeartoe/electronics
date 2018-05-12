@@ -3,14 +3,13 @@
 
     <script type="text/javascript" src="<%= request.getContextPath() %>/controls/filesystem.js"></script>
     
-    <div class="copyspace">
-                
+    <div class="copyspace">                
         <div class="featuredProject">            
             <div class ="sideBySide">
                 <div class="sideBySideLeft" style="width: 45%;">
                     <h3>
                         Neje Print
-
+                                                
                         <button onclick="resetEngraver()" >Reset</button>
                     </h3>
                 </div>
@@ -36,6 +35,8 @@
                     </div>
                     
                     <div class="sideBySideRight" style="width: 45%;">
+                        <img src=http://192.168.1.113:8081/ border=0 width=75%>
+                        
                         <div id="logs" class="logs">
                         </div>                        
                     </div>
@@ -50,12 +51,7 @@
             <div id="filesystem" 
                  class="logs" 
                  style="">This is the default text for the filesystem div.</div>
-    
-            
-            sample directory link:
-            
-            <a onclick="updateFilesystem('/larch');">larch</a>
-            
+
             <br/>
             <br/>
 

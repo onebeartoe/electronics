@@ -133,7 +133,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
             path = path.replace(basePath, "");
                     
             markup.append(name 
-                          + " "
+                          + "    "
                           + "<button onclick=\"uploadImageToEngraver('" + path + "')\" >" 
                           + "Upload to Engraver" 
                           + "</button>");
