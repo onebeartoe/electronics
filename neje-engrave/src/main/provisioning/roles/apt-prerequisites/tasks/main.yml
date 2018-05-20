@@ -3,7 +3,7 @@
   apt:
     name: ansible
     force: yes
-  tags: [common]
+  tags: [apt-prerequisites]
 
 - name: build-essential is installed
   apt:

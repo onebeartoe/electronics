@@ -1,0 +1,12 @@
+
+- name: Ensure motion is available for camera features.
+  apt:
+    name: motion
+    force: yes
+  tags: [camera]
+
+- name: Copy the motion configuration file to the target host.
+  copy:
+    src: motion.conf
+    dest: /etc/motion/motion.conf
+    
