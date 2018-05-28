@@ -17,7 +17,12 @@ uint8_t NO_MODIFIER = 0;
 
 //Define a relative-to-absolute macro 'transformation' :
 #define TO_STRING(s) #s
-#define ABSOLUTE_PATH(root, relative_path) TO_STRING(root\relative_path)
+
+//linux
+#define ABSOLUTE_PATH(root, relative_path) TO_STRING(root/relative_path)
+//windows
+//#define ABSOLUTE_PATH(root, relative_path) TO_STRING(root\relative_path)
+
 #define RELATIVE_PATH(library) ABSOLUTE_PATH(PROJECT_ROOT, library)
 
 // Include your files using the relative path :
