@@ -24,7 +24,7 @@ public class ResetEgraverServlet extends HttpServlet
 {
     private final Logger logger;
     
-    private NejeEngraver engraver;
+    private static NejeEngraver engraver;
     
     public ResetEgraverServlet()
     {
