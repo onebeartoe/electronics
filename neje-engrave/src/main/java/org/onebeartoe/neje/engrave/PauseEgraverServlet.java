@@ -22,7 +22,7 @@ public class PauseEgraverServlet extends PlainTextResponseServlet
 {
     private final Logger logger;
     
-    private NejeEngraver engraver;
+    private final NejeEngraver engraver;
     
     public PauseEgraverServlet()
     {
