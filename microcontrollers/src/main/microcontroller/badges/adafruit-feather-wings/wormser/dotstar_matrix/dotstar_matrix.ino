@@ -1,4 +1,7 @@
 
+// https://www.adafruit.com/product/3449
+// https://learn.adafruit.com/adafruit-dotstar-featherwing-adafruit
+
 // Adafruit_DotStarMatrix example for single DotStar LED matrix.
 // Scrolls 'Adafruit' across the matrix.
 
@@ -79,7 +82,7 @@ const uint16_t adaColors[] = {
   matrix.Color(255, 220, 0)  //! orange/yellow
 };
 
-char adafruit[] = "BETOFRUIT!";
+char adafruit[] = "GO SPURS GO!";
 
 const int width = 12;
 const int height = 6;

@@ -9,4 +9,14 @@
   copy:
     src: motion.conf
     dest: /etc/motion/motion.conf
-    
+
+- name: Copy the startup configuration file for motion to the target host.
+  copy:
+    src: motion
+    dest: /etc/default/motion
+
+- name: Start the motion application.
+  shell: motion
+
+#- name: enable sysv supervisord service
+#  service: name=motion enabled=yes
