@@ -28,7 +28,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
     
-    private NejeEngraver engraver;
+    private static NejeEngraver engraver;
     
     private ApplicationProfile applicationProfile;
     

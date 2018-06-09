@@ -25,7 +25,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
     
     private ApplicationProfile applicationProfile;
     
-    private NejeEngraver engraver;
+    private static NejeEngraver engraver;
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
