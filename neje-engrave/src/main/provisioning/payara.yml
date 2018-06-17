@@ -7,3 +7,4 @@
   roles:
     - payara
 
+TODO: refactor optDirectory to nejeEngraveOptDirectory and move it to group_vars/all

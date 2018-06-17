@@ -5,3 +5,5 @@ ip: "{{ facter_ipaddress }}"
 consul_extra: ""
 
 githubCloneDirectory: /opt/ez-graver
+
+optDirectory: /opt/onebeartoe/neje-engrave
