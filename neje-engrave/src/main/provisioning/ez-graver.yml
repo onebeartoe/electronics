@@ -1,7 +1,8 @@
 
 - hosts: raspberry-pis
   vars:
-    githubCloneDirectory: /opt/ez-graver
+#    githubCloneDirectory: /opt/ez-graver
+    ploop: some-value
   remote_user: pi
   serial: 1
   become: true
