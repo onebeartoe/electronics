@@ -1,11 +1,12 @@
 
+# These tasks install the C++ program that actually drives the Neje engraver.
+
 - name: Empty the github clone directory
   file: path="{{ githubCloneDirectory }}" state=absent
   
 - name: Creates github clone directory
   file: path="{{ githubCloneDirectory }}" state=directory
 
-#- name: pull the github code for
 - git:
     repo: 'https://github.com/onebeartoe/EzGraver.git'
     version: unix_cli_fixes_clean
