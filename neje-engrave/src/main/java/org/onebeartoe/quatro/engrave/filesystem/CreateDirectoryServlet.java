@@ -31,7 +31,8 @@ public class CreateDirectoryServlet extends HttpServlet
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        String path = request.getParameter("path");
+        String path = validatePath( request.getParameter("path") );
+//        String path = request.getParameter("path");
     
         String filesystemLog = null;
         
@@ -114,5 +115,10 @@ public class CreateDirectoryServlet extends HttpServlet
         applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
         filesystemValidationService = applicationProfile.getFilesystemValidationService();
+    }
+
+    private String validatePath(String parameter)
+    {
+        return new String(parameter);
     }
 }
