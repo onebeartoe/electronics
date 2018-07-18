@@ -232,26 +232,26 @@ public class FXMLController
         }
     }
     
-    private Integer nameToId(String name)
-    {
-        Set<Integer> keySet = hardcodedWaveforms.keySet();
-        
-        Integer id = 0;
-        
-        for(Integer i : keySet)
-        {
-            String currentName = hardcodedWaveforms.get(i);
-            
-            if( name.equals(currentName) )
-            {
-                id = i;
-                
-                break;
-            }
-        }
-        
-        return id;
-    }
+//    private Integer nameToId(String name)
+//    {
+//        Set<Integer> keySet = hardcodedWaveforms.keySet();
+//        
+//        Integer id = 0;
+//        
+//        for(Integer i : keySet)
+//        {
+//            String currentName = hardcodedWaveforms.get(i);
+//            
+//            if( name.equals(currentName) )
+//            {
+//                id = i;
+//                
+//                break;
+//            }
+//        }
+//        
+//        return id;
+//    }
     
     private void sendOneWaveformId(int waveformId)
     {
