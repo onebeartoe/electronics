@@ -3,7 +3,6 @@ package org.onebeartoe.quatro.engrave.filesystem;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -33,17 +32,25 @@ public class CreateDirectoryServlet extends HttpServlet
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         String path = request.getParameter("path");
-        
+    
         String filesystemLog = null;
         
-        if( StringUtils.isEmpty(path) )
+        // Perform some basic path validation
+        if( path.matches("../") )
         {
-            filesystemLog = "No path was specified.";
+            filesystemLog = "a bad path was given";
         }
         else
         {
-            filesystemLog = processRequestParameter(path);
-        }
+            if( StringUtils.isEmpty(path) )
+            {
+                filesystemLog = "No path was specified.";
+            }
+            else
+            {
+                filesystemLog = processRequestParameter(path);
+            }
+        }                                
 
         request.setAttribute("filesystemLog", filesystemLog);
 
