@@ -2,10 +2,8 @@
 package org.onebeartoe.neje.engrave;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +20,7 @@ public class PauseEgraverServlet extends PlainTextResponseServlet
 {
     private final Logger logger;
     
-    private static NejeEngraver engraver;
+//    private static NejeEngraver engraver;
     
     public PauseEgraverServlet()
     {
@@ -34,9 +32,16 @@ public class PauseEgraverServlet extends PlainTextResponseServlet
     {
         String result = "The engraver was paused.";
         
+        ServletContext servletContext = getServletContext();
+
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+                
+        NejeEngraver engraver = applicationProfile.getEngraver();
+        
         try
         {
             engraver.pause();
+            
         } 
         catch (IOException ex)
         {
@@ -46,15 +51,15 @@ public class PauseEgraverServlet extends PlainTextResponseServlet
         return result;
     }
     
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-
-        ServletContext servletContext = getServletContext();
-
-        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-        engraver = applicationProfile.getEngraver();
-    }    
+//    @Override
+//    public void init() throws ServletException
+//    {
+//        super.init();
+//
+//        ServletContext servletContext = getServletContext();
+//
+//        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+//        
+//        engraver = applicationProfile.getEngraver();
+//    }    
 }
