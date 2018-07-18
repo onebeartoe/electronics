@@ -18,6 +18,8 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 @WebServlet(name = "StopAnimationServet", urlPatterns = {"/animation/stop/*"})
 public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
 {
+    private final String BREAK = "<br/>";
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -25,7 +27,7 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
         
         try 
         {
-            sb.append("<br/>");
+            sb.append(BREAK);
             sb.append("stop request received");
             ledMatrix.stopCommand();
         } 
@@ -33,12 +35,12 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
         {
             String message = "error: " + ex.getMessage();
         
-            sb.append("<br/>");
+            sb.append(BREAK);
             sb.append(message);
             logger.log(Level.SEVERE, message, ex);
         }
         
-        sb.append("<br/>");
+        sb.append(BREAK);
         sb.append("stop request processed");
         
         OutputStream os = response.getOutputStream();
