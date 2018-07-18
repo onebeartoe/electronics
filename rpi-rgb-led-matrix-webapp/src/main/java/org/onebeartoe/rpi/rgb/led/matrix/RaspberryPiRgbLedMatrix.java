@@ -38,7 +38,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     private String rpiRgbLedMatrixHome =  "/home/pi/rpi-rgb-led-matrix";
     
     // loop forever!
-    private static final String loopForeverParameter = "-f";
+    private static final String LOOP_FOREVER_PARAMETER = "-f";
     
     public RaspberryPiRgbLedMatrix()
     {
@@ -164,7 +164,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         List<String> command = new ArrayList();
         command.add(executable);
         command.addAll( Arrays.asList(commandLineFlags) );
-        command.add(loopForeverParameter);
+        command.add(LOOP_FOREVER_PARAMETER);
         command.add(gifPath);
         
         String debugList = "";
