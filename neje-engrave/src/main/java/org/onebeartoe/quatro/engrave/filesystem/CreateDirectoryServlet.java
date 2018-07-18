@@ -56,14 +56,14 @@ public class CreateDirectoryServlet extends HttpServlet
     {
         File baseDirectory = applicationProfile.getBaseDirectory();
         
-        File directoryToCreate = new File(baseDirectory, path);
-        
-        String filesystemLog = "The directory was created: " + directoryToCreate.getAbsolutePath();
+        String filesystemLog = null;
         
         try
         {
             filesystemValidationService.validatePath(baseDirectory, path);
-            
+        
+            File directoryToCreate = new File(baseDirectory, path);
+                    
             if( directoryToCreate.exists() )
             {
                 filesystemLog = "The file alredy exists: " + directoryToCreate.getAbsolutePath();
@@ -72,7 +72,11 @@ public class CreateDirectoryServlet extends HttpServlet
             {
                 boolean wasCreated = directoryToCreate.mkdirs();
 
-                if(!wasCreated)
+                if(wasCreated)
+                {
+                    filesystemLog = "The directory was created: " + directoryToCreate.getAbsolutePath();
+                }
+                else
                 {
                     filesystemLog = "With no error given, the directory was not created; " 
                                     + directoryToCreate.getAbsolutePath();
@@ -82,7 +86,9 @@ public class CreateDirectoryServlet extends HttpServlet
         catch(IllegalArgumentException ex)
         {
             filesystemLog = "The directory (" 
-                            + directoryToCreate.getAbsolutePath() + ") was not created; "
+                            + baseDirectory.getAbsolutePath() 
+                            + path
+                            + ") was not created; "
                             + ex.getMessage();
         }
 
