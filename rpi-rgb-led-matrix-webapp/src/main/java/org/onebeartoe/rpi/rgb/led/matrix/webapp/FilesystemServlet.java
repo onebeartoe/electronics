@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.tika.Tika;
 
 /**
  * The loadOnStartup is present to ensure the ledMatrix object is created before
@@ -51,8 +52,12 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
             File targetFile = new File(info.path);
             Path animation = targetFile.toPath();
 
-            //TODO: set the correct content type for the PNG and GIF animations
+            Tika tika = new Tika();
+            String contentType = tika.detect(info.path);
+                       
             response.setContentType("image/png");
+// TODO: actuall set content type derived from Tika
+//            response.setContentType(contentType);
 
             OutputStream os = response.getOutputStream();
             Files.copy(animation, os);
