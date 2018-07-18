@@ -37,6 +37,7 @@ public class CreateDirectoryServlet extends HttpServlet
         String filesystemLog = null;
         
         // Perform some basic path validation
+// TODO: Remove the matches() call and see if contains("..") works with the Sonar scan.        
         if( path.matches("[a-zA-Z0-9]++") )
         {
             filesystemLog = "a bad path was given";
