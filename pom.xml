@@ -65,13 +65,13 @@
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <version>3.0.1</version>
             </plugin>      
-        </plugins>
         
-        <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.4.0.905</version>
-        </plugin>         
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.4.0.905</version>
+            </plugin>
+        </plugins>         
     </build>
   
     <!-- To use the report goals in your POM or parent POM -->
