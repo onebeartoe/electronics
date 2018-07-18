@@ -22,7 +22,7 @@
 	<module>microcontrollers</module>
         <module>rpi-rgb-led-matrix-webapp</module>
         <module>neje-engrave</module>
-  </modules>    
+    </modules>    
 
     <repositories>
 	<repository>
@@ -66,6 +66,12 @@
                 <version>3.0.1</version>
             </plugin>      
         </plugins>
+        
+        <plugin>
+            <groupId>org.sonarsource.scanner.maven</groupId>
+            <artifactId>sonar-maven-plugin</artifactId>
+            <version>3.4.0.905</version>
+        </plugin>         
     </build>
   
     <!-- To use the report goals in your POM or parent POM -->
