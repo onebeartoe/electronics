@@ -36,7 +36,7 @@ public class CreateDirectoryServlet extends HttpServlet
         String filesystemLog = null;
         
         // Perform some basic path validation
-        if( path.matches("../") )
+        if( path.matches("[a-zA-Z0-9]++") )
         {
             filesystemLog = "a bad path was given";
         }
