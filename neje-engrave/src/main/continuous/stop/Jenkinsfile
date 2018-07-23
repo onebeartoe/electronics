@@ -1,0 +1,42 @@
+
+pipeline 
+{
+    agent
+    {
+        label 'master'
+    }
+
+    stages 
+    {
+        stage('Debug')
+        {
+            steps
+            {
+                echo "inventory path: ${inventory.path}
+            }
+        }
+
+        stage('Build') 
+        {
+            steps 
+            {
+                echo 'Building...'
+
+                sh 
+                '''                
+                    ls -la
+
+                    svn checkout https://192.168.1.80/beto-land-owner/Websites/oneweb/beto-land-network/src/main/configuration-mangement-ansible/jdsfkdsafjsajfkjaldsj
+
+                    ls -la
+
+                    cd configuration-mangement-ansible
+
+                    ls -la
+
+                    ansible-playbook -vvvv consul.yml -i hosts/service-discovery --extra-vars "ansible_become_pass=${mirror_password} ansible_sudo_pass=${mirror_password}"
+                '''
+            }
+        }
+    }
+}
