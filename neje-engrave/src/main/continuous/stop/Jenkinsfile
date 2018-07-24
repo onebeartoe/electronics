@@ -26,7 +26,7 @@ pipeline
                 '''                
                     ls -la
 
-                    svn checkout https://192.168.1.80/beto-land-owner/Websites/oneweb/beto-land-network/src/main/configuration-mangement-ansible/jdsfkdsafjsajfkjaldsj
+                    svn checko1ut https://192.168.1.80/beto-land-owner/Websites/oneweb/beto-land-network/src/main/configuration-mangement-ansible/jdsfkdsafjsajfkjaldsj
 
                     ls -la
 
