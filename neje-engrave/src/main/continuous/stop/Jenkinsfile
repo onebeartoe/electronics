@@ -12,6 +12,7 @@ pipeline
         {
             steps
             {
+                echo "debug: 1"
                 echo "inventory path: ${inventory.path}"
             }
         }
