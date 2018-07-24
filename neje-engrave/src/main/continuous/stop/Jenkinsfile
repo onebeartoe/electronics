@@ -12,7 +12,6 @@ pipeline
         {
             steps
             {
-                echo "debug: 1"
                 echo "inventory path: ${ansible_inventory_path}"
             }
         }
@@ -36,12 +35,6 @@ pipeline
 
                     ansible-playbook stop-neje-engrave.yml -i ansible-betoland.inventory -l laserengraver1
                 '''
-
-
-/*
-delete me
-                    ansible-playbook -vvvv consul.yml -i hosts/service-discovery --extra-vars "ansible_become_pass=${mirror_password} ansible_sudo_pass=${mirror_password}"
-*/
             }
         }
     }

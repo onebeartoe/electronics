@@ -1,1 +1,42 @@
 
+pipeline 
+{
+    agent
+    {
+        label 'master'
+    }
+
+    stages 
+    {
+        stage('Debug-ploop')
+        {
+            steps
+            {
+                echo "inventory path: ${ansible_inventory_path}"
+            }
+        }
+
+        stage('Build') 
+        {
+            steps 
+            {
+                echo 'Building...'
+
+                sh '''
+                    pwd
+
+                    ls -ltrh
+
+                    cd neje-engrave/src/main/ansible
+
+                    cp ${ansible_inventory_path} .
+
+                    ls -ltrh
+
+                    ansible-playbook start-neje-engrave.yml -i ansible-betoland.inventory -l laserengraver1
+                '''
+            }
+        }
+    }
+}
+
