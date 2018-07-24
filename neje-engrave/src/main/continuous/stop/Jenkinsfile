@@ -23,9 +23,15 @@ pipeline
             {
                 echo 'Building...'
 
-/*
                 sh 
                 '''    
+                    pwd
+
+                    ls -ltrh
+                '''
+
+
+/*
                     ls -la
 
                     svn checko1ut https://192.168.1.80/beto-land-owner/Websites/oneweb/beto-land-network/src/main/configuration-mangement-ansible/jdsfkdsafjsajfkjaldsj
@@ -37,7 +43,6 @@ pipeline
                     ls -la
 
                     ansible-playbook -vvvv consul.yml -i hosts/service-discovery --extra-vars "ansible_become_pass=${mirror_password} ansible_sudo_pass=${mirror_password}"
-                '''
 */
             }
         }
