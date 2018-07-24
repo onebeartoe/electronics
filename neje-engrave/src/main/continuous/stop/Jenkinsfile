@@ -34,11 +34,12 @@ pipeline
 
                     ls -ltrh
 
-                    ls -ltrh hosts/
+                    ansible-playbook stop-neje-engrave.yml -i ansible-betoland.inventory -l laserengraver1
                 '''
 
 
 /*
+delete me
                     ansible-playbook -vvvv consul.yml -i hosts/service-discovery --extra-vars "ansible_become_pass=${mirror_password} ansible_sudo_pass=${mirror_password}"
 */
             }
