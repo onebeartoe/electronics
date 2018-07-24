@@ -12,7 +12,7 @@ pipeline
         {
             steps
             {
-                echo "inventory path: ${inventory.path}
+                echo "inventory path: ${inventory.path}"
             }
         }
 
