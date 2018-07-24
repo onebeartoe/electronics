@@ -23,8 +23,7 @@ pipeline
             {
                 echo 'Building...'
 
-                sh 
-                '''    
+                sh '''
                     pwd
 
                     ls -ltrh
