@@ -1,5 +1,5 @@
 
-package org.onebeartoe.quatro.engrave;
+package org.onebeartoe.neje.engrave;
 
 /**
  *
@@ -9,6 +9,8 @@ public class CommandResult
 {
     private String commandLine;
 
+    public boolean removeMe;
+    
     public String getCommandLine()
     {
         return commandLine;
@@ -17,7 +19,5 @@ public class CommandResult
     public void setCommandLine(String commandLine)
     {
         this.commandLine = commandLine;
-    }
-    
-    
+    }    
 }

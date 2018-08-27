@@ -11,10 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onebeartoe.io.ObjectRetriever;
-import org.onebeartoe.quatro.engrave.ApplicationProfile;
-import org.onebeartoe.quatro.engrave.CommandResult;
-import org.onebeartoe.quatro.engrave.NejeEngraver;
-import org.onebeartoe.quatro.engrave.filesystem.FilesystemValidationService;
+import org.onebeartoe.neje.engrave.filesystem.FilesystemValidationService;
 import org.onebeartoe.web.PlainTextResponseServlet;
 
 /**
@@ -28,9 +25,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     private Logger logger;
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
-    
-//    private static NejeEngraver engraver;
-    
+
     private ApplicationProfile applicationProfile;
     
     @Override
@@ -107,7 +102,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         {
             engraver = (NejeEngraver) ObjectRetriever.decodeObject(cliConfigFile);
         } 
-        catch (FileNotFoundException ex)
+        catch (Exception ex)
         {
             String message = ex.getMessage();
             
@@ -133,3 +128,4 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         applicationProfile.setEngraver(engraver);
     }
 }
+              

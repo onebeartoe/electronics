@@ -13,9 +13,7 @@ function initializeSlider()
     }
     
     slider.onchange = function()
-    {
-        alert("don");
-        
+    {        
         updateBurnTime();
     }
 }
@@ -88,14 +86,17 @@ function startEngraving()
 }
 
 function updateBurnTime()
-{
+{    
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange=function()
     {
         var divId = "logs";
         logServerResponse(xmlhttp, divId);
     }
-    var url = "../engraver/burn-time";
+    
+    var slider = document.getElementById("burnTimeSlider");
+    
+    var url = "../engraver/burn-time/" + slider.value;
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.send("&p=3");

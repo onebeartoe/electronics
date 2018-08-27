@@ -7,8 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
-import org.onebeartoe.quatro.engrave.ApplicationProfile;
-import org.onebeartoe.quatro.engrave.NejeEngraver;
 import org.onebeartoe.web.PlainTextResponseServlet;
 
 /**
@@ -18,7 +16,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
  * @author Roberto Marquez
  * 
  */
-@WebServlet(urlPatterns = {"/engraver/burn-time"})
+@WebServlet(urlPatterns = {"/engraver/burn-time/*"})
 public class UpdateBurnTimeServlet extends PlainTextResponseServlet
 {
     private Logger logger;
@@ -33,7 +31,26 @@ public class UpdateBurnTimeServlet extends PlainTextResponseServlet
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {
-        logger.info("The request for updating the burn time to " + "UPDATE-THIS" + " is being processed.");
+        String pathInfo = request.getPathInfo();
+        
+        final long defaultBurnTime = 15L;
+        
+        long burnTime = defaultBurnTime;
+        
+        try
+        {
+            String s = pathInfo.substring(1);
+
+            burnTime = Long.parseLong(s);
+        }
+        catch(Exception e)
+        {
+            logger.warning("error parsing burn time: " + e.getMessage() );
+        }
+        
+        String message = "The request for updating the burn time to " + burnTime + " is being processed.";
+
+        logger.info(message);
         
         ServletContext servletContext = getServletContext();
         
@@ -41,9 +58,19 @@ public class UpdateBurnTimeServlet extends PlainTextResponseServlet
         
         NejeEngraver engraver = applicationProfile.getEngraver();
                 
-        engraver.setBurnTime(15L);
+        long maxBurnTime = 60;
         
-        return "this is the respose form burn time";
+        if( 0 < burnTime && burnTime < maxBurnTime)
+        {
+            engraver.setBurnTime(burnTime);
+        }
+        else
+        {
+            engraver.setBurnTime(15L);
+            
+            message += "  Cannot use invalid burn time value of " + burnTime;
+        }
+        
+        return message;
     }
-    
 }
