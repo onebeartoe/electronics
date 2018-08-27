@@ -22,12 +22,14 @@ import java.util.logging.Logger;
  */
 public class NejeEngraver implements Serializable
 {
-//    private String cliExecutable = "--cli-executable-is-not-set-";
-    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
+    private String cliExecutable = "--The-cli-executable-is-not-set--";
+//    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
 //    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
     
 
     private final String serialPort = "/dev/ttyUSB0";
+    
+    private long burnTime = 14;
 
     private transient Logger logger;
 
@@ -77,7 +79,7 @@ public class NejeEngraver implements Serializable
      * @param additionalArguments
      * @throws IOException 
      */
-    private void sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
+    private CommandResult sendEngraverCommand(char commandChar, String ... additionalArguments) throws IOException
     {
         List<String> command = new ArrayList();
         command.add(cliExecutable);
@@ -106,13 +108,23 @@ public class NejeEngraver implements Serializable
         builder.start();
 
         logger.info("process started");
+        
+        CommandResult result = new CommandResult();
+        
+        result.setCommandLine(debugList);
+                
+        return result;
     }
     
-    public void startEngraving(String burnTime) throws IOException
+    public CommandResult startEngraving() throws IOException
     {
         char command = 's';
         
-        sendEngraverCommand(command, burnTime);
+        String burnTime = String.valueOf(this.burnTime);
+        
+        CommandResult result = sendEngraverCommand(command, burnTime);
+        
+        return result;
     }    
 
     public void uploadImage(File imageUpload) throws IOException
@@ -129,5 +141,15 @@ public class NejeEngraver implements Serializable
         char command = 'p';
         
         sendEngraverCommand(command);
+    }
+
+    /**
+     * This method sets the burn time in milliseconds.
+     * 
+     * @param burnTime in milliseconds
+     */
+    public void setBurnTime(long burnTime)
+    {
+        this.burnTime = burnTime;
     }
 }

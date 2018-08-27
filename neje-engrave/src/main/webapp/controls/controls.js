@@ -15,6 +15,8 @@ function initializeSlider()
     slider.onchange = function()
     {
         alert("don");
+        
+        updateBurnTime();
     }
 }
 

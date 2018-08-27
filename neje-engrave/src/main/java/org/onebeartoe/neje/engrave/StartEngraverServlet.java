@@ -4,7 +4,6 @@ package org.onebeartoe.neje.engrave;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,6 +19,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 /**
  *
  * This servlet adds a NejeEgraver object to the servlet context.
+ * 
  */
 @WebServlet(urlPatterns = {"/engraver/start"}, loadOnStartup = 1)
 public class StartEngraverServlet extends PlainTextResponseServlet
@@ -28,7 +28,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
     
-    private static NejeEngraver engraver;
+//    private static NejeEngraver engraver;
     
     private ApplicationProfile applicationProfile;
     
@@ -36,6 +36,8 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {
         String result = "The Start messge was sent to engraver.";
+     
+        NejeEngraver engraver = applicationProfile.getEngraver();
         
         try
         {
@@ -53,14 +55,16 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         return result;
     }
 
-    private void defaultSettings()
+    private NejeEngraver defaultSettings()
     {
-        engraver = new NejeEngraver();
+        NejeEngraver engraver = new NejeEngraver();
 
         String ezGraverCliPath = "/opt/ez-graver/EzGraverCli/EzGraverCli";
 //        String ezGraverCliPath = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
         
         engraver.setCliExecutable(ezGraverCliPath);
+        
+        return engraver;
     }
     
     @Override
@@ -78,7 +82,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         {
             loadApplicationProfile();
         }
-        
+
         servletContext.setAttribute(APPLICTION_PROFILE_CONTEXT_KEY, applicationProfile);        
     }
 
@@ -96,6 +100,8 @@ public class StartEngraverServlet extends PlainTextResponseServlet
 
         File cliConfigFile = new File(baseDir, ApplicationProfile.CONFIGURATION_FILENAME);
         
+        NejeEngraver engraver = null;
+        
         try
         {
             engraver = (NejeEngraver) ObjectRetriever.decodeObject(cliConfigFile);
@@ -109,7 +115,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         
         if(engraver == null)
         {
-            defaultSettings();
+            engraver = defaultSettings();
         }
                 
         applicationProfile = new ApplicationProfile();
