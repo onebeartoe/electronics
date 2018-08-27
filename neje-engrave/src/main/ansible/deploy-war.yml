@@ -1,5 +1,5 @@
 
-- hosts: raspberry-pis
+- hosts: all
   vars:
 #    optDirectory: /opt/onebeartoe/neje-engrave
   remote_user: pi
