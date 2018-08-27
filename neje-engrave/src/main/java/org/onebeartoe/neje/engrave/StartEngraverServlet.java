@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onebeartoe.io.ObjectRetriever;
 import org.onebeartoe.quatro.engrave.ApplicationProfile;
+import org.onebeartoe.quatro.engrave.CommandResult;
 import org.onebeartoe.quatro.engrave.NejeEngraver;
 import org.onebeartoe.quatro.engrave.filesystem.FilesystemValidationService;
 import org.onebeartoe.web.PlainTextResponseServlet;
@@ -35,24 +36,24 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {
-        String result = "The Start messge was sent to engraver.";
+        String responseMessage = "The start messge was sent to engraver:";
      
         NejeEngraver engraver = applicationProfile.getEngraver();
         
         try
-        {
-            String burnTime = "14";
+        {            
+            CommandResult commandResult = engraver.startEngraving();
             
-            engraver.startEngraving(burnTime);
+            responseMessage += "<p>" + commandResult.getCommandLine() + "</p>";
         } 
         catch (IOException ex)
         {
-            result = "An error occured while starting the engraving: " + ex.getMessage();
+            responseMessage = "An error occured while starting the engraving: " + ex.getMessage();
             
-            logger.severe(result);
-        }                
+            logger.severe(responseMessage);
+        }
                 
-        return result;
+        return responseMessage;
     }
 
     private NejeEngraver defaultSettings()
