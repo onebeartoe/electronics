@@ -1,4 +1,23 @@
 
+function initializeSlider()
+{
+    var slider = document.getElementById("burnTimeSlider");
+    
+    var output = document.getElementById("burnTimeLabel");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function() 
+    {
+        output.innerHTML = this.value;
+    }
+    
+    slider.onchange = function()
+    {
+        alert("don");
+    }
+}
+
 function logEvent(message, divId)
 {
     var e = document.getElementById(divId);
@@ -63,7 +82,21 @@ function startEngraving()
     var url = "../engraver/start";
     xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("&p=3");    
+    xmlhttp.send("&p=3");
+}
+
+function updateBurnTime()
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        var divId = "logs";
+        logServerResponse(xmlhttp, divId);
+    }
+    var url = "../engraver/burn-time";
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.send("&p=3");
 }
 
 function uploadImageToEngraver(imagePath)

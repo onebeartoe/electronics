@@ -25,7 +25,21 @@
             <h3>Current File</h3>
                 <p id="currentFile">		
                     File: ${currentFile}                
-                </p>  
+                </p>
+                
+                <div id="burnTimeContainer">                      
+                      Burn time
+                      
+                      <input type="range" 
+                             min="1" max="100" 
+                             value="50" 
+                             class="slider" 
+                             id="burnTimeSlider">
+
+                      <span id="burnTimeLabel">
+                          --The burn time is not set.--
+                      </span>
+                </div>
             
             	<div class ="sideBySide">
                     <div class="sideBySideLeft" style="width: 45%;">
@@ -165,5 +179,7 @@
         {
             createDirModal.style.display = "none";
         }
-    }                
+    }
+    
+    initializeSlider();
 </script>
