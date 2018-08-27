@@ -47,7 +47,7 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         String[] flags = s.split("\\s+");
         ledMatrix.setCommandLineFlags(flags);
 
-        File outfile = RaspberryPiRgbLedMatrixServlet.configFile;
+        File outfile = configFile;
         ObjectSaver.encodeObject(ledMatrix, outfile);
         
         String saveMessages = "Settings changes were saved.";        

@@ -28,7 +28,7 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     
     protected RaspberryPiRgbLedMatrix ledMatrix;
 
-    static protected File configFile;
+    protected File configFile;
             
     private void adjustIfOnWindows()
     {
@@ -144,6 +144,7 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         configDir.mkdirs();
         
         configFile = new File(configDir, "led-matrix-webapp.xml");
+        
         Object object = ObjectRetriever.decodeObject(configFile);
         
         ledMatrix = (RaspberryPiRgbLedMatrix) object;

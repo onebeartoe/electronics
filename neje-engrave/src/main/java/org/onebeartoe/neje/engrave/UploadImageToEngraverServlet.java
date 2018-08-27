@@ -22,7 +22,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
     
     private ApplicationProfile applicationProfile;
     
-    private static NejeEngraver engraver;
+//    private static NejeEngraver engraver;
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -37,6 +37,8 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         try
         {
+            NejeEngraver engraver = applicationProfile.getEngraver();
+            
             engraver.uploadImage(imageUpload);
         } 
         catch (IOException ex)
@@ -63,6 +65,6 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
-        engraver = applicationProfile.getEngraver();
+//        engraver = applicationProfile.getEngraver();
     }
 }

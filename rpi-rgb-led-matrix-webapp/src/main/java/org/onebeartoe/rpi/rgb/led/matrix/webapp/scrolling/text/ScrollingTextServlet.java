@@ -52,7 +52,7 @@ public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
         }
 
         // save the updated scrolling text configuration
-        File outfile = RaspberryPiRgbLedMatrixServlet.configFile;
+        File outfile = configFile;
         ObjectSaver.encodeObject(ledMatrix, outfile);
         
         request.setAttribute("responseMessages", saveMessages);
