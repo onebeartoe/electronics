@@ -15,11 +15,15 @@ import java.util.logging.Logger;
  * 
  *      https://github.com/camrein/EzGraver/tree/master/EzGraverCli
  * 
+ * The actual fork used by this project is this one:
+ * 
+ *      https://github.com/onebeartoe/EzGraver/commits/unix_cli_fixes_clean
+ * 
  */
 public class NejeEngraver implements Serializable
 {
-    private String cliExecutable = "--cli-executable-is-not-set-";
-//    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
+//    private String cliExecutable = "--cli-executable-is-not-set-";
+    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
 //    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
     
 
