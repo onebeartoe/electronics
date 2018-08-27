@@ -21,9 +21,7 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 public class ResetEgraverServlet extends HttpServlet
 {
     private final Logger logger;
-    
-    private NejeEngraver engraver;
-    
+
     public ResetEgraverServlet()
     {
         logger = Logger.getLogger(getClass().getName());
@@ -37,6 +35,12 @@ public class ResetEgraverServlet extends HttpServlet
         logger.info( sb.toString() );
         try 
         {
+            ServletContext servletContext = getServletContext();
+
+            ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+
+            NejeEngraver engraver = applicationProfile.getEngraver();            
+
             engraver.reset();
         } 
         catch (Exception ex) 
@@ -58,16 +62,4 @@ public class ResetEgraverServlet extends HttpServlet
         pw.flush();
         pw.close();
     }
-    
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-      
-        ServletContext servletContext = getServletContext();
-        
-        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-        engraver = applicationProfile.getEngraver();
-    }   
 }

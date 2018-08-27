@@ -95,7 +95,7 @@
                   </div>
 
                 </div>
-
+                
                 <button id="createDirButton" >Create Directory</button>
 
                 <div id="createDirModal" class="modal">
