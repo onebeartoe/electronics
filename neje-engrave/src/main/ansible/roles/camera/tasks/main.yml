@@ -18,5 +18,8 @@
 - name: Start the motion application.
   shell: motion
 
-#- name: enable sysv supervisord service
-#  service: name=motion enabled=yes
+- name: Create a cron job for motion.
+  cron:
+    name: "a motion job for reboot"
+    special_time: reboot
+    job: "motion"
