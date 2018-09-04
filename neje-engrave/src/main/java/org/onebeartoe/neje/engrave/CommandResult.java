@@ -8,8 +8,6 @@ package org.onebeartoe.neje.engrave;
 public class CommandResult
 {
     private String commandLine;
-
-    public boolean removeMe;
     
     public String getCommandLine()
     {

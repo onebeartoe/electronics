@@ -38,7 +38,16 @@ public class UploadServlet extends HttpServlet
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException
     {
-        final Part filePart = request.getPart("upload");
+        Part filePart = null;
+        try
+        {
+            filePart = request.getPart("upload");
+        } 
+        catch (IOException | ServletException ex)
+        {
+            Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         final String fileName = getFileName(filePart);
 
         File outdir = applicationProfile.getBaseDirectory();
