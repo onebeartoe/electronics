@@ -18,7 +18,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/upload-image/*"})
 public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 {
-    private Logger logger;
+    private static Logger logger;
     
     private ApplicationProfile applicationProfile;
     

@@ -23,7 +23,7 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @WebServlet(urlPatterns = {"/filesystem/create-directory"})
 public class CreateDirectoryServlet extends HttpServlet
 {
-    private Logger logger;
+    private static Logger logger;
     
     private ApplicationProfile applicationProfile;
     

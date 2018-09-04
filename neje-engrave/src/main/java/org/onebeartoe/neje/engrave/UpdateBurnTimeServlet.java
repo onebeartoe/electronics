@@ -19,7 +19,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/burn-time/*"})
 public class UpdateBurnTimeServlet extends PlainTextResponseServlet
 {
-    private Logger logger;
+    private static Logger logger;
     
     public UpdateBurnTimeServlet()
     {
