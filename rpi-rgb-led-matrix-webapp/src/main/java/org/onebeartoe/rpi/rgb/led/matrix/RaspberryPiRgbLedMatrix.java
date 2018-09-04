@@ -160,7 +160,10 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         
         List<String> command = new ArrayList();
         command.add(executable);
-        logger.log(Level.INFO, "commandLineFlags.length: " + commandLineFlags.length);
+        
+        String infoMessage = "commandLineFlags.length: " + commandLineFlags.length;
+        
+        logger.log(Level.INFO, infoMessage);
         if(commandLineFlags.length > 0)
         {
             if(commandLineFlags.length == 1 && commandLineFlags[0].trim().equals("") )
@@ -174,8 +177,10 @@ public class RaspberryPiRgbLedMatrix implements Serializable
                 StringBuilder cliFlags = new StringBuilder();
                 Arrays.stream(commandLineFlags)
                                     .forEach(s -> cliFlags.append(s + "< >") );
+             
+                String flagsMessage = "command line flags: " + cliFlags;
                 
-                logger.log(Level.INFO, "command line flags: " + cliFlags);            
+                logger.log(Level.INFO, flagsMessage);            
             }
         }
         else
