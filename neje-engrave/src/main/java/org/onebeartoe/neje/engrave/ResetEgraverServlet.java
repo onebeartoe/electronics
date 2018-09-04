@@ -28,7 +28,7 @@ public class ResetEgraverServlet extends HttpServlet
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException            
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)     
     {
         
         StringBuilder sb = new StringBuilder("The Reset message was sent to the laser engraver");
@@ -60,6 +60,10 @@ public class ResetEgraverServlet extends HttpServlet
         {
             pw.print( sb.toString() );
             pw.flush();
+        } 
+        catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 }
