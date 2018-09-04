@@ -47,44 +47,51 @@ public class UploadServlet extends HttpServlet
         {
             Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        final String fileName = getFileName(filePart);
 
-        File outdir = applicationProfile.getBaseDirectory();
-        File outfile = new File(outdir, fileName);
-            
-        String message = "";
-        try(OutputStream out = new FileOutputStream(outfile);
-            InputStream filecontent = filePart.getInputStream();) 
+        String message = null;
+        if(filePart != null)
         {
-            int read = 0;
-            final byte[] bytes = new byte[1024];
+            final String fileName = getFileName(filePart);
 
-            while ((read = filecontent.read(bytes)) != -1) 
+            File outdir = applicationProfile.getBaseDirectory();
+            File outfile = new File(outdir, fileName);
+
+            try(OutputStream out = new FileOutputStream(outfile);
+                InputStream filecontent = filePart.getInputStream();) 
             {
-                out.write(bytes, 0, read);
-            }
-            
-            String outpath = outfile.getAbsolutePath();
-            message += "New file " + fileName + " created at " + outpath;
-            logger.log(Level.INFO, message);
-            logger.log(Level.INFO, "File {0} being uploaded to {1}",  new Object[]{fileName, outpath});
-        } 
-        catch (FileNotFoundException fne) 
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.append("You either did not specify a file to upload or are "
-                    + "trying to upload a file to a protected or nonexistent "
-                    + "location.");
-            
-            sb.append("\n<br/> ERROR: " + fne.getMessage());
-            
-            sb.append("Problems during file upload. Error: " + fne.getMessage());
+                int read = 0;
+                final byte[] bytes = new byte[1024];
 
-            message += sb.toString();
-            logger.log(Level.SEVERE, message);
-        } 
-     
+                while ((read = filecontent.read(bytes)) != -1) 
+                {
+                    out.write(bytes, 0, read);
+                }
+
+                String outpath = outfile.getAbsolutePath();
+                message += "New file " + fileName + " created at " + outpath;
+                logger.log(Level.INFO, message);
+                logger.log(Level.INFO, "File {0} being uploaded to {1}",  new Object[]{fileName, outpath});
+            } 
+            catch (FileNotFoundException fne) 
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append("You either did not specify a file to upload or are "
+                        + "trying to upload a file to a protected or nonexistent "
+                        + "location.");
+
+                sb.append("\n<br/> ERROR: " + fne.getMessage());
+
+                sb.append("Problems during file upload. Error: " + fne.getMessage());
+
+                message += sb.toString();
+                logger.log(Level.SEVERE, message);
+            }            
+        }
+        else
+        {
+            message = "No filePart is available.";
+        }
+
         request.setAttribute("responseMessages", message);
     
         List fileNames = null;
