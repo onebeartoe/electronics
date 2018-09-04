@@ -22,11 +22,11 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/start"}, loadOnStartup = 1)
 public class StartEngraverServlet extends PlainTextResponseServlet
 {
-    private Logger logger;
+    private static Logger logger;
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
 
-    private ApplicationProfile applicationProfile;
+    private static ApplicationProfile applicationProfile;
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
