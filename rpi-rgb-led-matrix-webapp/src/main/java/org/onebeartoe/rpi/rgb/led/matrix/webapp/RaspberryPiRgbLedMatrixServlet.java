@@ -26,13 +26,19 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     
     public static final String LED_MATRIX_HAT_CONTEXT_KEY = "LED_MATRIX_HAT_CONTEXT_KEY";
     
-    protected static File configFile;
+    protected final File configFile;
 
     public RaspberryPiRgbLedMatrixServlet()
     {
         logger = Logger.getLogger(getClass().getName());
         
         os = new OperatingSystem();
+     
+        String configDirPath = os.currentUserHome() + "/.onebeartoe/rpi-rgb-led-matrix-webapp/";
+        File configDir = new File(configDirPath);
+        configDir.mkdirs();        
+        
+        configFile = new File(configDir, "led-matrix-webapp.xml");
     }
     
     private void adjustIfOnWindows(RaspberryPiRgbLedMatrix ledMatrix)
@@ -145,12 +151,6 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     
     private RaspberryPiRgbLedMatrix restoreFromPersistence() throws FileNotFoundException
     {
-        String configDirPath = os.currentUserHome() + "/.onebeartoe/rpi-rgb-led-matrix-webapp/";
-        File configDir = new File(configDirPath);
-        configDir.mkdirs();
-        
-        configFile = new File(configDir, "led-matrix-webapp.xml");
-        
         Object object = ObjectRetriever.decodeObject(configFile);
         
         RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) object;
