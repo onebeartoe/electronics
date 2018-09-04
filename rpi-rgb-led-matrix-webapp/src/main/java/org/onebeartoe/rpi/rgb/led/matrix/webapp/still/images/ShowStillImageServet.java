@@ -5,12 +5,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.servlet.ServletException;
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.onebeartoe.rpi.rgb.led.matrix.RaspberryPiRgbLedMatrix;
 import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
+import static org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet.LED_MATRIX_HAT_CONTEXT_KEY;
 
 /**
  *
@@ -31,6 +32,8 @@ public class ShowStillImageServet extends RaspberryPiRgbLedMatrixServlet
 
         try 
         {
+            ServletContext servletContext = getServletContext();
+            RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);            
             ledMatrix.stopCommand();
             ledMatrix.startShowStillImageCommand(stillImageName);
         } 

@@ -7,11 +7,14 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.tika.Tika;
+import org.onebeartoe.rpi.rgb.led.matrix.RaspberryPiRgbLedMatrix;
+import static org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet.LED_MATRIX_HAT_CONTEXT_KEY;
 
 /**
  * The loadOnStartup is present to ensure the ledMatrix object is created before
@@ -32,8 +35,11 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
         ParseInfo info;
         try
         {
-            info = parsePath(pathInfo);
-
+            ServletContext servletContext = getServletContext();
+            RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);
+            
+            info = parsePath(pathInfo, ledMatrix);
+            
             String stillImagesTarget = (new File(ledMatrix.getStillImagesPath())).getAbsolutePath();
             String animationsTarget = (new File(ledMatrix.getAnimationsPath() )).getAbsolutePath();
 
@@ -78,7 +84,7 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
         }
     }
     
-    private ParseInfo parsePath(String pathInfo) throws ServletException
+    private ParseInfo parsePath(String pathInfo, RaspberryPiRgbLedMatrix ledMatrix) throws ServletException
     {
         final String animations = "animations";
         final String stillImages = "still-images";

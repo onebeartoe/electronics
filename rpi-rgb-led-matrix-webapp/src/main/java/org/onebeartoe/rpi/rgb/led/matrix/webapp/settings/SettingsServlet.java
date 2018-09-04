@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.onebeartoe.io.ObjectSaver;
+import org.onebeartoe.rpi.rgb.led.matrix.RaspberryPiRgbLedMatrix;
 import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
+import static org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet.LED_MATRIX_HAT_CONTEXT_KEY;
 
 /**
  *
@@ -32,6 +33,9 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
+        ServletContext servletContext = getServletContext();
+        RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);        
+        
         String stillsDirtory = request.getParameter("stillImagesDirectory");
         ledMatrix.setStillImagesPath(stillsDirtory);
         
@@ -59,6 +63,9 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
 
     private void doResponse(HttpServletRequest request, HttpServletResponse response)
     {
+        ServletContext servletContext = getServletContext();
+        RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);        
+        
         request.setAttribute("ledMatrix", ledMatrix);
         
         List list = Arrays.asList( ledMatrix.getCommandLineFlags() );

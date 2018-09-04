@@ -26,8 +26,6 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     
     public static final String LED_MATRIX_HAT_CONTEXT_KEY = "LED_MATRIX_HAT_CONTEXT_KEY";
     
-//    protected static RaspberryPiRgbLedMatrix ledMatrix;
-
     protected static File configFile;
 
     public RaspberryPiRgbLedMatrixServlet()
@@ -87,9 +85,8 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     {
         ServletContext servletContext = getServletContext();
         
-        RaspberryPiRgbLedMatrix ledMatrix;
+        RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);
         
-        ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);
         if(ledMatrix == null)
         {
             // this is the first time the application loads this servlet
