@@ -30,9 +30,9 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @MultipartConfig
 public class UploadServlet extends HttpServlet
 {
-    protected Logger logger;
+    protected static Logger logger;
 
-    private ApplicationProfile applicationProfile;
+    private static ApplicationProfile applicationProfile;
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) 

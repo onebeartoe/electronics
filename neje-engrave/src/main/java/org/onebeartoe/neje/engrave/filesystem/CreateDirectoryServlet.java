@@ -25,9 +25,9 @@ public class CreateDirectoryServlet extends HttpServlet
 {
     private static Logger logger;
     
-    private ApplicationProfile applicationProfile;
+    private static ApplicationProfile applicationProfile;
     
-    private FilesystemValidationService filesystemValidationService;
+    private static FilesystemValidationService filesystemValidationService;
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

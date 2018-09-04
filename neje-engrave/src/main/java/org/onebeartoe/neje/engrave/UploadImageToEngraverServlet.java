@@ -20,10 +20,8 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 {
     private static Logger logger;
     
-    private ApplicationProfile applicationProfile;
-    
-//    private static NejeEngraver engraver;
-    
+    private static ApplicationProfile applicationProfile;
+
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {

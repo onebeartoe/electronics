@@ -26,9 +26,9 @@ public class FilesystemServlet extends PlainTextResponseServlet
 {    
     private static Logger logger;
     
-    private FilesystemValidationService filesystemValidationService;
+    private static FilesystemValidationService filesystemValidationService;
     
-    private ApplicationProfile applicationProfile;
+    private static ApplicationProfile applicationProfile;
     
     private final BreakTag brTag = new BreakTag();
     
