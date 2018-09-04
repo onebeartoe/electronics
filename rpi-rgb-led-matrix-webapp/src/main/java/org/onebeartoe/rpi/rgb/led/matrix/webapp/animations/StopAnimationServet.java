@@ -38,6 +38,8 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
             sb.append(BREAK);
             sb.append(message);
             logger.log(Level.SEVERE, message, ex);
+            
+            Thread.currentThread().interrupt();
         }
         
         sb.append(BREAK);

@@ -24,11 +24,11 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @WebServlet(urlPatterns = {"/settings/*"})
 public class SettingsServlet extends HttpServlet
 {
-    private Logger logger;
+    private static Logger logger;
     
-    private ApplicationProfile applicationProfile;
+    private static ApplicationProfile applicationProfile;
     
-    private NejeEngraver engraver;
+    private static NejeEngraver engraver;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException

@@ -195,6 +195,8 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         {
             String message = "The comamnd could not be stopped: " + ex.getMessage();
             logger.log(Level.SEVERE, message, ex);
+            
+            Thread.currentThread().interrupt();
         }
         
         String execuableParent = rpiRgbLedMatrixHome + "/python/samples/";

@@ -20,15 +20,15 @@ import org.onebeartoe.system.OperatingSystem;
  */
 public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
 {
-    protected OperatingSystem os;
+    protected static OperatingSystem os;
     
-    protected Logger logger;
+    protected static Logger logger;
     
     public static final String LED_MATRIX_HAT_CONTEXT_KEY = "LED_MATRIX_HAT_CONTEXT_KEY";
     
-    protected RaspberryPiRgbLedMatrix ledMatrix;
+    protected static RaspberryPiRgbLedMatrix ledMatrix;
 
-    protected File configFile;
+    protected static File configFile;
             
     private void adjustIfOnWindows()
     {
