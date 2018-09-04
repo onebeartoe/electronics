@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class ShowStillImageServet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException            
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
         String pi = request.getPathInfo();
         String stillImageName = pi.substring(1); // remove the slash character
@@ -52,6 +53,10 @@ public class ShowStillImageServet extends RaspberryPiRgbLedMatrixServlet
         {
             pw.print( sb.toString() );
             pw.flush();
+        } 
+        catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }    
 }
