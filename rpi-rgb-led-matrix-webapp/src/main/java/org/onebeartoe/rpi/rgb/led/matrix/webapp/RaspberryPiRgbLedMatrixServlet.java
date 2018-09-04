@@ -20,16 +20,23 @@ import org.onebeartoe.system.OperatingSystem;
  */
 public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
 {
-    protected static OperatingSystem os;
+    protected final OperatingSystem os;
     
-    protected static Logger logger;
+    protected final Logger logger;
     
     public static final String LED_MATRIX_HAT_CONTEXT_KEY = "LED_MATRIX_HAT_CONTEXT_KEY";
     
     protected static RaspberryPiRgbLedMatrix ledMatrix;
 
     protected static File configFile;
-            
+
+    public RaspberryPiRgbLedMatrixServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
+        
+        os = new OperatingSystem();
+    }
+    
     private void adjustIfOnWindows()
     {
         if( os.seemsLikeMsWindows() )
@@ -72,10 +79,6 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     public void init() throws ServletException
     {
         super.init();
-
-        logger = Logger.getLogger(getClass().getName());
-        
-        os = new OperatingSystem();
 
         initializeLedMatix();
     }

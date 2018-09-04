@@ -27,10 +27,6 @@ public class SettingsServlet extends HttpServlet
 {
     private final Logger logger;
     
-    private static ApplicationProfile applicationProfile;
-    
-    private static NejeEngraver engraver;
-    
     public SettingsServlet()
     {
         logger = Logger.getLogger(getClass().getName());
@@ -39,32 +35,38 @@ public class SettingsServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     {      
-        doResponse(request, response);
+        doResponse(request, response, null);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
 
-        String stillsDirtory = request.getParameter("EzGraverCli");
-        engraver.setCliExecutable(stillsDirtory);
+        String ezgraverCommand = request.getParameter("EzGraverCli");
 
+        ServletContext servletContext = getServletContext();
+
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
+        NejeEngraver engraver = applicationProfile.getEngraver();
+        engraver.setCliExecutable(ezgraverCommand);
+
         File outfile = new File(applicationProfile.getBaseDirectory(), ApplicationProfile.CONFIGURATION_FILENAME);
         ObjectSaver.encodeObject(engraver, outfile);
         
         String saveMessages = "Settings changes were saved.";        
         request.setAttribute("saveMessages", saveMessages);
         
-        doResponse(request, response);
+        doResponse(request, response, applicationProfile);
     }
 
-    private void doResponse(HttpServletRequest request, HttpServletResponse response)
+    private void doResponse(HttpServletRequest request, HttpServletResponse response, ApplicationProfile applicationProfile)
     {
         File bd = applicationProfile.getBaseDirectory();
         String imageDirectory = bd.getAbsolutePath();
         request.setAttribute("baseDir", imageDirectory);
         
+        NejeEngraver engraver = applicationProfile.getEngraver();
         request.setAttribute("EzGraverCli", engraver.getCliExecutable());
                 
         ServletContext c = getServletContext();
@@ -78,17 +80,5 @@ public class SettingsServlet extends HttpServlet
         {
             logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
-    }
-
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        
-        ServletContext servletContext = getServletContext();
-
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-        engraver = applicationProfile.getEngraver();
     }
 }
