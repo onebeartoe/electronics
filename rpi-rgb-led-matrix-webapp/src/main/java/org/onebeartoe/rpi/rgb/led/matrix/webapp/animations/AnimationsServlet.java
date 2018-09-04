@@ -4,6 +4,8 @@ package org.onebeartoe.rpi.rgb.led.matrix.webapp.animations;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,12 +23,12 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class AnimationsServlet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     {
         doResponse(request, response);
     }
     
-    protected void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doResponse(HttpServletRequest request, HttpServletResponse response)
     {
         File animationsDir = new File( ledMatrix.getAnimationsPath() );
         String [] fileNames = animationsDir.list(new FilenameFilter() 
@@ -41,6 +43,13 @@ public class AnimationsServlet extends RaspberryPiRgbLedMatrixServlet
 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/animations/index.jsp");
-        rd.forward(request, response);
+        try
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            Logger.getLogger(AnimationsServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

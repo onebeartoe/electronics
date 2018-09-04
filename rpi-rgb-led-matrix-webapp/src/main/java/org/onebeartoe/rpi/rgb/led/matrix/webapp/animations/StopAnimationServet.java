@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +22,7 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
     private final String BREAK = "<br/>";
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
         StringBuilder sb = new StringBuilder();
         
@@ -44,11 +45,16 @@ public class StopAnimationServet extends RaspberryPiRgbLedMatrixServlet
         
         sb.append(BREAK);
         sb.append("stop request processed");
-        
-        OutputStream os = response.getOutputStream();
-        PrintWriter pw = new PrintWriter(os);
-        pw.print( sb.toString() );
-        pw.flush();
-        pw.close();
+
+        try(OutputStream os = response.getOutputStream();
+            PrintWriter pw = new PrintWriter(os) )
+        {
+            pw.print( sb.toString() );
+            pw.flush();
+        } 
+        catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, null, ex);
+        }
     }
 }
