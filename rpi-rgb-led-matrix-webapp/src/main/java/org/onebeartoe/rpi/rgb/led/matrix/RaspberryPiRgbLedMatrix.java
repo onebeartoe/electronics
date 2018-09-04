@@ -196,7 +196,9 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         {
             debugList.append(s + " ");
         }
-        logger.log(Level.INFO, "command list: >" + debugList.toString() + "<");
+        
+        String commandMessage = "command list: >" + debugList.toString() + "<";
+        logger.log(Level.INFO, commandMessage);
         
         logger.log(Level.INFO, "starting scrolling text process...");
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -207,7 +209,8 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         
         commandProcess = builder.start();
         
-        logger.log(Level.INFO, "after process start, builder directory is: " + builder.directory() );
+        String afterMessage = "after process start, builder directory is: " + builder.directory();
+        logger.log(Level.INFO, afterMessage );
     }
     
     public void startShowStillImageCommand(String stillImageName) throws IOException
