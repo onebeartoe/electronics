@@ -31,7 +31,11 @@ public class ResetEgraverServlet extends HttpServlet
     {
         
         StringBuilder sb = new StringBuilder("The Reset message was sent to the laser engraver");
-        logger.info( sb.toString() );
+
+        String message = sb.toString();
+        
+        logger.info(message);
+        
         try 
         {
             ServletContext servletContext = getServletContext();
@@ -50,7 +54,9 @@ public class ResetEgraverServlet extends HttpServlet
             logger.log(Level.SEVERE, sb.toString(), ex);
         }
         
-        logger.log(Level.INFO, sb.toString());
+        String resetMessage = sb.toString();
+        
+        logger.log(Level.INFO, resetMessage);
 
         sb.append("<br/><br/>");
 
