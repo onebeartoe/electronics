@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,9 +17,12 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/upload-image/*"})
 public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 {
-    private static Logger logger;
-    
-    private static ApplicationProfile applicationProfile;
+    private final Logger logger;
+
+    public UploadImageToEngraverServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
+    }
 
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -28,6 +30,10 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         String subpath = request.getPathInfo();
         
         String result = "The upload message was sent to the engraver for " + subpath + ".";
+  
+        ServletContext servletContext = getServletContext();
+        
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
         File baseDir = applicationProfile.getBaseDirectory();
         
@@ -50,19 +56,5 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         }
         
         return result;
-    }
-    
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        
-        logger = Logger.getLogger(getClass().getName());
-
-        ServletContext servletContext = getServletContext();
-        
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-//        engraver = applicationProfile.getEngraver();
     }
 }

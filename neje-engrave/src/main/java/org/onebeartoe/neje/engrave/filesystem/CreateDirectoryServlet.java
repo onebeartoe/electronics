@@ -3,7 +3,6 @@ package org.onebeartoe.neje.engrave.filesystem;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -24,15 +23,15 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @WebServlet(urlPatterns = {"/filesystem/create-directory"})
 public class CreateDirectoryServlet extends HttpServlet
 {
-    private static Logger logger;
+    private final Logger logger;
     
-    private static ApplicationProfile applicationProfile;
-    
-    private static FilesystemValidationService filesystemValidationService;
+    public CreateDirectoryServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
+    }
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException 
     {
         String path = validatePath( request.getParameter("path") );
     
@@ -72,12 +71,18 @@ public class CreateDirectoryServlet extends HttpServlet
     
     private String processRequestParameter(String path)
     {
+        ServletContext servletContext = getServletContext();
+
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+        
         File baseDirectory = applicationProfile.getBaseDirectory();
         
         String filesystemLog = null;
         
         try
         {
+            FilesystemValidationService filesystemValidationService = applicationProfile.getFilesystemValidationService();
+            
             filesystemValidationService.validatePath(baseDirectory, path);
         
             File directoryToCreate = new File(baseDirectory, path);
@@ -111,20 +116,6 @@ public class CreateDirectoryServlet extends HttpServlet
         }
 
         return filesystemLog;
-    }
-
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        
-        logger = Logger.getLogger(getClass().getName());                
-        
-        ServletContext servletContext = getServletContext();
-
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-        filesystemValidationService = applicationProfile.getFilesystemValidationService();
     }
 
     private String validatePath(String parameter)
