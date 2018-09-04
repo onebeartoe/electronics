@@ -3,6 +3,7 @@ package org.onebeartoe.neje.engrave.settings;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -30,19 +31,19 @@ public class SettingsServlet extends HttpServlet
     
     private static NejeEngraver engraver;
     
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {      
-        doResponse(request, response);
-    }
-    
     public SettingsServlet()
     {
         logger = Logger.getLogger(getClass().getName());
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    {      
+        doResponse(request, response);
+    }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
 
         String stillsDirtory = request.getParameter("EzGraverCli");
@@ -58,7 +59,7 @@ public class SettingsServlet extends HttpServlet
         doResponse(request, response);
     }
 
-    private void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    private void doResponse(HttpServletRequest request, HttpServletResponse response)
     {
         File bd = applicationProfile.getBaseDirectory();
         String imageDirectory = bd.getAbsolutePath();
@@ -68,7 +69,15 @@ public class SettingsServlet extends HttpServlet
                 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/settings/index.jsp");
-        rd.forward(request, response);        
+        
+        try        
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
     }
 
     @Override

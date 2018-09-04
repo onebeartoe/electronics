@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,47 +24,65 @@ import org.apache.tika.Tika;
 @WebServlet(name = "FilesystemServet", urlPatterns = {"/files/*"}, loadOnStartup = 1)
 public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
 {
+    private final Logger logger;
+    
+    public FilesystemServlet()
+    {
+        logger = Logger.getLogger( getClass().getName() );
+    }
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
     {
         String pi = request.getPathInfo();
         String pathInfo = pi.substring(1); // remove the slash character
 
-        ParseInfo info = parsePath(pathInfo);
-        
-        String stillImagesTarget = (new File(ledMatrix.getStillImagesPath())).getAbsolutePath();
-        String animationsTarget = (new File(ledMatrix.getAnimationsPath() )).getAbsolutePath();
-        
-        // "security", should this logic be inverted to only....
-        if( (info.type == ParseType.IMAGE && !info.path.startsWith(stillImagesTarget) )
-                || 
-            (info.type ==ParseType.ANIMATION && !info.path.startsWith(animationsTarget) )
-        )
+        ParseInfo info;
+        try
         {
-            // The path is not user the current still images or animations directories.
-            String message = "An invalid path was found: " + info.path + " ---- expected: " + stillImagesTarget
-                             + " or " + animationsTarget;
-            
-            throw new ServletException(message);
-        }
-        else
+            info = parsePath(pathInfo);
+
+            String stillImagesTarget = (new File(ledMatrix.getStillImagesPath())).getAbsolutePath();
+            String animationsTarget = (new File(ledMatrix.getAnimationsPath() )).getAbsolutePath();
+
+            // "security", should this logic be inverted to only....
+            if( (info.type == ParseType.IMAGE && !info.path.startsWith(stillImagesTarget) )
+                    || 
+                (info.type ==ParseType.ANIMATION && !info.path.startsWith(animationsTarget) )
+            )
+            {
+                // The path is not user the current still images or animations directories.
+                String message = "An invalid path was found: " + info.path + " ---- expected: " + stillImagesTarget
+                                 + " or " + animationsTarget;
+
+                logger.log(Level.SEVERE, message);
+            }
+            else
+            {
+                // it is a (safe) path under the user defined directories
+                File targetFile = new File(info.path);
+                Path animation = targetFile.toPath();
+
+                Tika tika = new Tika();
+                String contentType = tika.detect(info.path);
+
+                response.setContentType("image/png");
+    // TODO: actuall set content type derived from Tika
+    //            response.setContentType(contentType);
+                try (OutputStream os = response.getOutputStream())
+                {
+                    Files.copy(animation, os);
+                    os.flush();
+                } 
+                catch (IOException ex)
+                {
+                    logger.log(Level.SEVERE, ex.getMessage(), ex);
+                }
+            }            
+        } 
+        catch (ServletException ex)
         {
-            // it is a (safe) path under the user defined directories
-            File targetFile = new File(info.path);
-            Path animation = targetFile.toPath();
-
-            Tika tika = new Tika();
-            String contentType = tika.detect(info.path);
-                       
-            response.setContentType("image/png");
-// TODO: actuall set content type derived from Tika
-//            response.setContentType(contentType);
-
-            OutputStream os = response.getOutputStream();
-            Files.copy(animation, os);
-            os.flush();
-            os.close();
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
     
