@@ -46,48 +46,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         
         commandLineFlags = new String[0];
     }
-    
-    /**
-     * Only call this during debugging.
-     * Remove after debugging, because it was causing the processes to hang while 
-     * blocking for stdin and stderr input.
-     */
-    private void dumpProcessOutput()
-    {
-        String stdout;
-        try
-        {
-            InputStream stdin = commandProcess.getInputStream();
-            InputStreamReader isr = new InputStreamReader(stdin);
-            BufferedReader buffer = new BufferedReader(isr);
-            stdout = buffer.lines().collect(Collectors.joining("\n"));
-        }
-        catch(Exception e)
-        {
-            stdout = e.getMessage();
-        }
-        
-        StringBuilder sb = new StringBuilder("Standard out:\n");
-        sb.append(stdout);
-     
-        String stderr;
-        try
-        {
-            InputStream errorStream = commandProcess.getErrorStream();
-            InputStreamReader errorIsr = new InputStreamReader(errorStream);
-            BufferedReader errorBuffer = new BufferedReader(errorIsr);
-            stderr = errorBuffer.lines().collect(Collectors.joining("\n"));
-            sb.append("\nStandard Error:\n");
-        }
-        catch(Exception e)
-        {
-            stderr = e.getMessage();
-        }
-        sb.append(stderr);
-        
-        logger.log(Level.INFO, sb.toString());
-    }
-    
+
     public String getAnimationsPath()
     {
         return animationsPath;
@@ -172,7 +131,9 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         {
             debugList += s + " ";
         }
-        logger.log(Level.INFO, "command list: >" + debugList + "<");
+        
+        String debugInfo = "command list: >" + debugList + "<";
+        logger.log(Level.INFO, debugInfo);
         
         
         logger.log(Level.INFO, "staring still image process");
@@ -180,9 +141,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
 
         commandProcess = builder.start();
 
-        // do not waitFor() the process to finish, so as to keep the Web UI responsive        
-//        logger.log(Level.INFO, "waiting for animation process");
-//        int waitValue = commandProcess.waitFor();
+        // do not waitFor() the process to finish, so as to keep the Web UI responsive
     }
 
     public void startScrollingTextCommand(String text) throws IOException
@@ -228,7 +187,6 @@ public class RaspberryPiRgbLedMatrix implements Serializable
             logger.log(Level.INFO, "no commandline flags are present");
         }
 
-//        command.add("-t");
         command.add("--text");
         command.add(text);
         
@@ -249,30 +207,6 @@ public class RaspberryPiRgbLedMatrix implements Serializable
         commandProcess = builder.start();
         
         logger.log(Level.INFO, "after process start, builder directory is: " + builder.directory() );
-        
-//        InputStream errorStream = commandProcess.getErrorStream();
-//        InputStreamReader errorIsr = new InputStreamReader(errorStream);
-//        final BufferedReader stderrReader = new BufferedReader(errorIsr);
-//        System.out.println("<stderr>");
-//        String line = null;
-//        while ((line = stderrReader.readLine()) != null) 
-//        {
-//            System.out.println(line);
-//        }
-//        stderrReader.close();
-//        System.out.println("</stderr>");
-//        
-//        InputStream stdout = commandProcess.getInputStream();
-//        InputStreamReader stdoutIsr = new InputStreamReader(stdout);
-//        final BufferedReader stdoutBr = new BufferedReader(stdoutIsr);
-//        String stdLine = null;
-//        System.out.println("<stdout>");
-//        while( (stdLine = stdoutBr.readLine()) != null)
-//        {
-//            System.out.println(stdLine);
-//        }
-//        stdoutBr.close();
-//        System.out.println("</stdout>");
     }
     
     public void startShowStillImageCommand(String stillImageName) throws IOException
@@ -281,7 +215,8 @@ public class RaspberryPiRgbLedMatrix implements Serializable
                 
         startLedImageViewerCommand(imagePath);
         
-        logger.log(Level.INFO, "still image process wait over for: " + imagePath);        
+        String infoMessage = "still image process wait over for: " + imagePath;
+        logger.log(Level.INFO, infoMessage);        
     }
     
     /**
@@ -290,10 +225,7 @@ public class RaspberryPiRgbLedMatrix implements Serializable
     public void stopCommand() throws InterruptedException
     {
         if(commandProcess != null)
-        {
-// removed this because it was causing the processes to hang            
-//            dumpProcessOutput();
-            
+        {            
             commandProcess.destroy();
             commandProcess.waitFor();
         }

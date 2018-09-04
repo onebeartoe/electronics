@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +24,7 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 public class FilesystemServlet extends PlainTextResponseServlet
 {    
     private final Logger logger;
-    
-//    private static FilesystemValidationService filesystemValidationService;
-    
-//    private static ApplicationProfile applicationProfile;
-    
+
     private final BreakTag brTag = new BreakTag();
     
     private final String br = brTag.toHtml();
