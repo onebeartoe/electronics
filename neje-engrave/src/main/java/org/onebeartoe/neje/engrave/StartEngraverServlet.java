@@ -25,8 +25,6 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     private final Logger logger;
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
-
-    private static ApplicationProfile applicationProfile;
     
     public StartEngraverServlet()
     {
@@ -38,6 +36,9 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     {
         String responseMessage = "The start messge was sent to engraver:";
      
+        ServletContext servletContext = getServletContext();
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+        
         NejeEngraver engraver = applicationProfile.getEngraver();
         
         try
@@ -75,11 +76,11 @@ public class StartEngraverServlet extends PlainTextResponseServlet
       
         ServletContext servletContext = getServletContext();
 
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
         if(applicationProfile == null)
         {
-            loadApplicationProfile();
+            applicationProfile = loadApplicationProfile();
         }
 
         servletContext.setAttribute(APPLICTION_PROFILE_CONTEXT_KEY, applicationProfile);        
@@ -89,7 +90,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
      * this method load the application properties for the entire application.
      * @throws FileNotFoundException 
      */
-    private void loadApplicationProfile()
+    private ApplicationProfile loadApplicationProfile()
     {
         String homeDir = System.getProperty("user.home");
 
@@ -117,11 +118,12 @@ public class StartEngraverServlet extends PlainTextResponseServlet
             engraver = defaultSettings();
         }
                 
-        applicationProfile = new ApplicationProfile();
+        ApplicationProfile applicationProfile = new ApplicationProfile();
 
         applicationProfile.setBaseDirectory(baseDir);
 
         boolean mkdirs = baseDir.mkdirs();
+        
         logger.info("basedDir: " + baseDir.getAbsolutePath() + " created: " + mkdirs);
                                     
         FilesystemValidationService service = new FilesystemValidationService();
@@ -129,6 +131,8 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         applicationProfile.setFilesystemValidationService(service);
 
         applicationProfile.setEngraver(engraver);
+        
+        return applicationProfile;
     }
 }
               
