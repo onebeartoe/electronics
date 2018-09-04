@@ -36,7 +36,7 @@ public class UploadServlet extends HttpServlet
     
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException
+//            throws ServletException, IOException
     {
         Part filePart = null;
         try
@@ -57,7 +57,7 @@ public class UploadServlet extends HttpServlet
             File outfile = new File(outdir, fileName);
 
             try(OutputStream out = new FileOutputStream(outfile);
-                InputStream filecontent = filePart.getInputStream();) 
+                InputStream filecontent = filePart.getInputStream() )
             {
                 int read = 0;
                 final byte[] bytes = new byte[1024];
@@ -72,7 +72,7 @@ public class UploadServlet extends HttpServlet
                 logger.log(Level.INFO, message);
                 logger.log(Level.INFO, "File {0} being uploaded to {1}",  new Object[]{fileName, outpath});
             } 
-            catch (FileNotFoundException fne) 
+            catch (IOException fne) 
             {
                 StringBuilder sb = new StringBuilder();
                 sb.append("You either did not specify a file to upload or are "
@@ -99,7 +99,15 @@ public class UploadServlet extends HttpServlet
 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/controls/index.jsp");
-        rd.forward(request, response);
+        
+        try
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
     }
 
     private String getFileName(final Part part) 
