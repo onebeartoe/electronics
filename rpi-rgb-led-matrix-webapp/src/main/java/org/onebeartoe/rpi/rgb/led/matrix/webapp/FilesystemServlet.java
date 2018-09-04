@@ -65,8 +65,9 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
                 String contentType = tika.detect(info.path);
 
                 response.setContentType("image/png");
-    // TODO: actuall set content type derived from Tika
-    //            response.setContentType(contentType);
+
+// TODO: actuall set content type derived from Tika, response.setContentType(contentType);
+
                 try (OutputStream os = response.getOutputStream())
                 {
                     Files.copy(animation, os);
@@ -89,7 +90,7 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
         final String animations = "animations";
         final String stillImages = "still-images";
         
-        int namePosition = pathInfo.lastIndexOf("/") + 1;
+        int namePosition = pathInfo.lastIndexOf('/') + 1;
         String name = pathInfo.substring(namePosition);
         
         String path;
