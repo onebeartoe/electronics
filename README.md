@@ -38,6 +38,10 @@ Amplitie
 
 [![onebeartoe Fiesta Week Light Medal 2014](http://img.youtube.com/vi/MYFj6AvEKeU/0.jpg)](https://www.youtube.com/watch?v=MYFj6AvEKeU "onebeartoe Fiesta Week Light Medal 2014")
 
+[![Sonarqube Analysis]](https://sonarcloud.io/dashboard?id=org.onebeartoe%3Aonebeartoe-electronics-parent "Sonarqube Analysis")
+Sonarqube Analysis
+https://sonarcloud.io/dashboard?id=org.onebeartoe%3Aonebeartoe-electronics-parent
+
 More from the author:
 
 https://plus.google.com/u/0/104101484714566033177
