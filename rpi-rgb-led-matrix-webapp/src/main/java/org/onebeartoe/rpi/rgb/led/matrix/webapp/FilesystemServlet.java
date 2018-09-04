@@ -7,7 +7,6 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,14 +22,7 @@ import org.apache.tika.Tika;
  */
 @WebServlet(name = "FilesystemServet", urlPatterns = {"/files/*"}, loadOnStartup = 1)
 public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
-{
-    private final Logger logger;
-    
-    public FilesystemServlet()
-    {
-        logger = Logger.getLogger( getClass().getName() );
-    }
-    
+{    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     {

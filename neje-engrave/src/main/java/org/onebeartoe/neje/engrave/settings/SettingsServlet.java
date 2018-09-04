@@ -34,21 +34,25 @@ public class SettingsServlet extends HttpServlet
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    {      
-        doResponse(request, response, null);
+    {
+        ServletContext servletContext = getServletContext();
+
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);        
+
+        doResponse(request, response, applicationProfile);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
-
         String ezgraverCommand = request.getParameter("EzGraverCli");
 
         ServletContext servletContext = getServletContext();
 
-        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);                
+
         NejeEngraver engraver = applicationProfile.getEngraver();
+
         engraver.setCliExecutable(ezgraverCommand);
 
         File outfile = new File(applicationProfile.getBaseDirectory(), ApplicationProfile.CONFIGURATION_FILENAME);

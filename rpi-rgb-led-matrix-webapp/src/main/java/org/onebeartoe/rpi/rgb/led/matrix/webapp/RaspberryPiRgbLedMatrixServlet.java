@@ -26,7 +26,7 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     
     public static final String LED_MATRIX_HAT_CONTEXT_KEY = "LED_MATRIX_HAT_CONTEXT_KEY";
     
-    protected static RaspberryPiRgbLedMatrix ledMatrix;
+//    protected static RaspberryPiRgbLedMatrix ledMatrix;
 
     protected static File configFile;
 
@@ -37,7 +37,7 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         os = new OperatingSystem();
     }
     
-    private void adjustIfOnWindows()
+    private void adjustIfOnWindows(RaspberryPiRgbLedMatrix ledMatrix)
     {
         if( os.seemsLikeMsWindows() )
         {
@@ -86,13 +86,16 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
     private void initializeLedMatix()
     {
         ServletContext servletContext = getServletContext();
+        
+        RaspberryPiRgbLedMatrix ledMatrix;
+        
         ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);
         if(ledMatrix == null)
         {
             // this is the first time the application loads this servlet
             try
             {
-                restoreFromPersistence();
+                ledMatrix = restoreFromPersistence();
             }
             catch(Exception e)
             {
@@ -102,20 +105,20 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
             
             if(ledMatrix == null)
             {
-                loadDefaults();
+                ledMatrix = loadDefaults();
             }
             
-            adjustIfOnWindows();
-
-            // make the RaspberryPiRgbLedMatrix object available to the servlet context
-            servletContext.setAttribute(LED_MATRIX_HAT_CONTEXT_KEY, ledMatrix);
+            adjustIfOnWindows(ledMatrix);
         }        
+        
+        // make the RaspberryPiRgbLedMatrix object available to the servlet context
+        servletContext.setAttribute(LED_MATRIX_HAT_CONTEXT_KEY, ledMatrix);
     }
 
-    private void loadDefaults()
+    private RaspberryPiRgbLedMatrix loadDefaults()
     {
         // retore didn't work
-        ledMatrix = new RaspberryPiRgbLedMatrix();
+        RaspberryPiRgbLedMatrix ledMatrix = new RaspberryPiRgbLedMatrix();
 
         String rpiLgbLedMatrixHome = "/home/pi/rpi-rgb-led-matrix";
         ledMatrix.setRpiLgbLedMatrixHome(rpiLgbLedMatrixHome);
@@ -137,10 +140,13 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         //
         String [] commandLineFlags = {"--led-no-hardware-pulse", 
                                       "--led-gpio-mapping=adafruit-hat"};
+        
         ledMatrix.setCommandLineFlags(commandLineFlags);
+        
+        return ledMatrix;
     }
     
-    private void restoreFromPersistence() throws FileNotFoundException
+    private RaspberryPiRgbLedMatrix restoreFromPersistence() throws FileNotFoundException
     {
         String configDirPath = os.currentUserHome() + "/.onebeartoe/rpi-rgb-led-matrix-webapp/";
         File configDir = new File(configDirPath);
@@ -150,6 +156,8 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         
         Object object = ObjectRetriever.decodeObject(configFile);
         
-        ledMatrix = (RaspberryPiRgbLedMatrix) object;
+        RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) object;
+        
+        return ledMatrix;
     }
 }
