@@ -24,15 +24,20 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/filesystem/*"})
 public class FilesystemServlet extends PlainTextResponseServlet
 {    
-    private static Logger logger;
+    private final Logger logger;
     
-    private static FilesystemValidationService filesystemValidationService;
+//    private static FilesystemValidationService filesystemValidationService;
     
-    private static ApplicationProfile applicationProfile;
+//    private static ApplicationProfile applicationProfile;
     
     private final BreakTag brTag = new BreakTag();
     
     private final String br = brTag.toHtml();
+    
+    public FilesystemServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
+    }
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -49,6 +54,10 @@ public class FilesystemServlet extends PlainTextResponseServlet
         responseText.append("<br>\n<br>");
         
         File [] files = null;
+  
+        ServletContext servletContext = getServletContext();
+        
+        ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
         
         File baseDir = applicationProfile.getBaseDirectory();
 
@@ -56,6 +65,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
         
         try
         {
+            FilesystemValidationService filesystemValidationService = applicationProfile.getFilesystemValidationService();
             filesystemValidationService.validatePath(baseDir, subpath);        
 
             logger.info("directory: " + directory.getAbsolutePath() );
@@ -87,7 +97,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
             {
                 responseText.append( br);
                 
-                String markup = markup(f);
+                String markup = markup(f, applicationProfile);
                 responseText.append(markup);
                 
                 responseText.append( br);
@@ -98,21 +108,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
         return responseText.toString();
     }
     
-    @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        
-        logger = Logger.getLogger(getClass().getName());
-
-        ServletContext servletContext = getServletContext();
-        
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
-        
-        filesystemValidationService = applicationProfile.getFilesystemValidationService();
-    }
-    
-    private String markup(File file)
+    private String markup(File file, ApplicationProfile applicationProfile)
     {
         StringBuilder markup = new StringBuilder();
         

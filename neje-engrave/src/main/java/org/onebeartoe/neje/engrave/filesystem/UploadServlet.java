@@ -30,13 +30,15 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @MultipartConfig
 public class UploadServlet extends HttpServlet
 {
-    protected static Logger logger;
-
-    private static ApplicationProfile applicationProfile;
+    protected final Logger logger;
+  
+    public UploadServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
+    }
     
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) 
-//            throws ServletException, IOException
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
     {
         Part filePart = null;
         try
@@ -45,15 +47,21 @@ public class UploadServlet extends HttpServlet
         } 
         catch (IOException | ServletException ex)
         {
-            Logger.getLogger(UploadServlet.class.getName()).log(Level.SEVERE, null, ex);
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
 
         String message = null;
+        
         if(filePart != null)
         {
             final String fileName = getFileName(filePart);
 
+            ServletContext servletContext = getServletContext();
+        
+            ApplicationProfile applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
+                    
             File outdir = applicationProfile.getBaseDirectory();
+            
             File outfile = new File(outdir, fileName);
 
             try(OutputStream out = new FileOutputStream(outfile);
@@ -123,17 +131,5 @@ public class UploadServlet extends HttpServlet
             }
         }
         return null;
-    }
-    
-        @Override
-    public void init() throws ServletException
-    {
-        super.init();
-        
-        logger = Logger.getLogger(getClass().getName());
-        
-        ServletContext servletContext = getServletContext();
-        
-        applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
     }
 }
