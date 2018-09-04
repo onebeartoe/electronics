@@ -22,10 +22,12 @@ import java.util.logging.Logger;
  */
 public class NejeEngraver implements Serializable
 {
+    /**
+     * Older values include: 
+     *      "/opt/ez-graver/EzGraverCli/EzGraverCli"
+     *      "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli"
+     */
     private String cliExecutable = "--The-cli-executable-is-not-set--";
-//    private String cliExecutable = "/opt/ez-graver/EzGraverCli/EzGraverCli";
-//    private String cliExecutable = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
-    
 
     private final String serialPort = "/dev/ttyUSB0";
     
@@ -100,7 +102,8 @@ public class NejeEngraver implements Serializable
             debugList += arg;
         }
         
-        logger.info("command list: >" + debugList + "<");        
+        String commandMessage = "command list: >" + debugList + "<";
+        logger.info(commandMessage);        
         
         logger.info("staring process for the engraver commmand");
         ProcessBuilder builder = new ProcessBuilder(command);
@@ -120,9 +123,9 @@ public class NejeEngraver implements Serializable
     {
         char command = 's';
         
-        String burnTime = String.valueOf(this.burnTime);
+        String milliseconds = String.valueOf(burnTime);
         
-        CommandResult result = sendEngraverCommand(command, burnTime);
+        CommandResult result = sendEngraverCommand(command, milliseconds);
         
         return result;
     }    

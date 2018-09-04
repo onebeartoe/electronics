@@ -62,7 +62,6 @@ public class StartEngraverServlet extends PlainTextResponseServlet
         NejeEngraver engraver = new NejeEngraver();
 
         String ezGraverCliPath = "/opt/ez-graver/EzGraverCli/EzGraverCli";
-//        String ezGraverCliPath = "/home/roberto/Versioning/group/github/camrein/EzGraver-unix_cli_fixes/EzGraverCli/EzGraverCli";
         
         engraver.setCliExecutable(ezGraverCliPath);
         
@@ -124,7 +123,9 @@ public class StartEngraverServlet extends PlainTextResponseServlet
 
         boolean mkdirs = baseDir.mkdirs();
         
-        logger.info("basedDir: " + baseDir.getAbsolutePath() + " created: " + mkdirs);
+        String message = "basedDir: " + baseDir.getAbsolutePath() + " created: " + mkdirs;
+
+        logger.info(message);
                                     
         FilesystemValidationService service = new FilesystemValidationService();
 

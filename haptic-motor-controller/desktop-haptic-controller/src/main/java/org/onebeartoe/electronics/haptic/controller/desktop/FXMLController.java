@@ -141,7 +141,8 @@ public class FXMLController
             
             if(id > 0)
             {
-                logger.info(id + " ");
+                String message = String.format("%d ", id);
+                logger.info(message);
                 
                 waveformIds.add(id);
             }
@@ -215,15 +216,16 @@ public class FXMLController
         initializeSerialPort();
     }
     
+    /**
+     * Initialize the serial port.  No serial events are used in this app, 
+     * so a call to serialPort.addEventListener() is not needed.
+     */
     private void initializeSerialPort()
     {
         try
         {
             serialPort = SerialPorts.get("COM17");
             serialOutstream = serialPort.getOutputStream();
-            
-// we are not using serial events in this app, so far
-//            serialPort.addEventListener(this);
         }
         catch (Exception | NoClassDefFoundError ex)
         {
@@ -244,7 +246,8 @@ public class FXMLController
     {
         String waveformList = buildWaveformList(waveformIds);
         
-        System.out.println("sending >" + waveformList + "< to serial port");
+        String consoleMessage = "sending >" + waveformList + "< to serial port";
+        logger.log(Level.INFO, consoleMessage);
         
         String message = waveformList + "" + '\n';
 
@@ -252,7 +255,7 @@ public class FXMLController
         {
             if(serialOutstream == null)
             {
-                System.out.println("Not writing to null outstream: serialOutstream");
+                logger.log(Level.SEVERE, "Not writing to null outstream: serialOutstream");
             }
             else
             {
@@ -275,7 +278,7 @@ public class FXMLController
                          spe.getOldValue() + ", " + 
                          spe.getSource();
         
-        System.out.println(message);
+        logger.log(Level.INFO, message);
     }
     
     public void shutdown()
