@@ -155,6 +155,8 @@ public abstract class RaspberryPiRgbLedMatrixServlet extends HttpServlet
         
         RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) object;
         
+        logger.info("The led matrix object was restored from persistance.");
+        
         return ledMatrix;
     }
 }
