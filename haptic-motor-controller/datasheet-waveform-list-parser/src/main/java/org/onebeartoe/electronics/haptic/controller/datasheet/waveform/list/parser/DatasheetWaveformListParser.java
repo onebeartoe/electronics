@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -27,7 +29,7 @@ public class DatasheetWaveformListParser
 
         if (!infile.exists())
         {
-            throw new Exception("The infile does not exists: " + infilePath);
+            throw new IllegalArgumentException("The infile does not exists: " + infilePath);
         }
         else
         {
@@ -57,6 +59,8 @@ public class DatasheetWaveformListParser
             }
         }
 
+        Logger logger = Logger.getLogger( "datasheet-logger");
+        
         Map<Integer, String> map = new HashMap();
 
         // trtd now contains a multidemtional array with econtents bing the text value of the HTML table.
@@ -75,7 +79,7 @@ public class DatasheetWaveformListParser
                 list.forEach((s) -> line.append(s + "\n"));
 
                 String message = "Bad data, row length " + row.length + ":\n" + line.toString();
-                System.err.println(message);
+                logger.log(Level.SEVERE, message);
             }
             else
             {
@@ -95,17 +99,13 @@ public class DatasheetWaveformListParser
         Collections.sort(list);
 
         list.stream()
-                .forEach(
-                        (i)
-                        -> 
-                        {
-                            String name = map.get(i);
-                            String waveform = "map.put(" + i + ", " + "\"" + name + "\"" + ");";
+            .forEach( i -> 
+            {
+                String name = map.get(i);
+                String waveform = "map.put(" + i + ", " + "\"" + name + "\"" + ");";
 
-                            System.out.println(waveform);
-                }
-                );
-
+                logger.log(Level.INFO, waveform);
+            });
     }
 
     public static Map<Integer, String> hardcodedWaveforms()

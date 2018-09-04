@@ -141,7 +141,7 @@ public class FXMLController
             
             if(id > 0)
             {
-                System.out.println(id + " ");
+                logger.info(id + " ");
                 
                 waveformIds.add(id);
             }
@@ -209,7 +209,7 @@ public class FXMLController
         dropdownList.add(dropdown4);
         dropdownList.add(dropdown5);
         
-        System.out.println("items added");
+        logger.info("items added");
 
         // comment this to quickly start the app with no SerialPort features activated.        
         initializeSerialPort();
@@ -231,28 +231,7 @@ public class FXMLController
             logger.log(Level.SEVERE, message, ex);
         }
     }
-    
-//    private Integer nameToId(String name)
-//    {
-//        Set<Integer> keySet = hardcodedWaveforms.keySet();
-//        
-//        Integer id = 0;
-//        
-//        for(Integer i : keySet)
-//        {
-//            String currentName = hardcodedWaveforms.get(i);
-//            
-//            if( name.equals(currentName) )
-//            {
-//                id = i;
-//                
-//                break;
-//            }
-//        }
-//        
-//        return id;
-//    }
-    
+        
     private void sendOneWaveformId(int waveformId)
     {
         List waveformList = new ArrayList();
@@ -268,7 +247,6 @@ public class FXMLController
         System.out.println("sending >" + waveformList + "< to serial port");
         
         String message = waveformList + "" + '\n';
-//        String message = waveformId + "" + '\n';
 
         try
         {
