@@ -63,20 +63,10 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
 
                 Tika tika = new Tika();
                 String contentType = tika.detect(info.path);
-
+// TODO: actuall set content type derived from Tika, response.setContentType(contentType);
                 response.setContentType("image/png");
 
-// TODO: actuall set content type derived from Tika, response.setContentType(contentType);
-
-                try (OutputStream os = response.getOutputStream())
-                {
-                    Files.copy(animation, os);
-                    os.flush();
-                } 
-                catch (IOException ex)
-                {
-                    logger.log(Level.SEVERE, ex.getMessage(), ex);
-                }
+                copyFile(response, animation);
             }            
         } 
         catch (ServletException ex)
@@ -119,6 +109,19 @@ public class FilesystemServlet extends RaspberryPiRgbLedMatrixServlet
         info.path = path;
         
         return info;
+    }
+
+    private void copyFile(HttpServletResponse response, Path animation)
+    {
+        try (OutputStream os = response.getOutputStream())
+        {
+            Files.copy(animation, os);
+            os.flush();
+        } 
+        catch (IOException ex)
+        {
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }        
     }
     
     private class ParseInfo

@@ -35,14 +35,7 @@ public class AnimationsServlet extends RaspberryPiRgbLedMatrixServlet
         ServletContext servletContext = getServletContext();
         RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);        
         File animationsDir = new File( ledMatrix.getAnimationsPath() );
-        String [] fileNames = animationsDir.list(new FilenameFilter() 
-        {
-            @Override
-            public boolean accept(File dir, String name) 
-            {
-                return name.endsWith(".gif");
-            }
-        });
+        String [] fileNames = animationsDir.list((File dir, String name) -> name.endsWith(".gif"));
         request.setAttribute("animationNames", fileNames);
 
         ServletContext c = getServletContext();
