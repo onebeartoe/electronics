@@ -65,7 +65,9 @@ public class FilesystemServlet extends PlainTextResponseServlet
         }
         catch(IllegalArgumentException ex)
         {
-            ex.printStackTrace();
+            String message = "An error occured while validating the path:" + ex.getMessage();
+            
+            logger.severe(message);
         }        
                         
         if(files == null)
@@ -76,11 +78,9 @@ public class FilesystemServlet extends PlainTextResponseServlet
         else
         {
             List<File> sortedFiles = Arrays.stream(files)
-                                           .sorted( Comparator.comparing( File::isDirectory ) 
-//                                                    .thenComparing(File::getName)
-                                            .reversed() 
-                                                            )
-//                                           .collect( Collectors.groupingBy( f -> f.getName() ) ) ;
+                                           .sorted( 
+                                                Comparator.comparing( File::isDirectory ) 
+                                                          .reversed() )
                                            .collect( Collectors.toList() );
             
             for(File f : sortedFiles)
