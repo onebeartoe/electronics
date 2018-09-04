@@ -25,13 +25,13 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     {      
         doResponse(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
         String text = request.getParameter("text");
         String saveMessages;
@@ -59,12 +59,19 @@ public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
         doResponse(request, response);
     }
     
-    private void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    private void doResponse(HttpServletRequest request, HttpServletResponse response)
     {
         request.setAttribute("ledMatrix", ledMatrix);
                 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/scrolling-text/index.jsp");
-        rd.forward(request, response);        
+        try        
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            logger.log(Level.SEVERE, null, ex);
+        }
     }    
 }

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -22,13 +24,13 @@ import org.onebeartoe.rpi.rgb.led.matrix.webapp.RaspberryPiRgbLedMatrixServlet;
 public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
 {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
     {      
         doResponse(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
     {
         String stillsDirtory = request.getParameter("stillImagesDirectory");
         ledMatrix.setStillImagesPath(stillsDirtory);
@@ -55,7 +57,7 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
         doResponse(request, response);
     }
 
-    private void doResponse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    private void doResponse(HttpServletRequest request, HttpServletResponse response)
     {
         request.setAttribute("ledMatrix", ledMatrix);
         
@@ -65,6 +67,13 @@ public class SettingsServlet extends RaspberryPiRgbLedMatrixServlet
                 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/WEB-INF/jsp/settings/index.jsp");
-        rd.forward(request, response);        
+        try        
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            logger.log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -23,43 +24,57 @@ import javax.servlet.http.Part;
 public class UploadStillImageServlet extends StillImagesServlet
 {
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse responseee) 
-            throws ServletException, IOException
+    public void doPost(HttpServletRequest request, HttpServletResponse responseee)
     {
-        final Part filePart = request.getPart("still-image");
-        final String fileName = getFileName(filePart);
-                
-        String message = "";
-        String outpath = ledMatrix.getStillImagesPath() + fileName;
-        File outfile = new File(outpath);        
-        try (OutputStream out = new FileOutputStream(outfile);
-             InputStream filecontent = filePart.getInputStream();)
+        Part filePart = null;
+        
+        try
         {
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
-            while ((read = filecontent.read(bytes)) != -1) 
-            {
-                out.write(bytes, 0, read);
-            }
-            message += "New file " + fileName + " created at " + outpath;
-            logger.log(Level.INFO, message);
-            logger.log(Level.INFO, "File{0}being uploaded to {1}", 
-                    new Object[]{fileName, outpath});
+            filePart = request.getPart("still-image");
         } 
-        catch (FileNotFoundException fne) 
+        catch (IOException | ServletException ex)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.append("You either did not specify a file to upload or are "
-                    + "trying to upload a file to a protected or nonexistent "
-                    + "location.");
-            
-            sb.append("\n<br/> ERROR: " + fne.getMessage());
-            
-            sb.append("Problems during file upload. Error: " + fne.getMessage());
+            logger.log(Level.SEVERE, ex.getMessage(), ex);
+        }
 
-            message += sb.toString();
-            logger.log(Level.SEVERE, message);
+        String message = "--message not set--";
+        
+        if(filePart != null)
+        {
+            final String fileName = getFileName(filePart);
+
+            String outpath = ledMatrix.getStillImagesPath() + fileName;
+            File outfile = new File(outpath);
+
+            try (OutputStream out = new FileOutputStream(outfile);
+                 InputStream filecontent = filePart.getInputStream();)
+            {
+                int read = 0;
+                final byte[] bytes = new byte[1024];
+
+                while ((read = filecontent.read(bytes)) != -1) 
+                {
+                    out.write(bytes, 0, read);
+                }
+                message += "New file " + fileName + " created at " + outpath;
+                logger.log(Level.INFO, message);
+                logger.log(Level.INFO, "File{0}being uploaded to {1}", 
+                        new Object[]{fileName, outpath});
+            } 
+            catch (IOException fne) 
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.append("You either did not specify a file to upload or are "
+                        + "trying to upload a file to a protected or nonexistent "
+                        + "location.");
+
+                sb.append("\n<br/> ERROR: " + fne.getMessage());
+
+                sb.append("Problems during file upload. Error: " + fne.getMessage());
+
+                message += sb.toString();
+                logger.log(Level.SEVERE, message);
+            }
         }
     
         request.setAttribute("responseMessages", message);
