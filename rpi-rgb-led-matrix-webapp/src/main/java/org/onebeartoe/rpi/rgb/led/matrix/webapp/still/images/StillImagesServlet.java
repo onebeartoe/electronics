@@ -36,13 +36,9 @@ public class StillImagesServlet extends RaspberryPiRgbLedMatrixServlet
         RaspberryPiRgbLedMatrix ledMatrix = (RaspberryPiRgbLedMatrix) servletContext.getAttribute(LED_MATRIX_HAT_CONTEXT_KEY);        
 
         File stillImagesDirectory = new File( ledMatrix.getStillImagesPath() );
-        String[] fileNames = stillImagesDirectory.list(new FilenameFilter() 
-        {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".png");
-            }
-        });
+        
+        String[] fileNames = stillImagesDirectory.list((File dir, String name) -> name.endsWith(".png"));
+        
         request.setAttribute("stillImageNames", fileNames);
         
         ServletContext c = getServletContext();
