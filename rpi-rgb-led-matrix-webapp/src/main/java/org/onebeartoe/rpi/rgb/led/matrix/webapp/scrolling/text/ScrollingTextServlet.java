@@ -47,8 +47,6 @@ public class ScrollingTextServlet extends RaspberryPiRgbLedMatrixServlet
                             + e.getMessage();
             
             logger.log(Level.SEVERE, saveMessages, e);
-            
-            e.printStackTrace();
         }
 
         // save the updated scrolling text configuration

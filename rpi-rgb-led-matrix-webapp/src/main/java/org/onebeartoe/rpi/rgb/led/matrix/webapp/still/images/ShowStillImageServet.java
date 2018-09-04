@@ -47,11 +47,11 @@ public class ShowStillImageServet extends RaspberryPiRgbLedMatrixServlet
 
         sb.append(r);
 
-        OutputStream os = response.getOutputStream();
-        PrintWriter pw = new PrintWriter(os);
-        
-        pw.print( sb.toString() );
-        pw.flush();
-        pw.close();
+        try(OutputStream os = response.getOutputStream();
+            PrintWriter pw = new PrintWriter(os) )
+        {
+            pw.print( sb.toString() );
+            pw.flush();
+        }
     }    
 }
