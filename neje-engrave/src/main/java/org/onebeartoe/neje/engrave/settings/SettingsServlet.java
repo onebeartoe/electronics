@@ -24,7 +24,7 @@ import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFIL
 @WebServlet(urlPatterns = {"/settings/*"})
 public class SettingsServlet extends HttpServlet
 {
-    private static Logger logger;
+    private final Logger logger;
     
     private static ApplicationProfile applicationProfile;
     
@@ -34,6 +34,11 @@ public class SettingsServlet extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {      
         doResponse(request, response);
+    }
+    
+    public SettingsServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());
     }
 
     @Override
@@ -70,8 +75,6 @@ public class SettingsServlet extends HttpServlet
     public void init() throws ServletException
     {
         super.init();
-        
-        logger = Logger.getLogger(getClass().getName());                
         
         ServletContext servletContext = getServletContext();
 

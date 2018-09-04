@@ -22,11 +22,16 @@ import org.onebeartoe.web.PlainTextResponseServlet;
 @WebServlet(urlPatterns = {"/engraver/start"}, loadOnStartup = 1)
 public class StartEngraverServlet extends PlainTextResponseServlet
 {
-    private static Logger logger;
+    private final Logger logger;
     
     public static final String APPLICTION_PROFILE_CONTEXT_KEY = "APPLICTION_PROFILE_CONTEXT_KEY";
 
     private static ApplicationProfile applicationProfile;
+    
+    public StartEngraverServlet()
+    {
+        logger = Logger.getLogger(getClass().getName());        
+    }
     
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
@@ -67,9 +72,7 @@ public class StartEngraverServlet extends PlainTextResponseServlet
     public void init() throws ServletException
     {
         super.init();
-        
-        logger = Logger.getLogger(getClass().getName());                
-        
+      
         ServletContext servletContext = getServletContext();
 
         applicationProfile = (ApplicationProfile) servletContext.getAttribute(APPLICTION_PROFILE_CONTEXT_KEY);
