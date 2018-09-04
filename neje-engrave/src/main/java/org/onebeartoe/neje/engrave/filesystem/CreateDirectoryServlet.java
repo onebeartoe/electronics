@@ -3,6 +3,7 @@ package org.onebeartoe.neje.engrave.filesystem;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -30,10 +31,10 @@ public class CreateDirectoryServlet extends HttpServlet
     private static FilesystemValidationService filesystemValidationService;
     
     @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+//            throws ServletException, IOException 
     {
         String path = validatePath( request.getParameter("path") );
-//        String path = request.getParameter("path");
     
         String filesystemLog = null;
         
@@ -59,7 +60,14 @@ public class CreateDirectoryServlet extends HttpServlet
 
         ServletContext c = getServletContext();
         RequestDispatcher rd = c.getRequestDispatcher("/controls/index.jsp");
-        rd.forward(request, response);
+        try
+        {
+            rd.forward(request, response);
+        } 
+        catch (IOException | ServletException ex)
+        {
+            logger.severe( ex.getMessage() );
+        }
     }
     
     private String processRequestParameter(String path)
