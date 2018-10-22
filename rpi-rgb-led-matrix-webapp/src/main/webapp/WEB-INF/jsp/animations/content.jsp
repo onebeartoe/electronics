@@ -27,7 +27,8 @@
     <div>
         <c:forEach items="${animationNames}" var="name">
             <button onclick="displayAnimation('${name}')" >
-                <img src="<%= request.getContextPath() %>/files/animations/${name}" />
+                <img src="<%= request.getContextPath() %>/files/animations/${name}" 
+                     alt="This is an animation image."/>
                 ${name}
             </button>
             

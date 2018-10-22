@@ -20,7 +20,8 @@
         <c:forEach items="${stillImageNames}" var="name">
             <button onclick="displayStillImage('${name}')" 
                     style="margin-left: auto; margin-right: auto;">
-                <img src="<%= request.getContextPath() %>/files/still-images/${name}" />
+                <img src="<%= request.getContextPath() %>/files/still-images/${name}" 
+                     alt="This is a still image."/>
                 ${name}
             </button>            
             
