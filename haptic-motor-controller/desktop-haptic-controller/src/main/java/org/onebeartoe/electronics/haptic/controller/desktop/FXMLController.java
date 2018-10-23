@@ -63,7 +63,7 @@ public class FXMLController
     
     private SerialPort serialPort;
     
-    private Map<Integer, String> hardcodedWaveforms;
+//    private Map<Integer, String> hardcodedWaveforms;
     
     Logger logger;
     
@@ -74,20 +74,23 @@ public class FXMLController
         List<String> strs = waveformIds.stream()
                     .map( (i) -> {return String.valueOf(i);} )
                     .collect( Collectors.toList() );
-        
-        String list = String.join(",", strs);
-                
-        return list;
+                        
+        return String.join(",", strs);
     }
     
+    /**
+     * The ChoiceBox index is zero-based, but the datasheet says the IDs start at 1.
+     * 
+     * So 1 is added to the dropdown ID and returned
+     * 
+     * @param dropdown
+     * @return 
+     */
     private int dropdownIndexToId(ChoiceBox dropdown)
     {
         int i = dropdown.getSelectionModel().getSelectedIndex();
         
-        // The ChoiceBox index is zero-based, but the datasheet says the IDs start at 1.
-        int id = i + 1;
-        
-        return id;
+        return i + 1;
     }
     
     private void handleSendOneButtonAction(ChoiceBox dropdown)
@@ -155,8 +158,8 @@ public class FXMLController
     public void initialize(URL location, ResourceBundle resources)
     {
         logger = Logger.getLogger( getClass().getName() );
-        
-        hardcodedWaveforms = DatasheetWaveformListParser.hardcodedWaveforms();
+  
+        Map<Integer, String> hardcodedWaveforms = DatasheetWaveformListParser.hardcodedWaveforms();
         
         List<String> effectNames = new ArrayList();
 

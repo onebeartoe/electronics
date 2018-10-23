@@ -1,3 +1,4 @@
+
 package org.onebeartoe.electronics.haptic.controller.datasheet.waveform.list.parser;
 
 import java.io.File;
@@ -21,7 +22,6 @@ import org.onebeartoe.io.buffered.BufferedTextFileReader;
  */
 public class DatasheetWaveformListParser
 {
-
     public static void main(String[] args) throws Exception
     {
         String infilePath = "../DRV2605 _ Motor-Haptic-Driver-Waveform-List.html";
@@ -75,7 +75,7 @@ public class DatasheetWaveformListParser
             {
                 List<String> list = Arrays.asList(row);
                 StringBuilder line = new StringBuilder();
-                int i = 0;
+
                 list.forEach((s) -> line.append(s + "\n"));
 
                 String message = "Bad data, row length " + row.length + ":\n" + line.toString();
