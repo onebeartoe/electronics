@@ -27,5 +27,5 @@
             
             <br/>
             <br/>
-        </c:forEach>    
+        </c:forEach>
     </div>
