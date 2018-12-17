@@ -25,15 +25,16 @@
     </modules>    
 
     <repositories>
-	<repository>
-            <id>oss-snapshots-repo</id>
-            <name>Sonatype OSS Maven Repository</name>
-            <url>https://repository-onebeartoe.forge.cloudbees.com/snapshot/</url>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-	</repository>
+        <repository>
+            <id>onebeartoe-repo</id>
+            <name>onebeartoe Maven Repository</name>
+            <url>http://onebeartoe.org/maven/2/repository/</url>
+            <releases>
+              <enabled>true</enabled>
+              <updatePolicy>always</updatePolicy>
+              <checksumPolicy>warn</checksumPolicy>
+            </releases>
+        </repository>
     </repositories>
 
     <build>
