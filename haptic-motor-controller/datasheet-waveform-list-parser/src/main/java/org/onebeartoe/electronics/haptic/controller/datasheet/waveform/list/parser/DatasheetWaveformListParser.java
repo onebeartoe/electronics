@@ -33,11 +33,12 @@ public class DatasheetWaveformListParser
         }
         else
         {
-            parseList(infilePath);
+            DatasheetWaveformListParser app = new DatasheetWaveformListParser();
+            app.parseList(infilePath);
         }
     }
 
-    private static void parseList(String infilePath)
+    public void parseList(String infilePath)
     {
         TextFileReader textReader = new BufferedTextFileReader();
         String html = textReader.readText(infilePath);
