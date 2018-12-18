@@ -33,9 +33,9 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
     {
-        String subpath = request.getPathInfo();
+//        String subpath = request.getPathInfo();
         
-        String result = "The upload message was sent to the engraver for " + subpath + ".";
+        String result = "The upload message was sent to the engraver.";
   
         ServletContext servletContext = getServletContext();
         
@@ -43,24 +43,33 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         File baseDir = applicationProfile.getBaseDirectory();
         
-        String safeSubpath = validationService.validateAndSanitize(baseDir, subpath);
+        String subpath = request.getPathInfo();
         
-        File imageUpload = new File(baseDir, safeSubpath);
+        boolean validPath = validationService.validatePath(baseDir, subpath);
         
-        try
+        if(validPath)
         {
-            NejeEngraver engraver = applicationProfile.getEngraver();
-            
-            engraver.uploadImage(imageUpload);
-        } 
-        catch (IOException ex)
+            File imageUpload = new File(baseDir, subpath);
+
+            try
+            {
+                NejeEngraver engraver = applicationProfile.getEngraver();
+
+                engraver.uploadImage(imageUpload);
+            } 
+            catch (IOException ex)
+            {
+                result = "error loading " 
+                         + imageUpload.getAbsolutePath()
+                         + " - "
+                         + ex.getMessage();
+
+                logger.severe(result);
+            }
+        }
+        else
         {
-            result = "error loading " 
-                     + imageUpload.getAbsolutePath()
-                     + " - "
-                     + ex.getMessage();
-            
-            logger.severe(result);
+            result = "The pat hwas not valid: " + subpath;
         }
         
         return result;

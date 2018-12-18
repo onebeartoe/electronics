@@ -16,28 +16,32 @@ public class FilesystemValidationService
      * @param baseDirectory
      * @param path 
      */
-    public void validatePath(File baseDirectory, String path)
+    public boolean validatePath(File baseDirectory, String path)
     {
         String baseAbsolute = baseDirectory.getAbsolutePath();
         
         File suspectPath = new File(baseDirectory, path);
         String suspectAbsolute = suspectPath.getAbsolutePath();
         
+        boolean valid = true;
+        
         if( !suspectAbsolute.startsWith(baseAbsolute) )
         {
-            throw new IllegalArgumentException("bad filesystem path: " + suspectAbsolute);
+            valid = false;
         }
 
         if (!path.matches("[a-zA-Z0-9-_.]++"))
         {
-            throw new IllegalArgumentException("Invalid input was ound found: " + path);
+            valid = false;
         }
+        
+        return valid;
     }    
 
-    public String validateAndSanitize(File baseDirectory, String subpath)
-    {
-        validatePath(baseDirectory, subpath);
-        
-        return subpath;
-    }
+//    public String validateAndSanitize(File baseDirectory, String subpath)
+//    {
+//        validatePath(baseDirectory, subpath);
+//        
+//        return subpath;
+//    }
 }

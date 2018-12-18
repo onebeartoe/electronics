@@ -22,7 +22,9 @@ public class FilesystemValidationServiceSpecification
         File parent = new File("bin");
         String subpath = "ls";
         
-        implementation.validateAndSanitize(parent, subpath);
+        boolean valid = implementation.validatePath(parent, subpath);
+        
+        assert(valid == true);
     }
     
     @Test
@@ -31,16 +33,20 @@ public class FilesystemValidationServiceSpecification
         File parent = new File("photos");
         String subpath = "mom.jpg";
         
-        implementation.validateAndSanitize(parent, subpath);
+        boolean valid = implementation.validatePath(parent, subpath);
+        
+        assert(valid == true);
     }
     
-    @Test(expectedExceptions = IllegalArgumentException.class)
+    @Test()
     public void validateAndSanitize_fail_pathModifier()
     {
         File parent = new File("bin");
         
         String subpath = "../secret/names.text";
         
-        implementation.validateAndSanitize(parent, subpath);
+        boolean valid = implementation.validatePath(parent, subpath);
+        
+        assert(valid == false);
     }    
 }
