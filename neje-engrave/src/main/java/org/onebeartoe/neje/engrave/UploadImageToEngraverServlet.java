@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
+import org.onebeartoe.neje.engrave.filesystem.FilesystemValidationService;
 import org.onebeartoe.web.PlainTextResponseServlet;
 
 /**
@@ -19,9 +20,14 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 {
     private final Logger logger;
 
+//TODO:    add a org.onebeartoe.neje.engrave.filesystem.FilesystemValidationService instance member 
+    FilesystemValidationService validationService;
+    
     public UploadImageToEngraverServlet()
     {
         logger = Logger.getLogger(getClass().getName());
+        
+        validationService = new FilesystemValidationService();
     }
 
     @Override
@@ -37,7 +43,9 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         File baseDir = applicationProfile.getBaseDirectory();
         
-        File imageUpload = new File(baseDir, subpath);
+        String safeSubpath = validationService.validateAndSanitize(baseDir, subpath);
+        
+        File imageUpload = new File(baseDir, safeSubpath);
         
         try
         {
