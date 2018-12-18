@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.StringUtils;
 import org.onebeartoe.neje.engrave.ApplicationProfile;
 
 import static org.onebeartoe.neje.engrave.StartEngraverServlet.APPLICTION_PROFILE_CONTEXT_KEY;
@@ -33,27 +32,9 @@ public class CreateDirectoryServlet extends HttpServlet
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
     {
-        String path = validatePath( request.getParameter("path") );
+        String path = request.getParameter("path");
     
-        String filesystemLog = null;
-        
-        // Perform some basic path validation
-// TODO: Remove the matches() call and see if contains("..") works with the Sonar scan.        
-        if( path.matches("[a-zA-Z0-9]++") )
-        {
-            filesystemLog = "a bad path was given";
-        }
-        else
-        {
-            if( StringUtils.isEmpty(path) )
-            {
-                filesystemLog = "No path was specified.";
-            }
-            else
-            {
-                filesystemLog = processRequestParameter(path);
-            }
-        }                                
+        String filesystemLog = processRequestParameter(path);
 
         request.setAttribute("filesystemLog", filesystemLog);
 
@@ -77,16 +58,20 @@ public class CreateDirectoryServlet extends HttpServlet
         
         File baseDirectory = applicationProfile.getBaseDirectory();
         
-        String filesystemLog = null;
+        String filesystemLog;
         
-        try
+        FilesystemValidationService validationService = applicationProfile.getFilesystemValidationService();
+
+        boolean notValid = !validationService.validatePath(baseDirectory, path);
+
+        if(notValid)
         {
-            FilesystemValidationService filesystemValidationService = applicationProfile.getFilesystemValidationService();
-            
-            filesystemValidationService.validatePath(baseDirectory, path);
-        
+            filesystemLog = "An invalid path was given: " + path;
+        }
+        else
+        {
             File directoryToCreate = new File(baseDirectory, path);
-                    
+
             if( directoryToCreate.exists() )
             {
                 filesystemLog = "The file alredy exists: " + directoryToCreate.getAbsolutePath();
@@ -95,31 +80,13 @@ public class CreateDirectoryServlet extends HttpServlet
             {
                 boolean wasCreated = directoryToCreate.mkdirs();
 
-                if(wasCreated)
-                {
-                    filesystemLog = "The directory was created: " + directoryToCreate.getAbsolutePath();
-                }
-                else
-                {
-                    filesystemLog = "With no error given, the directory was not created; " 
-                                    + directoryToCreate.getAbsolutePath();
-                }
-            }                                    
-        }
-        catch(IllegalArgumentException ex)
-        {
-            filesystemLog = "The directory (" 
-                            + baseDirectory.getAbsolutePath() 
-                            + path
-                            + ") was not created; "
-                            + ex.getMessage();
-        }
+                filesystemLog = "The directory (" 
+                                + directoryToCreate.getAbsolutePath()
+                                + ") creation status: "
+                                + wasCreated;
+            }   
+        }            
 
         return filesystemLog;
-    }
-
-    private String validatePath(String parameter)
-    {
-        return new String(parameter);
     }
 }
