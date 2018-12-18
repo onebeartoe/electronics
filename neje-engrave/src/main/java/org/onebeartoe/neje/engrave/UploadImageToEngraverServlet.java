@@ -20,8 +20,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 {
     private final Logger logger;
 
-//TODO:    add a org.onebeartoe.neje.engrave.filesystem.FilesystemValidationService instance member 
-    FilesystemValidationService validationService;
+    private final FilesystemValidationService validationService;
     
     public UploadImageToEngraverServlet()
     {
@@ -32,9 +31,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
 
     @Override
     protected String buildText(HttpServletRequest request, HttpServletResponse response)
-    {
-//        String subpath = request.getPathInfo();
-        
+    {        
         String result = "The upload message was sent to the engraver.";
   
         ServletContext servletContext = getServletContext();
