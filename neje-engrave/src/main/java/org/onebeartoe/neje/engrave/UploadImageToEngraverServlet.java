@@ -45,9 +45,7 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         String subpath = request.getPathInfo();
         
-        boolean validPath = validationService.validatePath(baseDir, subpath);
-        
-        if(validPath)
+        if( validationService.validatePath(baseDir, subpath) )
         {
             File imageUpload = new File(baseDir, subpath);
 
