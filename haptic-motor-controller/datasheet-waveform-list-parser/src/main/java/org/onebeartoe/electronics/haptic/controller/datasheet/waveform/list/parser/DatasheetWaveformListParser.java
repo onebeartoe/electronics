@@ -24,7 +24,7 @@ public class DatasheetWaveformListParser
 {
     public static void main(String[] args) throws Exception
     {
-        String infilePath = "../DRV2605 _ Motor-Haptic-Driver-Waveform-List.html";
+        String infilePath = "../DRV2605_Motor-Haptic-Driver-Waveform-List.html";
         File infile = new File(infilePath);
 
         if (!infile.exists())
