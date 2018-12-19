@@ -15,7 +15,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.onebeartoe.io.TextFileReader;
-import org.onebeartoe.io.buffered.BufferedTextFileReader;
 
 /**
  * @author Roberto Marquez
@@ -34,14 +33,15 @@ public class DatasheetWaveformListParser
         else
         {
             DatasheetWaveformListParser app = new DatasheetWaveformListParser();
-            app.parseList(infilePath);
+            app.parseList(infile);
         }
     }
 
-    public void parseList(String infilePath)
+    public void parseList(File infile)
     {
-        TextFileReader textReader = new BufferedTextFileReader();
-        String html = textReader.readText(infilePath);
+//TODO: Use the non static version of this method.        
+//        TextFileReader textReader = new BufferedTextFileReader();
+        String html = TextFileReader.readText(infile);
 
         Document doc = Jsoup.parse(html);
         Elements tables = doc.select("table");
@@ -105,6 +105,10 @@ public class DatasheetWaveformListParser
                 String name = map.get(i);
                 String waveform = "map.put(" + i + ", " + "\"" + name + "\"" + ");";
 
+//TODO: This should actually use System.out; the output of this program is the purpose of the program.
+//TODO: Change this back to use System.out.println();
+//TODO:     or use the loggin formatter to just print the message and no timestamp or other metadata on the print statment.
+//TODO:         https://www.logicbig.com/tutorials/core-java-tutorial/logging/customizing-default-format.html
                 logger.log(Level.INFO, waveform);
             });
     }
