@@ -1,0 +1,33 @@
+
+pipeline
+{
+    agent
+    {
+        label 'master'
+    }
+
+    stages
+    {
+        stage('Installing')
+        {
+            steps
+            {
+                echo 'Installing...'
+
+                sh '''
+                    pwd
+
+                    ls -ltrh
+
+                    cd neje-engrave/src/main/ansible
+
+                    cp ${ansible_inventory_path} .
+
+                    ls -ltrh
+
+                    ansible-playbook install.yml -i ansible-betoland.inventory -l laserengraver1
+                '''
+            }
+        }
+    }
+}
