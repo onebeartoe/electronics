@@ -32,3 +32,11 @@ Arduino Settings
 	Tools - Clock -> 8mhz
 
 	Tools -> Programmer -> USBtinyISP
+
+
+
+MOVE THIS:
+
+    Seach the Arduino 'Manage Library' for 'nokia-5110-lcd' 
+
+    and install the one from Dimitris Platis
