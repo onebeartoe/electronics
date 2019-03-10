@@ -1,5 +1,5 @@
 
-- hosts: raspberry-pis
+- hosts: laserengraver1
   remote_user: pi
   serial: 1
   become: true
