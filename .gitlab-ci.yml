@@ -2,5 +2,5 @@
 image: kaiwinter/docker-java8-maven
 job1:
  script:
- -"mvn install -B"
- -"cat target/site/jacoco/index.html"
+ - "mvn install -B"
+ - "cat target/site/jacoco/index.html"
