@@ -24,3 +24,8 @@
   apt:
       name: libqt5serialport5-dev
   tags: [apt-prerequisites]
+
+- name: oracle-java8-jdk is installed
+  apt:
+      name: oracle-java8-jdk
+  tags: [apt-prerequisites]
