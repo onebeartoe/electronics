@@ -1,11 +1,11 @@
 - name: Create the directory for the application binaries.
-  file: 
-    path: "{{ optDirectory }}" 
+  file:
+    path: "{{ optDirectory }}"
     state: directory
     owner: pi
     group: pi
 
 - name: Download the application WAR file.
-  get_url: 
-    url: https://onebeartoe.ci.cloudbees.com/job/electronics/lastSuccessfulBuild/artifact/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
+  get_url:
+    url: https://gitlab.com/onebeartoe/electronics/-/jobs/175005898/artifacts/raw/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
     dest: "{{ optDirectory }}"
