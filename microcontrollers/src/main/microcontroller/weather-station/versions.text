@@ -1,0 +1,8 @@
+
+wio_link_weather_station_grove
+
+    This version uses Grove temperature and humidity sensor.
+
+wio_link_weather_station
+
+    this is the original version that uses an Adafruit part for temperature sensing.
