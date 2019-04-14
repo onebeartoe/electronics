@@ -6,18 +6,20 @@
  * 
  *      https://learn.adafruit.com/bmp085#wiring-the-bmp085
  */
-
-#include <AdafruitIO_WiFi.h>
-#include <ESP8266WiFi.h>
-#include <PubSubClient.h>
-#include <Wire.h>
+#include "AdafruitIO_WiFi.h"
 
 #include "configuration.h"
+
+AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+//#include <AdafruitIO_WiFi.h>
+//#include <ESP8266WiFi.h>
+//#include <PubSubClient.h>
+//#include <Wire.h>
 
 // Example testing sketch for various DHT humidity/temperature sensors
 // Written by ladyada, public domain
 
-#include "Wire.h"
+//#include "Wire.h"
 #include "Adafruit_BMP085.h"
  
 Adafruit_BMP085 bmp;
@@ -34,9 +36,11 @@ const long interval = 1000 * 60;  // once a minute
 //const char* host = "www.adafruit.com";
 
 // set up the Adafruit IO temperature feed
-AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+//AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
 AdafruitIO_Feed *temperatureFeed = io.feed("rainmaker-backyard-top-temperature");
 AdafruitIO_Feed *lightFeed = io.feed("rainmaker-backyard-top-pressure");
+//AdafruitIO_Feed *temperature = io.feed("temperature");
+//AdafruitIO_Feed *humidity = io.feed("humidity");
 
 void connectToWifiNetwork()
 {
@@ -96,7 +100,6 @@ void mqttpSetup()
     Serial.println();
     Serial.print("Connecting to Adafruit IO");
     io.connect();
-
     int c = 0;
     // wait for a connection
     while(io.status() < AIO_CONNECTED) 
@@ -114,7 +117,6 @@ void mqttpSetup()
       }
       c++;
     }
-
     // we are connected
     Serial.println();
     Serial.println(io.statusText());    
@@ -143,7 +145,7 @@ void setup()
     
     wioLinkSetup();
     
-    connectToWifiNetwork();
+//    connectToWifiNetwork();
     
     mqttpSetup();
 
