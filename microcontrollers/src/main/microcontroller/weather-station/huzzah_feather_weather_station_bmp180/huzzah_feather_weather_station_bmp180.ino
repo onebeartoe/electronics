@@ -26,6 +26,7 @@
 
 
 #include "AdafruitIO_WiFi.h"
+
 AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
 
 //#include <Adafruit_Sensor.h>
