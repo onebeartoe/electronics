@@ -1,3 +1,5 @@
+// this really didn't work with the Wio Link'
+
 // Adafruit IO Temperature & Humidity Example
 // Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-temperature-and-humidity
 //
