@@ -44,8 +44,8 @@ AdafruitIO_Feed *lightFeed = io.feed("rainmaker-backyard-top-pressure");
 
 void connectToWifiNetwork()
 {
-  Serial.println();
-  Serial.println();
+  Serial.println("\n\n");
+  Serial.println("\n\n");
   Serial.print("Connecting to ");
   Serial.println(wifi_ssid);
   
@@ -149,7 +149,7 @@ void setup()
     
     mqttpSetup();
 
-    bmp.begin();  
+    bmp.begin();
 }
 
 void wioLinkSetup()
