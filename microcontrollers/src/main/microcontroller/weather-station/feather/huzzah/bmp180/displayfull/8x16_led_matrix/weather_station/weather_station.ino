@@ -49,6 +49,10 @@ int8_t x=7;
 int8_t xStart = 7;
 int8_t xMin = -36;
 
+String scrollText = "--temp";
+
+char scrollTextBuffer[20] = "";
+
 /**
  * Post the temperature and pressure values to 
  * the Adafruit IO service.
@@ -67,8 +71,51 @@ void aioPost(unsigned long currentMillis)
 
         // save humidity to Adafruit IO
         humidity->save(pressureReading);
+        
+        // update the scrolling text
+        int width = 8;
+        int percision = 1;
+        
+        scrollText = dtostrf(degreesCelsius, width, percision, scrollTextBuffer);
     }    
 }
+
+
+
+void ledDisplay(unsigned long currentMillis)
+{
+    if(currentMillis - ledDisplayPreviousMillis >= ledDisplayInterval) 
+    {
+        ledDisplayPreviousMillis = currentMillis;
+
+        matrix.clear();
+        matrix.setCursor(x,0);
+        matrix.print(scrollText);
+//        matrix.print("World");
+        matrix.writeDisplay();
+        
+        x--;
+        
+        if(x == xMin)
+        {
+            x = xStart;
+        }
+    }
+}
+
+void loop() 
+{
+    io.run();
+  
+    unsigned long currentMillis = millis();
+
+    serialOutput(currentMillis);
+    
+    aioPost(currentMillis);
+    
+    ledDisplay(currentMillis);
+}
+
 
 void serialOutput(unsigned long currentMillis)
 {
@@ -133,37 +180,4 @@ void setupLedMatrix()
     matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
     matrix.setTextColor(LED_ON);
     matrix.setRotation(1);    
-}
-
-void ledDisplay(unsigned long currentMillis)
-{
-    if(currentMillis - ledDisplayPreviousMillis >= ledDisplayInterval) 
-    {
-        ledDisplayPreviousMillis = currentMillis;
-
-        matrix.clear();
-        matrix.setCursor(x,0);
-        matrix.print("World");
-        matrix.writeDisplay();
-        
-        x--;
-        
-        if(x == xMin)
-        {
-            x = xStart;
-        }
-    }
-}
-
-void loop() 
-{
-    io.run();
-  
-    unsigned long currentMillis = millis();
-
-    serialOutput(currentMillis);
-    
-    aioPost(currentMillis);
-    
-    ledDisplay(currentMillis);
 }
