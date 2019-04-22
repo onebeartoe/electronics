@@ -21,6 +21,10 @@ import org.onebeartoe.weather.station.relay.CliWeatherStationRelayRunProfile;
 import org.onebeartoe.weather.station.relay.WeatherStationRelayService;
 
 /**
+ * This application starts a deamon thread to periodically send data to an Internet
+ * of things platform, AdafruitIO.
+ * 
+ * To end the program send the 'q' character to the standard input stream of the application.
  * 
  * On Linux this command works with the RXTX provided by apt-get:
  *
@@ -69,8 +73,26 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     
     public static void main(String [] args) throws Exception
     {
-       CommandLineInterfaceApplet app = new CliWeatherStationRelay();        
-       app.execute(args);       
+        
+        
+        Thread relayThread = new Thread(() ->
+        {
+            System.out.println("running dameon code");
+        });
+        
+        relayThread.setDaemon(true);
+        
+//        relayThread.
+        
+        CommandLineInterfaceApplet app = new CliWeatherStationRelay();        
+        app.execute(args);
+       
+        int c = System.in.read();
+        
+        while( c != (char)'q')
+        {
+            c = System.in.read();
+        }
     }
     
     @Override

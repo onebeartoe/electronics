@@ -17,6 +17,6 @@ public class WeatherStationRelayService extends AppletService
         // Alas, we have to cast.
         CliWeatherStationRelayRunProfile rp = (CliWeatherStationRelayRunProfile) runProfile;
         
-        logger.info("termpeature is : 25C");
+        logger.info("termpeature is : 25C");        
     }
 }
