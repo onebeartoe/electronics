@@ -22,6 +22,7 @@
 	<module>microcontrollers</module>
         <module>rpi-rgb-led-matrix-webapp</module>
         <module>neje-engrave</module>
+        <module>weather-station</module>
     </modules>    
 
     <repositories>
