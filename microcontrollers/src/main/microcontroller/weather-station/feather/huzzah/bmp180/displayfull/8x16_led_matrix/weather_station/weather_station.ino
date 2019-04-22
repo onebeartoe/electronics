@@ -47,7 +47,7 @@ Adafruit_8x16minimatrix matrix = Adafruit_8x16minimatrix();
 // these next three hold values for the text scrolling
 int8_t x=7;
 int8_t xStart = 7;
-int8_t xMin = -36;
+int8_t xMin = -46;
 
 String scrollText = "--temp";
 
@@ -77,6 +77,7 @@ void aioPost(unsigned long currentMillis)
         int percision = 1;
         
         scrollText = dtostrf(degreesCelsius, width, percision, scrollTextBuffer);
+        scrollText += " C";
     }    
 }
 
@@ -143,7 +144,7 @@ void setup()
 
     // wait for serial monitor to open
     while(! Serial);
-
+    
     // initialize the temperature and pressure sensor
     bmp.begin();
 
