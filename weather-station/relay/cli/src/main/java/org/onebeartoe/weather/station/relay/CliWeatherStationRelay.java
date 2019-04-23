@@ -1,5 +1,5 @@
 
-package org.onebeartoe.cli;
+package org.onebeartoe.weather.station.relay;
 
 import java.io.FileInputStream;
 import java.io.IOException;
