@@ -17,9 +17,6 @@ import org.onebeartoe.application.AppletService;
 import org.onebeartoe.application.CommandLineInterfaceApplet;
 import org.onebeartoe.application.RunProfile;
 import org.onebeartoe.io.serial.SerialPorts;
-import org.onebeartoe.weather.station.relay.CliWeatherStationRelayRunProfile;
-import org.onebeartoe.weather.station.relay.RelayStatus;
-import org.onebeartoe.weather.station.relay.WeatherStationRelayService;
 
 /**
  * This application starts a deamon thread to periodically send data to an Internet

@@ -46,7 +46,7 @@
                             <appendAssemblyId>false</appendAssemblyId>
                             <archive>
                                 <manifest>
-                                    <mainClass>org.onebeartoe.cli.CliWeatherStationRelay</mainClass>
+                                    <mainClass>org.onebeartoe.weather.station.relay.CliWeatherStationRelay</mainClass>
                                 </manifest>
                             </archive>
                             <descriptorRefs>

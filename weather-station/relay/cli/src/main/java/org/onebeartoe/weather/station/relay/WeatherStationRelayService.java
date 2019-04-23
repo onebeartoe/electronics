@@ -12,9 +12,10 @@ import org.onebeartoe.system.Sleeper;
  * @author Roberto Marquez
  */
 public class WeatherStationRelayService extends AppletService
-{
-    
+{    
     private final long SIX_SECONDS = 1000 * 6;
+
+    private final long SIXTY_SECONDS = 1000 * 60;
     
     private long postInterval = SIX_SECONDS;
     
