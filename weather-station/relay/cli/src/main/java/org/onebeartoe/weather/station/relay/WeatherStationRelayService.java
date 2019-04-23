@@ -26,6 +26,15 @@ public class WeatherStationRelayService extends AppletService
         
         rp.setRelayStatus(RelayStatus.RUNNING);
         
+        try
+        {
+            WeatherStationSerialListener serialListener = new WeatherStationSerialListener(rp);
+        } 
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
         Thread relayThread = new Thread(() ->
         {
             logger.info("running dameon code" + "\n");
@@ -39,6 +48,8 @@ public class WeatherStationRelayService extends AppletService
                 
             }
         });
+        
+//TODO: Shutdown the serial port somewhere!        
         
 //        relayThread.setDaemon(true);        
         relayThread.start();

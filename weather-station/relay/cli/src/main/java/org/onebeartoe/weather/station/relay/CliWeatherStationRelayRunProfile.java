@@ -11,6 +11,8 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
 {
     private String libraryPath;
     
+    private String portName;
+    
     private String propertiesPath;
     
     private RelayStatus relayStatus;
@@ -20,6 +22,11 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
         return libraryPath;
     }
 
+    public String getPortName()
+    {
+        return portName;
+    }
+    
     public String getPropertiesPath()
     {
         return propertiesPath;
@@ -33,7 +40,12 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
     public void setLibraryPath(String libraryPath)
     {
         this.libraryPath = libraryPath;
-    }    
+    }
+
+    public void setPortName(String portName)
+    {
+        this.portName = portName;
+    }
 
     public void setPropertiesPath(String propertiesPath)
     {

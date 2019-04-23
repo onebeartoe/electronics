@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TooManyListenersException;
+import org.onebeartoe.io.serial.SerialPorts;
 
 import org.onebeartoe.web.adafruit.io.FeedData;
 
@@ -31,29 +32,19 @@ public class WeatherStationSerialListener implements SerialPortEventListener
     /**
      * Default bits per second for COM port.
      */
-    private final int DATA_RATE = 9600;
-    
+//    private final int DATA_RATE = 9600;
     /**
      * Milliseconds to block while waiting for port open
      */
-    private final int TIME_OUT = 2000;
+//    private final int TIME_OUT = 2000;
 
     private List<FeedData> feedDataList;
 
-    public WeatherStationSerialListener() throws PortInUseException, UnsupportedCommOperationException, 
-                                                 IOException, TooManyListenersException
+    public WeatherStationSerialListener(CliWeatherStationRelayRunProfile runProfile) throws PortInUseException, UnsupportedCommOperationException, 
+                                                 IOException, TooManyListenersException, Exception
     {
-        CommPortIdentifier portId = null;
+        SerialPort serialPort = SerialPorts.get( runProfile.getPortName() );
         
-        // open serial port, and use class name for the appName.
-        serialPort = (SerialPort) portId.open(this.getClass().getName(),
-                TIME_OUT);
-
-        // set port parameters
-        serialPort.setSerialPortParams(DATA_RATE,
-                SerialPort.DATABITS_8,
-                SerialPort.STOPBITS_1,
-                SerialPort.PARITY_NONE);
         // open the streams
         InputStream is = serialPort.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
@@ -61,8 +52,6 @@ public class WeatherStationSerialListener implements SerialPortEventListener
 
         // add event listeners
         serialPort.addEventListener(this);
-        
-        serialPort.notifyOnDataAvailable(true);
 
         feedDataList = new ArrayList();
     }

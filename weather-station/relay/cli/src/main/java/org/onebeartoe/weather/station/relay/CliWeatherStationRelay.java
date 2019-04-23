@@ -40,9 +40,13 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
 {
     private final String LIBRARY_PATH = "libraryPath";
     
+    private final String PORT_NAME = "portName";
+    
     private final String PROPERTIES_PATH = "propertiesPath";
     
     private CliWeatherStationRelayRunProfile runProfile;
+    
+    private CommandLine commandLine;
     
     @Override
     public Options buildOptions()
@@ -57,10 +61,17 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
                                 .longOpt(PROPERTIES_PATH)
                                 .required()
                                 .build();
-        
+
+        Option portName = Option.builder()
+                                .hasArg()
+                                .longOpt(PORT_NAME)
+                                .required()
+                                .build();
+                
         Options options = new Options();
         options.addOption(libraryPath);
         options.addOption(propertiesPath);
+        options.addOption(portName);
         
         return options;        
     }
@@ -71,11 +82,39 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         return new WeatherStationRelayService();
     }
     
+    @Override
+    protected String getUsage()
+    {
+        StringBuffer usage = new StringBuffer();
+        
+        List<String> portList = SerialPorts.list();
+        
+        if(portList.size() > 0)
+        {
+            usage.append("the following serial communication ports were detected:");
+            usage.append("\n");
+            
+            for(String port : portList)
+            {
+                usage.append("\t");
+                usage.append(port);
+            }
+        }
+        else
+        {
+            usage.append("no serial communication ports were detected");
+        }
+        
+        return usage.toString();
+    }
+    
     public static void main(String [] args) throws Exception
     {
         CliWeatherStationRelay app = new CliWeatherStationRelay();        
         app.execute(args);
        
+        System.out.println("\n" + "type 'q' to quit");
+        
         int c = System.in.read();
         
         while( c != (char)'q')
@@ -108,18 +147,18 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         }
         
         CommandLineParser parser = new DefaultParser();
-        CommandLine cl = parser.parse(options, args);
+        commandLine = parser.parse(options, args);
 
         CliWeatherStationRelayRunProfile runProfile = new CliWeatherStationRelayRunProfile();
 
-        if( cl.hasOption(LIBRARY_PATH) )
+        if( commandLine.hasOption(LIBRARY_PATH) )
         {
-            String path = cl.getOptionValue(LIBRARY_PATH);
+            String path = commandLine.getOptionValue(LIBRARY_PATH);
 
             runProfile.setLibraryPath(path);
         }
 
-        runProfile.setPropertiesPath( cl.getOptionValue(PROPERTIES_PATH) );
+        runProfile.setPropertiesPath(commandLine.getOptionValue(PROPERTIES_PATH) );
         Properties props = new Properties();
         InputStream inStream;
         
@@ -137,7 +176,7 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
             throw new ParseException(message.toString() );
         }
         
-        List<String> remainingArgs = cl.getArgList();
+        List<String> remainingArgs = commandLine.getArgList();
 
         if(remainingArgs.size() > 0)
         {
