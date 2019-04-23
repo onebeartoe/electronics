@@ -18,6 +18,7 @@ import org.onebeartoe.application.CommandLineInterfaceApplet;
 import org.onebeartoe.application.RunProfile;
 import org.onebeartoe.io.serial.SerialPorts;
 import org.onebeartoe.weather.station.relay.CliWeatherStationRelayRunProfile;
+import org.onebeartoe.weather.station.relay.RelayStatus;
 import org.onebeartoe.weather.station.relay.WeatherStationRelayService;
 
 /**
@@ -43,6 +44,8 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     private final String LIBRARY_PATH = "libraryPath";
     
     private final String PROPERTIES_PATH = "propertiesPath";
+    
+    private CliWeatherStationRelayRunProfile runProfile;
     
     @Override
     public Options buildOptions()
@@ -73,26 +76,17 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     
     public static void main(String [] args) throws Exception
     {
-        
-        
-        Thread relayThread = new Thread(() ->
-        {
-            System.out.println("running dameon code");
-        });
-        
-        relayThread.setDaemon(true);
-        
-//        relayThread.
-        
-        CommandLineInterfaceApplet app = new CliWeatherStationRelay();        
+        CliWeatherStationRelay app = new CliWeatherStationRelay();        
         app.execute(args);
        
         int c = System.in.read();
         
         while( c != (char)'q')
         {
-            c = System.in.read();
+            c = System.in.read();            
         }
+        
+        app.terminateRelayThread();
     }
     
     @Override
@@ -153,6 +147,13 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
             remainingArgs.forEach(System.out::println);
         }        
         
+        this.runProfile = runProfile;
+        
         return runProfile;
-    }    
+    }
+
+    public void terminateRelayThread()
+    {
+        runProfile.setRelayStatus(RelayStatus.TERMINATED);
+    }
 }
