@@ -16,6 +16,7 @@ import org.onebeartoe.application.AppletService;
 import org.onebeartoe.application.CommandLineInterfaceApplet;
 import org.onebeartoe.application.RunProfile;
 import org.onebeartoe.io.serial.SerialPorts;
+import org.onebeartoe.web.adafruit.io.FeedData;
 
 /**
  * This application starts a deamon thread to periodically send data to an Internet
@@ -134,13 +135,12 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     protected RunProfile parseRunProfile(final String[] args, Options options) throws ParseException
     {
         String key = "java.library.path";
-        String libPath = System.getProperty(key);
+        String libraryPath = System.getProperty(key);
         
-        logger.info(key + ": " + libPath + "\n");
+        logger.info(key + ": " + libraryPath + "\n");
         
-        if(StringUtils.isBlank(libPath))
+        if(StringUtils.isBlank(libraryPath))
         {
-
             List<String> ports = SerialPorts.list();
 
             final StringBuffer message = new StringBuffer("The '" + key + "' system property is not set."
@@ -154,8 +154,8 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         CommandLineParser parser = new DefaultParser();
         commandLine = parser.parse(options, args);
 
-        CliWeatherStationRelayRunProfile runProfile = new CliWeatherStationRelayRunProfile();
-
+        runProfile = new CliWeatherStationRelayRunProfile();
+        
         if( commandLine.hasOption(LIBRARY_PATH) )
         {
             String path = commandLine.getOptionValue(LIBRARY_PATH);
@@ -164,41 +164,9 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         }
 
         String portName = commandLine.getOptionValue(PORT_NAME);
-        runProfile.setPortName(portName);
+        runProfile.setPortName(portName);                
         
-        runProfile.setPropertiesPath(commandLine.getOptionValue(PROPERTIES_PATH) );
-        Properties props = new Properties();
-        InputStream inStream;
-        
-        try
-        {
-            inStream = new FileInputStream(runProfile.getPropertiesPath() );
-            props.load(inStream);
-            
-            String s = props.getProperty(AIO_KEY);
-            
-            
-            if( StringUtils.isBlank(s))
-            {
-                String message = "property '" + AIO_KEY + "' in file " + runProfile.getPropertiesPath() 
-                                 + " cannot be blank";
-                
-                throw new ParseException(message);
-            }
-            else
-            {
-                String iotKey = s.trim();
-                runProfile.setIotKey(iotKey);
-            }
-        }
-        catch (Exception ex)
-        {
-            String message = "An error occurred while reading the properties file: " + ex.getMessage() ;
-            
-            logger.severe(message);
-            
-            throw new ParseException(message.toString() );
-        }
+        parseRunProfilePropertiesFile();
         
         List<String> remainingArgs = commandLine.getArgList();
 
@@ -215,5 +183,72 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     public void terminateRelayThread()
     {
         runProfile.setRelayStatus(RelayStatus.TERMINATED);
+    }
+
+    private void parseRunProfilePropertiesFile() throws ParseException
+    {
+        runProfile.setPropertiesPath(commandLine.getOptionValue(PROPERTIES_PATH) );
+        
+        Properties properties = new Properties();
+            
+        try
+        {
+            InputStream inStream = new FileInputStream(runProfile.getPropertiesPath() );
+            properties.load(inStream);
+            
+            String s = properties.getProperty(AIO_KEY);
+                        
+            if( StringUtils.isBlank(s))
+            {
+                String message = "property '" + AIO_KEY + "' in file " + runProfile.getPropertiesPath() 
+                                 + " cannot be blank";
+                
+                throw new ParseException(message);
+            }
+            else
+            {
+                String iotKey = s.trim();
+                runProfile.setIotKey(iotKey);
+            }
+            
+            parseRunProfilePropertiesFileTopics(properties);
+        }
+        catch (Exception ex)
+        {
+            String message = "An error occurred while reading the properties file: " + ex.getMessage() ;
+            
+            logger.severe(message);
+            
+            throw new ParseException(message.toString() );
+        }
+    }
+
+    private void parseRunProfilePropertiesFileTopics(Properties properties) throws ParseException
+    {
+        String key = "topics";
+        String s = properties.getProperty(key);
+        
+        if( StringUtils.isBlank(s) )
+        {
+            String message = "The properties file did not have an entry for '" + key + "'. "
+                             + "Please add one and try again";
+            
+            logger.severe(message);
+            
+            throw new ParseException(message);
+        }
+        else
+        {
+            String[] split = s.split(",");
+            
+            for(String topic : split)
+            {
+                FeedData feedData = new FeedData();
+                feedData.setTopic(topic);
+                
+                runProfile.getFeedDataList()
+                          .add(feedData);
+            }
+        }
     }
 }

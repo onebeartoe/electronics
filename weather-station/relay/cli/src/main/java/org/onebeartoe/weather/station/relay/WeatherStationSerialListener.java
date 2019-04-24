@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.TooManyListenersException;
+import java.util.logging.Logger;
 import org.onebeartoe.io.serial.SerialPorts;
 
 import org.onebeartoe.web.adafruit.io.FeedData;
@@ -28,9 +29,17 @@ public class WeatherStationSerialListener implements SerialPortEventListener
     
     private SerialPort serialPort;
     
+    private CliWeatherStationRelayRunProfile runProfile;
+    
+    private Logger logger;
+    
     public WeatherStationSerialListener(CliWeatherStationRelayRunProfile runProfile) throws PortInUseException, UnsupportedCommOperationException, 
                                                  IOException, TooManyListenersException, Exception
     {
+        logger = Logger.getLogger( getClass().getName() );
+        
+        this.runProfile = runProfile;
+        
         serialPort = SerialPorts.get( runProfile.getPortName() );
         
         // open the streams
@@ -41,10 +50,39 @@ public class WeatherStationSerialListener implements SerialPortEventListener
         // add event listeners
         serialPort.addEventListener(this);
     }
+            
+    public void closeSerialPort()
+    {
+        
+        if(serialPort != null)
+        {
+            serialPort.removeEventListener();
+            
+            serialPort.close();
+        }
+    }
     
     public FeedData getFeedData()
     {
         return feedData;
+    }
+
+    private boolean isValid(FeedData feedData)
+    {
+        FeedData target = lookup(feedData);
+        
+        return target != null;
+    }
+    
+    private FeedData lookup(FeedData feedData)
+    {
+        FeedData target = runProfile.getFeedDataList()
+                                    .stream()
+                                    .filter( fd -> feedData.getTopic().equals( fd.getTopic() ))
+                                    .findAny()
+                                    .orElse(null);
+
+        return target;
     }
     
     /**
@@ -63,22 +101,33 @@ public class WeatherStationSerialListener implements SerialPortEventListener
               
                 System.out.println(inputLine);
                 System.out.println();
+                
+                boolean valid = isValid(feedData);
+                
+                if(valid)
+                {
+                    updateFeedDataList(feedData);
+                }
+                else
+                {
+                    String message = "unknown topic was dropped >" + inputLine + "<" + "\n";
+                    
+                    logger.warning(message);
+                }
             } 
             catch (Exception e) 
             {
                 System.err.println(e.toString());
             }
         }
-    }    
+    }
 
-    public void closeSerialPort()
+    private void updateFeedDataList(FeedData feedData)
     {
+        FeedData target = lookup(feedData);
         
-        if(serialPort != null)
-        {
-            serialPort.removeEventListener();
-            
-            serialPort.close();
-        }
+        String newValue = feedData.getValue();
+        
+        target.setValue(newValue);
     }
 }

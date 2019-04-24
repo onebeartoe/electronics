@@ -1,7 +1,10 @@
 
 package org.onebeartoe.weather.station.relay;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.onebeartoe.application.RunProfile;
+import org.onebeartoe.web.adafruit.io.FeedData;
 
 /**
  *
@@ -18,6 +21,18 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
     private String propertiesPath;
     
     private RelayStatus relayStatus;
+    
+    private List<FeedData> feedDataList;
+    
+    public CliWeatherStationRelayRunProfile()
+    {
+        feedDataList = new ArrayList();
+    }
+
+    public List<FeedData> getFeedDataList()
+    {
+        return feedDataList;
+    }
 
     public String getIotKey()
     {
@@ -42,6 +57,11 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
     public RelayStatus getRelayStatus()
     {
         return relayStatus;
+    }
+
+    public void setFeedDataList(List<FeedData> feedDataList)
+    {
+        this.feedDataList = feedDataList;
     }
 
     public void setIotKey(String iotKey)
