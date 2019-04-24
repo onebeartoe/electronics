@@ -1,7 +1,6 @@
 
 package org.onebeartoe.weather.station.relay;
 
-import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -11,8 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.TooManyListenersException;
 import org.onebeartoe.io.serial.SerialPorts;
 
@@ -24,26 +21,17 @@ import org.onebeartoe.web.adafruit.io.FeedData;
  * @author Roberto Marquez
  */
 public class WeatherStationSerialListener implements SerialPortEventListener
-{
+{    
+    private BufferedReader input;
+
+    private FeedData feedData;
+    
     private SerialPort serialPort;
     
-    private BufferedReader input;
-    
-    /**
-     * Default bits per second for COM port.
-     */
-//    private final int DATA_RATE = 9600;
-    /**
-     * Milliseconds to block while waiting for port open
-     */
-//    private final int TIME_OUT = 2000;
-
-    private List<FeedData> feedDataList;
-
     public WeatherStationSerialListener(CliWeatherStationRelayRunProfile runProfile) throws PortInUseException, UnsupportedCommOperationException, 
                                                  IOException, TooManyListenersException, Exception
     {
-        SerialPort serialPort = SerialPorts.get( runProfile.getPortName() );
+        serialPort = SerialPorts.get( runProfile.getPortName() );
         
         // open the streams
         InputStream is = serialPort.getInputStream();
@@ -52,8 +40,11 @@ public class WeatherStationSerialListener implements SerialPortEventListener
 
         // add event listeners
         serialPort.addEventListener(this);
-
-        feedDataList = new ArrayList();
+    }
+    
+    public FeedData getFeedData()
+    {
+        return feedData;
     }
     
     /**
@@ -68,13 +59,10 @@ public class WeatherStationSerialListener implements SerialPortEventListener
             {
                 String inputLine = input.readLine();
 
-                FeedData feedData = FeedData.valueOf(inputLine);
-                
-                
-                
-
-                
+                feedData = FeedData.valueOf(inputLine);
+              
                 System.out.println(inputLine);
+                System.out.println();
             } 
             catch (Exception e) 
             {
@@ -82,4 +70,15 @@ public class WeatherStationSerialListener implements SerialPortEventListener
             }
         }
     }    
+
+    public void closeSerialPort()
+    {
+        
+        if(serialPort != null)
+        {
+            serialPort.removeEventListener();
+            
+            serialPort.close();
+        }
+    }
 }

@@ -47,6 +47,8 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
     private CliWeatherStationRelayRunProfile runProfile;
     
     private CommandLine commandLine;
+  
+    private final String AIO_KEY = "AIO_KEY";
     
     @Override
     public Options buildOptions()
@@ -91,6 +93,7 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         
         if(portList.size() > 0)
         {
+            usage.append("\n");
             usage.append("the following serial communication ports were detected:");
             usage.append("\n");
             
@@ -99,6 +102,8 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
                 usage.append("\t");
                 usage.append(port);
             }
+            usage.append("\n");
+            usage.append("\n");
         }
         else
         {
@@ -114,6 +119,7 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         app.execute(args);
        
         System.out.println("\n" + "type 'q' to quit");
+        System.out.println();
         
         int c = System.in.read();
         
@@ -158,6 +164,9 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
             runProfile.setLibraryPath(path);
         }
 
+        String portName = commandLine.getOptionValue(PORT_NAME);
+        runProfile.setPortName(portName);
+        
         runProfile.setPropertiesPath(commandLine.getOptionValue(PROPERTIES_PATH) );
         Properties props = new Properties();
         InputStream inStream;
@@ -166,8 +175,19 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
         {
             inStream = new FileInputStream(runProfile.getPropertiesPath() );
             props.load(inStream);
+            
+            String s = props.getProperty(AIO_KEY);
+            
+            
+            if( StringUtils.isBlank(s))
+            {
+                String message = "property '" + AIO_KEY + "' in file " + runProfile.getPropertiesPath() 
+                                 + " cannot be blank";
+                
+                throw new ParseException(message);
+            }
         }
-        catch (IOException ex)
+        catch (Exception ex)
         {
             String message = "An error occurred while reading the properties file: " + ex.getMessage() ;
             

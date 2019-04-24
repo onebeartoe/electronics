@@ -9,6 +9,8 @@ import org.onebeartoe.application.RunProfile;
  */
 public class CliWeatherStationRelayRunProfile extends RunProfile
 {
+    private String iotKey;
+
     private String libraryPath;
     
     private String portName;
@@ -16,6 +18,11 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
     private String propertiesPath;
     
     private RelayStatus relayStatus;
+
+    public String getIotKey()
+    {
+        return iotKey;
+    }
     
     public String getLibraryPath()
     {
@@ -35,6 +42,11 @@ public class CliWeatherStationRelayRunProfile extends RunProfile
     public RelayStatus getRelayStatus()
     {
         return relayStatus;
+    }
+
+    public void setIotKey(String iotKey)
+    {
+        this.iotKey = iotKey;
     }
     
     public void setLibraryPath(String libraryPath)
