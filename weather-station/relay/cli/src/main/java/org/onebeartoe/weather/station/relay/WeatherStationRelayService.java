@@ -29,11 +29,6 @@ public class WeatherStationRelayService extends AppletService
     
     private WeatherStationSerialListener serialListener;
     
-//    public WeatherStationRelayService(CliWeatherStationRelayRunProfile runProfile)
-//    {
-//
-//    }
-    
     public void serviceRequest(RunProfile runProfile)
     {
         // Alas, we have to cast.
@@ -67,9 +62,13 @@ public class WeatherStationRelayService extends AppletService
                         AioResponse ar = iotService.addFeedData(feedName, value);
                         
                         // we expect 201 response if the data was added to the feed
-                        boolean failed = ar.code != 201;
+                        boolean success = ar.code == 201;
                         
-                        if(failed)
+                        if(success)
+                        {
+                            logger.info("upload to IoT platform was successful" + "\n");
+                        }
+                        else
                         {
                             String message = "the request failed: " + ar.code + " - " + ar.content;
                             
@@ -82,8 +81,6 @@ public class WeatherStationRelayService extends AppletService
                         
                         logger.severe(message);
                     }
-                    
-                    logger.info("TODO: upload to IoT platform" + "\n");
                 }
 
                 logger.info("shutting down dameon code" + "\n");

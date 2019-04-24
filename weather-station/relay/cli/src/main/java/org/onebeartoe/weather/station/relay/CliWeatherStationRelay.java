@@ -2,7 +2,6 @@
 package org.onebeartoe.weather.station.relay;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
@@ -185,6 +184,11 @@ public class CliWeatherStationRelay extends CommandLineInterfaceApplet
                                  + " cannot be blank";
                 
                 throw new ParseException(message);
+            }
+            else
+            {
+                String iotKey = s.trim();
+                runProfile.setIotKey(iotKey);
             }
         }
         catch (Exception ex)
