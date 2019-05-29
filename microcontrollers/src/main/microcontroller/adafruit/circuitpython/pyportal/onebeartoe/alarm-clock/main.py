@@ -4,16 +4,18 @@
 
 import adafruit_logging as logging
 import board
-from adafruit_display_text.label import Label
+
 from secrets import secrets
 from adafruit_pyportal import PyPortal
 from adafruit_bitmap_font import bitmap_font
 import time
-import displayio
+
 import adafruit_esp32spi.adafruit_esp32spi_requests as requests
 
 from onebeartoe.gui.components import Application
 from onebeartoe.gui.components import ApplicationScreen
+
+from RandomJukeScreen import RandomJukeScreen
 
 logger = logging.getLogger('alarm_clock')
 logger.setLevel(logging.DEBUG)
@@ -62,24 +64,12 @@ pyportal = PyPortal(url = DATA_SOURCE,
 					debug = True)
 
 
-def touch_in_button(t, b):
-    in_horizontal = b['left'] <= t[0] <= b['right']
-    in_vertical = b['top'] <= t[1] <= b['bottom']
-    return in_horizontal and in_vertical
+
+
+# touch_in_button
 
 
 
-
-def create_text_areas(configs):
-    """Given a list of area specifications, create and return test areas."""
-    text_areas = []
-    for cfg in configs:
-        textarea = Label(cfg['font'], text=' '*cfg['size'])
-        textarea.x = cfg['x']
-        textarea.y = cfg['y']
-        textarea.color = cfg['color']
-        text_areas.append(textarea)
-    return text_areas
 
 
 
@@ -95,7 +85,7 @@ class Menu_State(ApplicationScreen):
         text_area_configs = [dict(x=88, y=40, size=15, color=0xFFFFFF, font=temperature_font),  # time
 							dict(x=88, y=140, size=15, color=0xFFFFFF, font=temperature_font)]   # randomjuke
 
-        self.text_areas = create_text_areas(text_area_configs)
+        self.text_areas = self.create_text_areas(text_area_configs)
         self.buttons = [dict(left=0, top=30, right=80, bottom=93),    # on
                         dict(left=0, top=98, right=80, bottom=152),   # return
                         dict(left=0, top=155, right=80, bottom=220),  # off
@@ -112,21 +102,21 @@ class Menu_State(ApplicationScreen):
     def touch(self, t, touched):
         global alarm_hour, alarm_minute, alarm_enabled
         if t:
-            if touch_in_button(t, self.buttons[0]):   # on
+            if self.touch_in_button(t, self.buttons[0]):   # on
                 logger.debug('ON touched')
                 alarm_enabled = True
                 self.text_areas[0].text = '%02d:%02d' % (alarm_hour, alarm_minute)
-            elif touch_in_button(t, self.buttons[1]):   # return
+            elif self.touch_in_button(t, self.buttons[1]):   # return
                 logger.debug('RETURN touched')
                 change_to_state('randomjuke')
-            elif touch_in_button(t, self.buttons[2]): # off
+            elif self.touch_in_button(t, self.buttons[2]): # off
                 logger.debug('OFF touched')
                 alarm_enabled = False
                 self.text_areas[0].text = '     '
-            elif touch_in_button(t, self.buttons[3]):   # time
+            elif self.touch_in_button(t, self.buttons[3]):   # time
                 logger.debug('time touched')
                 change_to_state('randomjuke')
-            elif touch_in_button(t, self.buttons[4]):   # randomjuke
+            elif self.touch_in_button(t, self.buttons[4]):   # randomjuke
                 logger.debug('randomjuke touched')
                 change_to_state('randomjuke')
             board.DISPLAY.refresh_soon()
@@ -151,91 +141,13 @@ class Menu_State(ApplicationScreen):
 
 
 
-
-class Randomjuke_State(ApplicationScreen):
-    """This state manages the primary time display screen/mode"""
-
-    def __init__(self, pyportal):
-        super().__init__(pyportal)
-        self.background_day = 'main_background_day.bmp'
-        self.background_night = 'main_background_night.bmp'
-        self.refresh_time = None
-        self.update_time = None
-        self.weather_refresh = None
-        text_area_configs = [dict(x=110, y=100, size=16, color=0xFFFFFF, font=time_font),   # Next lable
-                             dict(x=110, y=140, size=16, color=0xFFFFFF, font=temperature_font)]  # response lable
-        self.text_areas = create_text_areas(text_area_configs)
-
-        self.icon_file = None
-
-        self.snooze_icon = displayio.Group()
-        self.snooze_icon.x = 260
-        self.snooze_icon.y = 70
-        self.snooze_file = None
-
-        # each button has it's edges as well as the state to transition to when touched
-        self.buttons = [dict(left=0, top=50, right=80, bottom=120, next_state='randomjuke'),
-                        dict(left=0, top=155, right=80, bottom=220, next_state='menu'),
-                        dict(left=88, top=120, right=320, bottom=220)]  # Next button
-
-
-    @property
-    def name(self):
-        return 'randomjuke'
-
-
-    def tick(self, now):
-        """Handle a tick: one pass through the main loop"""
-        pass
-
-
-    def touch(self, t, touched):
-        if t and not touched:             # only process the initial touch
-            max = len(self.buttons) - 1  # only do state stuff with the first two buttons
-            for button_index in range(max):
-                b = self.buttons[button_index]
-                if touch_in_button(t, b):
-                    change_to_state(b['next_state'])
-                    break
-            if touch_in_button(t, self.buttons[2]): # next button
-                logger.debug('NEXT song touched')
-
-#TODO: Make this a call to requests.post()
-#      Docs: https://circuitpython.readthedocs.io/projects/esp32spi/en/latest/api.html#adafruit_esp32spi.adafruit_esp32spi_requests.post
-                response = requests.get('http://192.168.1.82:8080/onebeartoe-jukebox-ee/controls/song/next')
-#                response = requests.get('http://192.168.1.80:1978/?action=next')
-#                response = requests.get('http://192.168.1.80:8080/continuous/')
-                self.text_areas[1].text = 'ploop'
-                print('lalal')
-                print(response)
-                print('lalal')
-#                logger.debug(response)
-        return bool(t)
-
-
-    def enter(self):
-        for ta in self.text_areas:
-            pyportal.splash.append(ta)
-        self.text_areas[0].text = 'Next'
-        self.text_areas[1].text = '::::'
-        board.DISPLAY.refresh_soon()
-        board.DISPLAY.wait_for_frame()
-
-
-    def exit(self):
-        super().exit()
-        for _ in range(len(self.snooze_icon)):
-            self.snooze_icon.pop()
-
-
-
 menuState = Menu_State(pyportal)
 
 current_state = menuState
 #current_state = None
 
 states = {'menu' : menuState,
-          'randomjuke' : Randomjuke_State(pyportal)}
+          'randomjuke' : RandomJukeScreen(pyportal, time_font, temperature_font)}
 
 
 def change_to_state(state_name):
