@@ -13,13 +13,14 @@ import displayio
 import adafruit_esp32spi.adafruit_esp32spi_requests as requests
 
 from onebeartoe.gui.components import Application
+from onebeartoe.gui.components import ApplicationScreen
 
 logger = logging.getLogger('alarm_clock')
 logger.setLevel(logging.DEBUG)
 
 touched = False
 
-current_state = None
+
 
 # fonts
 temperature_font = bitmap_font.load_font('/fonts/Arial-16.bdf')
@@ -80,27 +81,6 @@ def create_text_areas(configs):
         text_areas.append(textarea)
     return text_areas
 
-class ApplicationScreen(object):
-	""" This is the interface for application screens """
-
-	def tick(self, now):
-		""" handle one pass of the main loop """
-		pass
-
-
-	def exit(self):
-		""" exit and clear splash """
-		clear_splash()
-
-#    def __init__(self):
-#		pass
-
-#    @property
-#    def name(self):
-#        """Return the name of teh state"""
-#        return ''
-
-
 
 
 class Menu_State(ApplicationScreen):
@@ -108,8 +88,8 @@ class Menu_State(ApplicationScreen):
     """This state lets the user enable/disable the alarm and set its time.
     Swiping up/down adjusts the hours & miniutes separately."""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, pyportal):
+        super().__init__(pyportal)
         self.previous_touch = None
         self.background = 'settings_background.bmp'
         text_area_configs = [dict(x=88, y=40, size=15, color=0xFFFFFF, font=temperature_font),  # time
@@ -175,8 +155,8 @@ class Menu_State(ApplicationScreen):
 class Randomjuke_State(ApplicationScreen):
     """This state manages the primary time display screen/mode"""
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, pyportal):
+        super().__init__(pyportal)
         self.background_day = 'main_background_day.bmp'
         self.background_night = 'main_background_night.bmp'
         self.refresh_time = None
@@ -249,8 +229,13 @@ class Randomjuke_State(ApplicationScreen):
 
 
 
-states = {'menu' : Menu_State(),
-          'randomjuke' : Randomjuke_State()}
+menuState = Menu_State(pyportal)
+
+current_state = menuState
+#current_state = None
+
+states = {'menu' : menuState,
+          'randomjuke' : Randomjuke_State(pyportal)}
 
 
 def change_to_state(state_name):
@@ -263,12 +248,11 @@ def change_to_state(state_name):
     current_state.enter()
 
 
-def clear_splash():
-    for _ in range(len(pyportal.splash) - 1):
-        pyportal.splash.pop()
 
+screen = ApplicationScreen(pyportal)
+screen.clear_splash()
+#clear_splash()
 
-clear_splash()
 change_to_state("menu")
 
 while True:
