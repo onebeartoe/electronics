@@ -2,8 +2,6 @@
 	documentation
 """
 
-
-
 import adafruit_logging as logging
 import board
 from adafruit_display_text.label import Label
@@ -14,6 +12,7 @@ import time
 import displayio
 import adafruit_esp32spi.adafruit_esp32spi_requests as requests
 
+from onebeartoe.gui.components import Application
 
 logger = logging.getLogger('alarm_clock')
 logger.setLevel(logging.DEBUG)
@@ -139,14 +138,14 @@ class Menu_State(ApplicationScreen):
                 self.text_areas[0].text = '%02d:%02d' % (alarm_hour, alarm_minute)
             elif touch_in_button(t, self.buttons[1]):   # return
                 logger.debug('RETURN touched')
-                change_to_state('time')
+                change_to_state('randomjuke')
             elif touch_in_button(t, self.buttons[2]): # off
                 logger.debug('OFF touched')
                 alarm_enabled = False
                 self.text_areas[0].text = '     '
             elif touch_in_button(t, self.buttons[3]):   # time
                 logger.debug('time touched')
-                change_to_state('time')
+                change_to_state('randomjuke')
             elif touch_in_button(t, self.buttons[4]):   # randomjuke
                 logger.debug('randomjuke touched')
                 change_to_state('randomjuke')
