@@ -1,6 +1,7 @@
 
 import analogio
 import board
+import displayio
 import neopixel
 import time
 
@@ -17,52 +18,11 @@ class Application(object):
 		# Setup PyPortal without networking
 		self.pyportal = PyPortal(default_bg=self.BACKGROUND_COLOR)
 
-		# Button colors
-		RED = (255, 0, 0)
-		ORANGE = (255, 34, 0)
-		YELLOW = (255, 170, 0)
-		GREEN = (0, 255, 0)
-		CYAN = (0, 255, 255)
-		BLUE = (0, 0, 255)
-		VIOLET = (153, 0, 255)
-		MAGENTA = (255, 0, 51)
-		PINK = (255, 51, 119)
-		AQUA = (85, 125, 255)
-		WHITE = (255, 255, 255)
-		OFF = (0, 0, 0)
+		self.icon1Group = displayio.Group()
+		self.icon1Group.x = 0
+		self.icon1Group.y = 0
 
-		self.buttonAttributes = [
-		    {'label': "1", 'pos': (10, 10), 'size': (60, 60), 'color': RED},
-		    {'label': "2", 'pos': (90, 10), 'size': (60, 60), 'color': ORANGE},
-		    {'label': "3", 'pos': (170, 10), 'size': (60, 60), 'color': YELLOW},
-		    {'label': "4", 'pos': (250, 10), 'size': (60, 60), 'color': GREEN},
-		    {'label': "5", 'pos': (10, 90), 'size': (60, 60), 'color': CYAN},
-		    {'label': "6", 'pos': (90, 90), 'size': (60, 60), 'color': BLUE},
-		    {'label': "7", 'pos': (170, 90), 'size': (60, 60), 'color': VIOLET},
-		    {'label': "8", 'pos': (250, 90), 'size': (60, 60), 'color': MAGENTA},
-		    {'label': "9", 'pos': (10, 170), 'size': (60, 60), 'color': PINK},
-		    {'label': "10", 'pos': (90, 170), 'size': (60, 60), 'color': AQUA},
-		    {'label': "11", 'pos': (170, 170), 'size': (60, 60), 'color': WHITE},
-		    {'label': "12", 'pos': (250, 170), 'size': (60, 60), 'color': OFF}
-		    ]
-
-		buttonFont = bitmap_font.load_font('/fonts/Arial-16.bdf')
-		buttonFont.load_glyphs(b'0123456789CFabcdefghijklmnopqrstuvwxyz:')
-
-		self.buttons = []
-
-		for spot in self.buttonAttributes:
-		    button = Button(x=spot['pos'][0],
-							y=spot['pos'][1],
-		                    width=spot['size'][0],
-							height=spot['size'][1],
-		                    style=Button.SHADOWROUNDRECT,
-		                    fill_color=spot['color'],
-							outline_color=0x222222,
-		                    name=spot['label'],
-							label_font=buttonFont)
-		    self.pyportal.splash.append(button.group)
-		    self.buttons.append(button)
+		self.initializeButtons()
 
 		# Set the NeoPixel brightness
 		BRIGHTNESS = 0.3
@@ -78,6 +38,72 @@ class Application(object):
 
 		self.mode = 0
 		self.mode_change = None
+
+
+	def initializeButtons(self):
+		# Button colors
+		RED = (255, 0, 0)
+		ORANGE = (255, 34, 0)
+		YELLOW = (255, 170, 0)
+		GREEN = (0, 255, 0)
+		CYAN = (0, 255, 255)
+		BLUE = (0, 0, 255)
+		VIOLET = (153, 0, 255)
+		MAGENTA = (255, 0, 51)
+		PINK = (255, 51, 119)
+		AQUA = (85, 125, 255)
+		WHITE = (255, 255, 255)
+		OFF = (0, 0, 0)
+
+"""
+        snooze_file = open('/resources/images/cards/1.bmp', "rb")
+        icon = displayio.OnDiskBitmap(snooze_file)
+        try:
+            icon_sprite = displayio.TileGrid(icon,
+                                             pixel_shader=displayio.ColorConverter(),
+                                             x=0, y=0)
+        except TypeError:
+            icon_sprite = displayio.TileGrid(icon,
+                                             pixel_shader=displayio.ColorConverter(),
+                                             position=(0, 0))
+                                             
+        snooze_file.close()
+        self.icon1Group.append(icon_sprite)
+        self.pyportal.splash.append(self.icon1Group)
+"""
+
+        self.buttonAttributes = [
+		    {'label': "1", 'pos': (10, 10),    'size': (60, 60), 'color': RED},
+		    {'label': "2", 'pos': (90, 10),    'size': (60, 60), 'color': ORANGE},
+		    {'label': "3", 'pos': (170, 10),   'size': (60, 60), 'color': YELLOW},
+		    {'label': "4", 'pos': (250, 10),   'size': (60, 60), 'color': GREEN},
+		    {'label': "5", 'pos': (10, 90),    'size': (60, 60), 'color': CYAN},
+		    {'label': "6", 'pos': (90, 90),    'size': (60, 60), 'color': BLUE},
+		    {'label': "7", 'pos': (170, 90),   'size': (60, 60), 'color': VIOLET},
+		    {'label': "8", 'pos': (250, 90),   'size': (60, 60), 'color': MAGENTA},
+		    {'label': "9", 'pos': (10, 170),   'size': (60, 60), 'color': PINK},
+		    {'label': "10", 'pos': (90, 170),  'size': (60, 60), 'color': AQUA},
+		    {'label': "11", 'pos': (170, 170), 'size': (60, 60), 'color': WHITE},
+		    {'label': "12", 'pos': (250, 170), 'size': (60, 60), 'color': OFF}
+		    ]
+
+        buttonFont = bitmap_font.load_font('/fonts/Arial-16.bdf')
+        buttonFont.load_glyphs(b'0123456789CFabcdefghijklmnopqrstuvwxyz:')
+
+        self.buttons = []
+
+        for spot in self.buttonAttributes:
+            button = Button(x=spot['pos'][0],
+                            y=spot['pos'][1],
+                            width=spot['size'][0],
+                            height=spot['size'][1],
+                            style=Button.SHADOWROUNDRECT,
+                            fill_color=spot['color'],
+                            outline_color=0x222222,
+                            name=spot['label'],
+                            label_font=buttonFont)
+            self.pyportal.splash.append(button.group)
+            self.buttons.append(button)
 
 
 
