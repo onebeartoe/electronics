@@ -12,9 +12,6 @@ import time
 
 import adafruit_esp32spi.adafruit_esp32spi_requests as requests
 
-#from onebeartoe.gui.components import Application
-#from onebeartoe.gui.components import ApplicationScreen
-
 from Application import Application
 from ApplicationScreen import ApplicationScreen
 from MenuScreen import MenuScreen
@@ -39,7 +36,6 @@ DATA_SOURCE += '&appid='+secrets['openweather_token']
 # You'll need to get a token from openweather.org, looks like 'b6907d289e10d714a6e88b30761fae22'
 
 DATA_LOCATION = []
-
 
 
 # alarm state support

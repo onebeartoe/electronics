@@ -4,13 +4,7 @@ from adafruit_display_text.label import Label
 class ApplicationScreen(object):
 	""" This is the interface for application screens """
 
-#	pyportal = None
-
-#	logger = None
-
 	name = "Screen name not set"
-
-
 
 
 	def touch_in_button(self, t, b):
@@ -38,14 +32,9 @@ class ApplicationScreen(object):
 		self.logger = logger
 
 
-
-
 	def clear_splash(self):
 		for _ in range(len(self.pyportal.splash) - 1):
 			self.pyportal.splash.pop()
-
-
-
 
 
 	def tick(self, now):
@@ -56,10 +45,3 @@ class ApplicationScreen(object):
 	def exit(self):
 		""" exit and clear splash """
 		self.clear_splash()
-
-
-
-#	def touch(self, t, touched):
-#		"""Handle a touch event.
-#		:param (x, y, z) - t: the touch location/strength"""
-#		return bool(t)
