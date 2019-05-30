@@ -3,4 +3,8 @@ cd ~/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/mi
 
 CIRCUITPY_PATH=/media/roberto/CIRCUITPY/
 
-cp main.py $CIRCUITPY_PATH
+cp Application.py $CIRCUITPY_PATH
+
+#cp main.py $CIRCUITPY_PATH
+
+#cp MemoryCardGame.py $CIRCUITPY_PATH
