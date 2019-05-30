@@ -8,3 +8,7 @@ cp main.py $CIRCUITPY_PATH
 cp RandomJukeScreen.py $CIRCUITPY_PATH
 
 cp MenuScreen.py $CIRCUITPY_PATH
+
+cp ApplicationScreen.py $CIRCUITPY_PATH
+
+cp Application.py $CIRCUITPY_PATH

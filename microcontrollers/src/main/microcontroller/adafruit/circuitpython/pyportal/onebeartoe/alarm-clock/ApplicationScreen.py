@@ -4,20 +4,13 @@ from adafruit_display_text.label import Label
 class ApplicationScreen(object):
 	""" This is the interface for application screens """
 
-	pyportal = None
+#	pyportal = None
 
-	logger = None
+#	logger = None
+
+	name = "Screen name not set"
 
 
-
-	def change_to_state(self, state_name, current_state, states):
-#	    global current_state
-	    if current_state:
-	        self.logger.debug('Exiting %s', current_state.name)
-	        current_state.exit()
-	    current_state = states[state_name]
-	    self.logger.debug('Entering %s', current_state.name)
-	    current_state.enter()
 
 
 	def touch_in_button(self, t, b):
@@ -40,6 +33,7 @@ class ApplicationScreen(object):
 
 #TODO can we move this back up to the top?
 	def __init__(self, pyportal, logger):
+		logger.debug("ApplicationScreen constuctor")
 		self.pyportal = pyportal
 		self.logger = logger
 
@@ -65,7 +59,7 @@ class ApplicationScreen(object):
 
 
 
-#    @property
-#    def name(self):
-#        """Return the name of teh state"""
-#        return ''
+#	def touch(self, t, touched):
+#		"""Handle a touch event.
+#		:param (x, y, z) - t: the touch location/strength"""
+#		return bool(t)
