@@ -10,52 +10,51 @@ from adafruit_button import Button
 from adafruit_pyportal import PyPortal
 
 class Application(object):
-	""" documentation """
+    """ documentation """
 
-	def __init__(self):
-		self.BACKGROUND_COLOR = 0x443355
+    def __init__(self):
+        self.BACKGROUND_COLOR = 0x443355
 
-		# Setup PyPortal without networking
-		self.pyportal = PyPortal(default_bg=self.BACKGROUND_COLOR)
+        # Setup PyPortal without networking
+        self.pyportal = PyPortal(default_bg=self.BACKGROUND_COLOR)
 
-		self.icon1Group = displayio.Group()
-		self.icon1Group.x = 0
-		self.icon1Group.y = 0
+        self.icon1Group = displayio.Group()
+        self.icon1Group.x = 0
+        self.icon1Group.y = 0
 
-		self.initializeButtons()
+        self.initializeButtons()
 
-		# Set the NeoPixel brightness
-		BRIGHTNESS = 0.3
+        # Set the NeoPixel brightness
+        BRIGHTNESS = 0.3
 
-		self.light_sensor = analogio.AnalogIn(board.LIGHT)
+        self.light_sensor = analogio.AnalogIn(board.LIGHT)
 
-		self.strip_1 = neopixel.NeoPixel(board.D4, 30, brightness=BRIGHTNESS)
-		self.strip_2 = neopixel.NeoPixel(board.D3, 30, brightness=BRIGHTNESS)
+        self.strip_1 = neopixel.NeoPixel(board.D4, 30, brightness=BRIGHTNESS)
+        self.strip_2 = neopixel.NeoPixel(board.D3, 30, brightness=BRIGHTNESS)
 
-		# Turn off NeoPixels to start
-		self.strip_1.fill(0)
-		self.strip_2.fill(0)
+        # Turn off NeoPixels to start
+        self.strip_1.fill(0)
+        self.strip_2.fill(0)
 
-		self.mode = 0
-		self.mode_change = None
+        self.mode = 0
+        self.mode_change = None
 
 
-	def initializeButtons(self):
+    def initializeButtons(self):
 		# Button colors
-		RED = (255, 0, 0)
-		ORANGE = (255, 34, 0)
-		YELLOW = (255, 170, 0)
-		GREEN = (0, 255, 0)
-		CYAN = (0, 255, 255)
-		BLUE = (0, 0, 255)
-		VIOLET = (153, 0, 255)
-		MAGENTA = (255, 0, 51)
-		PINK = (255, 51, 119)
-		AQUA = (85, 125, 255)
-		WHITE = (255, 255, 255)
-		OFF = (0, 0, 0)
+        RED = (255, 0, 0)
+        ORANGE = (255, 34, 0)
+        YELLOW = (255, 170, 0)
+        GREEN = (0, 255, 0)
+        CYAN = (0, 255, 255)
+        BLUE = (0, 0, 255)
+        VIOLET = (153, 0, 255)
+        MAGENTA = (255, 0, 51)
+        PINK = (255, 51, 119)
+        AQUA = (85, 125, 255)
+        WHITE = (255, 255, 255)
+        OFF = (0, 0, 0)
 
-"""
         snooze_file = open('/resources/images/cards/1.bmp', "rb")
         icon = displayio.OnDiskBitmap(snooze_file)
         try:
@@ -70,10 +69,9 @@ class Application(object):
         snooze_file.close()
         self.icon1Group.append(icon_sprite)
         self.pyportal.splash.append(self.icon1Group)
-"""
 
         self.buttonAttributes = [
-		    {'label': "1", 'pos': (10, 10),    'size': (60, 60), 'color': RED},
+        {'label': "1", 'pos': (10, 10),    'size': (60, 60), 'color': RED},
 		    {'label': "2", 'pos': (90, 10),    'size': (60, 60), 'color': ORANGE},
 		    {'label': "3", 'pos': (170, 10),   'size': (60, 60), 'color': YELLOW},
 		    {'label': "4", 'pos': (250, 10),   'size': (60, 60), 'color': GREEN},
@@ -107,33 +105,34 @@ class Application(object):
 
 
 
-	def launch(self):
+    def launch(self):
 		# Calibrate light sensor on start to deal with different lighting situations
 		# If the self.mode change isn't responding properly, reset your PyPortal to recalibrate
-		initial_light_value = self.light_sensor.value
-		while True:
-		    if self.light_sensor.value < (initial_light_value * 0.3) and self.mode_change is None:
+        initial_light_value = self.light_sensor.value
+        while True:
+            if self.light_sensor.value < (initial_light_value * 0.3) and self.mode_change is None:
 		        self.mode_change = "mode_change"
-		    if self.light_sensor.value > (initial_light_value * 0.5) and self.mode_change == "mode_change":
-		        self.mode += 1
-		        self.mode_change = None
-		        if self.mode > 2:
-		            self.mode = 0
-		        print(self.mode)
-		    touch = self.pyportal.touchscreen.touch_point
-		    if touch:
-		        for button in self.buttons:
-		            if button.contains(touch):
-						spotIndex = int(button.name) - 1
-						button.label = self.buttonAttributes[spotIndex]['label']
-						self.pyportal.play_file('Coin.wav')
-						print("Touched", button.name)
-						if self.mode == 0:
-							self.strip_1.fill(button.fill_color)
-						elif self.mode == 1:
-							self.strip_2.fill(button.fill_color)
-						elif self.mode == 2:
-							self.strip_1.fill(button.fill_color)
-							self.strip_2.fill(button.fill_color)
-						break
-		    time.sleep(0.05)
+            if self.light_sensor.value > (initial_light_value * 0.5) and self.mode_change == "mode_change":
+                self.mode += 1
+                self.mode_change = None
+                if self.mode > 2:
+                    self.mode = 0
+                print(self.mode)
+            touch = self.pyportal.touchscreen.touch_point
+            if touch:
+                for button in self.buttons:
+                    if button.contains(touch):
+                        spotIndex = int(button.name) - 1
+                        button.label = self.buttonAttributes[spotIndex]['label']
+                        self.pyportal.play_file('Coin.wav')
+                        print("Touched", button.name)
+                        if self.mode == 0:
+                            self.strip_1.fill(button.fill_color)
+                        elif self.mode == 1:
+                            self.strip_2.fill(button.fill_color)
+                        elif self.mode == 2:
+                            self.strip_1.fill(button.fill_color)
+                            self.strip_2.fill(button.fill_color)
+                        break
+
+            time.sleep(0.05)
