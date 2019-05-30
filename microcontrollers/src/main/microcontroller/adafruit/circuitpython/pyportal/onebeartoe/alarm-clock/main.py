@@ -78,8 +78,8 @@ class Menu_State(ApplicationScreen):
     """This state lets the user enable/disable the alarm and set its time.
     Swiping up/down adjusts the hours & miniutes separately."""
 
-    def __init__(self, pyportal):
-        super().__init__(pyportal)
+    def __init__(self, pyportal, logger):
+        super().__init__(pyportal, logger)
         self.previous_touch = None
         self.background = 'settings_background.bmp'
         text_area_configs = [dict(x=88, y=40, size=15, color=0xFFFFFF, font=temperature_font),  # time
@@ -108,17 +108,17 @@ class Menu_State(ApplicationScreen):
                 self.text_areas[0].text = '%02d:%02d' % (alarm_hour, alarm_minute)
             elif self.touch_in_button(t, self.buttons[1]):   # return
                 logger.debug('RETURN touched')
-                change_to_state('randomjuke')
+                self.change_to_state('menu', current_state, states)
             elif self.touch_in_button(t, self.buttons[2]): # off
                 logger.debug('OFF touched')
                 alarm_enabled = False
                 self.text_areas[0].text = '     '
             elif self.touch_in_button(t, self.buttons[3]):   # time
                 logger.debug('time touched')
-                change_to_state('randomjuke')
+                self.change_to_state('randomjuke', current_state, states)
             elif self.touch_in_button(t, self.buttons[4]):   # randomjuke
                 logger.debug('randomjuke touched')
-                change_to_state('randomjuke')
+                self.change_to_state('randomjuke', current_state, states)
             board.DISPLAY.refresh_soon()
             board.DISPLAY.wait_for_frame()
         else:
@@ -141,31 +141,24 @@ class Menu_State(ApplicationScreen):
 
 
 
-menuState = Menu_State(pyportal)
+menuState = Menu_State(pyportal, logger)
 
 current_state = menuState
 #current_state = None
 
 states = {'menu' : menuState,
-          'randomjuke' : RandomJukeScreen(pyportal, time_font, temperature_font)}
-
-
-def change_to_state(state_name):
-    global current_state
-    if current_state:
-        logger.debug('Exiting %s', current_state.name)
-        current_state.exit()
-    current_state = states[state_name]
-    logger.debug('Entering %s', current_state.name)
-    current_state.enter()
+          'randomjuke' : RandomJukeScreen(pyportal, logger, time_font, temperature_font)}
 
 
 
-screen = ApplicationScreen(pyportal)
+application = Application()
+
+
+screen = ApplicationScreen(pyportal, logger)
 screen.clear_splash()
-#clear_splash()
 
-change_to_state("menu")
+
+screen.change_to_state("menu", current_state, states)
 
 while True:
     touched = current_state.touch(pyportal.touchscreen.touch_point, touched)

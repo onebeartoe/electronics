@@ -7,8 +7,8 @@ from onebeartoe.gui.components import ApplicationScreen
 class RandomJukeScreen(ApplicationScreen):
 	"""This state manages the primary time display screen/mode"""
 
-	def __init__(self, pyportal, time_font, temperature_font):
-		super().__init__(pyportal)
+	def __init__(self, pyportal, logger, time_font, temperature_font):
+		super().__init__(pyportal, logger)
 		self.background_day = 'main_background_day.bmp'
 		self.background_night = 'main_background_night.bmp'
 		self.refresh_time = None
@@ -16,7 +16,7 @@ class RandomJukeScreen(ApplicationScreen):
 		self.weather_refresh = None
 		self.pyportal = pyportal
 		text_area_configs = [dict(x=110, y=100, size=16, color=0xFFFFFF, font=time_font),   # Next lable
-                             dict(x=110, y=140, size=16, color=0xFFFFFF, font=temperature_font)]  # response lable
+                             dict(x=110, y=150, size=16, color=0xFFFFFF, font=temperature_font)]  # response lable
 		areas = self.create_text_areas(text_area_configs)
 		self.text_areas = areas
 		self.icon_file = None
@@ -53,9 +53,10 @@ class RandomJukeScreen(ApplicationScreen):
 
 #TODO: Make this a call to requests.post()
 #      Docs: https://circuitpython.readthedocs.io/projects/esp32spi/en/latest/api.html#adafruit_esp32spi.adafruit_esp32spi_requests.post
-				response = requests.get('http://192.168.1.82:8080/onebeartoe-jukebox-ee/controls/song/next')
+#				response = requests.get('http://192.168.1.82:8080/onebeartoe-jukebox-ee/controls/song/next')
 #                response = requests.get('http://192.168.1.80:1978/?action=next')
 #                response = requests.get('http://192.168.1.80:8080/continuous/')
+				response = 'new data'
 				self.text_areas[1].text = 'ploop'
 				print('lalal')
 				print(response)
