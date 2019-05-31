@@ -35,12 +35,14 @@ class Application(object):
         self.mode = 0
         self.mode_change = None
 
+
+
     def initializeButtons(self):
-        
+
         self.icon1Group = displayio.Group()
         self.icon1Group.x = 20
-        self.icon1Group.y = 20       
-        
+        self.icon1Group.y = 20
+
         # Button colors
         RED = (255, 0, 0)
         ORANGE = (255, 34, 0)
@@ -88,10 +90,15 @@ class Application(object):
         buttonFont = bitmap_font.load_font('/fonts/Arial-16.bdf')
         buttonFont.load_glyphs(b'0123456789CFabcdefghijklmnopqrstuvwxyz:')
 
-        snooze_file = open('/resources/images/cards/1.bmp', "rb")
-        icon = displayio.OnDiskBitmap(snooze_file)
+        cardBackFile = open('/resources/images/cards/back.bmp', "rb")
+        icon = displayio.OnDiskBitmap(cardBackFile)
+        self.cardBackSprite = displayio.TileGrid(icon,
+                                         pixel_shader=displayio.ColorConverter(),
+                                         x=0, y=0)
 
-        self.icon_sprite = displayio.TileGrid(icon,
+        cardFile1 = open('/resources/images/cards/1.bmp', "rb")
+        cardFileIcon1 = displayio.OnDiskBitmap(cardFile1)
+        self.cardSprite1 = displayio.TileGrid(cardFileIcon1,
                                          pixel_shader=displayio.ColorConverter(),
                                          x=0, y=0)
 
@@ -111,7 +118,7 @@ class Application(object):
             iconGroup = displayio.Group()
             iconGroup.x = spot['pos'][0]
             iconGroup.y = spot['pos'][1]
-            iconGroup.append(self.icon_sprite)
+            iconGroup.append(self.cardBackSprite)
 
             spot['iconGroup'] = iconGroup
 
@@ -120,13 +127,9 @@ class Application(object):
             self.pyportal.splash.append(button.group)
             self.buttons.append(button)
 
+# TODO: should we close the cardBackFile?
+#        cardBackFile.close()
 
-
-
-# TODO: should we close the snooze_file?
-#        snooze_file.close()
-
-#        self.icon1Group.append(icon_sprite)
         self.pyportal.splash.append(self.icon1Group)
 
 
@@ -153,7 +156,9 @@ class Application(object):
                         button.label = self.buttonAttributes[spotIndex]['label']
 
                         self.pyportal.play_file('Coin.wav')
-                        self.icon1Group.append(self.icon_sprite)
+#                        self.icon1Group.append(self.cardBackSprite)
+                        self.buttonAttributes[spotIndex]['iconGroup'].pop()
+                        self.buttonAttributes[spotIndex]['iconGroup'].append(self.cardSprite1)
 
                         print("Touched", button.name)
 
