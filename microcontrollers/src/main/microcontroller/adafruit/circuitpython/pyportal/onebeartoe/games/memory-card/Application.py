@@ -71,18 +71,18 @@ class Application(object):
             ]
 
         self.buttonAttributes = [
-            {'label': "1", 'pos': (10, 10),    'size': (60, 60), 'color': WHITE},
-		    {'label': "2", 'pos': (90, 10),    'size': (60, 60), 'color': WHITE},
-            {'label': "3", 'pos': (170, 10),   'size': (60, 60), 'color': WHITE},
-		    {'label': "4", 'pos': (250, 10),   'size': (60, 60), 'color': WHITE},
-            {'label': "5", 'pos': (10, 90),    'size': (60, 60), 'color': WHITE},
-		    {'label': "6", 'pos': (90, 90),    'size': (60, 60), 'color': WHITE},
-		    {'label': "7", 'pos': (170, 90),   'size': (60, 60), 'color': WHITE},
-		    {'label': "8", 'pos': (250, 90),   'size': (60, 60), 'color': WHITE},
-		    {'label': "9", 'pos': (10, 170),   'size': (60, 60), 'color': WHITE},
-		    {'label': "10", 'pos': (90, 170),  'size': (60, 60), 'color': WHITE},
-		    {'label': "11", 'pos': (170, 170), 'size': (60, 60), 'color': WHITE},
-		    {'label': "12", 'pos': (250, 170), 'size': (60, 60), 'color': WHITE}
+            {'label': "1", 'pos': (10, 10),    'size': (60, 60),         'color': WHITE, 'iconGroup' : None},
+		    {'label': "2", 'pos': (90, 10),    'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+            {'label': "3", 'pos': (170, 10),   'size': (60, 60),         'color': WHITE, 'iconGroup' : None},
+		    {'label': "4", 'pos': (250, 10),   'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+            {'label': "5", 'pos': (10, 90),    'size': (60, 60),         'color': WHITE, 'iconGroup' : None},
+		    {'label': "6", 'pos': (90, 90),    'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "7", 'pos': (170, 90),   'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "8", 'pos': (250, 90),   'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "9", 'pos': (10, 170),   'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "10", 'pos': (90, 170),  'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "11", 'pos': (170, 170), 'size': (60, 60), 'color': WHITE, 'iconGroup' : None},
+		    {'label': "12", 'pos': (250, 170), 'size': (60, 60), 'color': WHITE, 'iconGroup' : None}
             ]
 
         buttonFont = bitmap_font.load_font('/fonts/Arial-16.bdf')
@@ -107,11 +107,16 @@ class Application(object):
                             outline_color=0x222222,
                             name=spot['label'],
                             label_font=buttonFont)
+
             iconGroup = displayio.Group()
             iconGroup.x = spot['pos'][0]
             iconGroup.y = spot['pos'][1]
             iconGroup.append(self.icon_sprite)
+
+            spot['iconGroup'] = iconGroup
+
             button.group.append(iconGroup)
+
             self.pyportal.splash.append(button.group)
             self.buttons.append(button)
 
@@ -144,10 +149,14 @@ class Application(object):
                 for button in self.buttons:
                     if button.contains(touch):
                         spotIndex = int(button.name) - 1
+
                         button.label = self.buttonAttributes[spotIndex]['label']
+
                         self.pyportal.play_file('Coin.wav')
                         self.icon1Group.append(self.icon_sprite)
+
                         print("Touched", button.name)
+
                         if self.mode == 0:
                             self.strip_1.fill(button.fill_color)
                         elif self.mode == 1:
