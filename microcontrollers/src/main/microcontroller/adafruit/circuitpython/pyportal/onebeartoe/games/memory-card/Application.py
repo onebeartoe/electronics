@@ -107,7 +107,11 @@ class Application(object):
                             outline_color=0x222222,
                             name=spot['label'],
                             label_font=buttonFont)
-            button.group.append(self.icon_sprite)
+            iconGroup = displayio.Group()
+            iconGroup.x = spot['pos'][0]
+            iconGroup.y = spot['pos'][1]
+            iconGroup.append(self.icon_sprite)
+            button.group.append(iconGroup)
             self.pyportal.splash.append(button.group)
             self.buttons.append(button)
 
