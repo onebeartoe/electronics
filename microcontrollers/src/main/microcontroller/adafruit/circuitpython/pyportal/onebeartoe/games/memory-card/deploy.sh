@@ -9,5 +9,3 @@ CIRCUITPY_PATH=/media/roberto/CIRCUITPY/
 cp Application.py $CIRCUITPY_PATH
 
 #cp main.py $CIRCUITPY_PATH
-
-#cp MemoryCardGame.py $CIRCUITPY_PATH

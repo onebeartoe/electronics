@@ -9,6 +9,8 @@ from adafruit_bitmap_font import bitmap_font
 from adafruit_button import Button
 from adafruit_pyportal import PyPortal
 
+from MemoryCardsGame import MemoryCardsGame
+
 class Application(object):
     """ documentation """
 
@@ -34,6 +36,11 @@ class Application(object):
 
         self.mode = 0
         self.mode_change = None
+
+        self.game = MemoryCardsGame()
+        cannedData = MemoryCardsGameCannedData()
+        cards = cannedData.validCardSetAllTheSame()
+        self.game.setCards(cards)
 
 
 
