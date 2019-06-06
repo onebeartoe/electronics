@@ -1,5 +1,5 @@
 
-import analogio
+#import analogio
 import board
 import displayio
 import gc
@@ -27,8 +27,6 @@ class Application(object):
         # Set the NeoPixel brightness
         BRIGHTNESS = 0.3
 
-        self.light_sensor = analogio.AnalogIn(board.LIGHT)
-
         self.strip_1 = neopixel.NeoPixel(board.D4, 30, brightness=BRIGHTNESS)
         self.strip_2 = neopixel.NeoPixel(board.D3, 30, brightness=BRIGHTNESS)
 
@@ -43,9 +41,40 @@ class Application(object):
         cannedData = MemoryCardsGameCannedData()
         self.cards = cannedData.validCardSetCountOf2()
         self.game.setCards(self.cards)
+        self.game.startGame()
 
         self.interval = 5.5
         self.previousTime = time.monotonic()  # Time in seconds since power on
+
+
+    def handleButtonPress(self, button):
+        print("Touched", button.name)
+
+        buttonValue = int(button.name)
+
+        response = self.selectCard(buttonValue)
+
+        buttonIndex = buttonValue - 1
+
+        button.label = self.buttonAttributes[buttonIndex]['label']
+
+        self.pyportal.play_file('Coin.wav')
+
+        sprintIndex = self.cards[buttonIndex].value - 1
+
+        print("sprint index: ", sprintIndex)
+        self.buttonAttributes[buttonIndex]['iconGroup'].pop()
+        self.buttonAttributes[buttonIndex]['iconGroup'].append(self.cardSprites[sprintIndex])
+
+        # pixel updates
+        if self.mode == 0:
+            self.strip_1.fill(button.fill_color)
+        elif self.mode == 1:
+            self.strip_2.fill(button.fill_color)
+        elif self.mode == 2:
+            self.strip_1.fill(button.fill_color)
+            self.strip_2.fill(button.fill_color)
+
 
     def initializeButtons(self):
 
@@ -129,43 +158,6 @@ class Application(object):
                                            pixel_shader=displayio.ColorConverter(),
                                            x=0, y=0)
 
-        """
-        cardFile7 = open('/resources/images/cards/7.bmp', "rb")
-        cardFileIcon7 = displayio.OnDiskBitmap(cardFile7)
-        self.cardSprite7 = displayio.TileGrid(cardFileIcon7,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-
-        cardFile8 = open('/resources/images/cards/8.bmp', "rb")
-        cardFileIcon8 = displayio.OnDiskBitmap(cardFile8)
-        self.cardSprite8 = displayio.TileGrid(cardFileIcon8,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-
-        cardFile9 = open('/resources/images/cards/9.bmp', "rb")
-        cardFileIcon9 = displayio.OnDiskBitmap(cardFile9)
-        self.cardSprite9 = displayio.TileGrid(cardFileIcon9,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-
-        cardFile10 = open('/resources/images/cards/10.bmp', "rb")
-        cardFileIcon10 = displayio.OnDiskBitmap(cardFile10)
-        self.cardSprite10 = displayio.TileGrid(cardFileIcon10,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-
-        cardFile11 = open('/resources/images/cards/11.bmp', "rb")
-        cardFileIcon11 = displayio.OnDiskBitmap(cardFile11)
-        self.cardSprite11 = displayio.TileGrid(cardFileIcon11,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-
-        cardFile12 = open('/resources/images/cards/12.bmp', "rb")
-        cardFileIcon12 = displayio.OnDiskBitmap(cardFile12)
-        self.cardSprite12 = displayio.TileGrid(cardFileIcon12,
-                                                pixel_shader=displayio.ColorConverter(),
-                                                x=0, y=0)
-        """
 
         self.cardSprites = [self.cardSprite1, self.cardSprite2, self.cardSprite3, self.cardSprite4, self.cardSprite5, self.cardSprite6]
 
@@ -200,46 +192,15 @@ class Application(object):
 
 
     def launch(self):
-        # Calibrate light sensor on start to deal with different lighting situations
-        # If the self.mode change isn't responding properly, reset your PyPortal to recalibrate
-        initial_light_value = self.light_sensor.value
+
         while True:
-            if self.light_sensor.value < (initial_light_value * 0.3) and self.mode_change is None:
-                self.mode_change = "mode_change"
-            if self.light_sensor.value > (initial_light_value * 0.5) and self.mode_change == "mode_change":
-                self.mode += 1
-                self.mode_change = None
-                if self.mode > 2:
-                    self.mode = 0
-                print(self.mode)
+
             touch = self.pyportal.touchscreen.touch_point
             if touch:
                 for button in self.buttons:
                     if button.contains(touch):
-                        print("Touched", button.name)
+                        self.handleButtonPress(button)
 
-                        buttonValue = int(button.name)
-                        buttonIndex = buttonValue - 1
-
-                        button.label = self.buttonAttributes[buttonIndex]['label']
-
-                        self.pyportal.play_file('Coin.wav')
-
-                        sprintIndex = self.cards[buttonIndex].value
-
-                        print("sprint index: ", sprintIndex)
-                        self.buttonAttributes[buttonIndex]['iconGroup'].pop()
-                        self.buttonAttributes[buttonIndex]['iconGroup'].append(self.cardSprites[sprintIndex])
-
-
-
-                        if self.mode == 0:
-                            self.strip_1.fill(button.fill_color)
-                        elif self.mode == 1:
-                            self.strip_2.fill(button.fill_color)
-                        elif self.mode == 2:
-                            self.strip_1.fill(button.fill_color)
-                            self.strip_2.fill(button.fill_color)
                         break
 
             #TODO is this needed?
@@ -249,3 +210,38 @@ class Application(object):
             if now - self.previousTime >= 10.333:  # If 10.333 seconds elapses
                 print("free memory: ", gc.mem_free() )
                 self.previousTime = now
+
+
+    def selectCard(self, cardValue):
+        response = None
+
+        if(cardValue == 1):
+            response = self.game.selectCard1()
+        elif(cardValue == 2):
+            response = self.game.selectCard2()
+        elif(cardValue == 3):
+            response = self.game.selectCard3()
+        elif(cardValue == 4):
+            response = self.game.selectCard4()
+        elif(cardValue == 5):
+            response = self.game.selectCard5()
+        elif(cardValue == 6):
+            response = self.game.selectCard6()
+        elif(cardValue == 7):
+            response = self.game.selectCard7()
+        elif(cardValue == 8):
+            response = self.game.selectCard8()
+        elif(cardValue == 9):
+            response = self.game.selectCard9()
+        elif(cardValue == 10):
+            response = self.game.selectCard10()
+        elif(cardValue == 11):
+            response = self.game.selectCard11()
+        elif(cardValue == 12):
+            response = self.game.selectCard12()
+        else:
+            print("invalid card value: ")
+            print(cardValue)
+            raise Exception()
+
+        return response
