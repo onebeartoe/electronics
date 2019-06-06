@@ -69,7 +69,7 @@ class Application(object):
             self.flipCard(buttonIndex, sprintIndex)
         elif response == MemoryCardsGameResponse.GUESS_TWO_ACCEPTED_MATCH:
             self.flipCard(buttonIndex, sprintIndex)
-            self.pyportal.play_file('Coin.wav')
+            self.pyportal.play_file('resources/sounds/Coin.wav')
         elif response == MemoryCardsGameResponse.GUESS_REJECTED_CARD_ALREADY_REVEALED:
             self.pyportal.play_file('resources/sounds/invalid-guess.wav')
         else:
