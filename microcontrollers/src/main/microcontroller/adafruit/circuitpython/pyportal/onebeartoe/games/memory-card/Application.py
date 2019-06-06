@@ -2,6 +2,7 @@
 import analogio
 import board
 import displayio
+import gc
 import neopixel
 import time
 
@@ -42,6 +43,9 @@ class Application(object):
         cannedData = MemoryCardsGameCannedData()
         self.cards = cannedData.validCardSetCountOf2()
         self.game.setCards(self.cards)
+
+        self.interval = 5.5
+        self.previousTime = time.monotonic()  # Time in seconds since power on
 
     def initializeButtons(self):
 
@@ -190,8 +194,6 @@ class Application(object):
             self.pyportal.splash.append(button.group)
             self.buttons.append(button)
 
-# TODO: should we close the cardBackFile?
-#        cardBackFile.close()
 
         self.pyportal.splash.append(self.icon1Group)
 
@@ -240,4 +242,10 @@ class Application(object):
                             self.strip_2.fill(button.fill_color)
                         break
 
+            #TODO is this needed?
             time.sleep(0.05)
+
+            now = time.monotonic()
+            if now - self.previousTime >= 10.333:  # If 10.333 seconds elapses
+                print("free memory: ", gc.mem_free() )
+                self.previousTime = now
