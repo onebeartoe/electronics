@@ -12,6 +12,8 @@ from adafruit_pyportal import PyPortal
 
 from MemoryCardsGame import MemoryCardsGame
 from MemoryCardsGameCannedData import MemoryCardsGameCannedData
+from MemoryCardsGameResponse import MemoryCardsGameResponse
+
 
 class Application(object):
     """ documentation """
@@ -47,6 +49,11 @@ class Application(object):
         self.previousTime = time.monotonic()  # Time in seconds since power on
 
 
+    def flipCard(self, buttonIndex, sprintIndex):
+        print("card sprite index: ", sprintIndex)
+        self.buttonAttributes[buttonIndex]['iconGroup'].pop()
+        self.buttonAttributes[buttonIndex]['iconGroup'].append(self.cardSprites[sprintIndex])
+
     def handleButtonPress(self, button):
         print("Touched", button.name)
 
@@ -56,17 +63,23 @@ class Application(object):
 
         buttonIndex = buttonValue - 1
 
-        button.label = self.buttonAttributes[buttonIndex]['label']
-
-        self.pyportal.play_file('Coin.wav')
-
         sprintIndex = self.cards[buttonIndex].value - 1
 
-        print("sprint index: ", sprintIndex)
-        self.buttonAttributes[buttonIndex]['iconGroup'].pop()
-        self.buttonAttributes[buttonIndex]['iconGroup'].append(self.cardSprites[sprintIndex])
+        if(response == MemoryCardsGameResponse.GUESS_ONE_ACCEPTED):
+            self.flipCard(buttonIndex, sprintIndex)
+        elif response == MemoryCardsGameResponse.GUESS_TWO_ACCEPTED_MATCH:
+            self.flipCard(buttonIndex, sprintIndex)
+            self.pyportal.play_file('Coin.wav')
+        elif response == MemoryCardsGameResponse.GUESS_REJECTED_CARD_ALREADY_REVEALED:
+            self.pyportal.play_file('resources/sounds/invalid-guess.wav')
+        else:
+            message = "unknown response: " + str(response)
+            raise Exception(message)
 
-        # pixel updates
+
+        button.label = self.buttonAttributes[buttonIndex]['label']
+
+        # neopixel updates
         if self.mode == 0:
             self.strip_1.fill(button.fill_color)
         elif self.mode == 1:
