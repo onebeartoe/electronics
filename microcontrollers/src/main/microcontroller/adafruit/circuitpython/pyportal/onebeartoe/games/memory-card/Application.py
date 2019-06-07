@@ -48,6 +48,13 @@ class Application(object):
         self.interval = 5.5
         self.previousTime = time.monotonic()  # Time in seconds since power on
 
+    def coverCard(self, buttonValue):
+
+        buttonIndex = buttonValue - 1
+
+        self.buttonAttributes[buttonIndex]['iconGroup'].pop()
+        self.buttonAttributes[buttonIndex]['iconGroup'].append(self.cardBackSprite)
+
 
     def flipCard(self, buttonIndex, sprintIndex):
         print("card sprite index: ", sprintIndex)
@@ -66,12 +73,39 @@ class Application(object):
         sprintIndex = self.cards[buttonIndex].value - 1
 
         if(response == MemoryCardsGameResponse.GUESS_ONE_ACCEPTED):
+            self.guessOneValue = buttonValue
             self.flipCard(buttonIndex, sprintIndex)
+
         elif response == MemoryCardsGameResponse.GUESS_TWO_ACCEPTED_MATCH:
+
             self.flipCard(buttonIndex, sprintIndex)
             self.pyportal.play_file('resources/sounds/Coin.wav')
+
+        elif response == MemoryCardsGameResponse.GUESS_TWO_ACCEPTED_MISMATCH:
+
+            self.flipCard(buttonIndex, sprintIndex)
+
+            self.pyportal.play_file("resources/sounds/mismatch.wav")
+
+            self.coverCard(self.guessOneValue)
+            self.coverCard(buttonValue)
+
+        elif response == MemoryCardsGameResponse.GUESS_TWO_ACCEPTED_MISMATCH_END_OF_GAME_LOSE:
+
+            print("end of game: loss")
+
+            self.game.resetGame()
+
+            self.pyportal.play_file("resources/sounds/end-of-game.wav")
+
+            for c in range (0, 12):
+                cardNumber = c + 1;
+                self.coverCard(cardNumber)
+
         elif response == MemoryCardsGameResponse.GUESS_REJECTED_CARD_ALREADY_REVEALED:
+
             self.pyportal.play_file('resources/sounds/invalid-guess.wav')
+
         else:
             message = "unknown response: " + str(response)
             raise Exception(message)
