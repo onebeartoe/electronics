@@ -29,3 +29,14 @@ Attribution
         source:
 
             http://soundbible.com/1308-Fizzle.html
+
+
+    end-of-game.wav
+
+        original filename:
+
+            400581__alanmcki__retro-arcade-video-game-descending-lose-life-tone.wav
+
+        source:
+
+            https://freesound.org/people/alanmcki/sounds/400581/

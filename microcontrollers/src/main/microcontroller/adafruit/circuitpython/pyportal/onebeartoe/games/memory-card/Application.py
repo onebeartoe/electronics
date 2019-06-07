@@ -102,6 +102,9 @@ class Application(object):
                 cardNumber = c + 1;
                 self.coverCard(cardNumber)
 
+            self.game.setCards(self.cards)
+            self.game.startGame()
+
         elif response == MemoryCardsGameResponse.GUESS_REJECTED_CARD_ALREADY_REVEALED:
 
             self.pyportal.play_file('resources/sounds/invalid-guess.wav')
