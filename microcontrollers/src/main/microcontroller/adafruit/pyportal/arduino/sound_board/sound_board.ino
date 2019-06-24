@@ -304,3 +304,4 @@ void playCoin()
 
     digitalWrite(SPKR_SHUTDOWN, LOW);
 }
+
