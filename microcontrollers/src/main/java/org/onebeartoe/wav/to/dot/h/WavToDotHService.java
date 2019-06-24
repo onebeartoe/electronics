@@ -62,9 +62,13 @@ public class WavToDotHService extends AppletService
         String outfileName = wavFile.getName() + ".h";
         File pwd = new File(".");
         File parent = pwd;
-        File outfile = new File(parent, outfileName);
-        System.out.println("outfile: " + outfile.getAbsolutePath() );
+        File cononicalOutfile = new File(parent, outfileName);
         
+        String cononicalPath = cononicalOutfile.getCanonicalPath();
+        
+        System.out.println("outfile: " + cononicalPath );
+        
+        File outfile = new File(cononicalPath);
         
         Path outfilePath = outfile.toPath();
 //        Files.write(outfilePath, dotHBytes);
