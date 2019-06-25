@@ -11,8 +11,11 @@
 #include "TouchScreen.h"
 #include <SD.h>
 #include <WiFiNINA.h>
-#include "coin.h"
 
+//#include "mismatch.wav.h"
+//#include "Coin.wav.h"
+#include "coin.h"
+    
 #define RED_LED       13
 #define TFT_RESET     24
 #define TFT_BACKLIGHT 25
