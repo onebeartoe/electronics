@@ -48,13 +48,33 @@ public class WavToDotHService extends AppletService
         
         StringBuffer dotFileContents = new StringBuffer();
         
+        dotFileContents.append("#define SAMPLE_RATE 16000\n" +
+                                "\n" +
+                                "const uint8_t coinaudio[] = {"
+                                +
+                                "\n" );
+        
+        int newlineIndex = 12;
+        
         for(int i = 0; i < waveBytes.length; i++)
         {
-            dotFileContents.append("'");
             String b = String.format("%02X", waveBytes[i]);
+            
+            dotFileContents.append("0x");            
             dotFileContents.append(b);
-            dotFileContents.append("'");
+            
+            if(i !=  waveBytes.length-1)
+            {
+                dotFileContents.append(",");
+            }
+            
+            if(i % newlineIndex == 0 && i != 0)
+            {
+                dotFileContents.append("\n");
+            }
         }
+        
+        dotFileContents.append("};");
         
         byte [] dotHBytes = dotFileContents.toString()
                                            .getBytes();
@@ -71,6 +91,6 @@ public class WavToDotHService extends AppletService
         File outfile = new File(cononicalPath);
         
         Path outfilePath = outfile.toPath();
-//        Files.write(outfilePath, dotHBytes);
+        Files.write(outfilePath, dotHBytes);
     }
 }
