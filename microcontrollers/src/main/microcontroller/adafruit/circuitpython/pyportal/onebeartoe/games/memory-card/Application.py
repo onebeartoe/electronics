@@ -1,5 +1,4 @@
 
-#import analogio
 import board
 import displayio
 import gc
@@ -13,7 +12,6 @@ from adafruit_pyportal import PyPortal
 from MemoryCardsGame import MemoryCardsGame
 from MemoryCardsGameCannedData import MemoryCardsGameCannedData
 from MemoryCardsGameResponse import MemoryCardsGameResponse
-
 
 class Application(object):
     """ documentation """
@@ -228,6 +226,7 @@ class Application(object):
             iconGroup.x = attributes['pos'][0]
             iconGroup.y = attributes['pos'][1]
             iconGroup.append(self.cardBackSprite)
+
 
             attributes['iconGroup'] = iconGroup
 
