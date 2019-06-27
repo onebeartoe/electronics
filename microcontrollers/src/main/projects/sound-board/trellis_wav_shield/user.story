@@ -8,4 +8,3 @@ Acceptance Criteria
 the interface uses the Adafruit Trellis and
 sound clips use 1.wav - 16.wav naming convention and
 every button plays a sound and
-
