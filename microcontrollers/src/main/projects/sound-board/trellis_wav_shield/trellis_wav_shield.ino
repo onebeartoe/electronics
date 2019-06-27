@@ -1,4 +1,7 @@
 
+/**
+ * This project is intened for use wit the Arduino Uno
+ */
 
 /*************************************************** 
   This is a test example for the Adafruit Trellis w/HT16K33
@@ -20,6 +23,13 @@
 #include <Wire.h>
 #include "Adafruit_Trellis.h"
 
+
+/**
+ * This project also uses the Adafruit Wave Shield for Arduino
+ * 
+ *    https://www.adafruit.com/product/94
+ * 
+ */
 #include "WaveUtil.h"
 #include "WaveHC.h"
 
