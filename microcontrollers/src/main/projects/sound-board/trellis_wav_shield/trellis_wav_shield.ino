@@ -184,8 +184,10 @@ void loop() {
         // if it was pressed...
 	if (trellis.justPressed(i)) {
 	  Serial.print("v"); Serial.println(i);
+       
+          String wavfile = String(i) + ".wav";
           
-          playcomplete("1.wav");
+          playcomplete( wavfile.c_str() );
           
 	  // Alternate the LED
 	  if (trellis.isLED(i))
