@@ -1,7 +1,11 @@
 
 // Yo-yo model: http://www.thingiverse.com/thing:1695697
 //
-
+// Arduino IDE
+//
+//    Programmer: USBtinyISP
+//
+//
 // original source code: 
 //         
 //         https://learn.adafruit.com/circuit-playground-kaleidoscope
