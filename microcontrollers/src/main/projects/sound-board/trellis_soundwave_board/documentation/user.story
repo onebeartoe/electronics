@@ -16,6 +16,18 @@ a Nepixel ring is used to show the following modes
      fade yellow
      rainbow theater chase
      off and
+a face plate exists with customizable features
+    icon options
+        auto/decept
+        mario/luigi
+        rebel/trooper
+    icons color
+    left tab
+    left tab icon
+    left tab icon scale
+    right tab
+    right tab icon
+    right tab icon scale
 
 
 
