@@ -24,10 +24,8 @@ a face plate exists with customizable features
     icons color
     left tab
     left tab icon
-    left tab icon scale
     right tab
     right tab icon
-    right tab icon scale
 
 
 
