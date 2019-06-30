@@ -93,7 +93,7 @@ Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
 
 #define PIXEL_PIN    6  // Digital IO pin connected to the NeoPixels.
 
-#define PIXEL_COUNT 10  // Number of NeoPixels
+#define PIXEL_COUNT 16  // Number of NeoPixels
 
 // Pattern types supported:
 enum  pattern { NONE, RAINBOW_CYCLE, THEATER_CHASE, COLOR_WIPE, SCANNER, FADE };
@@ -339,7 +339,7 @@ class NeoPatterns : public Adafruit_NeoPixel
 
 
 
-NeoPatterns Ring2(16, 6, NEO_GRB + NEO_KHZ800, 0);
+NeoPatterns Ring2(PIXEL_COUNT, 6, NEO_GRB + NEO_KHZ800, 0);
     
     
 
@@ -427,10 +427,15 @@ void setup()
 
     // Initialize all the pixelStrips
     Ring2.begin();
-    Ring2.Color1 = Ring2.Color(255,255,0);
-    Ring2.Color2 = Ring2.Color(255,55,0);
-    int interval = 20;
+    Ring2.Color1 = Ring2.Color(128, 0, 128);
+    Ring2.Color2 = Ring2.Color(0,0,0);
+    
+    int interval = 200;
+//    int interval = 20;
+        
     int steps = Ring2.numPixels();
+//    int steps = Ring2.numPixels();
+    
     Ring2.Fade(Ring2.Color1, Ring2.Color2, steps, interval);
     
 }
@@ -448,6 +453,9 @@ void loop()
 	// if it was pressed, turn it on
 	if (trellis.justPressed(i)) {
 	  Serial.print("v"); Serial.println(i);
+          
+          playfile(i);
+          
 	  trellis.setLED(i);
 	} 
 	// if it was released, turn it off
@@ -469,10 +477,8 @@ void loop()
         // if it was pressed...
 	if (trellis.justPressed(i)) {
 	  Serial.print("v"); Serial.println(i);
-       
-          String wavfile = String(i) + ".wav";
-          
-          playcomplete( wavfile.c_str() );
+    
+          playfile(i);
           
 	  // Alternate the LED
 	  if (trellis.isLED(i))
@@ -489,6 +495,12 @@ void loop()
     // update the neopixels
     //    theaterChaseRainbow();  
     Ring2.Update();
+}
+
+void playfile(uint8_t index)
+{
+    String wavfile = String(index) + ".wav";          
+    playcomplete( wavfile.c_str() );    
 }
 
 // Plays a full file from beginning to end with no pause.
