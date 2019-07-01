@@ -258,8 +258,20 @@ void loop()
 
 void handleButtonPress(uint8_t index)
 {
-    String wavfile = String(index) + ".wav";          
-    playcomplete( wavfile.c_str() );    
+    if(index == 0)
+    {
+        nextLightMode();
+    }
+    else
+    {
+        String wavfile = String(index) + ".wav";          
+        playcomplete( wavfile.c_str() );    
+    }
+}
+
+void nextLightMode()
+{
+    
 }
 
 // Plays a full file from beginning to end with no pause.
