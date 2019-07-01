@@ -1,6 +1,6 @@
 
 As a fan of Decepticon Soundwave,
-I need a installation with sounds and lights,
+I need an installation with sounds and lights,
 so that I can pay tribute to the Transformers icon.
 
 Acceptance Criteria
