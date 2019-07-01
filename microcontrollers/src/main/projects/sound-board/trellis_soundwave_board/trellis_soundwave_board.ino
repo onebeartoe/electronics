@@ -67,8 +67,6 @@ Adafruit_Trellis matrix0 = Adafruit_Trellis();
 
 // Just one
 Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
-// or use the below to select 4, up to 8 can be passed in
-//Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0, &matrix1, &matrix2, &matrix3);
 
 // set to however many you're working with here, up to 8
 #define NUMTRELLIS 1
@@ -91,12 +89,15 @@ NeoPatterns Ring2(PIXEL_COUNT, 6, NEO_GRB + NEO_KHZ800, 0);
     
 uint32_t BLACK = Ring2.Color(0,0,0);
 uint32_t PURPLE = Ring2.Color(128, 0, 128);
-uint32_t RED = Ring2.Color(255, 0, 0);    
+uint32_t RED = Ring2.Color(255, 0, 0);
+uint32_t YELLOW = Ring2.Color(255, 255, 0);
 
 int lightMode = 0;
 const int PURPLE_FADE_LIGHT_MODE = 0;
 const int RED_FADE_LIGHT_MODE = 1;
-const int LIGHT_MODE_COUNT = 2;
+const int YELLOW_FADE_LIGHT_MODE = 2;
+const int RAINBOW_LIGHT_MODE = 3;
+const int LIGHT_MODE_COUNT = 4;
 
 int fadeInterval = 200;        
 int fadeSteps = Ring2.numPixels();
@@ -180,14 +181,14 @@ void setup()
   
     // Neopixel setup
     Ring2.begin();
-    Ring2.Color1 = Ring2.Color(128, 0, 128);
-    Ring2.Color2 = Ring2.Color(0,0,0);
+//    Ring2.Color1 = Ring2.Color(128, 0, 128);
+//    Ring2.Color2 = Ring2.Color(0,0,0);
     
-    int interval = 200;
-        
-    int steps = Ring2.numPixels();
+//    int interval = 200;        
+//    int steps = Ring2.numPixels();
     
-    Ring2.Fade(Ring2.Color1, Ring2.Color2, steps, interval);
+    Ring2.Fade(PURPLE, BLACK, fadeSteps, fadeInterval);
+//    Ring2.Fade(Ring2.Color1, Ring2.Color2, steps, interval);
 }
 
 
@@ -281,22 +282,55 @@ void nextLightMode()
     switch(lightMode)
     {
         case PURPLE_FADE_LIGHT_MODE:
+        {            
+            Ring2.Fade(PURPLE, BLACK, fadeSteps, fadeInterval);
+            
+            break;
+        }
+        case RAINBOW_LIGHT_MODE:
         {
-            Serial.println("chaned to purple fade mode");
-//TODO: I think the Color sets can be removed
-            Ring2.Color1 = PURPLE;
-            Ring2.Color2 = BLACK;
+//            Ring2.RainbowCycle(3);
+//            Ring2.ColorWipe(Ring2.Color(255, 8, 0), 20);
+//            Ring2.TheaterChase(Ring2.Color(255,255,0), Ring2.Color(0,0,50), 100);
 
-            Ring2.Fade(Ring2.Color1, Ring2.Color2, fadeSteps, fadeInterval);
+
+//TODO: move this to NeoPatterns.h or it only will happen one time
+int wait = 50; 
+  int firstPixelHue = 0;     // First pixel starts at red (hue 0)
+  for(int a=0; a<30; a++) {  // Repeat 30 times...
+    for(int b=0; b<3; b++) { //  'b' counts from 0 to 2...
+      Ring2.clear();         //   Set all pixels in RAM to 0 (off)
+      // 'c' counts up from 'b' to end of strip in increments of 3...
+      for(int c=b; c<Ring2.numPixels(); c += 3) {
+        // hue of pixel 'c' is offset by an amount to make one full
+        // revolution of the color wheel (range 65536) along the length
+        // of the strip (strip.numPixels() steps):
+        int      hue   = firstPixelHue + c * 65536L / Ring2.numPixels();
+        uint32_t color = Ring2.gamma32(Ring2.ColorHSV(hue)); // hue -> RGB
+        Ring2.setPixelColor(c, color); // Set pixel 'c' to value 'color'
+      }
+      Ring2.show();                // Update strip with new contents
+      delay(wait);                 // Pause for a moment
+      firstPixelHue += 65536 / 90; // One cycle of color wheel over 90 frames
+    }
+  }
+
+
             
             break;
         }
         case RED_FADE_LIGHT_MODE:
         {
-            Serial.println("chaned to red fade mode");
             Ring2.Fade(RED, BLACK, fadeSteps, fadeInterval);
             
             break;
+        }
+        case YELLOW_FADE_LIGHT_MODE:
+        {
+            Serial.println("chaned to yellow fade mode");
+            Ring2.Fade(YELLOW, BLACK, fadeSteps, fadeInterval);
+            
+            break;            
         }
         default:
         {
@@ -317,9 +351,12 @@ void playcomplete(char *name) {
   // now its done playing
 }
 
-void playfile(char *name) {
+void playfile(char *name) 
+{
   // see if the wave object is currently doing something
-  if (wave.isplaying) {// already playing something, so stop it!
+  if (wave.isplaying) 
+  {
+      // already playing something, so stop it!
     wave.stop(); // stop it
   }
   // look in the root directory and open the file

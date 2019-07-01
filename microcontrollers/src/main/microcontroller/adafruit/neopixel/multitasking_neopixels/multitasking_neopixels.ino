@@ -1,4 +1,6 @@
 
+// https://learn.adafruit.com/multi-tasking-the-arduino-part-3
+
 #include <Adafruit_NeoPixel.h>
 
 // Pattern types supported:

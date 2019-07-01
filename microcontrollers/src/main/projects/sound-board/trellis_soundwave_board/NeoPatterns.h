@@ -1,11 +1,14 @@
 
 // Pattern types supported:
-enum  pattern { NONE, 
+enum pattern 
+{ 
+    NONE, 
                 RAINBOW_CYCLE, 
-                THEATER_CHASE, 
+//    THEATER_CHASE, 
 //                COLOR_WIPE, 
 //                SCANNER, 
-                FADE };
+    FADE 
+};
 
 // Patern directions supported:
 enum  direction { FORWARD, REVERSE };
@@ -44,22 +47,26 @@ class NeoPatterns : public Adafruit_NeoPixel
             switch(ActivePattern)
             {
                 case RAINBOW_CYCLE:
-                    RainbowCycleUpdate();
+//TODO: put the rainbow theacehr chease code here                    /
+//                    RainbowCycleUpdate();
                     break;
-                case THEATER_CHASE:
-                    TheaterChaseUpdate();
-                    break;
-/*                    
-                case COLOR_WIPE:
-                    ColorWipeUpdate();
-                    break;
-                case SCANNER:
-                    ScannerUpdate();
-                    break;
-*/                    
+                    
+//                case THEATER_CHASE:
+//                    TheaterChaseUpdate();
+//                    break;                    
+
+//                case COLOR_WIPE:
+//                    ColorWipeUpdate();
+//                    break;
+                    
+//                case SCANNER:
+//                    ScannerUpdate();
+//                    break;
+                    
                 case FADE:
                     FadeUpdate();
                     break;
+                    
                 default:
                     break;
             }
@@ -95,15 +102,25 @@ class NeoPatterns : public Adafruit_NeoPixel
         }
     }
 
-/*
-    // Update the Color Wipe Pattern
-    void ColorWipeUpdate()
-    {
-        setPixelColor(Index, Color1);
-        show();
-        Increment();
-    }    
-*/    
+//    // Initialize for a ColorWipe
+//    void ColorWipe(uint32_t color, uint8_t interval, direction dir = FORWARD)
+//    {
+//        ActivePattern = COLOR_WIPE;
+//        Interval = interval;
+//        TotalSteps = numPixels();
+//        Color1 = color;
+//        Index = 0;
+//        Direction = dir;
+//    }    
+//
+//    // Update the Color Wipe Pattern
+//    void ColorWipeUpdate()
+//    {
+//        setPixelColor(Index, Color1);
+//        show();
+//        Increment();
+//    }    
+    
     
     // Initialize for a Fade
     void Fade(uint32_t color1, uint32_t color2, uint16_t steps, uint8_t interval, direction dir = FORWARD)
@@ -141,26 +158,26 @@ class NeoPatterns : public Adafruit_NeoPixel
     }
 */    
 
-    // Initialize for a RainbowCycle
-    void RainbowCycle(uint8_t interval, direction dir = FORWARD)
-    {
-        ActivePattern = RAINBOW_CYCLE;
-        Interval = interval;
-        TotalSteps = 255;
-        Index = 0;
-        Direction = dir;
-    }    
-    
-    // Update the Rainbow Cycle Pattern
-    void RainbowCycleUpdate()
-    {
-        for(int i=0; i< numPixels(); i++)
-        {
-            setPixelColor(i, Wheel(((i * 256 / numPixels()) + Index) & 255));
-        }
-        show();
-        Increment();
-    }    
+//    // Initialize for a RainbowCycle
+//    void RainbowCycle(uint8_t interval, direction dir = FORWARD)
+//    {
+//        ActivePattern = RAINBOW_CYCLE;
+//        Interval = interval;
+//        TotalSteps = 255;
+//        Index = 0;
+//        Direction = dir;
+//    }    
+//    
+//    // Update the Rainbow Cycle Pattern
+//    void RainbowCycleUpdate()
+//    {
+//        for(int i=0; i< numPixels(); i++)
+//        {
+//            setPixelColor(i, Wheel(((i * 256 / numPixels()) + Index) & 255));
+//        }
+//        show();
+//        Increment();
+//    }    
     
 /*    
     // Update the Scanner Pattern
@@ -183,25 +200,38 @@ class NeoPatterns : public Adafruit_NeoPixel
         }
         show();
         Increment();
-    }    
+    }        
 */
-    // Update the Theater Chase Pattern
-    void TheaterChaseUpdate()
-    {
-        for(int i=0; i< numPixels(); i++)
-        {
-            if ((i + Index) % 3 == 0)
-            {
-                setPixelColor(i, Color1);
-            }
-            else
-            {
-                setPixelColor(i, Color2);
-            }
-        }
-        show();
-        Increment();
-    }    
+  
+//    // Initialize for a Theater Chase
+//    void TheaterChase(uint32_t color1, uint32_t color2, uint8_t interval, direction dir = FORWARD)
+//    {
+//        ActivePattern = THEATER_CHASE;
+//        Interval = interval;
+//        TotalSteps = numPixels();
+//        Color1 = color1;
+//        Color2 = color2;
+//        Index = 0;
+//        Direction = dir;
+//   }    
+//    
+//    // Update the Theater Chase Pattern
+//    void TheaterChaseUpdate()
+//    {
+//        for(int i=0; i< numPixels(); i++)
+//        {
+//            if ((i + Index) % 3 == 0)
+//            {
+//                setPixelColor(i, Color1);
+//            }
+//            else
+//            {
+//                setPixelColor(i, Color2);
+//            }
+//        }
+//        show();
+//        Increment();
+//    }    
     
         // Set all pixels to a color (synchronously)
     void ColorSet(uint32_t color)
@@ -233,23 +263,23 @@ class NeoPatterns : public Adafruit_NeoPixel
 
     // Input a value 0 to 255 to get a color value.
     // The colours are a transition r - g - b - back to r.
-    uint32_t Wheel(byte WheelPos)
-    {
-        WheelPos = 255 - WheelPos;
-        if(WheelPos < 85)
-        {
-            return Color(255 - WheelPos * 3, 0, WheelPos * 3);
-        }
-        else if(WheelPos < 170)
-        {
-            WheelPos -= 85;
-            return Color(0, WheelPos * 3, 255 - WheelPos * 3);
-        }
-        else
-        {
-            WheelPos -= 170;
-            return Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-        }
-    }    
+//    uint32_t Wheel(byte WheelPos)
+//    {
+//        WheelPos = 255 - WheelPos;
+//        if(WheelPos < 85)
+//        {
+//            return Color(255 - WheelPos * 3, 0, WheelPos * 3);
+//        }
+//        else if(WheelPos < 170)
+//        {
+//            WheelPos -= 85;
+//            return Color(0, WheelPos * 3, 255 - WheelPos * 3);
+//        }
+//        else
+//        {
+//            WheelPos -= 170;
+//            return Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+//        }
+//    }    
 };
 
