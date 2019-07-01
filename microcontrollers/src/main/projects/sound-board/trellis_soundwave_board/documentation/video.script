@@ -8,11 +8,27 @@ Trellis Soundwave Board - Video Script
 
 01 - Tools used in this project include:
 
-02 - User Story Review
-	
-03 - Demonstrate Acceptance Criteria in Software
+        desktop computer - in this case I used a 64 bit machine with Ubunut
 
-04 - Demonstrate Acceptance Criteria in Real Life
+        3D Printer - Creality CR-10S
+
+        soldering iron workstation
+
+        hand tools to manipulate cardboard
+
+        hardware
+
+            Arduino Uno
+
+            Adafruit Monochrome Trellis LED driver
+
+            Adafruit Neopixel Ring
+
+02 - User Story Review
+
+03 - Demonstrate Acceptance Criteria in Real Life
+	
+04 - Demonstrate Acceptance Criteria in Software
 
 05 - Outro
     
@@ -20,5 +36,5 @@ Trellis Soundwave Board - Video Script
 
     to explore the ideas presented in this electronics video.
 
-    Thanks for watching; like and subscribe for more Decepticon Soundwave content.
+    Thanks for watching; like and subscribe for more OpenSCAD Decepticon Soundwave content.
 
