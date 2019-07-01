@@ -5,7 +5,7 @@ so that I can pay tribute to the Transformers icon.
 
 Acceptance Criteria
 
-The tribute consists of a soundwave head that rests on a platform and
+The tribute consists of a Soundwave head that rests on a platform and
 the head is 'openable' with magnets holding the lid and base together and
 the platform has control buttons for the sound board and 
 the onebeartoe Trellis Wave Shield code/hardware is reused and 

@@ -99,7 +99,7 @@ const int RED_FADE_LIGHT_MODE = 1;
 const int RAINBOW_LIGHT_MODE = 2;
 const int LIGHT_MODE_COUNT = 3;
 
-int fadeInterval = 200;        
+int fadeInterval = 400;
 int fadeSteps = Ring2.numPixels();
 
 void sdErrorCheck(void)
@@ -178,17 +178,12 @@ void setup()
     // Whew! We got past the tough parts.
     putstring_nl("Ready!");  
   
-  
     // Neopixel setup
     Ring2.begin();
-//    Ring2.Color1 = Ring2.Color(128, 0, 128);
-//    Ring2.Color2 = Ring2.Color(0,0,0);
     
-//    int interval = 200;        
-//    int steps = Ring2.numPixels();
+    Ring2.setBrightness(100);
     
     Ring2.Fade(PURPLE, BLACK, fadeSteps, fadeInterval);
-//    Ring2.Fade(Ring2.Color1, Ring2.Color2, steps, interval);
 }
 
 
