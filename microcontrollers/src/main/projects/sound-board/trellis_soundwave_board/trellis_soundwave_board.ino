@@ -177,28 +177,20 @@ void setup()
     while(1);                             // then 'halt' - do nothing!
   }
   
-  // Whew! We got past the tough parts.
-  putstring_nl("Ready!");  
+    // Whew! We got past the tough parts.
+    putstring_nl("Ready!");  
   
   
     // Neopixel setup
-//    strip.begin(); // Initialize NeoPixel strip object (REQUIRED)
-//    strip.show();  // Initialize all pixels to 'off'
-//    strip.setBrightness(24);
-
-    // Initialize all the pixelStrips
     Ring2.begin();
     Ring2.Color1 = Ring2.Color(128, 0, 128);
     Ring2.Color2 = Ring2.Color(0,0,0);
     
     int interval = 200;
-//    int interval = 20;
         
     int steps = Ring2.numPixels();
-//    int steps = Ring2.numPixels();
     
     Ring2.Fade(Ring2.Color1, Ring2.Color2, steps, interval);
-    
 }
 
 
@@ -215,7 +207,7 @@ void loop()
 	if (trellis.justPressed(i)) {
 	  Serial.print("v"); Serial.println(i);
           
-          playfile(i);
+          handleButtonPress(i);
           
 	  trellis.setLED(i);
 	} 
@@ -243,7 +235,7 @@ void loop()
                 {
                     Serial.print("v"); Serial.println(i);
     
-                    playfile(i);
+                    handleButtonPress(i);
           
                     // Alternate the LED
                     if (trellis.isLED(i))
@@ -264,7 +256,7 @@ void loop()
     
 }
 
-void playfile(uint8_t index)
+void handleButtonPress(uint8_t index)
 {
     String wavfile = String(index) + ".wav";          
     playcomplete( wavfile.c_str() );    
