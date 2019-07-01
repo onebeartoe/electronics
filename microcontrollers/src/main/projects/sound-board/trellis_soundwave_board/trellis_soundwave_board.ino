@@ -96,13 +96,16 @@ Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
 
 #define PIXEL_COUNT 16  // Number of NeoPixels
 
-
-
-
-
 NeoPatterns Ring2(PIXEL_COUNT, 6, NEO_GRB + NEO_KHZ800, 0);
     
-    
+uint32_t BLACK = Ring2.Color(0,0,0);
+uint32_t PURPLE = Ring2.Color(128, 0, 128);
+uint32_t RED = Ring2.Color(255, 0, 0);    
+
+int lightMode = 0;
+const int PURPLE_FADE_LIGHT_MODE = 0;
+const int RED_FADE_LIGHT_MODE = 1;
+const int LIGHT_MODE_COUNT = 2;
 
 void sdErrorCheck(void)
 {
