@@ -90,14 +90,14 @@ NeoPatterns Ring2(PIXEL_COUNT, 6, NEO_GRB + NEO_KHZ800, 0);
 uint32_t BLACK = Ring2.Color(0,0,0);
 uint32_t PURPLE = Ring2.Color(128, 0, 128);
 uint32_t RED = Ring2.Color(255, 0, 0);
-uint32_t YELLOW = Ring2.Color(255, 255, 0);
+//uint32_t YELLOW = Ring2.Color(255, 255, 0);
 
 int lightMode = 0;
 const int PURPLE_FADE_LIGHT_MODE = 0;
 const int RED_FADE_LIGHT_MODE = 1;
-const int YELLOW_FADE_LIGHT_MODE = 2;
-const int RAINBOW_LIGHT_MODE = 3;
-const int LIGHT_MODE_COUNT = 4;
+//const int YELLOW_FADE_LIGHT_MODE = 2;
+const int RAINBOW_LIGHT_MODE = 2;
+const int LIGHT_MODE_COUNT = 3;
 
 int fadeInterval = 200;        
 int fadeSteps = Ring2.numPixels();
@@ -325,13 +325,13 @@ int wait = 50;
             
             break;
         }
-        case YELLOW_FADE_LIGHT_MODE:
-        {
-            Serial.println("chaned to yellow fade mode");
-            Ring2.Fade(YELLOW, BLACK, fadeSteps, fadeInterval);
-            
-            break;            
-        }
+//        case YELLOW_FADE_LIGHT_MODE:
+//        {
+//            Serial.println("chaned to yellow fade mode");
+//            Ring2.Fade(YELLOW, BLACK, fadeSteps, fadeInterval);
+//            
+//            break;            
+//        }
         default:
         {
             Serial.print("unkown mode: "); Serial.println(lightMode);
