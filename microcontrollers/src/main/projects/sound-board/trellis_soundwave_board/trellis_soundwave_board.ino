@@ -443,7 +443,7 @@ void setup()
 
 void loop() 
 {
-  delay(30); // 30ms delay is required, dont remove me!
+    delay(30); // 30ms delay is required, dont remove me!
   
   if (MODE == MOMENTARY) {
     // If a button was just pressed or released...
@@ -469,32 +469,38 @@ void loop()
     }
   }
 
-  if (MODE == LATCHING) {
-    // If a button was just pressed or released...
-    if (trellis.readSwitches()) {
-      // go through every button
-      for (uint8_t i=0; i<numKeys; i++) {
-        // if it was pressed...
-	if (trellis.justPressed(i)) {
-	  Serial.print("v"); Serial.println(i);
+    if (MODE == LATCHING) 
+    {
+        // If a button was just pressed or released...
+        if (trellis.readSwitches()) 
+        {
+            // go through every button
+            for (uint8_t i=0; i<numKeys; i++) 
+            {
+                // if it was pressed...
+                if (trellis.justPressed(i)) 
+                {
+                    Serial.print("v"); Serial.println(i);
     
-          playfile(i);
+                    playfile(i);
           
-	  // Alternate the LED
-	  if (trellis.isLED(i))
-	    trellis.clrLED(i);
-	  else
-	    trellis.setLED(i);
-        } 
-      }
-      // tell the trellis to set the LEDs we requested
-      trellis.writeDisplay();
+                    // Alternate the LED
+                    if (trellis.isLED(i))
+                        trellis.clrLED(i);
+                    else
+                        trellis.setLED(i);
+                } 
+            }
+            
+            // tell the trellis to set the LEDs we requested
+            trellis.writeDisplay();
+        }
     }
-  }
   
     // update the neopixels
     //    theaterChaseRainbow();  
     Ring2.Update();
+    
 }
 
 void playfile(uint8_t index)
@@ -530,5 +536,3 @@ void playfile(char *name) {
   // ok time to play! start playback
   wave.play();
 }
-
-
