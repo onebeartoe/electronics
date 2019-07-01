@@ -1,6 +1,11 @@
 
 // Pattern types supported:
-enum  pattern { NONE, RAINBOW_CYCLE, THEATER_CHASE, COLOR_WIPE, SCANNER, FADE };
+enum  pattern { NONE, 
+                RAINBOW_CYCLE, 
+                THEATER_CHASE, 
+//                COLOR_WIPE, 
+//                SCANNER, 
+                FADE };
 
 // Patern directions supported:
 enum  direction { FORWARD, REVERSE };
@@ -44,12 +49,14 @@ class NeoPatterns : public Adafruit_NeoPixel
                 case THEATER_CHASE:
                     TheaterChaseUpdate();
                     break;
+/*                    
                 case COLOR_WIPE:
                     ColorWipeUpdate();
                     break;
                 case SCANNER:
                     ScannerUpdate();
                     break;
+*/                    
                 case FADE:
                     FadeUpdate();
                     break;
@@ -87,7 +94,8 @@ class NeoPatterns : public Adafruit_NeoPixel
             }
         }
     }
-    
+
+/*
     // Update the Color Wipe Pattern
     void ColorWipeUpdate()
     {
@@ -95,6 +103,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         show();
         Increment();
     }    
+*/    
     
     // Initialize for a Fade
     void Fade(uint32_t color1, uint32_t color2, uint16_t steps, uint8_t interval, direction dir = FORWARD)
@@ -122,6 +131,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         Increment();
     }  
 
+/*
     // Calculate 50% dimmed version of a color (used by ScannerUpdate)
     uint32_t DimColor(uint32_t color)
     {
@@ -129,6 +139,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         uint32_t dimColor = Color(Red(color) >> 1, Green(color) >> 1, Blue(color) >> 1);
         return dimColor;
     }
+*/    
 
     // Initialize for a RainbowCycle
     void RainbowCycle(uint8_t interval, direction dir = FORWARD)
@@ -151,6 +162,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         Increment();
     }    
     
+/*    
     // Update the Scanner Pattern
     void ScannerUpdate()
     { 
@@ -172,7 +184,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         show();
         Increment();
     }    
-
+*/
     // Update the Theater Chase Pattern
     void TheaterChaseUpdate()
     {

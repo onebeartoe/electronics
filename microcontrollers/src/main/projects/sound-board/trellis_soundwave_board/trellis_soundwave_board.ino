@@ -63,16 +63,7 @@ WaveHC wave;      // This is the only wave (audio) object, since we will only pl
 // set the mode here
 #define MODE LATCHING 
 
-
 Adafruit_Trellis matrix0 = Adafruit_Trellis();
-
-// uncomment the below to add 3 more matrices
-/*
-Adafruit_Trellis matrix1 = Adafruit_Trellis();
-Adafruit_Trellis matrix2 = Adafruit_Trellis();
-Adafruit_Trellis matrix3 = Adafruit_Trellis();
-// you can add another 4, up to 8
-*/
 
 // Just one
 Adafruit_TrellisSet trellis =  Adafruit_TrellisSet(&matrix0);
@@ -106,6 +97,9 @@ int lightMode = 0;
 const int PURPLE_FADE_LIGHT_MODE = 0;
 const int RED_FADE_LIGHT_MODE = 1;
 const int LIGHT_MODE_COUNT = 2;
+
+int fadeInterval = 200;        
+int fadeSteps = Ring2.numPixels();
 
 void sdErrorCheck(void)
 {
@@ -201,6 +195,7 @@ void loop()
 {
     delay(30); // 30ms delay is required, dont remove me!
   
+/*
   if (MODE == MOMENTARY) {
     // If a button was just pressed or released...
     if (trellis.readSwitches()) {
@@ -224,7 +219,8 @@ void loop()
       trellis.writeDisplay();
     }
   }
-
+*/
+    
     if (MODE == LATCHING) 
     {
         // If a button was just pressed or released...
@@ -274,8 +270,42 @@ void handleButtonPress(uint8_t index)
 
 void nextLightMode()
 {
+    //*
+    lightMode++;
     
-}
+    if(lightMode > LIGHT_MODE_COUNT-1)
+    {
+        lightMode = 0;
+    }
+    
+    switch(lightMode)
+    {
+        case PURPLE_FADE_LIGHT_MODE:
+        {
+            Serial.println("chaned to purple fade mode");
+//TODO: I think the Color sets can be removed
+            Ring2.Color1 = PURPLE;
+            Ring2.Color2 = BLACK;
+
+            Ring2.Fade(Ring2.Color1, Ring2.Color2, fadeSteps, fadeInterval);
+            
+            break;
+        }
+        case RED_FADE_LIGHT_MODE:
+        {
+            Serial.println("chaned to red fade mode");
+            Ring2.Fade(RED, BLACK, fadeSteps, fadeInterval);
+            
+            break;
+        }
+        default:
+        {
+            Serial.print("unkown mode: "); Serial.println(lightMode);
+        }
+    }
+     /* 
+    */
+ }
 
 // Plays a full file from beginning to end with no pause.
 void playcomplete(char *name) {
