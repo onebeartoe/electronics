@@ -181,7 +181,7 @@ void setup()
     // Neopixel setup
     Ring2.begin();
     
-    Ring2.setBrightness(100);
+    Ring2.setBrightness(175);
     
     Ring2.Fade(PURPLE, BLACK, fadeSteps, fadeInterval);
 }

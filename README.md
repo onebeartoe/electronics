@@ -3,11 +3,16 @@ This is an open source repository for http://electronics.onebeartoe.org/ project
 
 Related Videos:
 
+<hr>
+
+Trellis Soundwave Board
+
+[![Trellis Soundwave Board](https://img.youtube.com/vi/6KMzugnWnHw/0.jpg)](https://www.youtube.com/watch?v=6KMzugnWnHw)
+
 
 TFT Display as Name Badge with Contact Information
 
 [![TFT Display as Name Badge with Contact Information](https://img.youtube.com/vi/27rReLsb9Ig/0.jpg)](https://www.youtube.com/watch?v=27rReLsb9Ig)
-
 
 <hr>
 
