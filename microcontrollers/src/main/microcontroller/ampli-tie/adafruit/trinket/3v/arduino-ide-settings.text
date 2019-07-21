@@ -8,4 +8,5 @@ Programmer: USBTinyISP
 	    Note selecting the Adafruit Trinket 16MHz did not work, with the strand test.
 
 
-This looks like it will not work because I could not find an Ardunino Uno Analog href equivalent on the Trinket.  I am gonna try the 3V trinket next.
+This looks like it will not work because I could not find an Ardunino Uno Analog href equivalent 
+on the Trinket.  I am gonna try the 3V trinket next.
