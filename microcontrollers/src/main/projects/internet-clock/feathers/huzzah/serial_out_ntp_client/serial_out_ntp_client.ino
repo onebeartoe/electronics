@@ -2,6 +2,8 @@
 // from:
 //          https://www.hackster.io/Swiss_IoT_DIY/arduino-network-time-clock-847cd1
 
+
+
 /**
  * The TimeLib.h dependency is found in the Arduino Library manager under the 
  * name 'Time' by Michael Margolis.
@@ -11,7 +13,7 @@
 #include <ESP8266WiFi.h>     // for WiFi
 #include <WiFiUdp.h>         // for UDP NTP
 #include <Adafruit_GFX.h>    // Core graphics library
-#include <Adafruit_ST7735.h> // Hardware-specific library
+//#include <Adafruit_ST7735.h> // Hardware-specific library
 #include <SPI.h>             // Serial Peripheral Interface
 
 #define TFT_CS     15
@@ -22,7 +24,7 @@
 // (for UNO thats sclk = 13 and sid = 11) and pin 10 must be
 // an output. This is much faster - also required if you want
 // to use the microSD card (see the image drawing example)
-Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
+//Adafruit_ST7735 tft = Adafruit_ST7735(TFT_CS,  TFT_DC, TFT_RST);
 
 // Option 2: use any pins but a little slower!
 #define TFT_SCLK 13   // set these to be whatever pins you like!
@@ -33,8 +35,8 @@ const int softoffPin =  4;
 int softoffState = HIGH;
 const int maxLoopsBeforeSoftoff = 10;
 
-char ssid[] = "************";       //  your network SSID (name)
-char pass[] = "************";       // your network password
+char ssid[] = "network-name";       //  your network SSID (name)
+char pass[] = "kjkj";       // your network password
 
 // NTP Servers:
 IPAddress timeServer(195, 186, 4, 101); // 195.186.4.101 (bwntp2.bluewin.ch)
@@ -84,7 +86,7 @@ void setup(void) {
 
   digitalClockDisplay();
 
-  tft.initR(INITR_144GREENTAB);   // initialize a ST7735S chip, black tab
+//  tft.initR(INITR_144GREENTAB);   // initialize a ST7735S chip, black tab
   Serial.println("TFT Initialized");
 
   digitalClockDisplayToTft();
@@ -114,39 +116,39 @@ void loop() {
 
 void digitalClockDisplayToTft() {
   // digital clock display of the time at the TFT
-  tft.setTextWrap(false);
-  tft.fillScreen(ST7735_BLACK);
-  tft.setCursor(0, 20);
-  tft.setTextColor(ST7735_RED);
-  tft.setTextSize(1);
-  tft.println(" NTP Time CH");
-  tft.setTextColor(ST7735_BLUE);
-  tft.println("");
-  tft.println("");
-  tft.setTextSize(2);
-  tft.print(" ");
-  tft.print(hour());
+//  tft.setTextWrap(false);
+//  tft.fillScreen(ST7735_BLACK);
+//  tft.setCursor(0, 20);
+//  tft.setTextColor(ST7735_RED);
+//  tft.setTextSize(1);
+  Serial.println(" NTP Time CH");
+//  tft.setTextColor(ST7735_BLUE);
+  Serial.println("");
+  Serial.println("");
+//  tft.setTextSize(2);
+  Serial.print(" ");
+  Serial.print(hour());
   printDigitsToTft(minute());
   printDigitsToTft(second());
-  tft.println("");
-  tft.println("");
-  tft.setTextColor(ST7735_GREEN);
-  tft.setTextSize(2);
-  tft.print(" ");
-  tft.print(day());
-  tft.print(".");
-  tft.print(month());
-  tft.print(".");
-  tft.print(year());
-  tft.println();
+  Serial.println("");
+  Serial.println("");
+//  tft.setTextColor(ST7735_GREEN);
+//  tft.setTextSize(2);
+  Serial.print(" ");
+  Serial.print(day());
+  Serial.print(".");
+  Serial.print(month());
+  Serial.print(".");
+  Serial.print(year());
+  Serial.println();
 }
 
 void printDigitsToTft(int digits) {
   // utility for digital clock display: prints preceding colon and leading 0
-  tft.print(":");
+  Serial.print(":");
   if (digits < 10)
-    tft.print('0');
-  tft.print(digits);
+    Serial.print('0');
+  Serial.print(digits);
 }
 
 
@@ -209,17 +211,20 @@ void sendNTPpacket(IPAddress &address)
 {
   // set all bytes in the buffer to 0
   memset(packetBuffer, 0, NTP_PACKET_SIZE);
+
   // Initialize values needed to form NTP request
   // (see URL above for details on the packets)
   packetBuffer[0] = 0b11100011;   // LI, Version, Mode
   packetBuffer[1] = 0;     // Stratum, or type of clock
   packetBuffer[2] = 6;     // Polling Interval
   packetBuffer[3] = 0xEC;  // Peer Clock Precision
+
   // 8 bytes of zero for Root Delay & Root Dispersion
   packetBuffer[12]  = 49;
   packetBuffer[13]  = 0x4E;
   packetBuffer[14]  = 49;
   packetBuffer[15]  = 52;
+
   // all NTP fields have been given values, now
   // you can send a packet requesting a timestamp:
   Udp.beginPacket(address, 123); //NTP requests are to port 123
