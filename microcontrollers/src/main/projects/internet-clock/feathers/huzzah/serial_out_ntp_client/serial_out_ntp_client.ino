@@ -36,12 +36,19 @@ int softoffState = HIGH;
 const int maxLoopsBeforeSoftoff = 10;
 
 char ssid[] = "network-name";       //  your network SSID (name)
-char pass[] = "kjkj";       // your network password
+char pass[] = "";       // your network password
 
 // NTP Servers:
-IPAddress timeServer(195, 186, 4, 101); // 195.186.4.101 (bwntp2.bluewin.ch)
-const char* ntpServerName = "ch.pool.ntp.org";
-const int timeZone = 2;     // Central European Time (summer time)
+// Name	IP Address	Location
+// ntp-b.nist.gov	132.163.96.5	NIST, Boulder, Colorado
+// bwntp2.bluewin.ch    195.186.4.101 
+IPAddress timeServer(132, 163, 96, 5); 
+
+const char* ntpServerName = "1.us.pool.ntp.org";
+//const char* ntpServerName = "ch.pool.ntp.org";
+
+const int timeZone = 5;     // Central European Time (summer time)
+//const int timeZone = 2;     // Central European Time (summer time)
 
 WiFiUDP Udp;
 unsigned int localPort = 8888;  // local port to listen for UDP packets
@@ -108,7 +115,8 @@ void loop() {
   //Serial.println(time, DEC);
 
   counter ++;
-  delay(850);
+  
+  delay(1 * 60 * 1000); // minute
 }
 
 
@@ -121,7 +129,7 @@ void digitalClockDisplayToTft() {
 //  tft.setCursor(0, 20);
 //  tft.setTextColor(ST7735_RED);
 //  tft.setTextSize(1);
-  Serial.println(" NTP Time CH");
+  Serial.println(" NTP Time");
 //  tft.setTextColor(ST7735_BLUE);
   Serial.println("");
   Serial.println("");
