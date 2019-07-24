@@ -1,6 +1,6 @@
 
 /**
- * This is frin JohnnyDoe's comment on this guide:
+ * This is from JohnnyDoe's comment on this guide:
  * 
  *      https://www.hackster.io/rayburne/nist-date-time-with-esp8266-e8b9a9
  */
@@ -10,6 +10,10 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 
+/**
+ * The TimeLib.h dependency is found in the Arduino Library manager under the 
+ * name 'Time' by Michael Margolis.
+ */
 #include <TimeLib.h>
 
 const char *ssid     = "netowrk-name";
