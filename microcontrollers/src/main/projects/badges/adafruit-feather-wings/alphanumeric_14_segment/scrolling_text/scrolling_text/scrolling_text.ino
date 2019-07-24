@@ -13,7 +13,8 @@
 
 #include "scrolling_text.h"
 
-Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
+Adafruit_AlphaNum4 alpha4;
+//Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
 /**
  * This is the delay in milliseconds for the scrolling text.
@@ -36,7 +37,9 @@ void setup()
     Serial.println("The Adafruit_AlphaNum4 setup is complete.");
 }
 
-String message = "Do not disturb.   *    Please Disturb   *";
+
+String message = "Love!   *    Go Spurs   *";
+//String message = "Do not disturb.   *    Please Disturb   *";
 
 int messageLength = message.length();
 

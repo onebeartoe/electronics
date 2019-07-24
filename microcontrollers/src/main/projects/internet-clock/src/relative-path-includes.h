@@ -1,5 +1,4 @@
 
-
 #define PROJECT_ROOT /home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main
 //#define PROJECT_ROOT /home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller
 
