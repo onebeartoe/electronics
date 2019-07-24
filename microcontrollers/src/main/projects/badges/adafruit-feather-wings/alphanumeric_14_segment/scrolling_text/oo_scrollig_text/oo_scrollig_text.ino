@@ -3,14 +3,19 @@
 
 QuadAlphanumericWing alphaWing;
 
+bool showDemo = false;
+
 void setup() 
 {
     Serial.begin(9600);
 
     Serial.println("oo scrollig text ready!");
 
-    alphaWing.demo();
-
+    if(showDemo)
+    {
+        alphaWing.demo();
+    }
+    
     Serial.println("oo scrollig text ready!");
 }
 
