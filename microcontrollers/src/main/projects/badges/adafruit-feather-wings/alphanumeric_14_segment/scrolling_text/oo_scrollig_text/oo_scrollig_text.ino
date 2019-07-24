@@ -1,6 +1,7 @@
-/**
- * 
- */
+
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/relative-path-includes.h"
+
+QuadAlphanumericWing alphaWing;
 
 // Demo the quad alphanumeric display LED backpack kit
 // scrolls through every character, then scrolls Serial

@@ -22,7 +22,7 @@ class InternetClock : public ArduinoLoopTask
         
         InternetClock();
         
-        virtual void oneLoop();        
+        virtual void oneLoop();
 };
 
 #endif
