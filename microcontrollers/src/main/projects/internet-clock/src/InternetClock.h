@@ -20,6 +20,18 @@ class InternetClock : public ArduinoLoopTask
 
         char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         
+//        int year;
+//        
+//        int month;
+//        
+        int dayOfMonth;
+//        
+//        int hour;
+//        
+//        int minute;
+//        
+//        int second;
+        
         InternetClock();
         
         virtual void oneLoop();

@@ -2,7 +2,8 @@
 #ifndef onebeartoe_QuadAlphanumericWing_h
 #define onebeartoe_QuadAlphanumericWing_h
 
-#include RELATIVE_PATH(projects/internet-clock/src/ArduinoLoopTask.h)
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
+//#include RELATIVE_PATH(projects/internet-clock/src/ArduinoLoopTask.h)
 
 
 // Demo the quad alphanumeric display LED backpack kit

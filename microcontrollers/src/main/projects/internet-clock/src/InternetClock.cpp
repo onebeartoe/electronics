@@ -31,13 +31,20 @@ void InternetClock::oneLoop()
 
     unsigned long epoch = timeClient.getEpochTime();
 
+//    year(epoch);
+//    this->year = year(epoch);
+    
     Serial.print("year: ");
     Serial.print( year(epoch) );
+//    Serial.print( year );
 
+//    this->month = month(epoch) ;
     Serial.print(" month: ");
+//    Serial.print( month);
     Serial.print( month(epoch) );
 
     // it seems this is off by one with the current configuration (US Central Time is intended)
+    dayOfMonth = day(epoch);
     Serial.print(" day: ");
-    Serial.println( day(epoch) );
+    Serial.println( dayOfMonth );
 }

@@ -12,7 +12,7 @@ InternetClock clock;
 
 QuadAlphanumericWing alphaWing;
 
-DisplayUpdater displayUpdater;
+DisplayUpdater displayUpdater(&clock, &alphaWing);
 
 void setup()
 {
