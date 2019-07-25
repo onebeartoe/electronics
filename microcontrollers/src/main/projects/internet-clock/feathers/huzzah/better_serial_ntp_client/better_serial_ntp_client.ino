@@ -6,7 +6,7 @@
  */
 #include <ESP8266WiFi.h>
 
-// the Wifi credetials are stored in this file:
+// the Wifi credentials are stored in this file:
 #include "/home/roberto/Workspace/owner/arduino/secret.h"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/relative-path-includes.h"

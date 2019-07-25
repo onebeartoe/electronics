@@ -1,9 +1,12 @@
 
+#ifndef onebeartoe_relative_path_includes_cpp
+#define onebeartoe_relative_path_includes_cpp
+
 // TODO: REMOVE THIS
 int keyboardShortcutssss = 5;
 
 // TODO: MOVE THIS TO AND USE THE VERSION IN A CLASS!
-uint8_t NO_MODIFIER = 0;
+//uint8_t NO_MODIFIER = 0;
 
 //-------------------------------------------------
 // Arduino #include relative paths; pound include baby!
@@ -29,3 +32,6 @@ uint8_t NO_MODIFIER = 0;
 //#include RELATIVE_PATH(keyboard-shortcuts\keyboard-shortcuts\KeyboardShortcuts.h)
 //#include RELATIVE_PATH(another\file\relative\path.h)
 //-------------------------------------------------
+
+
+#endif

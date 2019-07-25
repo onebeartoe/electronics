@@ -9,14 +9,14 @@ void setup()
 {
     Serial.begin(9600);
 
-    Serial.println("oo scrollig text ready!");
+    Serial.println("oo scrolling text ready!");
 
     if(showDemo)
     {
         alphaWing.demo();
     }
     
-    Serial.println("oo scrollig text ready!");
+    Serial.println("oo scrolling text ready!");
 }
 
 void loop() 

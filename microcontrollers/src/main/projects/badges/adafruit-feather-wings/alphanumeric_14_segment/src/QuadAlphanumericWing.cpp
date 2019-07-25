@@ -1,4 +1,6 @@
 
+#include "Adafruit_LEDBackpack.h"
+
 #include "QuadAlphanumericWing.h"
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
@@ -8,6 +10,8 @@ char text [] = " hellow world -  ";
 int scrollingTextLength;
 
 int scrollingTextIndex;
+
+bool debug = false;
 
 QuadAlphanumericWing::QuadAlphanumericWing()
 {
@@ -96,7 +100,13 @@ void QuadAlphanumericWing::scrollingText()
 
 void QuadAlphanumericWing::oneLoop()
 {
-    Serial.println("alpha quad loop");
+    if(debug)
+    {
+        //TODO: move to a proper logger with levels
+        
+        Serial.println("alpha quad loop");
+    }
+    
  
     switch(wingMode)
     {
