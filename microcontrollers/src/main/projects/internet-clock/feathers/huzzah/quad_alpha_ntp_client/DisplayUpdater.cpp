@@ -12,8 +12,22 @@ DisplayUpdater::DisplayUpdater(InternetClock* clock,
 }
 
 void DisplayUpdater::oneLoop()
-{
-    int i = 2;
+{     
+    int dom = clock->dayOfMonth;
     
-//    Serial.println("updating display");
+    char str[50] = "";
+//    const char str[50] = "";
+//    const char * str = scrollingText.c_str();
+    
+    sprintf(str, "dom: %d", dom);
+    
+    alphaWing->setScrollingText(str);
+//    alphaWing->setScrollingText(scrollingText);
 }
+
+//void DisplayUpdater::setScrollingText(String text)
+//{
+//    scrollingText = text;
+//    
+//    scrollingTextLength = strlen(scrollingText);
+//}

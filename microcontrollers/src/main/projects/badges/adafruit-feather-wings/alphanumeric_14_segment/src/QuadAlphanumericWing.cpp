@@ -5,7 +5,7 @@
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
-char text [] = " hellow world -  ";
+
 
 int scrollingTextLength;
 
@@ -15,6 +15,8 @@ bool debug = false;
 
 QuadAlphanumericWing::QuadAlphanumericWing()
 {
+    const char * text = scrollingText.c_str();
+    
     scrollingTextLength = strlen(text);
     
     interval = 350;
@@ -59,45 +61,6 @@ void QuadAlphanumericWing::demo()
     }    
 }
 
-void QuadAlphanumericWing::serialInput()
-{
-    Serial.println("Start typing to display!");    
-    while (! Serial.available()) return;
-
-    char c = Serial.read();
-    if (! isprint(c)) return; // only printable!
-
-    //TODO: implement the rest
-}
-
-void QuadAlphanumericWing::scrollingText()
-{
-    scrollingTextIndex++;
-    
-    if(scrollingTextIndex == scrollingTextLength)
-    {
-        scrollingTextIndex = 0;
-    }
-    
-    char c = text[scrollingTextIndex];    
-    
-    // scroll down display
-    displaybuffer[0] = displaybuffer[1];
-    displaybuffer[1] = displaybuffer[2];
-    displaybuffer[2] = displaybuffer[3];
-    displaybuffer[3] = c;
-
-    // set every digit to the buffer
-    alpha4.writeDigitAscii(0, displaybuffer[0]);
-    alpha4.writeDigitAscii(1, displaybuffer[1]);
-    alpha4.writeDigitAscii(2, displaybuffer[2]);
-    alpha4.writeDigitAscii(3, displaybuffer[3]);
-
-    // update the display
-    alpha4.writeDisplay();
-}
-
-
 void QuadAlphanumericWing::oneLoop()
 {
     if(debug)
@@ -118,7 +81,7 @@ void QuadAlphanumericWing::oneLoop()
         }
         case SCROLLING_TEXT:
         {
-            scrollingText();
+            scrollText();
             
             break;
         }
@@ -127,4 +90,49 @@ void QuadAlphanumericWing::oneLoop()
             Serial.println("unknown mode " + wingMode);
         }
     }
+}
+
+void QuadAlphanumericWing::serialInput()
+{
+    Serial.println("Start typing to display!");    
+    while (! Serial.available()) return;
+
+    char c = Serial.read();
+    if (! isprint(c)) return; // only printable!
+
+    //TODO: implement the rest
+}
+
+void QuadAlphanumericWing::setScrollingText(String text)
+{
+    this->scrollingText = text;
+}
+
+void QuadAlphanumericWing::scrollText()
+{
+    scrollingTextIndex++;
+    
+    if(scrollingTextIndex == scrollingTextLength)
+    {
+        scrollingTextIndex = 0;
+    }
+    
+    const char * text = scrollingText.c_str();
+    
+    char c = text[scrollingTextIndex];    
+    
+    // scroll down display
+    displaybuffer[0] = displaybuffer[1];
+    displaybuffer[1] = displaybuffer[2];
+    displaybuffer[2] = displaybuffer[3];
+    displaybuffer[3] = c;
+
+    // set every digit to the buffer
+    alpha4.writeDigitAscii(0, displaybuffer[0]);
+    alpha4.writeDigitAscii(1, displaybuffer[1]);
+    alpha4.writeDigitAscii(2, displaybuffer[2]);
+    alpha4.writeDigitAscii(3, displaybuffer[3]);
+
+    // update the display
+    alpha4.writeDisplay();
 }

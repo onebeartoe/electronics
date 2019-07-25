@@ -26,19 +26,23 @@ class QuadAlphanumericWing : public ArduinoLoopTask
 {
     public:
         
-    char displaybuffer[4] = {' ', ' ', ' ', ' '};
-    
-    WingMode wingMode;
-    
-    QuadAlphanumericWing();
-    
-    virtual void demo();
-    
-    virtual void oneLoop();
+        char displaybuffer[4] = {' ', ' ', ' ', ' '};
+
+        WingMode wingMode;
+
+        QuadAlphanumericWing();
+
+        virtual void demo();
+
+        virtual void oneLoop();
+
+        virtual void setScrollingText(String text);
     
     private:
     
-        void scrollingText();
+        String scrollingText = " hellow world -  ";
+        
+        void scrollText();
         
         void serialInput();
 };

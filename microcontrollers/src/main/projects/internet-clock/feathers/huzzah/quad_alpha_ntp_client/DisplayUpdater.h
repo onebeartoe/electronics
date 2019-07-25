@@ -10,22 +10,23 @@
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/QuadAlphanumericWing.h"
 
-//#include RELATIVE_PATH(projects/internet-clock/src/ArduinoLoopTask.h)
-
-//TODO: add the IFNDEF sections
-
 class DisplayUpdater : public ArduinoLoopTask
 {
     public:
         
         InternetClock* clock;
 
-        QuadAlphanumericWing* alphaWing;        
+        QuadAlphanumericWing* alphaWing;
+
+        String scrollingText;
+//        char scrollingText[50];
         
         DisplayUpdater(InternetClock* clock, QuadAlphanumericWing* alphaWing);    
 
         virtual void oneLoop();
+        
+//        virtual void setScrollingText(String text);
+//        virtual void setScrollingText(char text []);
 };
-
 
 #endif
