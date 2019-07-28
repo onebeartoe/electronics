@@ -27,7 +27,7 @@ public class FilesystemServlet extends PlainTextResponseServlet
 
     private final BreakTag brTag = new BreakTag();
     
-    private final String br = brTag.toHtml();
+    private final String br = brTag.toString();
     
     public FilesystemServlet()
     {
