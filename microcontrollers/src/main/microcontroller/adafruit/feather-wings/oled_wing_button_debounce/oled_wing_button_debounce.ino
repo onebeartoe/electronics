@@ -1,4 +1,3 @@
-
 /**
  * 
  * This code demonstrates how to debounce the 3 buttons on the Adafruit OLED 
@@ -81,6 +80,13 @@ char  displayText [4][50];
 
 int HUE;
 
+
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.h"
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.cpp"
+
+OledFeatherWing oledWing;
+//OledFeatherWing oledWing = OledFeatherWing();
+
 void aButtonPressed()
 {
     if(state == P1_STATE)
@@ -151,7 +157,7 @@ void setup()
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
   // init done
-  Serial.println("OLED begun");
+  Serial.println("OLED begun...");
   
   // Show image buffer on the display hardware.
   // Since the buffer is intialized with an Adafruit splashscreen
@@ -256,6 +262,9 @@ display.setTextSize(1);
         }
     }
   }
+    
+    Serial.print("olded iterval:");
+//    Serial.print(oledWing.interval);
     
   delay(10);
   yield();

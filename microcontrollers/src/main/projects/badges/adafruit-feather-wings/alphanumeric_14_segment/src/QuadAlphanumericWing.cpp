@@ -5,8 +5,6 @@
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
-
-
 int scrollingTextIndex;
 
 bool debug = false;
