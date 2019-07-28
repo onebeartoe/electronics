@@ -63,8 +63,6 @@ byte buttons[] = {BUTTON_A, BUTTON_B, BUTTON_C};
 // This handy macro lets us determine how big the array up above is, by checking the size
 #define NUMBUTTONS sizeof(buttons)
 
-
-
 const int P1_STATE = 1;
 const int P2_STATE = 2;
 
@@ -80,14 +78,10 @@ char  displayText [4][50];
 
 int HUE;
 
-
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.cpp"
 
-
 OledFeatherWing oledWing = OledFeatherWing(&display);
-//OledFeatherWing oledWing;
-//OledFeatherWing* oledWing;
 
 void setup() 
 {

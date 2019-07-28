@@ -28,12 +28,12 @@ void aButtonPressed()
         Serial.println("ERROR: an unknown state was found: " + state);
     }
     
-    display.clearDisplay();    
-    display.setCursor(0,0);
-    display.print("P1: ");
-    display.print(p1Score);
-    display.print(" - P2:");
-    display.print(p2Score);    
+    oledDisplay->clearDisplay();    
+    oledDisplay->setCursor(0,0);
+    oledDisplay->print("P1: ");
+    oledDisplay->print(p1Score);
+    oledDisplay->print(" - P2:");
+    oledDisplay->print(p2Score);    
 }
 
 void OledFeatherWing::oneLoop()
