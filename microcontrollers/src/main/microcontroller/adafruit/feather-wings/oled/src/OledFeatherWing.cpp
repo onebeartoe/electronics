@@ -18,11 +18,11 @@ void OledFeatherWing::oneLoop()
 {
     Serial.println("boy");
     
-    display.setCursor(0,0);
+    oledDisplay->setCursor(0,0);
     
-    display.println("boy");
+    oledDisplay->println("girl");
 
-    display.display(); 
+    oledDisplay->display(); 
     
     if(w > 2)
     {

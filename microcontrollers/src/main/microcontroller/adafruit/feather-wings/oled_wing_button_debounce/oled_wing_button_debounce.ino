@@ -88,6 +88,7 @@ int HUE;
 OledFeatherWing oledWing = OledFeatherWing(&display);
 //OledFeatherWing oledWing;
 //OledFeatherWing* oledWing;
+
 void aButtonPressed()
 {
     if(state == P1_STATE)
