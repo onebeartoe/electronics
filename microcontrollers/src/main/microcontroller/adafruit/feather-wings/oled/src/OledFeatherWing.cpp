@@ -13,6 +13,29 @@ OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
     oledDisplay = display;
 }
 
+void aButtonPressed()
+{
+    if(state == P1_STATE)
+    {
+        p1Score++;        
+    }
+    else if(state == P2_STATE)
+    {
+        p2Score++;
+    }
+    else
+    {
+        Serial.println("ERROR: an unknown state was found: " + state);
+    }
+    
+    display.clearDisplay();    
+    display.setCursor(0,0);
+    display.print("P1: ");
+    display.print(p1Score);
+    display.print(" - P2:");
+    display.print(p2Score);    
+}
+
 void OledFeatherWing::oneLoop()
 {
 //    Serial.println("boy");
@@ -25,68 +48,69 @@ void OledFeatherWing::oneLoop()
     
     check_switches();      // when we check the switches we'll get the current state
 
-    
-  for (byte i = 0; i<NUMBUTTONS; i++){
-    if (pressed[i]) 
+    for (byte i = 0; i<NUMBUTTONS; i++)
     {
+    
+        if (pressed[i]) 
+        {
 //      digitalWrite(13, HIGH);
-      // is the button pressed down at this moment
-        Serial.printf("button %d is pressed.\n", i);
+            // is the button pressed down at this moment
+            Serial.printf("button %d is pressed.\n", i);
                 
-    }
+        }
     
 // the next line is from the original/example code   
 oledDisplay->setTextSize(1);
     
-    // this is the code block to use for detecting button presses (when the 
-    // button is actually releaed).    
-    if (justreleased[i])
-    {
-      if (i == 0)
-      {  
-        HUE=190;
-        Serial.printf("button %d is released.\n", i);
-        
-//        aButtonPressed();
-      }
-      else if (i == 1)
-      {
-        HUE=170;
-        Serial.printf("button %d is released.\n", i);
+        // this is the code block to use for detecting button presses (when the 
+        // button is actually releaed).    
+        if (justreleased[i])
+        {
+            if (i == 0)
+            {  
+              HUE=190;
+              Serial.printf("button %d is released.\n", i);
 
-        oledDisplay->clearDisplay();
+              aButtonPressed();
+            }
+            else if (i == 1)
+            {
+              HUE=170;
+              Serial.printf("button %d is released.\n", i);
 
-        oledDisplay->setCursor(0,0);
-        oledDisplay->println("Roberto Marquez");
-        oledDisplay->println("Dude");
-        oledDisplay->print("twiter.com/onebeartoe");
-        oledDisplay->println("210 370 7207");
-      }
-      else if (i == 2)
-      {
-        HUE=140;
-        Serial.printf("button %d is released.\n", i);
+              oledDisplay->clearDisplay();
 
-        oledDisplay->clearDisplay();
+              oledDisplay->setCursor(0,0);
+              oledDisplay->println("Roberto Marquez");
+              oledDisplay->println("Dude");
+              oledDisplay->print("twiter.com/onebeartoe");
+              oledDisplay->println("210 370 7207");
+            }
+            else if (i == 2)
+            {
+              HUE=140;
+              Serial.printf("button %d is released.\n", i);
 
-        oledDisplay->setTextSize(2);
+              oledDisplay->clearDisplay();
 
-        oledDisplay->setCursor(4,2);
-        oledDisplay->print("I love you");
-//      oledDisplay->startscrollright(0x00, 0x0F);
-      }
-      else if (i == 3)
-      {
-        HUE=100;
-      }else if (i == 4){
-        HUE=70;
-      }else if (i == 5){
-        HUE=30;
-      }
-      else if (i == 6)
-      {
-        HUE=0;
-      }
+              oledDisplay->setTextSize(2);
+
+              oledDisplay->setCursor(4,2);
+              oledDisplay->print("I love you");
+      //      oledDisplay->startscrollright(0x00, 0x0F);
+            }
+            else if (i == 3)
+            {
+              HUE=100;
+            }else if (i == 4){
+              HUE=70;
+            }else if (i == 5){
+              HUE=30;
+            }
+            else if (i == 6)
+            {
+              HUE=0;
+            }
         
       
         for (byte i=0; i<NUMBUTTONS; i++)

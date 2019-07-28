@@ -89,31 +89,6 @@ OledFeatherWing oledWing = OledFeatherWing(&display);
 //OledFeatherWing oledWing;
 //OledFeatherWing* oledWing;
 
-void aButtonPressed()
-{
-    if(state == P1_STATE)
-    {
-        p1Score++;        
-    }
-    else if(state == P2_STATE)
-    {
-        p2Score++;
-    }
-    else
-    {
-        Serial.println("ERROR: an unknown state was found: " + state);
-    }
-    
-    display.clearDisplay();    
-    display.setCursor(0,0);
-    display.print("P1: ");
-    display.print(p1Score);
-    display.print(" - P2:");
-    display.print(p2Score);    
-}
-
-
-
 void setup() 
 {
   Serial.begin(9600);
