@@ -37,6 +37,10 @@ class QuadAlphanumericWing : public ArduinoLoopTask
         virtual void oneLoop();
 
         virtual void setScrollingText(String text);
+        
+        virtual void setText(String text);
+        
+        virtual void setWingMode(WingMode mode);
     
     private:
     

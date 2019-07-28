@@ -16,18 +16,17 @@ void DisplayUpdater::oneLoop()
     int dom = clock->dayOfMonth;
     
     char str[50] = "";
-//    const char str[50] = "";
-//    const char * str = scrollingText.c_str();
     
     sprintf(str, "dom: %d", dom);
     
-    alphaWing->setScrollingText(str);
-//    alphaWing->setScrollingText(scrollingText);
-}
+//    alphaWing->setScrollingText(str);
 
-//void DisplayUpdater::setScrollingText(String text)
-//{
-//    scrollingText = text;
-//    
-//    scrollingTextLength = strlen(scrollingText);
-//}
+    sprintf(str, "%2d%2d", clock->hour, clock->minute);
+    
+    Serial.print("updating the display with this time: >");
+    Serial.print(str);
+    Serial.println("<");
+    
+    alphaWing->setText(str);
+//    alphaWing->setText("[__]");
+}

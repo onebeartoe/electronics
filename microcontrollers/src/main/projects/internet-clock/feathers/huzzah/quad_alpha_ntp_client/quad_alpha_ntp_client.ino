@@ -26,6 +26,8 @@ void setup()
         Serial.print ( "." );
     }
     
+    alphaWing.setWingMode(WingMode::STILL);
+    
     clock.interval = 2 * 1000; // every 2 seconds
 }
 

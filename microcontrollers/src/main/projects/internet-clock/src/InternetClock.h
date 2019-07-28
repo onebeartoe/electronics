@@ -26,9 +26,9 @@ class InternetClock : public ArduinoLoopTask
 //        
         int dayOfMonth;
 //        
-//        int hour;
+        int hour;
 //        
-//        int minute;
+        int minute;
 //        
 //        int second;
         

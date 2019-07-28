@@ -19,11 +19,14 @@ void InternetClock::oneLoop()
     
     timeClient.update();
 
+    this->hour = timeClient.getHours();
+    this->minute = timeClient.getMinutes();
+    
     Serial.print(daysOfTheWeek[timeClient.getDay()]);
     Serial.print(", ");
-    Serial.print(timeClient.getHours());
+    Serial.print(this->hour);
     Serial.print(":");
-    Serial.print(timeClient.getMinutes());
+    Serial.print(this->minute);
     Serial.print(":");
     Serial.println(timeClient.getSeconds());
     
