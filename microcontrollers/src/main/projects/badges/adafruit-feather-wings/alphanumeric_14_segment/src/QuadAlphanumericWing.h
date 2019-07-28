@@ -28,6 +28,10 @@ class QuadAlphanumericWing : public ArduinoLoopTask
         
         char displaybuffer[4] = {' ', ' ', ' ', ' '};
 
+        String scrollingText = " hellow world -  ";
+        
+        int scrollingTextLength;
+        
         WingMode wingMode;
 
         QuadAlphanumericWing();
@@ -44,7 +48,7 @@ class QuadAlphanumericWing : public ArduinoLoopTask
     
     private:
     
-        String scrollingText = " hellow world -  ";
+        
         
         void scrollText();
         

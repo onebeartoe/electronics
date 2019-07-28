@@ -26,9 +26,11 @@ void setup()
         Serial.print ( "." );
     }
     
+// the brightess is still set in QuadAlphanumericWing.cpp    
+//    alphaWing.brightness(5);
     alphaWing.setWingMode(WingMode::STILL);
     
-    clock.interval = 2 * 1000; // every 2 seconds
+    clock.interval = 5 * 1000; // every 2 seconds
 }
 
 void loop() 

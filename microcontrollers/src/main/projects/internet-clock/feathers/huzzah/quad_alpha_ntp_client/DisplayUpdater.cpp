@@ -1,10 +1,14 @@
 
 #include "DisplayUpdater.h"
 
+int previousMinute;
+
 DisplayUpdater::DisplayUpdater(InternetClock* clock, 
                                QuadAlphanumericWing* alphaWing)
 {
-    interval = 2 * 1000; // every 2 seconds
+    interval = 20 * 1000; // every 20 seconds
+    
+    previousMinute = 0;
     
     this->clock = clock;
     
@@ -12,21 +16,48 @@ DisplayUpdater::DisplayUpdater(InternetClock* clock,
 }
 
 void DisplayUpdater::oneLoop()
-{     
-    int dom = clock->dayOfMonth;
-    
+{    
     char str[50] = "";
     
-    sprintf(str, "dom: %d", dom);
+    if(previousMinute != clock->minute)
+    {
+        sprintf(str, "%2d%2d", clock->hour, clock->minute);
     
-//    alphaWing->setScrollingText(str);
+        Serial.print("updating the display with this time: >");
+        Serial.print(str);
+        Serial.println("<");
 
-    sprintf(str, "%2d%2d", clock->hour, clock->minute);
+        
+        alphaWing->setScrollingText(str);
+        alphaWing->setWingMode(SCROLLING_TEXT);
+
+        scrollTime();
+
+        alphaWing->setWingMode(STILL);
+        alphaWing->setText(str);    
+        
+        // reset the minute
+        previousMinute = clock->minute;
+    }
+}
+
+void DisplayUpdater::scrollTime()
+{
+    unsigned long currentMillis = millis();
     
-    Serial.print("updating the display with this time: >");
-    Serial.print(str);
-    Serial.println("<");
+    unsigned long startTime = millis();
+     
+    long scrollInterval = 2 * 1000; // 5 seconds
     
-    alphaWing->setText(str);
-//    alphaWing->setText("[__]");
+Serial.print("scroll time");    
+Serial.print(alphaWing->scrollingText);    
+
+
+    while(currentMillis < scrollInterval + startTime) 
+    {
+        currentMillis = millis();
+
+        alphaWing->loop();
+    }
+Serial.println();
 }

@@ -19,14 +19,14 @@ class DisplayUpdater : public ArduinoLoopTask
         QuadAlphanumericWing* alphaWing;
 
         String scrollingText;
-//        char scrollingText[50];
         
         DisplayUpdater(InternetClock* clock, QuadAlphanumericWing* alphaWing);    
 
         virtual void oneLoop();
+      
+    private:
         
-//        virtual void setScrollingText(String text);
-//        virtual void setScrollingText(char text []);
+        void scrollTime();
 };
 
 #endif

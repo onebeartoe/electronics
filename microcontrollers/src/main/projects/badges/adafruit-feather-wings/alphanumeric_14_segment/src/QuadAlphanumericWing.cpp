@@ -5,7 +5,7 @@
 
 Adafruit_AlphaNum4 alpha4 = Adafruit_AlphaNum4();
 
-int scrollingTextLength;
+
 
 int scrollingTextIndex;
 
@@ -22,6 +22,8 @@ QuadAlphanumericWing::QuadAlphanumericWing()
     wingMode = SCROLLING_TEXT;
     
     alpha4.begin(0x70);  // pass in the address
+    
+    alpha4.setBrightness(6);
 
     alpha4.writeDigitRaw(3, 0x0);
     alpha4.writeDigitRaw(0, 0xFFFF);
@@ -107,9 +109,7 @@ void QuadAlphanumericWing::serialInput()
 }
 
 void QuadAlphanumericWing::setText(String text)
-{
-//TODO: do something with the text parameter!!!!!
-    
+{    
     char char1 = ' ';
     char char2 = ' ';
     char char3 = ' ';
@@ -145,6 +145,8 @@ void QuadAlphanumericWing::setText(String text)
 
 void QuadAlphanumericWing::setScrollingText(String text)
 {
+    this->scrollingTextLength = strlen(text.c_str() );
+    
     this->scrollingText = text;
 }
 
