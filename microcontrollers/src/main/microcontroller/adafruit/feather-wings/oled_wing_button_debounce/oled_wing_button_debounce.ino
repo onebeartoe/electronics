@@ -81,6 +81,11 @@ int HUE;
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.cpp"
 
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.cpp"
+
+//InternetClock clock;
+
 OledFeatherWing oledWing = OledFeatherWing(&display);
 
 void setup() 
@@ -125,4 +130,6 @@ void setup()
 void loop() 
 {    
     oledWing.loop();
+    
+//    clock.loop();
 }

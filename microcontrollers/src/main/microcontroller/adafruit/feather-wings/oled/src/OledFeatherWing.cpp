@@ -13,7 +13,7 @@ OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
     oledDisplay = display;
 }
 
-void aButtonPressed()
+void OledFeatherWing::aButtonPressed()
 {
     if(state == P1_STATE)
     {

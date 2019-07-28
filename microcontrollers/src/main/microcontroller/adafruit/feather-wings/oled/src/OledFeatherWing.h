@@ -15,6 +15,8 @@ class OledFeatherWing : public ArduinoLoopTask
         byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
         
         OledFeatherWing(Adafruit_SSD1306* display);
+    
+        virtual void aButtonPressed();
         
         virtual void oneLoop();
     
