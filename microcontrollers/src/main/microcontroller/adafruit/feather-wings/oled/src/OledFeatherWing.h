@@ -17,10 +17,10 @@ class OledFeatherWing : public ArduinoLoopTask
         OledFeatherWing(Adafruit_SSD1306* display);
         
         virtual void oneLoop();
-        
-//    private:
     
         virtual void check_switches();
+        
+//    private:
 };
 
 #endif

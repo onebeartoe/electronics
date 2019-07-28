@@ -151,18 +151,9 @@ void setup()
   display.println("electronics.onebeartoe.org");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
-  
-  
-//    OledFeatherWing ow = OledFeatherWing();
-//    oledWing = &ow;
 }
 
 void loop() 
-{
-//    oledWing.check_switches();      // when we check the switches we'll get the current state
-
-
-    
+{    
     oledWing.loop();
-//    oledWing->loop();
 }

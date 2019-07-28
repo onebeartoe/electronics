@@ -13,22 +13,15 @@ OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
     oledDisplay = display;
 }
 
-//int w = 3;
-
 void OledFeatherWing::oneLoop()
 {
-    Serial.println("boy");
+//    Serial.println("boy");
     
-    oledDisplay->setCursor(0,0);
-    
-    oledDisplay->println("girl");
-
-    oledDisplay->display(); 
-    
-//    if(w > 2)
-//    {
-//        interval = 1001;
-//    }
+//    oledDisplay->setCursor(0,0);
+//    
+//    oledDisplay->println("girl");
+//
+//    oledDisplay->display(); 
     
     check_switches();      // when we check the switches we'll get the current state
 
@@ -103,9 +96,6 @@ oledDisplay->setTextSize(1);
         }
     }
   }
-    
-//    Serial.print("olded iterval:");
-//    Serial.print(oledWing.interval);
     
 //    delay(10);
     yield();
