@@ -29,7 +29,7 @@
   #define LED      13
 #endif
 
-byte stubornButtons[] = {BUTTON_A, BUTTON_B, BUTTON_C}; 
+//byte stubornButtons[] = {BUTTON_A, BUTTON_B, BUTTON_C};
 
 // This handy macro lets us determine how big the array up above is, by checking the size
 #define NUMBUTTONS 3
@@ -42,7 +42,8 @@ class OledFeatherWing : public ArduinoLoopTask
     public:
 
         // here is where we define the buttons that we'll use. button "1" is the first, button "6" is the 6th, etc
-        byte buttons[3] = {stubornButtons[0],stubornButtons[1],stubornButtons[2]}; 
+        byte buttons[3] = {BUTTON_A, BUTTON_B, BUTTON_C};
+//        byte buttons[3] = {stubornButtons[0],stubornButtons[1],stubornButtons[2]}; 
         
         // we will track if a button is just pressed, just released, or 'currently pressed' 
         byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
@@ -63,6 +64,8 @@ class OledFeatherWing : public ArduinoLoopTask
         OledFeatherWing(Adafruit_SSD1306* display);
     
         virtual void aButtonPressed();
+//        virtual void aButtonPressed();
+//        virtual void aButtonPressed() = 0;
         
         virtual void oneLoop();
     

@@ -44,9 +44,13 @@ char  displayText [4][50];
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.cpp"
 
+#include "OledNtpClient.h"
+#include "OledNtpClient.cpp"
+
 InternetClock clock;
 
-OledFeatherWing oledWing = OledFeatherWing(&display);
+OledNtpClient oledWing = OledNtpClient(&display);
+//OledFeatherWing oledWing = OledFeatherWing(&display);
 
 void setup() 
 {

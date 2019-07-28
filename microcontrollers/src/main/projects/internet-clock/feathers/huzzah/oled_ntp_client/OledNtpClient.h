@@ -14,6 +14,14 @@ class OledNtpClient : public OledFeatherWing
   
         OledNtpClient(Adafruit_SSD1306* display):OledFeatherWing(display){};
 //        OledNtpClient(Adafruit_SSD1306* display);
+        
+        
+//        virtual void aButtonPressed();
+        
+        void aButtonPressed()
+        {
+            Serial.println("hello from subclass!");
+        }
 };
 
 
