@@ -11,6 +11,9 @@ class OledFeatherWing : public ArduinoLoopTask
 {
     public:
         
+        // we will track if a button is just pressed, just released, or 'currently pressed' 
+        byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
+        
         OledFeatherWing(Adafruit_SSD1306* display);
         
         virtual void oneLoop();

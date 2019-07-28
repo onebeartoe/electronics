@@ -62,8 +62,8 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
 byte buttons[] = {BUTTON_A, BUTTON_B, BUTTON_C}; 
 // This handy macro lets us determine how big the array up above is, by checking the size
 #define NUMBUTTONS sizeof(buttons)
-// we will track if a button is just pressed, just released, or 'currently pressed' 
-byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
+
+
 
 const int P1_STATE = 1;
 const int P2_STATE = 2;
@@ -159,85 +159,9 @@ void setup()
 
 void loop() 
 {
-    oledWing.check_switches();      // when we check the switches we'll get the current state
+//    oledWing.check_switches();      // when we check the switches we'll get the current state
 
-  for (byte i = 0; i<NUMBUTTONS; i++){
-    if (pressed[i]) 
-    {
-//      digitalWrite(13, HIGH);
-      // is the button pressed down at this moment
-        Serial.printf("button %d is pressed.\n", i);
-                
-    }
-    
-// the next line is from the original/example code   
-display.setTextSize(1);
-    
-    // this is the code block to use for detecting button presses (when the 
-    // button is actually releaed).    
-    if (justreleased[i])
-    {
-      if (i == 0)
-      {  
-        HUE=190;
-        Serial.printf("button %d is released.\n", i);
-        
-        aButtonPressed();
-      }
-      else if (i == 1)
-      {
-        HUE=170;
-        Serial.printf("button %d is released.\n", i);
 
-        display.clearDisplay();
-
-        display.setCursor(0,0);
-        display.println("Roberto Marquez");
-        display.println("Dude");
-        display.print("twiter.com/onebeartoe");
-        display.println("210 370 7207");
-      }
-      else if (i == 2)
-      {
-        HUE=140;
-        Serial.printf("button %d is released.\n", i);
-
-        display.clearDisplay();
-
-        display.setTextSize(2);
-
-        display.setCursor(4,2);
-        display.print("I love you");
-//      display.startscrollright(0x00, 0x0F);
-      }
-      else if (i == 3)
-      {
-        HUE=100;
-      }else if (i == 4){
-        HUE=70;
-      }else if (i == 5){
-        HUE=30;
-      }
-      else if (i == 6)
-      {
-        HUE=0;
-      }
-        
-      
-        for (byte i=0; i<NUMBUTTONS; i++)
-        {  
-            // remember, check_switches() will necessitate clearing the 'just pressed' flag
-            justpressed[i] = 0;
-        }
-    }
-  }
-    
-//    Serial.print("olded iterval:");
-//    Serial.print(oledWing.interval);
-    
-    delay(10);
-    yield();
-    display.display();
     
     oledWing.loop();
 //    oledWing->loop();

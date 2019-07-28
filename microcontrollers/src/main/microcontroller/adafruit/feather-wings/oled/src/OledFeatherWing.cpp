@@ -7,12 +7,13 @@ Adafruit_SSD1306* oledDisplay;
 
 OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
 {
-    this->interval = 1000;
+    this->interval = 10;
+//    this->interval = 1000;
     
     oledDisplay = display;
 }
 
-int w = 3;
+//int w = 3;
 
 void OledFeatherWing::oneLoop()
 {
@@ -24,10 +25,91 @@ void OledFeatherWing::oneLoop()
 
     oledDisplay->display(); 
     
-    if(w > 2)
+//    if(w > 2)
+//    {
+//        interval = 1001;
+//    }
+    
+    check_switches();      // when we check the switches we'll get the current state
+
+    
+  for (byte i = 0; i<NUMBUTTONS; i++){
+    if (pressed[i]) 
     {
-        interval = 1001;
+//      digitalWrite(13, HIGH);
+      // is the button pressed down at this moment
+        Serial.printf("button %d is pressed.\n", i);
+                
     }
+    
+// the next line is from the original/example code   
+oledDisplay->setTextSize(1);
+    
+    // this is the code block to use for detecting button presses (when the 
+    // button is actually releaed).    
+    if (justreleased[i])
+    {
+      if (i == 0)
+      {  
+        HUE=190;
+        Serial.printf("button %d is released.\n", i);
+        
+//        aButtonPressed();
+      }
+      else if (i == 1)
+      {
+        HUE=170;
+        Serial.printf("button %d is released.\n", i);
+
+        oledDisplay->clearDisplay();
+
+        oledDisplay->setCursor(0,0);
+        oledDisplay->println("Roberto Marquez");
+        oledDisplay->println("Dude");
+        oledDisplay->print("twiter.com/onebeartoe");
+        oledDisplay->println("210 370 7207");
+      }
+      else if (i == 2)
+      {
+        HUE=140;
+        Serial.printf("button %d is released.\n", i);
+
+        oledDisplay->clearDisplay();
+
+        oledDisplay->setTextSize(2);
+
+        oledDisplay->setCursor(4,2);
+        oledDisplay->print("I love you");
+//      oledDisplay->startscrollright(0x00, 0x0F);
+      }
+      else if (i == 3)
+      {
+        HUE=100;
+      }else if (i == 4){
+        HUE=70;
+      }else if (i == 5){
+        HUE=30;
+      }
+      else if (i == 6)
+      {
+        HUE=0;
+      }
+        
+      
+        for (byte i=0; i<NUMBUTTONS; i++)
+        {  
+            // remember, check_switches() will necessitate clearing the 'just pressed' flag
+            justpressed[i] = 0;
+        }
+    }
+  }
+    
+//    Serial.print("olded iterval:");
+//    Serial.print(oledWing.interval);
+    
+//    delay(10);
+    yield();
+    oledDisplay->display();    
 }
 
 void OledFeatherWing::check_switches()
