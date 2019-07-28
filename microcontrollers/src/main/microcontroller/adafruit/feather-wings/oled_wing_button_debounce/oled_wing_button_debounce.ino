@@ -84,6 +84,7 @@ int HUE;
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.cpp"
 
+//OledFeatherWing* oledWing;
 OledFeatherWing oledWing;
 //OledFeatherWing oledWing = OledFeatherWing();
 
@@ -121,10 +122,12 @@ void check_switches()
      lasttime = millis();
   }
   
-  if ((lasttime + DEBOUNCE) > millis()) {
+  if ((lasttime + DEBOUNCE) > millis()) 
+  {
     // not enough time has passed to debounce
     return; 
   }
+  
   // ok we have waited DEBOUNCE milliseconds, lets reset the timer
   lasttime = millis();
   
@@ -186,6 +189,10 @@ void setup()
   display.println("electronics.onebeartoe.org");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
+  
+  
+//    OledFeatherWing ow = OledFeatherWing();
+//    oledWing = &ow;
 }
 
 void loop() 
@@ -263,10 +270,13 @@ display.setTextSize(1);
     }
   }
     
-    Serial.print("olded iterval:");
+//    Serial.print("olded iterval:");
 //    Serial.print(oledWing.interval);
     
-  delay(10);
-  yield();
-  display.display();
+    delay(10);
+    yield();
+    display.display();
+    
+    oledWing.loop();
+//    oledWing->loop();
 }
