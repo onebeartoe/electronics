@@ -13,6 +13,8 @@
 class OledNtpClient : public OledFeatherWing
 {
     public:
+        
+        int previousMinute = 0;
 
         // override the parent class constructor
         OledNtpClient(Adafruit_SSD1306* display):OledFeatherWing(display){};
@@ -31,6 +33,22 @@ class OledNtpClient : public OledFeatherWing
             oledDisplay->print(":");
             oledDisplay->print(clock->minute);   
         }
+        
+        /**
+         * override the main loop
+         */
+        void oneLoop()
+        {
+            // call the parent version of this method
+            OledFeatherWing::oneLoop();
+            
+            if(previousMinute != clock->minute)
+            {
+                aButtonPressed();
+                
+                previousMinute = clock->minute;
+            }
+        } 
         
         void setClock(InternetClock* clock)
         {
