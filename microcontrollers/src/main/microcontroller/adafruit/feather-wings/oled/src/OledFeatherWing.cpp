@@ -1,4 +1,8 @@
 
+#ifndef onebeartoe_OledFeatherWing_cpp
+#define onebeartoe_OledFeatherWing_cpp
+
+
 #include <Adafruit_SSD1306.h>
 
 #include "OledFeatherWing.h"
@@ -158,3 +162,5 @@ void OledFeatherWing::check_switches()
     previousstate[index] = currentstate[index];   // keep a running tally of the buttons
   }
 }
+
+#endif

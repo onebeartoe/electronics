@@ -73,7 +73,7 @@ void setup()
   // Make input & enable pull-up resistors on switch pins
   for (int i=0; i<NUMBUTTONS; i++)
   {
-    pinMode(buttons[i], INPUT_PULLUP);
+    pinMode(oledWing.buttons[i], INPUT_PULLUP);
   }  
 
   // text display tests
