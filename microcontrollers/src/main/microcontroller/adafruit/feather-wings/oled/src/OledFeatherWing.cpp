@@ -37,15 +37,7 @@ void OledFeatherWing::aButtonPressed()
 }
 
 void OledFeatherWing::oneLoop()
-{
-//    Serial.println("boy");
-    
-//    oledDisplay->setCursor(0,0);
-//    
-//    oledDisplay->println("girl");
-//
-//    oledDisplay->display(); 
-    
+{    
     check_switches();      // when we check the switches we'll get the current state
 
     for (byte i = 0; i<NUMBUTTONS; i++)
@@ -53,7 +45,7 @@ void OledFeatherWing::oneLoop()
     
         if (pressed[i]) 
         {
-//      digitalWrite(13, HIGH);
+
             // is the button pressed down at this moment
             Serial.printf("button %d is pressed.\n", i);
                 

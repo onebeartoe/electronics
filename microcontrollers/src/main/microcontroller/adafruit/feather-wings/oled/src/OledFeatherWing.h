@@ -29,24 +29,28 @@
   #define LED      13
 #endif
 
-// here is where we define the buttons that we'll use. button "1" is the first, button "6" is the 6th, etc
-byte buttons[] = {BUTTON_A, BUTTON_B, BUTTON_C}; 
+byte stubornButtons[] = {BUTTON_A, BUTTON_B, BUTTON_C}; 
 
 // This handy macro lets us determine how big the array up above is, by checking the size
-#define NUMBUTTONS sizeof(buttons)
+#define NUMBUTTONS 3
+//#define NUMBUTTONS sizeof(buttons)
 
 #define DEBOUNCE     10 // button debouncer, how many ms to debounce, 5+ ms is usually plenty
 
 class OledFeatherWing : public ArduinoLoopTask
 {
     public:
+
+        // here is where we define the buttons that we'll use. button "1" is the first, button "6" is the 6th, etc
+        byte buttons[3] = {stubornButtons[0],stubornButtons[1],stubornButtons[2]}; 
         
         // we will track if a button is just pressed, just released, or 'currently pressed' 
         byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
 
-// TODO: DELETE THESE ONCE NETWORKING IS IMPLEMENTED
-int p1Score = 0;
-int p2Score = 0;
+        // TODO: DELETE THESE ONCE NETWORKING IS IMPLEMENTED
+        int p1Score = 0;
+        
+        int p2Score = 0;
 
         int HUE;
 
