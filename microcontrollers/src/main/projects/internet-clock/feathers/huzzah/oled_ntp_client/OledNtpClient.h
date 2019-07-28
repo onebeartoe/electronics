@@ -29,9 +29,24 @@ class OledNtpClient : public OledFeatherWing
             oledDisplay->clearDisplay();
             oledDisplay->setCursor(0, 0);
             oledDisplay->setTextSize(4);
-            oledDisplay->print(clock->hour);
+            
+            String hour = "";
+            if(clock->hour < 10)
+            {
+                hour += "0";
+            }
+            hour += clock->hour;
+            
+            String minute = "";            
+            if(clock->minute < 10)
+            {
+                minute += "0";
+            }            
+            minute += clock->minute;
+            
+            oledDisplay->print(hour);
             oledDisplay->print(":");
-            oledDisplay->print(clock->minute);   
+            oledDisplay->print(minute);
         }
         
         /**
