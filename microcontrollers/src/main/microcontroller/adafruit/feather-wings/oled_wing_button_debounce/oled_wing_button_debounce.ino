@@ -84,10 +84,10 @@ int HUE;
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/oled/src/OledFeatherWing.cpp"
 
-//OledFeatherWing* oledWing;
-OledFeatherWing oledWing;
-//OledFeatherWing oledWing = OledFeatherWing();
 
+OledFeatherWing oledWing = OledFeatherWing(&display);
+//OledFeatherWing oledWing;
+//OledFeatherWing* oledWing;
 void aButtonPressed()
 {
     if(state == P1_STATE)
