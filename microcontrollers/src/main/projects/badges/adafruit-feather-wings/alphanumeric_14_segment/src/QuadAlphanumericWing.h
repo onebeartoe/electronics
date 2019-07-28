@@ -48,8 +48,6 @@ class QuadAlphanumericWing : public ArduinoLoopTask
     
     private:
     
-        
-        
         void scrollText();
         
         void serialInput();

@@ -45,7 +45,7 @@ Adafruit_SSD1306 display = Adafruit_SSD1306();
 #endif
 
 #if (SSD1306_LCDHEIGHT != 32)
- #error("Height incorrect, please fix Adafruit_SSD1306.h!");
+// #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
 void setup() 
@@ -100,7 +100,7 @@ void loop()
 
         display.print("Analog: ");
         display.print(read);
-        display.prinln();
+        display.println();
     
         display.println("github.com/onebeartoe");
     }

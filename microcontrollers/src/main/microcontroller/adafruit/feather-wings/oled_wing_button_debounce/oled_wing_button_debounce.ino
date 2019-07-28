@@ -170,9 +170,6 @@ void setup()
   {
     pinMode(buttons[i], INPUT_PULLUP);
   }  
-//  pinMode(BUTTON_A, INPUT_PULLUP);
-//  pinMode(BUTTON_B, INPUT_PULLUP);
-//  pinMode(BUTTON_C, INPUT_PULLUP);
 
   // text display tests
   display.setTextSize(1);
@@ -198,6 +195,9 @@ void loop()
                 
     }
     
+// the next line is from the original/example code   
+display.setTextSize(1);
+    
     // this is the code block to use for detecting button presses (when the 
     // button is actually releaed).    
     if (justreleased[i])
@@ -206,16 +206,34 @@ void loop()
       {  
         HUE=190;
         Serial.printf("button %d is released.\n", i);
+        
+        aButtonPressed();
       }
       else if (i == 1)
       {
         HUE=170;
         Serial.printf("button %d is released.\n", i);
+
+        display.clearDisplay();
+
+        display.setCursor(0,0);
+        display.println("Roberto Marquez");
+        display.println("Dude");
+        display.print("twiter.com/onebeartoe");
+        display.println("210 370 7207");
       }
       else if (i == 2)
       {
         HUE=140;
         Serial.printf("button %d is released.\n", i);
+
+        display.clearDisplay();
+
+        display.setTextSize(2);
+
+        display.setCursor(4,2);
+        display.print("I love you");
+//      display.startscrollright(0x00, 0x0F);
       }
       else if (i == 3)
       {
@@ -237,38 +255,7 @@ void loop()
             justpressed[i] = 0;
         }
     }
-  }    
-    
-/* old/original non-debouncing code
-    display.setTextSize(1);
-    
-    if (! digitalRead(BUTTON_A)) 
-    {
-        aButtonPressed();
-    }
-  
-  if (! digitalRead(BUTTON_B)) 
-  {
-    display.clearDisplay();
-    
-    display.setCursor(0,0);
-    display.println("Roberto Marquez");
-    display.println("Dude");
-    display.print("twiter.com/onebeartoe");
-    display.println("210 370 7207");
   }
-  
-  if (! digitalRead(BUTTON_C))
-  {
-    display.clearDisplay();
-
-    display.setTextSize(2);
-    
-    display.setCursor(4,2);
-    display.print("I love you");
-//    display.startscrollright(0x00, 0x0F);
-  }
-*/  
     
   delay(10);
   yield();
