@@ -50,17 +50,18 @@ char  displayText [4][50];
 InternetClock clock;
 
 OledNtpClient oledWing = OledNtpClient(&display);
-//OledFeatherWing oledWing = OledFeatherWing(&display);
 
 void setup() 
 {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
   Serial.println("OLED FeatherWing test");
   // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 128x32)
   // init done
   Serial.println("OLED begun...");
+
+    oledWing.setClock(&clock);
   
   // Show image buffer on the display hardware.
   // Since the buffer is intialized with an Adafruit splashscreen
@@ -74,11 +75,13 @@ void setup()
   
   Serial.println("IO test");
 
-  // Make input & enable pull-up resistors on switch pins
-  for (int i=0; i<NUMBUTTONS; i++)
-  {
-    pinMode(oledWing.buttons[i], INPUT_PULLUP);
-  }  
+  
+    // Make input & enable pull-up resistors on switch pins
+  
+    for (int i=0; i<NUMBUTTONS; i++)
+    {
+        pinMode(oledWing.buttons[i], INPUT_PULLUP);
+    }  
 
   // text display tests
   display.setTextSize(1);
@@ -86,7 +89,7 @@ void setup()
   display.setCursor(0,0);
   display.println("     Score Keeper");
   display.println("          by");
-  display.println("electronics.onebeartoe.org");
+  display.println("    onebeartoe.org");
   display.setCursor(0,0);
   display.display(); // actually display all of the above
 }

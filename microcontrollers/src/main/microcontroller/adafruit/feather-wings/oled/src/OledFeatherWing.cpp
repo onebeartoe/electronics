@@ -7,14 +7,14 @@
 
 #include "OledFeatherWing.h"
 
-Adafruit_SSD1306* oledDisplay;
+
 
 OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
 {
     this->interval = 10;
 //    this->interval = 1000;
     
-    oledDisplay = display;
+    this->oledDisplay = display;
 }
 
 void OledFeatherWing::aButtonPressed()
@@ -49,14 +49,12 @@ void OledFeatherWing::oneLoop()
     
         if (pressed[i]) 
         {
-
             // is the button pressed down at this moment
             Serial.printf("button %d is pressed.\n", i);
-                
         }
     
-// the next line is from the original/example code   
-oledDisplay->setTextSize(1);
+        // the next line is from the original/example code   
+        oledDisplay->setTextSize(1);
     
         // this is the code block to use for detecting button presses (when the 
         // button is actually releaed).    
@@ -119,7 +117,7 @@ oledDisplay->setTextSize(1);
     
 //    delay(10);
     yield();
-    oledDisplay->display();    
+    oledDisplay->display();
 }
 
 void OledFeatherWing::check_switches()

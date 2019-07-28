@@ -43,7 +43,6 @@ class OledFeatherWing : public ArduinoLoopTask
 
         // here is where we define the buttons that we'll use. button "1" is the first, button "6" is the 6th, etc
         byte buttons[3] = {BUTTON_A, BUTTON_B, BUTTON_C};
-//        byte buttons[3] = {stubornButtons[0],stubornButtons[1],stubornButtons[2]}; 
         
         // we will track if a button is just pressed, just released, or 'currently pressed' 
         byte pressed[NUMBUTTONS], justpressed[NUMBUTTONS], justreleased[NUMBUTTONS];
@@ -61,17 +60,15 @@ class OledFeatherWing : public ArduinoLoopTask
 
         const int P2_STATE = 2;
         
+        Adafruit_SSD1306* oledDisplay;
+        
         OledFeatherWing(Adafruit_SSD1306* display);
     
         virtual void aButtonPressed();
-//        virtual void aButtonPressed();
-//        virtual void aButtonPressed() = 0;
-        
+
         virtual void oneLoop();
     
         virtual void check_switches();
-        
-//    private:
 };
 
 #endif
