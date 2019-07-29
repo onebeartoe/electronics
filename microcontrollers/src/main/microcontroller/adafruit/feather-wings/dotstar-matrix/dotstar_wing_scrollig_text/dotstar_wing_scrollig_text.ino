@@ -1,3 +1,6 @@
+#include <Adafruit_DotStar.h>
+
+
 
 // https://www.adafruit.com/product/3449
 // https://learn.adafruit.com/adafruit-dotstar-featherwing-adafruit
@@ -8,13 +11,16 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 
+
+
 // dependency is fromhttps://github.com/adafruit/Adafruit_DotStarMatrix
 #include <Adafruit_DotStarMatrix.h>
 
 #include <Adafruit_DotStar.h>
 #include <Fonts/TomThumb.h>
 
-#include "relative-path-includes.h"
+
+//#include "relative-path-includes.h"
 
 #if defined(ESP8266)
 #define DATAPIN    13
@@ -90,20 +96,20 @@ char adafruit[] = "GO SPURS GO!";
 const int width = 12;
 const int height = 6;
 
-Worm colorWorm = Worm(0,0, 0, 0);
-
-Worm worm1 = Worm(width, height, 5, colorWorm.Color(255, 0, 0));
-Worm worm2 = Worm(width, height, 6, colorWorm.Color(0, 255, 0));            
-Worm worm3 = Worm(width, height, 7, colorWorm.Color(0, 0, 255));
-                    
-int wormCount = 3;
-
-Worm worms [] = 
-{
-    worm1,
-    worm2,
-    worm3
-};
+//Worm colorWorm = Worm(0,0, 0, 0);
+//
+//Worm worm1 = Worm(width, height, 5, colorWorm.Color(255, 0, 0));
+//Worm worm2 = Worm(width, height, 6, colorWorm.Color(0, 255, 0));            
+//Worm worm3 = Worm(width, height, 7, colorWorm.Color(0, 0, 255));
+//                    
+//int wormCount = 3;
+//
+//Worm worms [] = 
+//{
+//    worm1,
+//    worm2,
+//    worm3
+//};
 
 void setup() 
 {
@@ -124,7 +130,19 @@ void setup()
     delay(500);
   }
 
-    int x = matrix.width();
+
+
+
+}
+
+
+//int pass = 0;
+
+void loop()
+{
+//    matrix.fillScreen(0);
+
+        int x = matrix.width();
     for( ; x > -50; x-- )
     {
         matrix.fillScreen(0);
@@ -136,34 +154,15 @@ void setup()
           matrix.print(adafruit[i]);
         }
 
-//        if (--x < -50) {
-//          x = matrix.width();
-//        }
+        if (--x < -50) {
+          x = matrix.width();
+        }
 
         matrix.show();
         delay(SHIFTDELAY);  
     }
 
-    worm1.segmentColor = worm1.Color(255, 0, 0);
-    worm2.segmentColor = worm2.Color(0, 255, 0);
-    worm3.segmentColor = worm3.Color(0, 0, 255);  
-}
-
-
-//int pass = 0;
-
-void loop()
-{
-    matrix.fillScreen(0);
-
-    for(int w=0; w<wormCount; w++)
-    {
-      worms[w].move();
-      
-      worms[w].draw(&matrix);        
-    }
-
-    matrix.show();
+//    matrix.show();
   
     delay(500);
 }
