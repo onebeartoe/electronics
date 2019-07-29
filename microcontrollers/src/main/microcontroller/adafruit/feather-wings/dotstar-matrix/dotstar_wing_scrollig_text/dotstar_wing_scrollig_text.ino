@@ -1,6 +1,5 @@
+
 #include <Adafruit_DotStar.h>
-
-
 
 // https://www.adafruit.com/product/3449
 // https://learn.adafruit.com/adafruit-dotstar-featherwing-adafruit
@@ -11,16 +10,15 @@
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 
-
-
-// dependency is fromhttps://github.com/adafruit/Adafruit_DotStarMatrix
+/**
+ * the next dependency is from
+ * 
+ *      https://github.com/adafruit/Adafruit_DotStarMatrix
+ */
 #include <Adafruit_DotStarMatrix.h>
 
 #include <Adafruit_DotStar.h>
 #include <Fonts/TomThumb.h>
-
-
-//#include "relative-path-includes.h"
 
 #if defined(ESP8266)
 #define DATAPIN    13
@@ -121,34 +119,31 @@ void setup()
     }
 }
 
-
-//int pass = 0;
-
 void loop()
 {
-//    matrix.fillScreen(0);
-
-        int x = matrix.width();
+    int x = matrix.width();
+    
     for( ; x > -50; x-- )
     {
         matrix.fillScreen(0);
         matrix.setCursor(x, 5);
-        for (byte i = 0; i < 9; i++) {
-          // set the color
-          matrix.setTextColor(adaColors[i]);
-          // write the letter
-          matrix.print(adafruit[i]);
+        
+        for (byte i = 0; i < 9; i++) 
+        {
+            // set the color
+            matrix.setTextColor(adaColors[i]);
+            // write the letter
+            matrix.print(adafruit[i]);
         }
 
-        if (--x < -50) {
-          x = matrix.width();
+        if (--x < -50) 
+        {
+            x = matrix.width();
         }
 
         matrix.show();
         delay(SHIFTDELAY);  
     }
 
-//    matrix.show();
-  
     delay(500);
 }
