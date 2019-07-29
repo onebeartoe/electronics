@@ -14,13 +14,7 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
-enum WingMode
-{
-    BLANK,
-    SCROLLING_TEXT,
-    SERIAL_INPUT,
-    STILL
-};
+#include "WingModes.h"
 
 class QuadAlphanumericWing : public ArduinoLoopTask
 {
