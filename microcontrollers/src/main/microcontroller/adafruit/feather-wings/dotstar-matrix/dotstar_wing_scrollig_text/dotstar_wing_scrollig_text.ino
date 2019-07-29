@@ -49,7 +49,9 @@
 #endif
 
 #define SHIFTDELAY 100
-#define BRIGHTNESS 10
+
+#define BRIGHTNESS 3
+//#define BRIGHTNESS 10
 
 // MATRIX DECLARATION:
 // Parameter 1 = width of DotStar matrix
@@ -96,43 +98,27 @@ char adafruit[] = "GO SPURS GO!";
 const int width = 12;
 const int height = 6;
 
-//Worm colorWorm = Worm(0,0, 0, 0);
-//
-//Worm worm1 = Worm(width, height, 5, colorWorm.Color(255, 0, 0));
-//Worm worm2 = Worm(width, height, 6, colorWorm.Color(0, 255, 0));            
-//Worm worm3 = Worm(width, height, 7, colorWorm.Color(0, 0, 255));
-//                    
-//int wormCount = 3;
-//
-//Worm worms [] = 
-//{
-//    worm1,
-//    worm2,
-//    worm3
-//};
-
 void setup() 
 {
-  Serial.begin(115200);
+    Serial.begin(115200);
 
-  // uncomment to have wait
-  //while (!Serial) delay(500);
+    // uncomment to have wait
+    //while (!Serial) delay(500);
 
-  Serial.println("\nDotstar Matrix Wing");
-  matrix.begin();
-  matrix.setFont(&TomThumb);
-  matrix.setTextWrap(false);
-  matrix.setBrightness(BRIGHTNESS);
+    Serial.println("\nDotstar Matrix Wing");
+    
+    matrix.begin();
+    
+    matrix.setFont(&TomThumb);
+    matrix.setTextWrap(false);
+    matrix.setBrightness(BRIGHTNESS);
 
-  for (byte i = 0; i < 3; i++) {
-    matrix.fillScreen(primaryColors[i]);
-    matrix.show();
-    delay(500);
-  }
-
-
-
-
+    for (byte i = 0; i < 3; i++) 
+    {
+        matrix.fillScreen(primaryColors[i]);
+        matrix.show();
+        delay(500);
+    }
 }
 
 
