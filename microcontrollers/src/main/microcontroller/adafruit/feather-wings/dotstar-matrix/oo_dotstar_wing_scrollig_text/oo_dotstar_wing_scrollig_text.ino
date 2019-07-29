@@ -1,4 +1,7 @@
 
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
+
 #include <Adafruit_DotStar.h>
 
 // https://www.adafruit.com/product/3449
@@ -96,6 +99,9 @@ char adafruit[] = "GO SPURS GO!";
 const int width = 12;
 const int height = 6;
 
+DotstarMatrixWing dotstarWing;
+//DotstarMatrixWing* dotstarWing;
+
 void setup() 
 {
     Serial.begin(115200);
@@ -120,6 +126,12 @@ void setup()
         matrix.show();
         delay(500);
     }
+    
+//    DotstarMatrixWing dw();
+//    DotstarMatrixWing dw;
+//    DotstarMatrixWing dw = DotstarMatrixWing();
+//    dotstarWing = &*dw;
+//    dotstarWing = dw;
 }
 
 void loop()
@@ -149,4 +161,11 @@ void loop()
     }
 
     delay(500);
+
+//    Serial.println("about to dotstar loop");
+    
+    dotstarWing.loop();
+//    dotstarWing->loop();
+    
+//    Serial.println("AFTER dotstar loop");
 }
