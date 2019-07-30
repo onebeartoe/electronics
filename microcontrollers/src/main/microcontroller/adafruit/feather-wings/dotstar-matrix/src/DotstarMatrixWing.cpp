@@ -7,7 +7,8 @@
 
 DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 {
-    interval = 5 * 1000;
+    interval = SHIFTDELAY;
+//    interval = 5 * 1000;
     
     this->dotstarMatrix = dotstarMatrix;
  
@@ -20,19 +21,23 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
     adaColors[6] = dotstarMatrix->Color(255, 0, 220), //I pink
     adaColors[7] = dotstarMatrix->Color(255, 65, 0),  //T reddish
     adaColors[8] = dotstarMatrix->Color(255, 220, 0);  //! orange/yellow
+    
+    x = dotstarMatrix->width();
 }
 
 void DotstarMatrixWing::oneLoop()
-{
+{  
+//    Serial.println("word");
     
-    Serial.println("word");
-    
-    char adafruit[] = "GO SPURS GO!";
-//    char adafruit[13] = "GO SPURS GO!";
+    char scrollingText[] = "GO SPURS GO!    ";
+//    char scrollingText[13] = "GO SPURS GO!";
 
-    int x = dotstarMatrix->width();
+//    int x = dotstarMatrix->width();
+  
+    x--;
     
-    for( ; x > -50; x-- )
+//    if(x)
+//    for( ; x > -50; x-- )
     {
         dotstarMatrix->fillScreen(0);
         dotstarMatrix->setCursor(x, 5);
@@ -42,19 +47,21 @@ void DotstarMatrixWing::oneLoop()
             // set the color
             dotstarMatrix->setTextColor(adaColors[i]);
             // write the letter
-            dotstarMatrix->print(adafruit[i]);
+            dotstarMatrix->print(scrollingText[i]);
         }
 
-        if (--x < -50) 
+        if (x < -50)
+//        if (--x < -50)
         {
             x = dotstarMatrix->width();
         }
 
         dotstarMatrix->show();
-        delay(SHIFTDELAY);  
+        
+//        delay(SHIFTDELAY);  
     }
 
-    delay(500);    
+//    delay(500);    
 }
 
 #endif
