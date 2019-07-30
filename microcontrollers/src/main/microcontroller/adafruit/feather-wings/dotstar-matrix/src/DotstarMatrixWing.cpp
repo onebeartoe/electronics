@@ -1,5 +1,4 @@
 
-
 #ifndef onebeartoe_DotstarMatrixWing_cpp
 #define onebeartoe_DotstarMatrixWing_cpp
 
@@ -8,7 +7,6 @@
 DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 {
     interval = SHIFTDELAY;
-//    interval = 5 * 1000;
     
     this->dotstarMatrix = dotstarMatrix;
  
@@ -26,42 +24,40 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 }
 
 void DotstarMatrixWing::oneLoop()
-{  
-//    Serial.println("word");
-    
-    char scrollingText[] = "GO SPURS GO!    ";
-//    char scrollingText[13] = "GO SPURS GO!";
+{      
+    char scrollingText[] = "GO SPURS GO Baby!    ";
 
-//    int x = dotstarMatrix->width();
-  
     x--;
-    
-//    if(x)
-//    for( ; x > -50; x-- )
+
+    dotstarMatrix->fillScreen(0);
+    dotstarMatrix->setCursor(x, 5);
+
+    int c = 0;
+
+    int iMax = strlen(scrollingText);
+
+    for (byte i = 0; i < iMax; i++) 
     {
-        dotstarMatrix->fillScreen(0);
-        dotstarMatrix->setCursor(x, 5);
-        
-        for (byte i = 0; i < 9; i++) 
+        // set the color
+        dotstarMatrix->setTextColor(adaColors[c]);
+
+        c++;
+
+        if(c == ADA_COLORS_COUNT)
         {
-            // set the color
-            dotstarMatrix->setTextColor(adaColors[i]);
-            // write the letter
-            dotstarMatrix->print(scrollingText[i]);
+            c = 0;
         }
 
-        if (x < -50)
-//        if (--x < -50)
-        {
-            x = dotstarMatrix->width();
-        }
-
-        dotstarMatrix->show();
-        
-//        delay(SHIFTDELAY);  
+        // write the letter
+        dotstarMatrix->print(scrollingText[i]);
     }
 
-//    delay(500);    
+    if (x < -50)
+    {
+        x = dotstarMatrix->width();
+    }
+
+    dotstarMatrix->show();
 }
 
 #endif
