@@ -60,6 +60,11 @@ class DotstarMatrixWing : public ArduinoLoopTask
         
         const int SHIFTDELAY = 200;
 
+        uint16_t primaryColors[3];
+
+const int width = 12;
+const int height = 6;
+        
         Adafruit_DotStarMatrix* dotstarMatrix;
         
         DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix);
@@ -73,6 +78,8 @@ class DotstarMatrixWing : public ArduinoLoopTask
         static const int ADA_COLORS_COUNT = 9;
         
         uint16_t adaColors[ADA_COLORS_COUNT];
+        
+        virtual void primaryDemo();
         
         virtual void oneLoop();
 };

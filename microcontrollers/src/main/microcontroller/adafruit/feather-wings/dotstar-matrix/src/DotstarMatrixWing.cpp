@@ -25,6 +25,10 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
     adaColors[6] = dotstarMatrix->Color(255, 0, 220), //I pink
     adaColors[7] = dotstarMatrix->Color(255, 65, 0),  //T reddish
     adaColors[8] = dotstarMatrix->Color(255, 220, 0);  //! orange/yellow
+
+    primaryColors[0] = dotstarMatrix->Color(255, 0, 0);
+    primaryColors[1] = dotstarMatrix->Color(0, 255, 0);
+    primaryColors[2] = dotstarMatrix->Color(0, 0, 255);
     
     x = dotstarMatrix->width();
 }
@@ -64,6 +68,17 @@ void DotstarMatrixWing::oneLoop()
     }
 
     dotstarMatrix->show();
+}
+
+void DotstarMatrixWing::primaryDemo()
+{
+    for (byte i = 0; i < 3; i++) 
+    {
+        dotstarMatrix->fillScreen(primaryColors[i]);
+        dotstarMatrix->show();
+        
+        delay(500);
+    }
 }
 
 #endif

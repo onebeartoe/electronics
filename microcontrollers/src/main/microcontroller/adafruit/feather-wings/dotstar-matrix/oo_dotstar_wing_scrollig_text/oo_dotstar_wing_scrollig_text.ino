@@ -27,14 +27,6 @@ Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
                                   DS_MATRIX_ROWS + DS_MATRIX_PROGRESSIVE,
                                   DOTSTAR_BGR);
 
-const uint16_t primaryColors[] = 
-{
-    matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255)
-};
-
-const int width = 12;
-const int height = 6;
-
 DotstarMatrixWing dotstarWing(&matrix);
 
 void setup() 
@@ -49,14 +41,7 @@ void setup()
     Serial.print("using CLOCKPIN: ");
     Serial.println(CLOCKPIN);
     
-//
-
-    for (byte i = 0; i < 3; i++) 
-    {
-        matrix.fillScreen(primaryColors[i]);
-        matrix.show();
-        delay(500);
-    }
+    dotstarWing.primaryDemo();
 }
 
 void loop()
