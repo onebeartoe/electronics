@@ -28,6 +28,7 @@
 #define CLOCKPIN   13
 #endif
 
+#define BRIGHTNESS 3
 
 #include <Adafruit_DotStar.h>
 

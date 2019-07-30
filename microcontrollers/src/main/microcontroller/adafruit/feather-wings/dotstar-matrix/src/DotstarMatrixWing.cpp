@@ -9,6 +9,12 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
     interval = SHIFTDELAY;
     
     this->dotstarMatrix = dotstarMatrix;
+    
+    dotstarMatrix->begin();
+    
+    dotstarMatrix->setFont(&TomThumb);
+    dotstarMatrix->setTextWrap(false);
+    dotstarMatrix->setBrightness(BRIGHTNESS);
  
     adaColors[0] = dotstarMatrix->Color(255, 0, 0),   //A red
     adaColors[1] = dotstarMatrix->Color(255, 125, 0), //D orange

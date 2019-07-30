@@ -2,8 +2,6 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
-#define BRIGHTNESS 3
-
 #include <Adafruit_DotStarMatrix.h>
 
 // MATRIX DECLARATION:
@@ -44,18 +42,14 @@ void setup()
     Serial.begin(115200);
 
     Serial.println("\nDotstar Matrix Wing");
-  
-    Serial.println("message 33");
-    
+
     Serial.print("using DATAPIN: ");
     Serial.println(DATAPIN);
-    Serial.println("using CLOCKPIN: " + CLOCKPIN);
     
-    matrix.begin();
+    Serial.print("using CLOCKPIN: ");
+    Serial.println(CLOCKPIN);
     
-    matrix.setFont(&TomThumb);
-    matrix.setTextWrap(false);
-    matrix.setBrightness(BRIGHTNESS);
+//
 
     for (byte i = 0; i < 3; i++) 
     {
