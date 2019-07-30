@@ -57,9 +57,29 @@ class DotstarMatrixWing : public ArduinoLoopTask
 {
     public:
         
+        const int SHIFTDELAY = 100;
+
         Adafruit_DotStarMatrix* dotstarMatrix;
         
         DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix);
+        
+//        char adafruit[];
+//        char adafruit[13] = "GO SPURS GO!";
+//        char adafruit[50] = "GO SPURS GO!";
+
+        uint16_t adaColors[9];
+//        const uint16_t adaColors[] = 
+//        {
+//            matrix.Color(255, 0, 0),   //A red
+//            matrix.Color(255, 125, 0), //D orange
+//            matrix.Color(200, 255, 0), //A yellowish
+//            matrix.Color(0, 255, 0),   //F green
+//            matrix.Color(0, 255, 225), //R blue
+//            matrix.Color(150, 0, 255), //U purple
+//            matrix.Color(255, 0, 220), //I pink
+//            matrix.Color(255, 65, 0),  //T reddish
+//            matrix.Color(255, 220, 0)  //! orange/yellow
+//        };
         
         virtual void oneLoop();
 };

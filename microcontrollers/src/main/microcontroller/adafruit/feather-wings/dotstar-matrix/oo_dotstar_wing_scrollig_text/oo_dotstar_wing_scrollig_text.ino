@@ -2,7 +2,7 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
-#define SHIFTDELAY 100
+
 
 #define BRIGHTNESS 3
 //#define BRIGHTNESS 10
@@ -38,39 +38,21 @@ const uint16_t primaryColors[] =
     matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255)
 };
 
-const uint16_t adaColors[] = {
-  matrix.Color(255, 0, 0),   //A red
-  matrix.Color(255, 125, 0), //D orange
-  matrix.Color(200, 255, 0), //A yellowish
-  matrix.Color(0, 255, 0),   //F green
-  matrix.Color(0, 255, 225), //R blue
-  matrix.Color(150, 0, 255), //U purple
-  matrix.Color(255, 0, 220), //I pink
-  matrix.Color(255, 65, 0),  //T reddish
-  matrix.Color(255, 220, 0)  //! orange/yellow
-};
-
-char adafruit[] = "GO SPURS GO!";
-
 const int width = 12;
 const int height = 6;
 
 DotstarMatrixWing dotstarWing(&matrix);
-//DotstarMatrixWing dotstarWing;
-//DotstarMatrixWing* dotstarWing;
 
 void setup() 
 {
     Serial.begin(115200);
 
-    // uncomment to have wait
-    //while (!Serial) delay(500);
-
     Serial.println("\nDotstar Matrix Wing");
   
     Serial.println("message 33");
     
-    Serial.println("using DATAPIN: " + DATAPIN);
+    Serial.print("using DATAPIN: ");
+    Serial.println(DATAPIN);
     Serial.println("using CLOCKPIN: " + CLOCKPIN);
     
     matrix.begin();
@@ -85,43 +67,9 @@ void setup()
         matrix.show();
         delay(500);
     }
-    
-//    DotstarMatrixWing dw();
-//    DotstarMatrixWing dw;
-//    DotstarMatrixWing dw = DotstarMatrixWing();
-//    dotstarWing = &dw;
-//    dotstarWing = dw;
 }
 
 void loop()
 {
-    int x = matrix.width();
-    
-    for( ; x > -50; x-- )
-    {
-        matrix.fillScreen(0);
-        matrix.setCursor(x, 5);
-        
-        for (byte i = 0; i < 9; i++) 
-        {
-            // set the color
-            matrix.setTextColor(adaColors[i]);
-            // write the letter
-            matrix.print(adafruit[i]);
-        }
-
-        if (--x < -50) 
-        {
-            x = matrix.width();
-        }
-
-        matrix.show();
-        delay(SHIFTDELAY);  
-    }
-
-    delay(500);
-
-    
-//    dotstarWing->loop();
     dotstarWing.loop();
 }

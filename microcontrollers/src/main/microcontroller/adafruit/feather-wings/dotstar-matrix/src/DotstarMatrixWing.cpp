@@ -10,12 +10,51 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
     interval = 5 * 1000;
     
     this->dotstarMatrix = dotstarMatrix;
+ 
+    adaColors[0] = dotstarMatrix->Color(255, 0, 0),   //A red
+    adaColors[1] = dotstarMatrix->Color(255, 125, 0), //D orange
+    adaColors[2] = dotstarMatrix->Color(200, 255, 0), //A yellowish
+    adaColors[3] = dotstarMatrix->Color(0, 255, 0),   //F green
+    adaColors[4] = dotstarMatrix->Color(0, 255, 225), //R blue
+    adaColors[5] = dotstarMatrix->Color(150, 0, 255), //U purple
+    adaColors[6] = dotstarMatrix->Color(255, 0, 220), //I pink
+    adaColors[7] = dotstarMatrix->Color(255, 65, 0),  //T reddish
+    adaColors[8] = dotstarMatrix->Color(255, 220, 0);  //! orange/yellow
 }
 
 void DotstarMatrixWing::oneLoop()
 {
     
     Serial.println("word");
+    
+    char adafruit[] = "GO SPURS GO!";
+//    char adafruit[13] = "GO SPURS GO!";
+
+    int x = dotstarMatrix->width();
+    
+    for( ; x > -50; x-- )
+    {
+        dotstarMatrix->fillScreen(0);
+        dotstarMatrix->setCursor(x, 5);
+        
+        for (byte i = 0; i < 9; i++) 
+        {
+            // set the color
+            dotstarMatrix->setTextColor(adaColors[i]);
+            // write the letter
+            dotstarMatrix->print(adafruit[i]);
+        }
+
+        if (--x < -50) 
+        {
+            x = dotstarMatrix->width();
+        }
+
+        dotstarMatrix->show();
+        delay(SHIFTDELAY);  
+    }
+
+    delay(500);    
 }
 
 #endif
