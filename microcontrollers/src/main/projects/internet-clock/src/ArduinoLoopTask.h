@@ -15,9 +15,13 @@ class ArduinoLoopTask
         
         virtual void oneLoop();
  
+//        virtual void loop();
+        
         /**
          * Call this method in the Arduino's sketch's loop() function.
          */
+// this was just added
+virtual      
         void loop()
         {
             unsigned long currentMillis = millis();

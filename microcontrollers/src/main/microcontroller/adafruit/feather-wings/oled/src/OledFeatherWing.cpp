@@ -2,12 +2,9 @@
 #ifndef onebeartoe_OledFeatherWing_cpp
 #define onebeartoe_OledFeatherWing_cpp
 
-
 #include <Adafruit_SSD1306.h>
 
 #include "OledFeatherWing.h"
-
-
 
 OledFeatherWing::OledFeatherWing(Adafruit_SSD1306* display)
 {

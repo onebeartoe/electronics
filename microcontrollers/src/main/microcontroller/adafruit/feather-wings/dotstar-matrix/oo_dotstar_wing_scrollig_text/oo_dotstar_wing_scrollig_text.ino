@@ -2,38 +2,12 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
-
-
-#if defined(ESP8266)
-#define DATAPIN    13
-#define CLOCKPIN   14
-#elif defined(__AVR_ATmega328P__)
-#define DATAPIN    2
-#define CLOCKPIN   4
-#elif defined(ARDUINO_SAMD_FEATHER_M0)
-#define DATAPIN    11
-#define CLOCKPIN   13
-#elif defined(ARDUINO_AVR_FEATHER32U4)
-#define DATAPIN    11
-#define CLOCKPIN   13
-#elif defined(ARDUINO_FEATHER52)
-#define DATAPIN    7
-#define CLOCKPIN   16
-#elif defined(TEENSYDUINO)
-#define DATAPIN    9
-#define CLOCKPIN   5
-#elif defined(ARDUINO_ARCH_WICED)
-#define DATAPIN    PA4
-#define CLOCKPIN   PB5
-#elif defined(ESP32)
-#define DATAPIN    27
-#define CLOCKPIN   13
-#endif
-
 #define SHIFTDELAY 100
 
 #define BRIGHTNESS 3
 //#define BRIGHTNESS 10
+
+#include <Adafruit_DotStarMatrix.h>
 
 // MATRIX DECLARATION:
 // Parameter 1 = width of DotStar matrix
@@ -59,8 +33,9 @@ Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
                                   DS_MATRIX_ROWS + DS_MATRIX_PROGRESSIVE,
                                   DOTSTAR_BGR);
 
-const uint16_t primaryColors[] = {
-  matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255)
+const uint16_t primaryColors[] = 
+{
+    matrix.Color(255, 0, 0), matrix.Color(0, 255, 0), matrix.Color(0, 0, 255)
 };
 
 const uint16_t adaColors[] = {
@@ -80,7 +55,8 @@ char adafruit[] = "GO SPURS GO!";
 const int width = 12;
 const int height = 6;
 
-DotstarMatrixWing dotstarWing;
+DotstarMatrixWing dotstarWing(&matrix);
+//DotstarMatrixWing dotstarWing;
 //DotstarMatrixWing* dotstarWing;
 
 void setup() 
@@ -91,6 +67,8 @@ void setup()
     //while (!Serial) delay(500);
 
     Serial.println("\nDotstar Matrix Wing");
+  
+    Serial.println("message 33");
     
     Serial.println("using DATAPIN: " + DATAPIN);
     Serial.println("using CLOCKPIN: " + CLOCKPIN);
@@ -111,7 +89,7 @@ void setup()
 //    DotstarMatrixWing dw();
 //    DotstarMatrixWing dw;
 //    DotstarMatrixWing dw = DotstarMatrixWing();
-//    dotstarWing = &*dw;
+//    dotstarWing = &dw;
 //    dotstarWing = dw;
 }
 
@@ -143,10 +121,7 @@ void loop()
 
     delay(500);
 
-//    Serial.println("about to dotstar loop");
     
-    dotstarWing.loop();
 //    dotstarWing->loop();
-    
-//    Serial.println("AFTER dotstar loop");
+    dotstarWing.loop();
 }
