@@ -60,6 +60,8 @@ class DotstarMatrixWing : public ArduinoLoopTask
         
         const int SHIFTDELAY = 200;
 
+        String scrollingText;
+        
         uint16_t primaryColors[3];
         
         Adafruit_DotStarMatrix* dotstarMatrix;
