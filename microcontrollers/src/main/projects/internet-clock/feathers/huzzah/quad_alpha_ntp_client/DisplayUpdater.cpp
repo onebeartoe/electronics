@@ -16,7 +16,7 @@ DisplayUpdater::DisplayUpdater(InternetClock* clock,
 }
 
 void DisplayUpdater::oneLoop()
-{    
+{
     char str[50] = "";
     
     if(previousMinute != clock->minute)

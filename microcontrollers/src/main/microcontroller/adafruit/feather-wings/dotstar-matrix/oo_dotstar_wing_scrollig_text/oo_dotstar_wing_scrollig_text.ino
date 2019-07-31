@@ -1,6 +1,10 @@
 
+#include <Arduino.h>
+
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
+
+#include "DotstarScrollingTextUpdater.h"
 
 #include <Adafruit_DotStarMatrix.h>
 
@@ -28,22 +32,31 @@ Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(12, 6,
 
 DotstarMatrixWing dotstarWing(&matrix);
 
+DotstarScrollingTextUpdater messageUpdater(&dotstarWing);
+
 void setup() 
 {
     Serial.begin(115200);
-
-    Serial.println("\nDotstar Matrix Wing");
-
-    Serial.print("using DATAPIN: ");
-    Serial.println(DATAPIN);
     
-    Serial.print("using CLOCKPIN: ");
-    Serial.println(CLOCKPIN);
+    printDiagnostics();
     
     dotstarWing.primaryDemo();
 }
 
 void loop()
 {
+    messageUpdater.loop();
+    
     dotstarWing.loop();
+}
+
+void printDiagnostics()
+{
+    Serial.println("\nDotstar Matrix Wing Scrolling Text");
+
+    Serial.print("using DATAPIN: ");
+    Serial.println(DATAPIN);
+    
+    Serial.print("using CLOCKPIN: ");
+    Serial.println(CLOCKPIN);    
 }

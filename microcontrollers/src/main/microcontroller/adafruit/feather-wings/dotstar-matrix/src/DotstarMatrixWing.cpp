@@ -37,8 +37,6 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 
 void DotstarMatrixWing::oneLoop()
 {
-//    char scrollingText[] = "GO SPURS GO Baby!    ";
-
     x--;
 
     dotstarMatrix->fillScreen(0);
@@ -83,4 +81,9 @@ void DotstarMatrixWing::primaryDemo()
     }
 }
 
+void DotstarMatrixWing::setText(String text)
+{
+    scrollingText = text;
+}
+        
 #endif

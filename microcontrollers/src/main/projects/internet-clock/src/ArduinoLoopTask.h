@@ -2,6 +2,8 @@
 #ifndef onebeartoe_ArduinoLoopTask_h
 #define onebeartoe_ArduinoLoopTask_h
 
+#include <Arduino.h>
+
 class ArduinoLoopTask
 {
     public:

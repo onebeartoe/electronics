@@ -48,17 +48,17 @@
  */
 #include <Adafruit_DotStarMatrix.h>
 
-#include <Adafruit_DotStar.h>
+
 #include <Fonts/TomThumb.h>
 
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/WingModes.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
 class DotstarMatrixWing : public ArduinoLoopTask
 {
     public:
         
-        const int SHIFTDELAY = 200;
+        const int SHIFTDELAY = 150;
+//        const int SHIFTDELAY = 200;
 
         String scrollingText;
         
@@ -77,6 +77,8 @@ class DotstarMatrixWing : public ArduinoLoopTask
         virtual void primaryDemo();
         
         virtual void oneLoop();
+        
+        virtual void setText(String text);
 };
 
 #endif
