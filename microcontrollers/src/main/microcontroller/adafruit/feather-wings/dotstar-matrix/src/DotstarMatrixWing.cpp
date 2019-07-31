@@ -8,7 +8,7 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 {
     interval = SHIFTDELAY;
     
-    scrollingText = "GO SPURS GO !    ";
+    text = "GO SPURS GO !    ";
 
     this->dotstarMatrix = dotstarMatrix;
     
@@ -44,7 +44,7 @@ void DotstarMatrixWing::oneLoop()
 
     int c = 0;
 
-    int iMax = strlen(scrollingText.c_str() );
+    int iMax = strlen(text.c_str() );
 
     for (byte i = 0; i < iMax; i++) 
     {
@@ -59,7 +59,7 @@ void DotstarMatrixWing::oneLoop()
         }
 
         // write the letter
-        dotstarMatrix->print(scrollingText[i]);
+        dotstarMatrix->print(text[i]);
     }
 
     if (x < -50)
@@ -81,9 +81,9 @@ void DotstarMatrixWing::primaryDemo()
     }
 }
 
-void DotstarMatrixWing::setText(String text)
-{
-    scrollingText = text;
-}
-        
+//void DotstarMatrixWing::setText(String text)
+//{
+//    this->text = text;
+//}
+
 #endif

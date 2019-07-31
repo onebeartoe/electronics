@@ -2,14 +2,15 @@
 #ifndef onebeartoe_DotstarScrollingTextUpdater_h
 #define onebeartoe_DotstarScrollingTextUpdater_h
 
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
 //#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
 #include <Adafruit_DotStarMatrix.h>
 
-class DotstarScrollingTextUpdater : public ArduinoLoopTask
+class DotstarScrollingTextUpdater : public TextDisplableWing
+//class DotstarScrollingTextUpdater : public ArduinoLoopTask
 {
     public:
     
@@ -26,6 +27,8 @@ class DotstarScrollingTextUpdater : public ArduinoLoopTask
         DotstarScrollingTextUpdater(DotstarMatrixWing* dotstarWing);
         
         virtual void oneLoop();
+        
+//        virtual void setText(String text);
 };
 
 #endif

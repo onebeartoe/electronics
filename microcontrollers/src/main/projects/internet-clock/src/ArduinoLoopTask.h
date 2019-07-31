@@ -16,9 +16,7 @@ class ArduinoLoopTask
         long interval = 10 * 1000; // ten seconds
         
         virtual void oneLoop();
- 
-//        virtual void loop();
-        
+
         /**
          * Call this method in the Arduino's sketch's loop() function.
          */

@@ -2,7 +2,7 @@
 #ifndef onebeartoe_WingModes_h
 #define onebeartoe_WingModes_h
 
-enum WingModes
+enum TextWingModes
 {
     BLANK,
     SCROLLING_TEXT,

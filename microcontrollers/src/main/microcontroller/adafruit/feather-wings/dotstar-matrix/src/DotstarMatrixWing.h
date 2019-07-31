@@ -48,19 +48,21 @@
  */
 #include <Adafruit_DotStarMatrix.h>
 
-
 #include <Fonts/TomThumb.h>
 
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
+#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.cpp"
 
-class DotstarMatrixWing : public ArduinoLoopTask
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
+
+class DotstarMatrixWing : public TextDisplableWing
 {
     public:
         
         const int SHIFTDELAY = 150;
 //        const int SHIFTDELAY = 200;
 
-        String scrollingText;
+//        String text;
         
         uint16_t primaryColors[3];
         
@@ -78,7 +80,7 @@ class DotstarMatrixWing : public ArduinoLoopTask
         
         virtual void oneLoop();
         
-        virtual void setText(String text);
+//        virtual void setText(String text);
 };
 
 #endif
