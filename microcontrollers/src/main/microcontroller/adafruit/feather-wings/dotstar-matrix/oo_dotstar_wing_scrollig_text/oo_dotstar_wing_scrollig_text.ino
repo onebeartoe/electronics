@@ -21,11 +21,10 @@
 //   DOTSTAR_BRG  Pixels are wired for BRG bitstream (most DotStar items)
 //   DOTSTAR_GBR  Pixels are wired for GBR bitstream (some older DotStars)
 //   DOTSTAR_BGR  Pixels are wired for BGR bitstream (APA102-2020 DotStars)
-Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(
-                                  12, 6, DATAPIN, CLOCKPIN,
-                                  DS_MATRIX_BOTTOM     + DS_MATRIX_LEFT +
-                                  DS_MATRIX_ROWS + DS_MATRIX_PROGRESSIVE,
-                                  DOTSTAR_BGR);
+Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(12, 6, 
+                                                       DATAPIN, CLOCKPIN,
+                                                       DS_MATRIX_BOTTOM + DS_MATRIX_LEFT + DS_MATRIX_ROWS + DS_MATRIX_PROGRESSIVE,
+                                                       DOTSTAR_BGR);
 
 DotstarMatrixWing dotstarWing(&matrix);
 

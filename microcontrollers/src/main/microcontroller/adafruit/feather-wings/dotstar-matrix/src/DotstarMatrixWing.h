@@ -62,8 +62,8 @@ class DotstarMatrixWing : public ArduinoLoopTask
 
         uint16_t primaryColors[3];
 
-const int width = 12;
-const int height = 6;
+//const int width = 12;
+//const int height = 6;
         
         Adafruit_DotStarMatrix* dotstarMatrix;
         
