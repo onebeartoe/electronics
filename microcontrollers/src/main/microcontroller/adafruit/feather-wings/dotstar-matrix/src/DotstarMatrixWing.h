@@ -61,17 +61,10 @@ class DotstarMatrixWing : public ArduinoLoopTask
         const int SHIFTDELAY = 200;
 
         uint16_t primaryColors[3];
-
-//const int width = 12;
-//const int height = 6;
         
         Adafruit_DotStarMatrix* dotstarMatrix;
         
         DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix);
-        
-//        char adafruit[];
-//        char adafruit[13] = "GO SPURS GO!";
-//        char adafruit[50] = "GO SPURS GO!";
 
         int x;
         
