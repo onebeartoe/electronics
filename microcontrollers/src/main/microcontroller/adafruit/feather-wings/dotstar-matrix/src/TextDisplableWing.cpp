@@ -1,5 +1,4 @@
 
-
 #ifndef onebeartoe_TextDisplableWing_cpp
 #define onebeartoe_TextDisplableWing_cpp
 
@@ -12,9 +11,7 @@ TextDisplableWing::TextDisplableWing()
 
 void TextDisplableWing::oneLoop()
 {
-    Serial.println("do nothing in TextDisplableWing::oneLoop() ");
-    
-    
+    Serial.println("do nothing in TextDisplableWing::oneLoop() ");   
 }
 
 void TextDisplableWing::setText(String text)
@@ -26,7 +23,5 @@ void TextDisplableWing::setTextMode(TextWingModes mode)
 {
     this->mode = mode;
 }
-
-
 
 #endif

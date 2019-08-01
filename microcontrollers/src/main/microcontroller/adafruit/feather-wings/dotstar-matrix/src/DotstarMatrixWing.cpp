@@ -37,6 +37,7 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 
 void DotstarMatrixWing::oneLoop()
 {
+Serial.println("dotstar scrolling - a");
     x--;
 
     dotstarMatrix->fillScreen(0);
@@ -48,6 +49,7 @@ void DotstarMatrixWing::oneLoop()
 
     for (byte i = 0; i < iMax; i++) 
     {
+Serial.println("dotstar scrolling - b");        
         // set the color
         dotstarMatrix->setTextColor(adaColors[c]);
 
@@ -62,12 +64,15 @@ void DotstarMatrixWing::oneLoop()
         dotstarMatrix->print(text[i]);
     }
 
-    if (x < -50)
+Serial.println("dotstar scrolling - c");    
+    if (x < -xSpread)
     {
         x = dotstarMatrix->width();
     }
 
     dotstarMatrix->show();
+    
+Serial.println("dotstar scrolling - d");    
 }
 
 void DotstarMatrixWing::primaryDemo()
@@ -80,10 +85,5 @@ void DotstarMatrixWing::primaryDemo()
         delay(500);
     }
 }
-
-//void DotstarMatrixWing::setText(String text)
-//{
-//    this->text = text;
-//}
 
 #endif

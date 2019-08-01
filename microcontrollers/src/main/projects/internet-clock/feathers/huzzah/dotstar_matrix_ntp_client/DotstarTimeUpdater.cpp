@@ -20,6 +20,8 @@ DotstarTimeUpdater::DotstarTimeUpdater(InternetClock* clock, DotstarMatrixWing* 
     
     this->dotstarWing = dotstarWing;
     
+    this->dotstarWing->dotstarMatrix->setTextSize(0.5);
+    
     this->clock = clock;
 }
 
@@ -31,19 +33,22 @@ void DotstarTimeUpdater::oneLoop()
     {
         sprintf(str, "%2d%2d", clock->hour, clock->minute);
     
+        Serial.println();
         Serial.print("updating the display with this time: >");
         Serial.print(str);
         Serial.println("<");
 
-        
-        dotstarWing->setText(str);
-//        dotstarWing->setScrollingText(str);
-        dotstarWing->setTextMode(SCROLLING_TEXT);
+//        dotstarWing->setText(str);
+//        dotstarWing->setTextMode(SCROLLING_TEXT);
 
-        scrollTime();
+//        scrollTime();
 
         dotstarWing->setTextMode(STILL);
         dotstarWing->setText(str);    
+
+        dotstarWing->dotstarMatrix->setCursor(0, 5);
+        dotstarWing->dotstarMatrix->print(str);
+        dotstarWing->dotstarMatrix->show();
         
         // reset the minute
         previousMinute = clock->minute;
@@ -51,17 +56,16 @@ void DotstarTimeUpdater::oneLoop()
 }
 
 void DotstarTimeUpdater::scrollTime()
-//void DotstarTimeUpdater::scrollTime()
 {
     unsigned long currentMillis = millis();
     
     unsigned long startTime = millis();
      
-    long scrollInterval = 2 * 1000; // 5 seconds
+    long scrollInterval = 3 * 1000; // this is in milliseconds
     
-Serial.print("scroll time");    
-Serial.print(dotstarWing->text);    
-
+    Serial.println();
+    Serial.print("scroll time: ");
+    Serial.print(dotstarWing->text);    
 
     while(currentMillis < scrollInterval + startTime) 
     {
@@ -69,7 +73,8 @@ Serial.print(dotstarWing->text);
 
         dotstarWing->loop();
     }
-Serial.println();
+    
+    Serial.println(" - end scroll");
 }
 
 #endif

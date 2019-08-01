@@ -1,4 +1,9 @@
 
+/**
+ * https://www.adafruit.com/product/3449
+ * https://learn.adafruit.com/adafruit-dotstar-featherwing-adafruit
+ */
+
 #ifndef onebeartoe_DotstarMatrixWing_h
 #define onebeartoe_DotstarMatrixWing_h
 
@@ -32,12 +37,6 @@
 
 #include <Adafruit_DotStar.h>
 
-// https://www.adafruit.com/product/3449
-// https://learn.adafruit.com/adafruit-dotstar-featherwing-adafruit
-
-// Adafruit_DotStarMatrix example for single DotStar LED matrix.
-// Scrolls 'Adafruit' across the matrix.
-
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 
@@ -60,9 +59,6 @@ class DotstarMatrixWing : public TextDisplableWing
     public:
         
         const int SHIFTDELAY = 150;
-//        const int SHIFTDELAY = 200;
-
-//        String text;
         
         uint16_t primaryColors[3];
         
@@ -72,6 +68,8 @@ class DotstarMatrixWing : public TextDisplableWing
 
         int x;
         
+        int xSpread = 50;
+        
         static const int ADA_COLORS_COUNT = 9;
         
         uint16_t adaColors[ADA_COLORS_COUNT];
@@ -79,8 +77,6 @@ class DotstarMatrixWing : public TextDisplableWing
         virtual void primaryDemo();
         
         virtual void oneLoop();
-        
-//        virtual void setText(String text);
 };
 
 #endif

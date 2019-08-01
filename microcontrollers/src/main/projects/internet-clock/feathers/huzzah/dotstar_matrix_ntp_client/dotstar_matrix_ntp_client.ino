@@ -29,6 +29,9 @@ void setup()
     Serial.begin(9600);
 
     Serial.println("dotstar matrix wing ntp client");
+    
+    // set a smaller spread than the default since there text string is short (only 4 chars)
+    dotstarWing.xSpread = 20;
 }
 
 void loop()
