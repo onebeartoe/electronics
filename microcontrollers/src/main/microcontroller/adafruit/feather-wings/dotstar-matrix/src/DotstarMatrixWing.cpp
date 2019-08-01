@@ -49,7 +49,7 @@ Serial.println("dotstar scrolling - a");
 
     for (byte i = 0; i < iMax; i++) 
     {
-Serial.println("dotstar scrolling - b");        
+//Serial.println("dotstar scrolling - b");        
         // set the color
         dotstarMatrix->setTextColor(adaColors[c]);
 
@@ -64,7 +64,7 @@ Serial.println("dotstar scrolling - b");
         dotstarMatrix->print(text[i]);
     }
 
-Serial.println("dotstar scrolling - c");    
+//Serial.println("dotstar scrolling - c");    
     if (x < -xSpread)
     {
         x = dotstarMatrix->width();
