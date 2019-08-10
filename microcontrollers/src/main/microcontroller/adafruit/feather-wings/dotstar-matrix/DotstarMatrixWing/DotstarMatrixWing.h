@@ -49,7 +49,8 @@
 
 #include <Fonts/TomThumb.h>
 
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
+#include "TextDisplableWing.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
 
 class DotstarMatrixWing : public TextDisplableWing
 {
@@ -74,8 +75,6 @@ class DotstarMatrixWing : public TextDisplableWing
         virtual void oneLoop();
         
         virtual void primaryDemo();
-        
-        virtual void tixClockPositionsVerification();
 };
 
 #endif

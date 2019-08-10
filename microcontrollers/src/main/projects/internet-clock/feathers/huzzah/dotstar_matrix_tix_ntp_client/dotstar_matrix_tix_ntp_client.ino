@@ -3,7 +3,7 @@
 
 /**
  * The following includes are provided by onebeartoe.org and are located in this same 
- * source code repository.
+ * source code repository.DotstarMatrixWing
  * 
  * For each .h file listed, cd into the containing directory and execute the 
  * 'install-library.sh' script to 'install' into the local Arduino libraries 
@@ -16,11 +16,11 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.h"
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.cpp"
 
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
-#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.cpp"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
+//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.cpp"
 
 Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(12, 6, 
                                                        DATAPIN, CLOCKPIN,
@@ -29,7 +29,9 @@ Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(12, 6,
 
 InternetClock clock;
 
-DotstarMatrixWing dotstarWing(&matrix);
+//TODO Rename this to dostarTixClock
+DotstarTixClock dotstarWing(&matrix);
+//DotstarMatrixWing dotstarWing(&matrix);
 
 DotstarTixUpdater displayUpdater(&clock, &dotstarWing);
 
@@ -39,7 +41,7 @@ void setup()
 
     Serial.println("tix clock - dotstar matrix wing ntp client");
     
-    Serial.println(wwwww);
+//    Serial.println(wwwww);
     
     // set a smaller spread than the default since there text string is short (only 4 chars)
     dotstarWing.xSpread = 20;

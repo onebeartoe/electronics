@@ -84,21 +84,4 @@ void DotstarMatrixWing::primaryDemo()
     }
 }
 
-void DotstarMatrixWing::tixClockPositionsVerification()
-{
-    int x = 0;
-    
-    int y = 0;
-    
-    uint16_t segmentColor = dotstarMatrix->Color(215, 55, 55);
-    
-    dotstarMatrix->drawPixel(x,y, segmentColor);
-    
-    dotstarMatrix->drawPixel(11, 5, segmentColor);
-    
-    Serial.println("ploop tix");
-    
-    dotstarMatrix->show();
-}
-
 #endif
