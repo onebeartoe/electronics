@@ -50,9 +50,6 @@
 #include <Fonts/TomThumb.h>
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.cpp"
-
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
 class DotstarMatrixWing : public TextDisplableWing
 {
@@ -74,9 +71,11 @@ class DotstarMatrixWing : public TextDisplableWing
         
         uint16_t adaColors[ADA_COLORS_COUNT];
         
+        virtual void oneLoop();
+        
         virtual void primaryDemo();
         
-        virtual void oneLoop();
+        virtual void tixClockPositionsVerification();
 };
 
 #endif

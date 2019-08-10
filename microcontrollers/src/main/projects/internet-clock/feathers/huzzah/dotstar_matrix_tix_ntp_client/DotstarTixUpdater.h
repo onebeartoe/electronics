@@ -1,6 +1,6 @@
 
-#ifndef onebeartoe_DotstarTimeUpdater_h
-#define onebeartoe_DotstarTimeUpdater_h
+#ifndef onebeartoe_DotstarTixUpdater_h
+#define onebeartoe_DotstarTixUpdater_h
 
 #include <Adafruit_DotStarMatrix.h>
 
@@ -9,12 +9,8 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.h"
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.cpp"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
-
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.h"
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/TextDisplableWing.cpp"
 
 class DotstarTixUpdater : public TextDisplableWing
 {
@@ -32,7 +28,7 @@ class DotstarTixUpdater : public TextDisplableWing
 
     private:
         
-        void scrollTime();        
+        void updateTime();        
 };
 
 #endif

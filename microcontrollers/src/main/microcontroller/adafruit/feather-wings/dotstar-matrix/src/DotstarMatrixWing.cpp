@@ -8,7 +8,7 @@ DotstarMatrixWing::DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix)
 {
     interval = SHIFTDELAY;
     
-    text = "GO SPURS GO !    ";
+//    text = "GO SPURS GO !    ";
 
     this->dotstarMatrix = dotstarMatrix;
     
@@ -49,7 +49,6 @@ Serial.println("dotstar scrolling - a");
 
     for (byte i = 0; i < iMax; i++) 
     {
-//Serial.println("dotstar scrolling - b");        
         // set the color
         dotstarMatrix->setTextColor(adaColors[c]);
 
@@ -64,7 +63,6 @@ Serial.println("dotstar scrolling - a");
         dotstarMatrix->print(text[i]);
     }
 
-//Serial.println("dotstar scrolling - c");    
     if (x < -xSpread)
     {
         x = dotstarMatrix->width();
@@ -84,6 +82,23 @@ void DotstarMatrixWing::primaryDemo()
         
         delay(500);
     }
+}
+
+void DotstarMatrixWing::tixClockPositionsVerification()
+{
+    int x = 0;
+    
+    int y = 0;
+    
+    uint16_t segmentColor = dotstarMatrix->Color(215, 55, 55);
+    
+    dotstarMatrix->drawPixel(x,y, segmentColor);
+    
+    dotstarMatrix->drawPixel(11, 5, segmentColor);
+    
+    Serial.println("ploop tix");
+    
+    dotstarMatrix->show();
 }
 
 #endif

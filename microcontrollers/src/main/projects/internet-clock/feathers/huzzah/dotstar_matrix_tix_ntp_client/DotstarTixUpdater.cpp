@@ -1,6 +1,6 @@
 
-#ifndef onebeartoe_DotstarTimeUpdater_cpp
-#define onebeartoe_DotstarTimeUpdater_cpp
+#ifndef onebeartoe_DotstarTixUpdater_cpp
+#define onebeartoe_DotstarTixUpdater_cpp
 
 #include <Adafruit_DotStarMatrix.h>
 
@@ -9,10 +9,8 @@
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/TextWingModes.h"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.h"
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/internet-clock/src/InternetClock.cpp"
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.h"
-//#include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/microcontroller/adafruit/feather-wings/dotstar-matrix/src/DotstarMatrixWing.cpp"
 
 DotstarTixUpdater::DotstarTixUpdater(InternetClock* clock, DotstarMatrixWing* dotstarWing)
 {
@@ -38,11 +36,6 @@ void DotstarTixUpdater::oneLoop()
         Serial.print(str);
         Serial.println("<");
 
-//        dotstarWing->setText(str);
-//        dotstarWing->setTextMode(SCROLLING_TEXT);
-
-//        scrollTime();
-
         dotstarWing->setTextMode(STILL);
         dotstarWing->setText(str);    
 
@@ -55,7 +48,7 @@ void DotstarTixUpdater::oneLoop()
     }
 }
 
-void DotstarTixUpdater::scrollTime()
+void DotstarTixUpdater::updateTime()
 {
     unsigned long currentMillis = millis();
     
