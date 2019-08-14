@@ -18,7 +18,7 @@ DotstarTixUpdater::DotstarTixUpdater(InternetClock* clock, DotstarMatrixWing* do
     
     this->dotstarWing = dotstarWing;
     
-    this->dotstarWing->dotstarMatrix->setTextSize(0.5);
+//    this->dotstarWing->dotstarMatrix->setTextSize(0.5);
     
     this->clock = clock;
 }
@@ -26,9 +26,11 @@ DotstarTixUpdater::DotstarTixUpdater(InternetClock* clock, DotstarMatrixWing* do
 void DotstarTixUpdater::oneLoop()
 {
     char str[50] = "";
+  
+    dotstarWing->dotstarMatrix->fillScreen(0);
     
-    if(previousMinute != clock->minute)
-    {
+//    if(previousMinute != clock->minute)
+//    {
         sprintf(str, "%2d%2d", clock->hour, clock->minute);
     
         Serial.println();
@@ -36,38 +38,42 @@ void DotstarTixUpdater::oneLoop()
         Serial.print(str);
         Serial.println("<");
 
-        dotstarWing->setTextMode(STILL);
-        dotstarWing->setText(str);    
-
-        dotstarWing->dotstarMatrix->setCursor(0, 5);
-        dotstarWing->dotstarMatrix->print(str);
+//TODO add this back        
+//        updateTime(clock->hour, clock->minute);
+        
+//        dotstarWing->setTextMode(STILL);
+//        dotstarWing->setText(str);    
+//
+//        dotstarWing->dotstarMatrix->setCursor(0, 5);
+//        dotstarWing->dotstarMatrix->print(str);
+        
         dotstarWing->dotstarMatrix->show();
         
         // reset the minute
         previousMinute = clock->minute;
-    }
+//    }
 }
 
-void DotstarTixUpdater::updateTime()
-{
-    unsigned long currentMillis = millis();
-    
-    unsigned long startTime = millis();
-     
-    long scrollInterval = 3 * 1000; // this is in milliseconds
-    
-    Serial.println();
-    Serial.print("scroll time: ");
-    Serial.print(dotstarWing->text);    
-
-    while(currentMillis < scrollInterval + startTime) 
-    {
-        currentMillis = millis();
-
-        dotstarWing->loop();
-    }
-    
-    Serial.println(" - end scroll");
-}
+//void DotstarTixUpdater::updateTime()
+//{
+//    unsigned long currentMillis = millis();
+//    
+//    unsigned long startTime = millis();
+//     
+//    long scrollInterval = 3 * 1000; // this is in milliseconds
+//    
+//    Serial.println();
+//    Serial.print("scroll time: ");
+//    Serial.print(dotstarWing->text);    
+//
+//    while(currentMillis < scrollInterval + startTime) 
+//    {
+//        currentMillis = millis();
+//
+//        dotstarWing->loop();
+//    }
+//    
+//    Serial.println(" - end scroll");
+//}
 
 #endif

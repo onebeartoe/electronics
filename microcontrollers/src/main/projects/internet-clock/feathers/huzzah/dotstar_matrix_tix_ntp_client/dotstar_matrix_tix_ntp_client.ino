@@ -23,30 +23,25 @@ Adafruit_DotStarMatrix matrix = Adafruit_DotStarMatrix(12, 6,
 
 InternetClock clock;
 
-//TODO Rename this to dostarTixClock
-DotstarTixClock dotstarWing(&matrix);
-//DotstarMatrixWing dotstarWing(&matrix);
+DotstarTixClock dostarTixClock(&matrix);
 
-DotstarTixUpdater displayUpdater(&clock, &dotstarWing);
+DotstarTixUpdater displayUpdater(&clock, &dostarTixClock);
 
 void setup() 
 {
     Serial.begin(9600);
 
     Serial.println("tix clock - dotstar matrix wing ntp client");
-    
-//    Serial.println(wwwww);
-    
+        
     // set a smaller spread than the default since there text string is short (only 4 chars)
-    dotstarWing.xSpread = 20;
+//    dostarTixClock.xSpread = 20;
     
-    dotstarWing.tixClockPositionsVerification();
+    dostarTixClock.tixClockPositionsVerification();
 }
 
 void loop()
 {
     clock.loop();
 
-//TODO: enable this once the tix positioning verification is done    
-//    displayUpdater.loop();
+    displayUpdater.loop();
 }
