@@ -56,6 +56,10 @@ class DotstarMatrixWing : public TextDisplableWing
 {
     public:
         
+        static const int ROWS = 6;
+        
+        static const int COLUMNS = 12;
+        
         const int SHIFTDELAY = 150;
         
         uint16_t primaryColors[3];
@@ -64,6 +68,7 @@ class DotstarMatrixWing : public TextDisplableWing
         
         DotstarMatrixWing(Adafruit_DotStarMatrix* dotstarMatrix);
 
+//TODO: move these variables to the scrolling text class
         int x;
         
         int xSpread = 50;
