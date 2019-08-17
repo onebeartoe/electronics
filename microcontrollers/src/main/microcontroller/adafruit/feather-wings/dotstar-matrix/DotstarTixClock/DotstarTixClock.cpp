@@ -7,7 +7,7 @@
 
 void DotstarTixClock::tixClockPositionsVerification()
 {
-    int displayDelay = 400;
+    int displayDelay = 250;
 
     uint16_t hourTensColor = dotstarMatrix->Color(5, 5, 155);
     
@@ -90,27 +90,44 @@ void DotstarTixClock::tixClockPositionsVerification()
 
 void DotstarTixClock::updateTime(int hour, int minute)
 {
-    int hourOnes = hour % 10;
+    updateHourOnes(hour);
+    
+    updateHourTens(hour);
+}
+
+void DotstarTixClock::updateHourOnes(int hours)
+{
+    int hourOnes = hours % 10;
+//    int hourOnes = 9;
     
     Serial.print("hourOnes -> ");
     Serial.println(hourOnes);
-    
-    // shuffle the indicies
+
+// I haven't figured out how to shuffle the array insdie the call to updatTimePanel()    
     std::random_shuffle(threeRowIndicies, threeRowIndicies + (sizeof(threeRowIndicies) / sizeof(*threeRowIndicies)));
-    
-    for(int ho = 0; ho < hourOnes; ho++)
-    {
-        int i = threeRowIndicies[ho];
-        
-        int x = hourOnesLocations[i][0];
-        
-        int y = hourOnesLocations[i][1];
-        
-        dotstarMatrix->drawPixel(x,y, hourOnesColor);
-    }
+    updateTimePanel(hourOnes, threeRowIndicies, hourOnesLocations, hourOnesColor);
+//    updateTimePanel(hourOnes, threeRowIndicies, &(hourOnesLocations[0][0]), hourOnesColor);    
 }
 
-void DotstarTixClock::updateTimePanel()
+void DotstarTixClock::updateHourTens(int hours)
 {
     
+}
+
+void DotstarTixClock::updateTimePanel(int count, int rowIndicies[], int locations[][2], uint16_t color)
+//void DotstarTixClock::updateTimePanel(int count, int* rowIndicies, int** locations, uint16_t color)
+{
+    // shuffle the indicies
+//    std::random_shuffle(rowIndicies, rowIndicies + (sizeof(rowIndicies) / sizeof(*rowIndicies)));
+    
+    for(int ho = 0; ho < count; ho++)
+    {
+        int i = rowIndicies[ho];
+        
+        int x = locations[i][0];
+        
+        int y = locations[i][1];
+        
+        dotstarMatrix->drawPixel(x,y, color);
+    }    
 }

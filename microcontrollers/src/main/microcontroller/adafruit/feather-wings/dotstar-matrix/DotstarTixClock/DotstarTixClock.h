@@ -101,7 +101,11 @@ class DotstarTixClock : public DotstarMatrixWing
             {0,5},            
         };
 
-        virtual void updateTimePanel();
+        virtual void updateHourOnes(int hours);
+        
+        virtual void updateHourTens(int hours);
+        
+        virtual void updateTimePanel(int count, int rowIndicies[], int locations[][2], uint16_t color);
 };
 
 #endif
