@@ -17,6 +17,8 @@ class DotstarTixClock : public DotstarMatrixWing
 
 
     private:
+
+        int oneRowIndicies[ROWS] = {0, 1, 2, 3, 4, 5};
         
         int hourTensLocations[ROWS][2] = 
         {
@@ -27,6 +29,10 @@ class DotstarTixClock : public DotstarMatrixWing
             {11,4},
             {11,5},
         };
+        
+        int threeRowIndicies[ROWS*3] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
+        
+        uint16_t hourOnesColor = dotstarMatrix->Color(5, 175, 5);
         
         int hourOnesLocations[ROWS*3][2] = 
         {
@@ -51,6 +57,8 @@ class DotstarTixClock : public DotstarMatrixWing
             {7,4},
             {7,5},            
         };
+        
+        int twoRowIndicies[ROWS*2] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
         
         int minuteTensLocations[ROWS*2][2] = 
         {
@@ -91,7 +99,9 @@ class DotstarTixClock : public DotstarMatrixWing
             {0,3},
             {0,4},
             {0,5},            
-        };        
+        };
+
+        virtual void updateTimePanel();
 };
 
 #endif

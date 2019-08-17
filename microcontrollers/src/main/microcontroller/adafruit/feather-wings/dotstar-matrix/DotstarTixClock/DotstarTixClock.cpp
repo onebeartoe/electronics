@@ -28,7 +28,7 @@ void DotstarTixClock::tixClockPositionsVerification()
         delay(displayDelay);
     }
     
-    uint16_t hourOnesColor = dotstarMatrix->Color(5, 175, 5);
+//    uint16_t hourOnesColor = dotstarMatrix->Color(5, 175, 5);
 
     for(int i = 0; i<ROWS*3; i++)
     {
@@ -40,7 +40,7 @@ void DotstarTixClock::tixClockPositionsVerification()
         Serial.print(",");        
         Serial.println(y);
         
-        dotstarMatrix->drawPixel(x,y, hourOnesColor);       
+        dotstarMatrix->drawPixel(x,y, hourOnesColor);
         
         dotstarMatrix->show();
         
@@ -95,11 +95,22 @@ void DotstarTixClock::updateTime(int hour, int minute)
     Serial.print("hourOnes -> ");
     Serial.println(hourOnes);
     
-    int hoes [hourOnes];
+    // shuffle the indicies
+    std::random_shuffle(threeRowIndicies, threeRowIndicies + (sizeof(threeRowIndicies) / sizeof(*threeRowIndicies)));
     
     for(int ho = 0; ho < hourOnes; ho++)
     {
+        int i = threeRowIndicies[ho];
         
+        int x = hourOnesLocations[i][0];
+        
+        int y = hourOnesLocations[i][1];
+        
+        dotstarMatrix->drawPixel(x,y, hourOnesColor);
     }
+}
+
+void DotstarTixClock::updateTimePanel()
+{
     
 }
