@@ -1,4 +1,8 @@
 
+#include <cstdlib> // for std::srand()
+
+#include <algorithm> // for std::random_shuffle()
+
 #include "DotstarTixClock.h"
 
 void DotstarTixClock::tixClockPositionsVerification()
@@ -84,8 +88,18 @@ void DotstarTixClock::tixClockPositionsVerification()
     Serial.println("ploop tix");
 }
 
-
 void DotstarTixClock::updateTime(int hour, int minute)
 {
+    int hourOnes = hour % 10;
+    
+    Serial.print("hourOnes -> ");
+    Serial.println(hourOnes);
+    
+    int hoes [hourOnes];
+    
+    for(int ho = 0; ho < hourOnes; ho++)
+    {
+        
+    }
     
 }

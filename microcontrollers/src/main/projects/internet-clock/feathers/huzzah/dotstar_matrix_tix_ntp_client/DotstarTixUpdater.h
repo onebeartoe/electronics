@@ -4,7 +4,10 @@
 
 #include <Adafruit_DotStarMatrix.h>
 
+
 #include <DotstarMatrixWing.h>
+
+#include <DotstarTixClock.h>
 
 #include "/home/roberto/Versioning/owner/github/onebeartoe/electronics/microcontrollers/src/main/projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/TextWingModes.h"
 
@@ -22,9 +25,9 @@ class DotstarTixUpdater : public TextDisplableWing
         
         InternetClock* clock;
                 
-        DotstarMatrixWing* dotstarWing;
+        DotstarTixClock* dotstarWing;
         
-        DotstarTixUpdater(InternetClock* clock, DotstarMatrixWing* dotstarWing);
+        DotstarTixUpdater(InternetClock* clock, DotstarTixClock* dotstarWing);
         
         virtual void oneLoop();
 
