@@ -17,8 +17,8 @@
 
 Adafruit_IS31FL3731_Wing matrix = Adafruit_IS31FL3731_Wing();
 
-void setup() {
-
+void setup() 
+{
   Serial.begin(9600);
   Serial.println("ISSI manual animation test");
   if (! matrix.begin()) 
@@ -40,7 +40,7 @@ int iterationLimit = -200;
 
 //String message = "Hola me llamo Roberto";
 String message = "Go Spurs Go!    ";
-//String message = "US12190 - Merge New 17.2 Incremental Security Scans";
+//String message = "Merge New Incremental Security Scans";
 
 void loop() 
 {
