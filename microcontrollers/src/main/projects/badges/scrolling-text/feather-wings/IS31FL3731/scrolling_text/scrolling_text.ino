@@ -29,9 +29,17 @@ void setup()
   Serial.println("IS31 Found!");
 
   matrix.setRotation(0);
-  matrix.setTextSize(1);
+  
+//  matrix.setBrightness(60);
+  
+//  matrix.setTextSize(2);
+  matrix.setTextSize(0.1);
+//  matrix.setTextSize(1);
+  
   matrix.setTextWrap(false);  // we dont want text to wrap so it scrolls nicely
-  matrix.setTextColor(100);  
+  
+  matrix.setTextColor(60);
+//  matrix.setTextColor(100);  
 }
 
 int iterationLimit = -200;
@@ -39,7 +47,8 @@ int iterationLimit = -200;
 //                 = -300;  // too long
 
 //String message = "Hola me llamo Roberto";
-String message = "Go Spurs Go!    ";
+String message = "10:30    ";
+//String message = "Go Spurs Go!    ";
 //String message = "Merge New Incremental Security Scans";
 
 void loop() 
