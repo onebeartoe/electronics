@@ -95,5 +95,5 @@ void setup()
     worm3.segmentColor = worm3.Color(0, 0, 255);
     
     matrix.begin();
-    matrix.setBrightness(5);
+    matrix.setBrightness(50);
 }
