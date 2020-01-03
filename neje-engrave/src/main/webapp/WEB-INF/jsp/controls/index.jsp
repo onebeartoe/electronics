@@ -32,7 +32,7 @@
                       
                       <input type="range" 
                              min="1" max="100" 
-                             value="50" 
+                             value="14" 
                              class="slider" 
                              id="burnTimeSlider">
 
