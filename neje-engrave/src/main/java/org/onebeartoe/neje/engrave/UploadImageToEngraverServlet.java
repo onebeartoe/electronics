@@ -42,10 +42,11 @@ public class UploadImageToEngraverServlet extends PlainTextResponseServlet
         
         String subpath = request.getPathInfo();
         
-        if( !subpath.matches("[a-zA-Z0-9-_.]++")
-            || !validationService.validatePath(baseDir, subpath) )
+        if( !validationService.validatePath(baseDir, subpath) )
         {
-            result = "The pat hwas not valid: " + subpath;
+            result = "The path was not valid: " + subpath;
+            
+            logger.info(result);
         }
         else
         {
