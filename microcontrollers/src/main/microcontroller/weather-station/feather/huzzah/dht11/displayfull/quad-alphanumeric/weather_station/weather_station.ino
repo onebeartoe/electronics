@@ -13,6 +13,8 @@
 // this next library is only used to turn off Wifi on the Huzzah.
 #include <ESP8266WiFi.h>
 
+#include "relative-path-includes.h"
+
 #define DHTPIN 2
 
 #define DHTTYPE DHT11   // DHT 11
@@ -25,6 +27,17 @@ unsigned long previousMillis = 0;
 
 //const long interval = 1000 * 60;  // once a minute
 const long interval = 1000 * 5;  // once every 5 seconds
+
+QuadAlphanumericWing alphaWing;
+
+boolean tempOrHumidityToggle = false; // if this value is true then display the temperature, otherwise then display the humidity
+
+void dthSetup()
+{
+    dht.begin();
+    
+    Serial.println("DHT1 is setup.");
+}
 
 void loop()
 {
@@ -58,7 +71,53 @@ void loopDht()
         Serial.print("Temperature: "); 
         Serial.print(t);
         Serial.println(" *C");
+     
+// to Fahrenheit
+//  Fahrenheit = ((9 * Centigrade) / 5.0) + 32        
+        
+        float f = ((9 * t) / 5.0) + 32;
+        
+        int fahrenheitAsInt = (int) f;
+        
+        String s;
+        
+        if(tempOrHumidityToggle)
+        {
+            s = padInt("T", fahrenheitAsInt);
+        }
+        else
+        {
+            int humidityAsInt = (int) h;        
+            
+            s = padInt("H", humidityAsInt);
+        }
+        
+        alphaWing.setText(s);
+        
+        Serial.print("toggle: ");
+        Serial.println(tempOrHumidityToggle);
+        
+        // toggle the display mode
+        tempOrHumidityToggle = !tempOrHumidityToggle;
     }
+}
+
+String padInt(String prefix, int i)
+{
+    String paddedString = "";
+    
+    if(i < 10)
+    {
+        // pad two spaces
+        paddedString += "  "; 
+    }
+    else if(i < 99)
+    {
+        // pad one space
+        paddedString += " ";
+    }
+    
+    return prefix + paddedString + String(i);
 }
 
 void setup() 
@@ -71,11 +130,7 @@ void setup()
     WiFi.mode(WIFI_OFF);
         
     dthSetup();
-}
-
-void dthSetup()
-{
-    dht.begin();
     
-    Serial.println("DHT1 is setup.");
+//    alphaWing.brightness(5);
+    alphaWing.setWingMode(TextWingModes::STILL);    
 }
