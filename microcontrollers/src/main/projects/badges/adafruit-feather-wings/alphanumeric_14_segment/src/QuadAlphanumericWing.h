@@ -12,7 +12,7 @@
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
 
-#include "WingModes.h"
+#include "TextWingModes.h"
 
 class QuadAlphanumericWing : public ArduinoLoopTask
 {
@@ -24,7 +24,7 @@ class QuadAlphanumericWing : public ArduinoLoopTask
         
         int scrollingTextLength;
         
-        WingMode wingMode;
+        TextWingModes wingMode;
 
         QuadAlphanumericWing();
 
@@ -36,7 +36,7 @@ class QuadAlphanumericWing : public ArduinoLoopTask
         
         virtual void setText(String text);
         
-        virtual void setWingMode(WingMode mode);
+        virtual void setWingMode(TextWingModes mode);
     
     private:
     

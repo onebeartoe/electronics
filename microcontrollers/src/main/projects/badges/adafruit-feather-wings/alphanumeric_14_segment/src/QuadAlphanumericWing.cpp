@@ -148,7 +148,7 @@ void QuadAlphanumericWing::setScrollingText(String text)
     this->scrollingText = text;
 }
 
-void QuadAlphanumericWing::setWingMode(WingMode mode)
+void QuadAlphanumericWing::setWingMode(TextWingModes mode)
 {
     this->wingMode = mode;
 }
