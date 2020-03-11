@@ -1,0 +1,49 @@
+Big Wheel User Story:
+
+As the "Big Wheel" operator, 
+I need to keep track of the contestants' spins,
+so that the game state is correctly managed.
+
+Acceptance Criteria - Game
+01 - One or more players are required.
+
+02 - A player is 'out' if they score more than 100 points.
+
+03 - The 1st player in the current round becomes the 'high score 
+     player' if they are not 'out' at the end of their turn.
+
+04 - The game ends if there is no high score tie at the end of regulation or overtime.
+
+05 - The winner is the player with the highest score under or at 100 points, if there 
+     is no tie for highest score.
+
+06 - There is no winner if all players are 'out' (went over 100 points).
+
+07 - The 'Big Wheel' has 10 numbers in this order: 100, 15, 70, 55, 80, 20, 65, 35, 40, 10.
+     * UPDATE THIS WITH THE ACTUAL VALUES.
+
+
+Acceptance Criteria - Turns
+01 - Each player gets a maximum of 2 spins in the regulation round.
+
+02 - A player can stop at one spin.
+
+03 - A player's turn ends if they reach 100 points in one or two spins.
+
+04 - After player 1's turn, other players become the 'high score player' if 
+     their score beats the previous player's score.
+
+05 - Any spin that does not go 'all the way around' does not count and must be re-spun.
+
+06 - A spin goes 'all the way around' if it moves the total number of spaces plus one.
+
+Acceptance Criteria - Overtime 
+01 - If any players are tied at or under 100 points, after each player has had thier turn, 
+     then the tied players go to 'overtime' if their score is the high score.
+
+02 - An 'overtime' round follows the same rules as regulation, with the exception that there is only one 
+     spin per turn.
+
+03 - At the end of an overtime round, if there are tied players then they play another overtime round, 
+     until there is no tie.
+               
