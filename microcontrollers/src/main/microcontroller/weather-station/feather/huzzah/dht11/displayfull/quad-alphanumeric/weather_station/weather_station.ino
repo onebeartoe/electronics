@@ -4,10 +4,14 @@
 /**
  *   Temperature and Humidity Sensor
  *
- *       http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/
+ *      http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/
  *
  *  
- *	https://www.seeedstudio.com/Grove-Temperature-Humidity-Sensor-DHT11-p-745.html
+ *	    https://www.seeedstudio.com/Grove-Temperature-Humidity-Sensor-DHT11-p-745.html
+ *
+ *   Quadalpha Numeric FeatherWing Display
+ *
+ *      https://www.adafruit.com/product/3129
  */
 
 // this next library is only used to turn off Wifi on the Huzzah.

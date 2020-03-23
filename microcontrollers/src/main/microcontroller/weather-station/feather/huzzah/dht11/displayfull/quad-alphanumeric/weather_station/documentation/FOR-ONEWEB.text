@@ -4,13 +4,21 @@ Overview
     This project uses 3D printing, a temperature and humidity sensor, and solar power 
      to make a birdhouse with a simple weather station attached.
 
+!!!!!!!!!!PHOTO - use the one with my dad     
+
 Hardware           
 
-    display
-    !!!!!!!!!!LINK
+    *   Quadalpha Numeric FeatherWing Display
+ *
+ *      https://www.adafruit.com/product/3129
 
-    temperature & humidity sensor
-!!!!!!!!!!LINK
+    Temperature and Humidity Sensor
+ *
+ *      http://wiki.seeedstudio.com/Grove-Temperature_and_Humidity_Sensor_Pro/
+ *
+ *  
+ *	    https://www.seeedstudio.com/Grove-Temperature-Humidity-Sensor-DHT11-p-745.html
+ 
 
     solar panel & mounting bracket
 !!!!!!!!!!LINK
@@ -65,6 +73,9 @@ Usage
     the usage is to place mount the solar panel in a sunny spot and place the attached 
     microcontroller and display in a location where they cannot get wet.
     
+    !!!!!!!!update to a sentence
+    V15 into Always On mode: www.voltaicsystems.com/always-on
+
     Then you can look at the 
     !!!!!!!!TYPE OF DISPLAY
     and observe the temperature and humidity.                        
