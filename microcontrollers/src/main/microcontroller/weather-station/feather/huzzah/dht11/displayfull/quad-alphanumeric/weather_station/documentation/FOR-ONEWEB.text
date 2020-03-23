@@ -1,0 +1,89 @@
+
+Overview                               
+
+    This project uses 3D printing, a temperature and humidity sensor, and solar power 
+     to make a birdhouse with a simple weather station attached.
+
+Hardware           
+
+    display
+    !!!!!!!!!!LINK
+
+    temperature & humidity sensor
+!!!!!!!!!!LINK
+
+    solar panel & mounting bracket
+!!!!!!!!!!LINK
+
+    rechargable battery
+!!!!!!!!!!LINK
+
+    microcontroller
+!!!!!!!!!!LINK
+
+    birdhouse
+!!!!!!!!!!LINK
+
+Assembly                          
+
+	Instructions                
+
+    Assemble an Adafruit QuadAlpha Feather Wing as described 
+        here !!!!!!!!!!!!!!!!
+
+    Follow the 
+
+        Circuit diagram
+!!!!!!!!!!PHOTO
+
+        to attach the temperature and humidity sensor
+
+            !!!!!!!!!!!!!!!!Project Photos
+
+    The solar panel is connected to the Voltaic bard rechargable battery.  
+
+    Then connect the rechargable battery to the microcontroller.
+
+!!!!!!!!!!Project Photos
+
+Software Prerequisites          
+
+    This project requires the Arduino IDE flash the C code to the microcontroller.
+
+Software Walkthrough           
+
+    This project used an Adafruit Huzza Feather for the microcontroller, but any Feather should work since 
+    none of the ESP3266 WiFi features are used in this version of the project.
+
+    The code uses the 
+    !!!!!!!!BMT11(is this correct?) sensor and corresponding library for 
+    temperature and humidity readings.
+
+Usage                                 
+
+	Once the hardare for this project is assembled and the firmware uploaded to the microcontroller,
+    the usage is to place mount the solar panel in a sunny spot and place the attached 
+    microcontroller and display in a location where they cannot get wet.
+    
+    Then you can look at the 
+    !!!!!!!!TYPE OF DISPLAY
+    and observe the temperature and humidity.                        
+
+Resources                             
+	!!!!!!!!!!11STL link to Thingiverse 
+	
+    !!!!!!!!!!11Source code link        
+	
+    !!!!!!!!!!11Project Progress Link 
+	
+    !!!!!!!!!!11oneweb.net - resource links 
+
+Going Further 
+
+    To make take this project go further:
+
+        actually use some of the ESP3266 features
+
+        create/model a 3D printed enclousre for the display an microcontroller
+
+
