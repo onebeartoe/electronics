@@ -1,4 +1,17 @@
 
+oneweb.net
+
+Check out this birdhouse that doubles as a basic weather station, with a temperature and humidity 
+sensor and 14 setment LED display.
+
+!!!!!!!!!!LINK
+    !!!!!!!!!!PHOTO
+!!!!!!!!!!LINK
+
+-------------------------------------------------------------------------
+
+oneweb.org
+
 Overview                               
 
     This project uses 3D printing, a temperature and humidity sensor, and solar power 
@@ -8,7 +21,7 @@ Overview
 
 Hardware           
 
-    *   Quadalpha Numeric FeatherWing Display
+    *   Quad Alpha Featherwing Display
  *
  *      https://www.adafruit.com/product/3129
 
@@ -20,24 +33,30 @@ Hardware
  *	    https://www.seeedstudio.com/Grove-Temperature-Humidity-Sensor-DHT11-p-745.html
  
 
-    solar panel & mounting bracket
-!!!!!!!!!!LINK
+    solar panel
+        https://voltaicsystems.com/2-watt-panel/
+
+
+    mounting bracket
+        https://voltaicsystems.com/small-bracket/
+
 
     rechargable battery
-!!!!!!!!!!LINK
+        https://voltaicsystems.com/v15/
 
     microcontroller
-!!!!!!!!!!LINK
+        https://www.adafruit.com/product/2821
 
     birdhouse
-!!!!!!!!!!LINK
+        https://www.thingiverse.com/thing:3705723
 
 Assembly                          
 
 	Instructions                
 
-    Assemble an Adafruit QuadAlpha Feather Wing as described 
-        here !!!!!!!!!!!!!!!!
+    Assemble an Adafruit Quad Alpha Featherwing as described 
+        here 
+        https://learn.adafruit.com/14-segment-alpha-numeric-led-featherwing
 
     Follow the 
 
@@ -64,7 +83,7 @@ Software Walkthrough
     none of the ESP3266 WiFi features are used in this version of the project.
 
     The code uses the 
-    !!!!!!!!BMT11(is this correct?) sensor and corresponding library for 
+    DHT11 sensor and corresponding library for 
     temperature and humidity readings.
 
 Usage                                 
@@ -73,21 +92,29 @@ Usage
     the usage is to place mount the solar panel in a sunny spot and place the attached 
     microcontroller and display in a location where they cannot get wet.
     
-    !!!!!!!!update to a sentence
-    V15 into Always On mode: www.voltaicsystems.com/always-on
+    
+    Be sure to follow the 
+    V15 Always On mode Instructions
+    !!!!!!!!!LINK
+    www.voltaicsystems.com/always-on
 
     Then you can look at the 
-    !!!!!!!!TYPE OF DISPLAY
+    Quad Alpha Featherwing Display
     and observe the temperature and humidity.                        
 
 Resources                             
 	!!!!!!!!!!11STL link to Thingiverse 
+        !!!!!!!!1this is to the make
 	
-    !!!!!!!!!!11Source code link        
+    Source code link        
+    !!!!!!!!!!
+    https://github.com/onebeartoe/electronics/tree/master/microcontrollers/src/main/microcontroller/weather-station/feather/huzzah/dht11/displayfull/quad-alphanumeric/weather_station
 	
-    !!!!!!!!!!11Project Progress Link 
+    Project Progress Link 
+    !!!!!!!!!!
+    https://github.com/onebeartoe/electronics/blob/master/microcontrollers/src/main/microcontroller/weather-station/feather/huzzah/dht11/displayfull/quad-alphanumeric/weather_station/documentation/publish.text
 	
-    !!!!!!!!!!11oneweb.net - resource links 
+    !!!!!!!!!!oneweb.net - resource links 
 
 Going Further 
 
@@ -95,6 +122,10 @@ Going Further
 
         actually use some of the ESP3266 features
 
-        create/model a 3D printed enclousre for the display an microcontroller
+            look up and display the current Temperature_and_Humidity_Sensor_Pro
+
+            serve a Webpage that shows the temperature and humidity
+
+        create/model a 3D printed enclousre for the display and microcontroller
 
 
