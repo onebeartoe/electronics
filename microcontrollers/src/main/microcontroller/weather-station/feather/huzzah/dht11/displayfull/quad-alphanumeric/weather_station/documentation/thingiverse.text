@@ -1,10 +1,24 @@
 
-title
+title - Birdhouse with Basic Weather Station
 
-description
+description:
+
+    This some electronics to the birdhouse to make a basic weather station.
+
+    See the project page for more information:
+
+        http://onebeartoe.org/electronics/weather-station/feather/huzzah/dht11/displayfull/quad-alphanumeric/basic/
 
 oneweblink
 
 sources
 
+    https://www.thingiverse.com/thing:3705723
+
 tags
+
+    birdhouse
+
+    electronics 
+
+    adafruit
