@@ -9,10 +9,14 @@
 //
 //      https://www.adafruit.com/product/1603
 
+
 #include "configuration.h"
 
+
 #include "AdafruitIO_WiFi.h"
+
 #include "Adafruit_BMP085.h"
+
 #include "Adafruit_LEDBackpack.h"
 
 #include <Adafruit_GFX.h>
