@@ -9,9 +9,7 @@
 //
 //      https://www.adafruit.com/product/1603
 
-
 #include "configuration.h"
-
 
 #include "AdafruitIO_WiFi.h"
 
@@ -36,7 +34,7 @@ AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
 
 // AIO post interval settings
 unsigned long aioPostPreviousMillis = 0;
-const long aioPostInterval = 1000 * 60;  // once a minute
+const long aioPostInterval = 1000 * 60 * 6;  // once every six minutes
 
 // serial output interval settings
 unsigned long serialPreviousMillis = 0;
@@ -79,13 +77,30 @@ void aioPost(unsigned long currentMillis)
         // update the scrolling text
         int width = 8;
         int percision = 1;
-        
-        scrollText = dtostrf(degreesCelsius, width, percision, scrollTextBuffer);
-        scrollText += " C";
+
+        double degrees = degreesCelsius;
+
+        bool FAHRENHEIT = true;
+
+        if(FAHRENHEIT)
+        {
+            double fahrenheit = (9.0/5.0)*degreesCelsius + 32;
+
+            degrees = fahrenheit;
+        }
+
+        scrollText = dtostrf(degrees, width, percision, scrollTextBuffer);
+
+        if(FAHRENHEIT)
+        {
+            scrollText += " F";
+        }
+        else
+        {
+            scrollText += " C";
+        }
     }    
 }
-
-
 
 void ledDisplay(unsigned long currentMillis)
 {
