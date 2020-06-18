@@ -73,32 +73,6 @@ void aioPost(unsigned long currentMillis)
 
         // save humidity to Adafruit IO
         humidity->save(pressureReading);
-        
-        // update the scrolling text
-        int width = 8;
-        int percision = 1;
-
-        double degrees = degreesCelsius;
-
-        bool FAHRENHEIT = true;
-
-        if(FAHRENHEIT)
-        {
-            double fahrenheit = (9.0/5.0)*degreesCelsius + 32;
-
-            degrees = fahrenheit;
-        }
-
-        scrollText = dtostrf(degrees, width, percision, scrollTextBuffer);
-
-        if(FAHRENHEIT)
-        {
-            scrollText += " F";
-        }
-        else
-        {
-            scrollText += " C";
-        }
     }    
 }
 
@@ -120,7 +94,38 @@ void ledDisplay(unsigned long currentMillis)
         {
             x = xStart;
         }
+
+        sensorReading();
     }
+}
+
+void sensorReading()
+{
+    // update the scrolling text
+    int width = 8;
+    int percision = 1;
+
+    double degrees = degreesCelsius;
+
+    bool FAHRENHEIT = true;
+
+    if(FAHRENHEIT)
+    {
+        double fahrenheit = (9.0/5.0)*degreesCelsius + 32;
+
+        degrees = fahrenheit;
+    }
+
+    scrollText = dtostrf(degrees, width, percision, scrollTextBuffer);
+
+    if(FAHRENHEIT)
+    {
+        scrollText += " F";
+    }
+    else
+    {
+        scrollText += " C";
+    }    
 }
 
 void loop() 
