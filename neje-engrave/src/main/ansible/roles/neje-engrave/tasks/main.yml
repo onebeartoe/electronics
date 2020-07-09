@@ -7,5 +7,5 @@
 
 - name: Download the application WAR file.
   get_url:
-    url: https://gitlab.com/onebeartoe/electronics/-/jobs/175005898/artifacts/raw/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
+    url: https://gitlab.com/onebeartoe/electronics/-/jobs/631724229/artifacts/raw/neje-engrave/target/neje-engrave-0.0.1-SNAPSHOT.war
     dest: "{{ optDirectory }}"
