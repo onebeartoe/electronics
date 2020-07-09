@@ -29,3 +29,8 @@
   apt:
       name: openjdk-8-jdk
   tags: [apt-prerequisites]
+
+- name: git is installed
+  apt:
+      name: git
+  tags: [apt-prerequisites]
