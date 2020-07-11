@@ -49,7 +49,8 @@
                     </div>
                     
                     <div class="sideBySideRight" style="width: 45%;">
-                        <img src=http://192.168.1.113:8081/ 
+<!--TODO: don't hard code this-->                        
+                        <img src=http://192.168.1.191:8081/ 
                              alt="This is the Webcam image."
                              border=0; 
                              width=75%;>
