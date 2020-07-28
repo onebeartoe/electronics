@@ -25,7 +25,7 @@ pipeline
 
                     ls -ltrh
 
-                    ansible-playbook camera.yml -i ansible-betoland.inventory -l laserengraver1
+                    ansible-playbook camera.yml -i ansible-betoland.inventory -l camera-light-stick
                 '''
             }
         }
