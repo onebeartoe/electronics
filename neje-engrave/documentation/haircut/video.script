@@ -1,5 +1,5 @@
 
-Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansible
+Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansible and Jenkins
 
 00 - Intro 
 
@@ -9,7 +9,7 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
     Hi, I am Roberto Marquez.  
     
-    In this video, I demonstrate how to cut your own hair with the aid of a Raspberry Pi, Camera, TV, Chromecast, and Wifi. 
+    In this video, I demonstrate how to cut your own hair with the aid of a Raspberry Pi, Camera, TV, Wifi, Chromecast, and optionally Ansible and Jenkins. 
 
     The main goal of this project is to have a view of the back of your head while cutting your own hair.
 
@@ -25,9 +25,9 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
     before
 
-    front
-
     back
+
+    front
 
     after
 
@@ -41,9 +41,15 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
 05 - Detailed Setup Intructions
 
-    using localhost on the Raspberry Pi
+    motion
 
-    using Jenkins to provision the Raspberry Pi
+        using localhost on the Raspberry Pi
+
+        using Jenkins to provision the Raspberry Pi
+
+    show browser with motion Web server
+
+    framerate configuration
 
 06 - Outro
 
@@ -52,4 +58,3 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
     But is was a fun way to use technology in a way I had not before.
 
     Thanks for watching; like and subscribe for more DIY grooming content.
-
