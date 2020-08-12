@@ -3,8 +3,12 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
 00 - Intro 
 
-    like the one from the 'Press Your Button' video
-    
+    Narrator
+
+        "Do you cut your own hair with a mirror, like a caveman?"
+
+    Black and White Caveman shaving beard and side of head 
+
 01 - Greeting
 
     Hi, I am Roberto Marquez.  
@@ -33,11 +37,11 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
  04 - Evaluation
 
-    okay, but needs a better framerate
+    this first attempt was okay, but needs a better framerate
 
     maybe only use the Raspberry Pi Camera, and not a USB camera, since motion may have sent slow updates
 
-    this idea would prolly work with a better camera framerate
+    this idea would prolly work better if I actually knew hot to cut hair.
 
 05 - Detailed Setup Intructions
 
