@@ -51,11 +51,16 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
         using localhost on the Raspberry Pi
 
+            sudo apt install motion
+
+            sudo motion
+
+        show browser with motion Web server
+
+        framerate configuration
+
+    motion
         using Jenkins to provision the Raspberry Pi
-
-    show browser with motion Web server
-
-    framerate configuration
 
 06 - Outro
 
