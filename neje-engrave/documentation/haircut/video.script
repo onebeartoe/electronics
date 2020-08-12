@@ -21,6 +21,8 @@ Haircut Aided by Raspberry Pi, Camera, TV, Chromecast, WiFi, and Optionally Ansi
 
     show hardware setup
 
+    Enable the Raspberry Pi camera via raspi-config
+
     established Wifi connectons with SSH support
 
     optional - Jenkins 
