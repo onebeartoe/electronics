@@ -33,16 +33,16 @@ AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
 
 #include "relative-path-includes.h"
 
-AdafruitIoTask ioTask;
-//AdafruitIoTask ioTask();
+float fahrenheitTemperature;
+
+//AdafruitIoTask ioTask;
+AdafruitIoTask ioTask(&fahrenheitTemperature);
 
 #define DHTPIN 2
 
 #define DHTTYPE DHT11   // DHT 11
 
 DHT dht(DHTPIN, DHTTYPE);
-
-float degreesCelsius;
 
 unsigned long previousMillis = 0;
 
@@ -98,9 +98,9 @@ void loopDht()
 // to Fahrenheit
 //  Fahrenheit = ((9 * Centigrade) / 5.0) + 32        
         
-        float f = ((9 * t) / 5.0) + 32;
+        fahrenheitTemperature = ((9 * t) / 5.0) + 32;
         
-        int fahrenheitAsInt = (int) f;
+        int fahrenheitAsInt = (int) fahrenheitTemperature;
         
         String s;
         

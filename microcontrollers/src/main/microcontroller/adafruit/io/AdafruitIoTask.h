@@ -9,10 +9,13 @@ class AdafruitIoTask : public ArduinoLoopTask
 {
     public:
 
-        AdafruitIoTask();
+        AdafruitIoTask(float * fahrenheitTemperature);
 
         virtual void oneLoop();
 
+    private:
+
+        float * temperature;
 };
 
 #endif
