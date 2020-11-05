@@ -5,3 +5,6 @@
 
 #include RELATIVE_PATH(projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/QuadAlphanumericWing.h)
 #include RELATIVE_PATH(projects/badges/adafruit-feather-wings/alphanumeric_14_segment/src/QuadAlphanumericWing.cpp)
+
+#include RELATIVE_PATH(microcontroller/adafruit/io/AdafruitIoTask.h)
+#include RELATIVE_PATH(microcontroller/adafruit/io/AdafruitIoTask.cpp)

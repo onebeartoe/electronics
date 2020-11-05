@@ -3,6 +3,11 @@
 //TODO: add the Web code from here:
 //          https://github.com/onebeartoe/electronics/blob/master/microcontrollers/src/main/microcontroller/weather-station/feather/huzzah/bmp180/headless/huzzah_feather_weather_station_bmp180/huzzah_feather_weather_station_bmp180.ino
 
+/**
+ * This file has WiFi configuration.
+ */
+#include "configuration.h"
+
 #include "DHT.h"
 
 /**
@@ -18,10 +23,18 @@
  *      https://www.adafruit.com/product/3129
  */
 
-// this next library is only used to turn off Wifi on the Huzzah.
-#include <ESP8266WiFi.h>
+#include "AdafruitIO_WiFi.h"
+
+AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+
+// set up the 'temperature' and 'humidity' feeds
+AdafruitIO_Feed *temperature = io.feed("rainmaker-backyard-top-temperature");
+AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
 
 #include "relative-path-includes.h"
+
+AdafruitIoTask ioTask;
+//AdafruitIoTask ioTask();
 
 #define DHTPIN 2
 
@@ -57,6 +70,8 @@ void loop()
         
         loopDht();
     }
+
+    ioTask.loop();
 }
 
 void loopDht()
@@ -134,8 +149,7 @@ void setup()
 
     Serial.println("Application setup is in progress.");
 
-    // this version does not use Wifi at all.
-    WiFi.mode(WIFI_OFF);
+
         
     dthSetup();
     
