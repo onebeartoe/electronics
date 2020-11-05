@@ -28,7 +28,7 @@
 AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
 
 // set up the 'temperature' and 'humidity' feeds
-AdafruitIO_Feed *temperature = io.feed("rainmaker-backyard-top-temperature");
+AdafruitIO_Feed *temperature = io.feed("river-bend-underhouse-temperature");
 AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
 
 #include "relative-path-includes.h"
@@ -36,7 +36,7 @@ AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
 float fahrenheitTemperature;
 
 //AdafruitIoTask ioTask;
-AdafruitIoTask ioTask(&fahrenheitTemperature);
+AdafruitIoTask ioTask(temperature, &fahrenheitTemperature);
 
 #define DHTPIN 2
 
@@ -62,6 +62,8 @@ void dthSetup()
 
 void loop()
 {
+    io.run();
+
     unsigned long currentMillis = millis();
     
     if(currentMillis - previousMillis >= interval) 
@@ -117,9 +119,6 @@ void loopDht()
         
         alphaWing.setText(s);
         
-        Serial.print("toggle: ");
-        Serial.println(tempOrHumidityToggle);
-        
         // toggle the display mode
         tempOrHumidityToggle = !tempOrHumidityToggle;
     }
@@ -154,5 +153,25 @@ void setup()
     dthSetup();
     
 //    alphaWing.brightness(5);
-    alphaWing.setWingMode(TextWingModes::STILL);    
+    alphaWing.setWingMode(TextWingModes::STILL);
+
+
+    adafruitIoSetup();
+}
+
+void adafruitIoSetup()
+{
+    Serial.print("Connecting to Adafruit IO");
+    io.connect();
+
+    // wait for a connection
+    while(io.status() < AIO_CONNECTED) 
+    {
+      Serial.print(".");
+      delay(500);
+    }
+
+    // we are connected
+    Serial.println();
+    Serial.println(io.statusText());
 }
