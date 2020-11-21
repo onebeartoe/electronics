@@ -1,11 +1,14 @@
 
 
 Mom’s Weather Station
-  - Mount to eave 
-  - update firmware for Oakdale
-  - enclosure for All Electronics
-  - Pre enclosure overnight test run
-  - E6000  for all connections
+  - [ ] oneweb
+          org 
+            link to github/onebearttoe/3d-modeling -> the rounded corner end cap
+  - [ ] Mount to eave
+  - [ ] Pre enclosure overnight test run
+  - [ ] update firmware for Oakdale
+  - [x] enclosure for All Electronics
+  - [x] E6000  for all connections
   - [x]Try to fix the Verter
     + Resolder the USB connection again, again
     + Side breakouts
