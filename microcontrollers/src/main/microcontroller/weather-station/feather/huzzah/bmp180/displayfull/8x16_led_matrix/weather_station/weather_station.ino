@@ -31,12 +31,12 @@ float degreesCelsius;
 float pressureReading;
 
 // set up the Adafruit IO 'temperature' and 'humidity' feeds
-AdafruitIO_Feed *temperature = io.feed("rainmaker-backyard-top-temperature");
-AdafruitIO_Feed *humidity = io.feed("rainmaker-backyard-top-pressure");
+AdafruitIO_Feed *temperature = io.feed("oakdale-backyard-temperature");
+AdafruitIO_Feed *humidity = io.feed("oakdale-backyard-pressure");
 
 // AIO post interval settings
 unsigned long aioPostPreviousMillis = 0;
-const long aioPostInterval = 1000 * 60 * 6;  // once every six minutes
+const long aioPostInterval = 1000 * 60 * 10;  // once every six minutes
 
 // serial output interval settings
 unsigned long serialPreviousMillis = 0;
