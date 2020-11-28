@@ -28,6 +28,8 @@ Adafruit_BMP085 bmp;
 
 float degreesCelsius;
 
+float degreesFahrenheit;
+
 float pressureReading;
 
 // set up the Adafruit IO 'temperature' and 'humidity' feeds
@@ -68,7 +70,7 @@ void aioPost(unsigned long currentMillis)
         aioPostPreviousMillis = currentMillis;
 
         // save fahrenheit (or celsius) to Adafruit IO
-        temperature->save(degreesCelsius);
+        temperature->save(degreesFahrenheit);
 
         Serial.println("posting to Adafruit IO");
         Serial.println();
@@ -113,9 +115,9 @@ void sensorReading()
 
     if(FAHRENHEIT)
     {
-        double fahrenheit = (9.0/5.0)*degreesCelsius + 32;
+        degreesFahrenheit = (9.0/5.0)*degreesCelsius + 32;
 
-        degrees = fahrenheit;
+        degrees = degreesFahrenheit;
     }
 
     scrollText = dtostrf(degrees, width, percision, scrollTextBuffer);
