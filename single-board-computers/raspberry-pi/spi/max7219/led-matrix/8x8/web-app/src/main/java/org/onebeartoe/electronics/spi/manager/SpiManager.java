@@ -64,15 +64,20 @@ public class SpiManager
 
             ImageMode.showAllImages(spi, 2000);
             AsciiCharacterMode.showAllAsciiCharacters(spi, 750);
-            AsciiCharacterMode.scrollAllAsciiCharacters(spi, 50);        
+            AsciiCharacterMode.scrollAllAsciiCharacters(spi, 50);
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
         }
         finally
         {
             //spi = null;
         }
+    }
+    
+    public void scrollUserText() throws SpiException
+    {
+        AsciiCharacterMode.scrollAllAsciiCharacters(spi, 50);
     }
 }
