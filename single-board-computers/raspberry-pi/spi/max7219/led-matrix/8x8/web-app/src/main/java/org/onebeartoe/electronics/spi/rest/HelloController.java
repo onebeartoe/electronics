@@ -1,4 +1,4 @@
-package org.onebeartoe.electronics.spi.controller;
+package org.onebeartoe.electronics.spi.rest;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
