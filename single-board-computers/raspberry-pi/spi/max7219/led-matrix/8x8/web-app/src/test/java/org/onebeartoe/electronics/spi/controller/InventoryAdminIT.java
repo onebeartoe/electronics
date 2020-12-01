@@ -21,23 +21,29 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class InventoryAdminIT {
+public class InventoryAdminIT 
+{
+    @LocalServerPort
+    private int port;
 
-	@LocalServerPort
-	private int port;
+    private URL base;
 
-	private URL base;
-
-	@Autowired
-	private TestRestTemplate template;
+    @Autowired
+    private TestRestTemplate template;
 
     @BeforeEach
     public void setUp() throws Exception {
         this.base = new URL("http://localhost:" + port + "/inventory");
     }
 
+    /**
+     * AC4
+     * This integration test verifies all mode options are present on the user 
+     * interface.
+     * @throws Exception 
+     */
     @Test
-    public void getHello() throws Exception 
+    public void modesArePresent() throws Exception 
     {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
