@@ -43,8 +43,7 @@ public class InventoryAdminIT {
                 String.class);
         String body = response.getBody();
         assertThat(body).contains("New Product");
-        
-        String blogUrl = "https://spring.io/blog";
+
         Document doc = Jsoup.parse(body);
         Element modesSelect = doc.getElementById("modeOptions");
         Elements listItems = modesSelect.getElementsByTag("option");
