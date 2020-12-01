@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>Inventory</title> 
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+        <link rel="stylesheet" href="/layout.css" />
+    	<link rel="stylesheet" href="/style.css" />
+    </head>
+
+    <body>
+        <script type="text/javascript" src="/logs.js"></script>
+                        
+        <script type="text/javascript" src="/inventory.js"></script>
+
+        <script type="text/javascript" >
+            refreshInventory();
+        </script>        
+
+        <div class="navigation">
+            <a href="/products">Products</a>
+        </div>
+        
+        <h1>Inventory</h1>
+        
+        <div id="newProduct" class="products newProduct">
+            New Product
+            
+            <br>
+            <br>
+            
+            <label for="newProductName">Name</label>
+            
+            <input id="newProductName" type="text">
+            
+            <label for="newProductQuantity">Quantity</label>
+            
+            <input id="newProductQuantity" type="text">
+            
+            <button onclick="submitNewProduct()" >Add</button>
+        </div>
+        
+        <div id="inventory" class="products">
+            
+        </div>
+        
+        <div id="logs" class="logs">
+            
+        </div>          
+    </body>
+</html>
+
