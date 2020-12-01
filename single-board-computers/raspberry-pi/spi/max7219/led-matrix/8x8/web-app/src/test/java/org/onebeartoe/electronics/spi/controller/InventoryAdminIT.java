@@ -3,6 +3,13 @@ package org.onebeartoe.electronics.spi.controller;
 import static org.assertj.core.api.Assertions.*;
 
 import java.net.URL;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +37,33 @@ public class InventoryAdminIT {
     }
 
     @Test
-    public void getHello() throws Exception {
+    public void getHello() throws Exception 
+    {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
-        assertThat(response.getBody()).contains("New Product");
+        String body = response.getBody();
+        assertThat(body).contains("New Product");
+        
+        String blogUrl = "https://spring.io/blog";
+        Document doc = Jsoup.parse(body);
+        Element modesSelect = doc.getElementById("modeOptions");
+        Elements listItems = modesSelect.getElementsByTag("option");
+        
+        List<String> presentModes = listItems.stream()
+                                        .map( item ->
+                                        {
+                                            String value = item.val();
+                                            
+                                            return value;
+                                        })
+                .collect( Collectors.toList());
+        
+        List<String> requiredModes = List.of("WEATHER", "USER_TEXT", "TIME", "ROTATE");
+        
+        for(String required : requiredModes)
+        {
+            // verify every required mode is present
+            assertTrue( presentModes.contains(required) );
+        }
     }
 }
