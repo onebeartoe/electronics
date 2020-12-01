@@ -1,5 +1,5 @@
 
-package org.onebeartoe.electronics.spi.controller;
+package org.onebeartoe.electronics.spi.rest;
 
 import static org.assertj.core.api.Assertions.*;
 
