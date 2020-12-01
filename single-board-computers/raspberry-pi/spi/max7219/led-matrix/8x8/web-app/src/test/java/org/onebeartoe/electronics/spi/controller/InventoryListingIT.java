@@ -26,7 +26,6 @@ public class InventoryListingIT
     @Autowired
     private TestRestTemplate template;
 
-//    @Before
     @BeforeEach
     public void setUp() throws Exception 
     {

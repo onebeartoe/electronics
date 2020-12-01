@@ -1,3 +1,4 @@
+
 package org.onebeartoe.electronics.spi.controller;
 
 import static org.assertj.core.api.Assertions.*;
@@ -32,7 +33,8 @@ public class ModeControlsIT
     private TestRestTemplate template;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() throws Exception 
+    {
         this.base = new URL("http://localhost:" + port + "/controls");
     }
 
