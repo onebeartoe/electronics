@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
  * This class sends an HTML UI for the products listing page.
  */
 @Controller
-public class InventoryAdminController
+public class ControlsController
 {
-    @GetMapping("/inventory")
+    @GetMapping("/controls")
     public String products(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model)  
     {
         model.addAttribute("name", name);
-        return "inventory";        
+        return "controls";        
     }
 }

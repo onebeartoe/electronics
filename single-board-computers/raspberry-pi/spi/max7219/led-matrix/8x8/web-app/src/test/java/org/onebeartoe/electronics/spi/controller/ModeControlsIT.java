@@ -33,7 +33,7 @@ public class ModeControlsIT
 
     @BeforeEach
     public void setUp() throws Exception {
-        this.base = new URL("http://localhost:" + port + "/inventory");
+        this.base = new URL("http://localhost:" + port + "/controls");
     }
 
     /**
