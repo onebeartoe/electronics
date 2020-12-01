@@ -70,10 +70,6 @@ public class SpiManager
         {
             logger.error(e.getMessage(), e);
         }
-        finally
-        {
-            //spi = null;
-        }
     }
     
     public void scrollUserText() throws SpiException

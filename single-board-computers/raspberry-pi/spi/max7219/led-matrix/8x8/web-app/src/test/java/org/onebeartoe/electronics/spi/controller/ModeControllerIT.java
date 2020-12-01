@@ -15,7 +15,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloControllerIT 
+public class ModeControllerIT 
 {
     @LocalServerPort
     private int port;
@@ -28,7 +28,7 @@ public class HelloControllerIT
     @BeforeEach
     public void setUp() throws Exception 
     {
-        this.base = new URL("http://localhost:" + port + "/hello");
+        this.base = new URL("http://localhost:" + port + "/api/mode");
     }
 
     @Test

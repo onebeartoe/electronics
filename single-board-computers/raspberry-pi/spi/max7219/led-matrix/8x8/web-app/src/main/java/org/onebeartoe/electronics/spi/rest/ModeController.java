@@ -1,3 +1,4 @@
+
 package org.onebeartoe.electronics.spi.rest;
 
 import java.util.logging.Level;
@@ -8,32 +9,29 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-public class HelloController 
+public class ModeController 
 {
     private final SpiManager manager;
     
-    public HelloController(SpiManager manager)
+    public ModeController(SpiManager manager)
     {
         this.manager = manager;
         
         System.out.println("manager = " + this.manager);
     }
-    
-    
-    @RequestMapping("/hello")
+
+    @RequestMapping("/api/mode")
     public String index() 
     {
-        
         try 
         {
             manager.scrollUserText();
         } 
         catch (SpiException ex) 
         {
-            Logger.getLogger(HelloController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ModeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return "Greetings from Spring Boot!";
     }
-
 }
