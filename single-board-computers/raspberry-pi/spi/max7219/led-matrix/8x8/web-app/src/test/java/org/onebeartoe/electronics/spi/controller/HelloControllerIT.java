@@ -1,3 +1,4 @@
+
 package org.onebeartoe.electronics.spi.controller;
 
 import static org.assertj.core.api.Assertions.*;
@@ -14,25 +15,28 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloControllerIT {
+public class HelloControllerIT 
+{
+    @LocalServerPort
+    private int port;
 
-	@LocalServerPort
-	private int port;
+    private URL base;
 
-	private URL base;
-
-	@Autowired
-	private TestRestTemplate template;
+    @Autowired
+    private TestRestTemplate template;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() throws Exception 
+    {
         this.base = new URL("http://localhost:" + port + "/hello");
     }
 
     @Test
-    public void getHello() throws Exception {
+    public void getHello() throws Exception 
+    {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
+    
         assertThat(response.getBody()).isEqualTo("Greetings from Spring Boot!");
     }
 }
