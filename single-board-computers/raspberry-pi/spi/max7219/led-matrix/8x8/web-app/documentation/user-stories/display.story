@@ -10,4 +10,5 @@ the display has the following modes
     time
     rotate (through the other modes)
 the Web application has data entry screens to maintain feeds and
-the Web application has controls to set the current mode.
+the Web application has controls to set the current mode and
+the Web application controls and back end APIs are secured with a password.
