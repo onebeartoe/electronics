@@ -18,3 +18,4 @@
 /microcontrollers/target/
 /neje-engrave/target/
 /weather-station/relay/cli/target/
+/single-board-computers/raspberry-pi/spi/max7219/led-matrix/8x8/web-app/target/
