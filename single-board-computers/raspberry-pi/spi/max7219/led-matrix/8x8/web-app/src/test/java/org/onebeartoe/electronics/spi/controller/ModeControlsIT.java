@@ -21,7 +21,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class InventoryAdminIT 
+public class ModeControlsIT 
 {
     @LocalServerPort
     private int port;
