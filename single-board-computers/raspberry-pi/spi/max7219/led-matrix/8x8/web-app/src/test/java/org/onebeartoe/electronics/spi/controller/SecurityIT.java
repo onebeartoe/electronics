@@ -4,7 +4,11 @@ package org.onebeartoe.electronics.spi.controller;
 import java.net.URI;
 import java.net.URL;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.onebeartoe.electronics.spi.rest.ModeControlsIT.userName;
+import static org.onebeartoe.electronics.spi.rest.ModeControlsIT.userPassword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -48,14 +52,21 @@ public class SecurityIT
     }
     
     @Test
+    public void loginIsAvailable() throws Exception 
+    {
+        URI resource = setUp("/login");
+
+        expectLoginPage(resource);
+    }    
+    
+    @Test
     public void apisAreNotAvailable() throws Exception
     {
         URI resource = setUp("/api/mode");
 
         expectLoginPage(resource);
     }
-    
-        
+
     @Test
     public void contentIsNotAvailable() throws Exception
     {

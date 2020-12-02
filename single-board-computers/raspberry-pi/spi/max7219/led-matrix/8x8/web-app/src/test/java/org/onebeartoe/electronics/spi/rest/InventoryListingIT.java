@@ -43,6 +43,7 @@ public class InventoryListingIT
         this.base = new URL("http://localhost:" + port + "/products");
     }
 
+//TODO: make this a meaning full    
     @Test
     public void productsAreListed() throws Exception 
     {
@@ -56,7 +57,7 @@ public class InventoryListingIT
         
         logger.debug("body = " + body);        
         
-//TODO: update the string check for something acutally on the page
+//TODO: update the string check for something acutally realted to the project
         assertThat(body).contains("Product Listing");
     }
 }
