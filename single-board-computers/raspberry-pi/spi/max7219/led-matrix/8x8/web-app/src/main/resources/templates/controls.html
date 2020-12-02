@@ -19,8 +19,16 @@
             refreshInventory();
         </script>        
 
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        
         <div class="navigation">
             <a href="/products">Products</a>
+            
+            
+             
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
         </div>
         
         <h1>Inventory</h1>

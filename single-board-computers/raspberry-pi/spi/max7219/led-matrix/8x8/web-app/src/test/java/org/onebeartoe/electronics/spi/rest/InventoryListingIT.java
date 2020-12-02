@@ -7,6 +7,8 @@ import java.net.URL;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +20,8 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class InventoryListingIT 
 {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @LocalServerPort
     private int port;
 
@@ -43,13 +47,9 @@ public class InventoryListingIT
         
         String body = response.getBody();
         
-System.out.println("body = " + body);        
+        logger.debug("body = " + body);        
         
 //TODO: update the string check for something acutally on the page
         assertThat(body).contains("Product Listing");
     }
 }
-
-
-
-
