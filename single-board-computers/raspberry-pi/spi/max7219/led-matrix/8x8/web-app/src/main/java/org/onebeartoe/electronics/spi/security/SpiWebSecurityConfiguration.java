@@ -17,7 +17,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter
+public class SpiWebSecurityConfiguration extends WebSecurityConfigurerAdapter
 {
     @Override
     protected void configure(HttpSecurity http) throws Exception 

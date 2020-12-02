@@ -97,12 +97,19 @@
             <scope>test</scope>
         </dependency>
 
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-tomcat</artifactId>
+  <scope>provided</scope> 
+</dependency>
+
 <!-- this to parse HTML DOM -->
 <!-- https://www.baeldung.com/java-with-jsoup -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.10.2</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -110,6 +117,8 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+        
+        
     </dependencies>
 
     <build>
