@@ -11,4 +11,4 @@ so that I can view at a glance temperature feeds.
         rotate (through the other modes)
 *AC3 the Web application has data entry screens to maintain feeds and
 AC4 the Web application has controls to set the current mode and
-*AC5 the Web application controls and back end APIs are secured with a password.
+AC5 the Web application controls and back end APIs are secured with a password.

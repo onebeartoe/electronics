@@ -54,6 +54,7 @@ public class ModeControlsIT
      * AC4
      * This integration test verifies all mode options are present on the user 
      * interface.
+     * 
      * @throws Exception 
      */
     @Test

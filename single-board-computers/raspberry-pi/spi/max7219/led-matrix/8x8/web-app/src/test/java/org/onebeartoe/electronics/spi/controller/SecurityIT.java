@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 
 
 /**
+ * AC5
+ * 
  * These tests verify the API and content URLs have security/authentication enabled.
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
