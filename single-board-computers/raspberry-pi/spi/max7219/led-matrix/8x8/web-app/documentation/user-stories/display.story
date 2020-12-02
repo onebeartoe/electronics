@@ -9,10 +9,10 @@ AC2 the Web application has a control to set the following modes
     user text
     time
     rotate (through the other modes)
-*AC3 the Web application has data entry screens to 
-    rotate
-        duration
+*AC3 the Web application has data entry screens
     weather
         feed maintenance
-        active feeds
+        active feeds 
+    rotate
+        duration
 AC5 the Web application controls and back end APIs are secured with a password.

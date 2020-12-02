@@ -26,6 +26,6 @@
     
     <modules>
         <module>datasheet-waveform-list-parser</module>
-        <module>desktop-haptic-controller</module>
+        <!--<module>desktop-haptic-controller</module>-->
     </modules>
 </project>
