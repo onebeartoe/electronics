@@ -51,7 +51,7 @@ public class ModeControlsIT
     }
 
     /**
-     * AC4
+     * AC2
      * This integration test verifies all mode options are present on the user 
      * interface.
      * 
