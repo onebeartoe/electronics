@@ -1,16 +1,22 @@
 
 package org.onebeartoe.electronics.spi.manager;
 
+import be.webtechie.pi4jgpio.definition.AsciiCharacter;
 import be.webtechie.pi4jgpio.definition.SpiCommand;
 import be.webtechie.pi4jgpio.helper.AsciiCharacterMode;
+import static be.webtechie.pi4jgpio.helper.AsciiCharacterMode.scrollAsciiCharacter;
 import be.webtechie.pi4jgpio.helper.DemoMode;
 import be.webtechie.pi4jgpio.helper.ImageMode;
+
 import com.pi4j.io.spi.SpiChannel;
 import com.pi4j.io.spi.SpiDevice;
 import com.pi4j.io.spi.SpiFactory;
+
 import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -72,8 +78,32 @@ public class SpiManager
         }
     }
     
-    public void scrollUserText() throws SpiException
+    /**
+     * Scroll all the characters as defined in the user defined string.
+     */
+    public void scrollUserText(String text) throws SpiException
     {
-        AsciiCharacterMode.scrollAllAsciiCharacters(spi, 50);
-    }
+        // Milliseconds between every column move
+        int waitBetweenMove = 50;
+        
+        try 
+        {
+            char[] toCharArray = text.toCharArray();
+            for(char ascii : toCharArray)
+//            for (int ascii = 32; ascii <= 126; ascii++) 
+            {
+                AsciiCharacter asciiCharacter = AsciiCharacter.getByAscii(ascii);
+                if (asciiCharacter != null) 
+                {
+                    scrollAsciiCharacter(spi, asciiCharacter, waitBetweenMove);
+                    System.out.println("Scrolled : " + asciiCharacter.name());
+                    Thread.sleep(250);
+                }
+            }
+        } 
+        catch (Exception ex) 
+        {
+            logger.error("Error during Ascii: " + ex.getMessage(), ex);
+        }
+    } 
 }

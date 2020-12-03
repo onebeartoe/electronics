@@ -25,7 +25,9 @@ public class ModeController
     {
         try 
         {
-            manager.scrollUserText();
+            String text = "BEST AT BAT";
+            
+            manager.scrollUserText(text);
         } 
         catch (SpiException ex) 
         {
