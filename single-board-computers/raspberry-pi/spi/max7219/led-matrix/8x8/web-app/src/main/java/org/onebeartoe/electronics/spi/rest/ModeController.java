@@ -1,10 +1,11 @@
 
 package org.onebeartoe.electronics.spi.rest;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.onebeartoe.electronics.spi.manager.SpiException;
 import org.onebeartoe.electronics.spi.manager.SpiManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.event.Level;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -12,6 +13,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RestController
 public class ModeController 
 {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     private final SpiManager manager;
     
     public ModeController(SpiManager manager)
@@ -22,7 +25,8 @@ public class ModeController
     }
 
     
-//TODO: make this a POST!!!    
+//TODO: make this a POST!!!
+//TODO:     NO, make this its own GET an have the update be a POST.      
     @RequestMapping(value = "/api/mode", method = GET)
 //    @RequestMapping(value = "/api/mode", method = POST)
     public String index() 
@@ -35,7 +39,7 @@ public class ModeController
         } 
         catch (SpiException ex) 
         {
-            Logger.getLogger(ModeController.class.getName()).log(Level.SEVERE, null, ex);
+            logger.error(ex.getMessage(), ex);
         }
         
         return "Greetings from Spring Boot!";
