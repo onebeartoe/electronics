@@ -67,12 +67,6 @@ public class ModeControlsIT
   
     TestRestTemplate template = new TestRestTemplate(userName, 
   userPassword, TestRestTemplate.HttpClientOption.ENABLE_COOKIES);
-//    TestRestTemplate template = new TestRestTemplate(userName, userPassword);
-
-//RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
-//restTemplateBuilder.configure(template);
-//TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder);
-
 
         ResponseEntity<String> response = template
                 .withBasicAuth(userName, userPassword)
