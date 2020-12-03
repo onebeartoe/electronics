@@ -26,10 +26,10 @@ public class ModeController
 
     
 //TODO: make this a POST!!!
-//TODO:     NO, make this its own GET an have the update be a POST.      
+//TODO:     NO, make this its own GET an have the update be a separate POST.      
     @RequestMapping(value = "/api/mode", method = GET)
 //    @RequestMapping(value = "/api/mode", method = POST)
-    public String index() 
+    public String getCurrentMode() 
     {
         try 
         {
