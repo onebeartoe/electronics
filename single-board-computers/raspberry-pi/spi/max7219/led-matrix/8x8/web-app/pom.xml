@@ -37,6 +37,7 @@
             <artifactId>spring-boot-actuator-autoconfigure</artifactId>
         </dependency>
 
+<!--TODO: are all of these needed for JSP?-->
 <dependency>
     <groupId>javax.servlet</groupId>
     <artifactId>jstl</artifactId>
@@ -65,8 +66,17 @@
     <version>3.3.7</version>
 </dependency>
 
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+</dependency>
 
-
+<!--?!?!?!?-->
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-tomcat</artifactId>
+  <scope>provided</scope> 
+</dependency>
 
         <dependency>
             <groupId>com.pi4j</groupId>
@@ -80,11 +90,6 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency> 
 
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-tomcat</artifactId>
-</dependency>
-
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -96,15 +101,16 @@
             <version>2.9.2</version>
         </dependency>
         
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
-<dependency>
-  <groupId>org.springframework.security</groupId>
-  <artifactId>spring-security-test</artifactId>
-  <scope>test</scope>
-</dependency>        
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <dependency>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-test</artifactId>
+          <scope>test</scope>
+        </dependency>        
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -127,11 +133,6 @@
             <scope>test</scope>
         </dependency>
 
-<dependency>
-  <groupId>org.springframework.boot</groupId>
-  <artifactId>spring-boot-starter-tomcat</artifactId>
-  <scope>provided</scope> 
-</dependency>
 
 <!-- this to parse HTML DOM -->
 <!-- https://www.baeldung.com/java-with-jsoup -->
