@@ -7,6 +7,7 @@ import org.onebeartoe.electronics.spi.manager.SpiException;
 import org.onebeartoe.electronics.spi.manager.SpiManager;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
 public class ModeController 
@@ -20,7 +21,10 @@ public class ModeController
         System.out.println("manager = " + this.manager);
     }
 
-    @RequestMapping("/api/mode")
+    
+//TODO: make this a POST!!!    
+    @RequestMapping(value = "/api/mode", method = GET)
+//    @RequestMapping(value = "/api/mode", method = POST)
     public String index() 
     {
         try 

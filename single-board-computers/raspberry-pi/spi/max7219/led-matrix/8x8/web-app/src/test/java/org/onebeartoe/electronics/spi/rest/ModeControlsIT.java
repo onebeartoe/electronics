@@ -75,11 +75,9 @@ public class ModeControlsIT
 
 
         ResponseEntity<String> response = template
-                .withBasicAuth(userName, userPassword)                
-                                            .getForEntity(base.toString(),
-                                                            String.class
-//                                                    ,
-//                                                            request
+                .withBasicAuth(userName, userPassword)
+//                                            .postForEntity(base.toString(),request,String.class
+                                            .getForEntity(base.toString(), String.class
                                             );
         String body = response.getBody();
         

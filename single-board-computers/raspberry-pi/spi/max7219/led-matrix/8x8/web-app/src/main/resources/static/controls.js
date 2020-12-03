@@ -10,6 +10,7 @@ function updateMode(mode)
         logServerResponse(xmlhttp);
     }
     var url = "/api/mode";
+//TODO: make this a post!!    
     xmlhttp.open("GET", url, true);
 //    xmlhttp.open("POST", url, true);
     xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
