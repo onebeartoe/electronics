@@ -8,8 +8,8 @@ AC2 the Web application has a control to set the following modes
     weather
     user text
     time
-    rotate (through the other modes)
-*AC3 the Web application has data entry screens
+    rotate (through the other modes) and
+*AC3 the Web application has configuration screens for all modes
     weather
         feed maintenance
         active feeds 
