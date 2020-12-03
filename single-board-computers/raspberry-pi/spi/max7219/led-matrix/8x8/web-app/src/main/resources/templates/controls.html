@@ -13,7 +13,7 @@
     <body>
         <script type="text/javascript" src="/logs.js"></script>
                         
-        <script type="text/javascript" src="/inventory.js"></script>
+        <script type="text/javascript" src="/controls.js"></script>
 
         <script type="text/javascript" >
             refreshInventory();
@@ -23,12 +23,10 @@
         
         <div class="navigation">
             <a href="/products">Products</a>
-            
-            
-             
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
+
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out"/>
+            </form>
         </div>
         
         <h1>Inventory</h1>
@@ -51,7 +49,8 @@
         </div>
         
         <div>
-            <select id="modeOptions">
+            <select id="modeOptions"
+                    onchange="updateMode(this.value);">
                 <option value="WEATHER">Weather</option>
                 <option value="USER_TEXT">User Text</option>
                 <option value="TIME">Time</option>
