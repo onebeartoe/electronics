@@ -1,6 +1,6 @@
 
     <div class="copyspace">
-        <h3>Project/Section Title</h3>
+        <h3>Neje Engraver</h3>
         
         <div class="featuredProject">
             <h3>Overview</h3>
