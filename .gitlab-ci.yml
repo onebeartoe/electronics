@@ -1,5 +1,5 @@
 
-image: kaiwinter/docker-java11-maven
+image: adoptopenjdk/maven-openjdk11
 job1:
  script:
  - "mvn install -B"
