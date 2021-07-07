@@ -34,7 +34,7 @@ public class ModeControlsIT
 {
     public static final String userName = "spi";
     public static final String userPassword = "matrix";
-    
+
     @LocalServerPort
     private int port;
 
@@ -50,6 +50,8 @@ public class ModeControlsIT
         this.base = new URL("http://localhost:" + port + "/controls");
     }
 
+    
+//TODO: move this to the controller package    
     /**
      * AC2
      * This integration test verifies all mode options are present on the user 
@@ -60,6 +62,7 @@ public class ModeControlsIT
     @Test
     public void modesArePresent() throws Exception 
     {
+//TODO: are these credentials actually used?        
         Map<String, String> request = new HashMap<String, String>();
     request.put("username", userName);
     request.put("password", userPassword);

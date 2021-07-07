@@ -9,8 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * This class configures the test environment to not apply security to any API 
  * resources.  It basically undoes the security in WebSecurityConfiguration.java
  */
-//@Configuration()
 @Order(value = 90)
+//TODO: rename this to NoApplicationSecurity.java
 public class ApplicationSecurity extends WebSecurityConfigurerAdapter
 {
     @Override
