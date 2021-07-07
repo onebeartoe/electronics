@@ -1,2 +1,2 @@
 
-This is the bottom.
+<%@ include file="../bottom.jsp" %>
