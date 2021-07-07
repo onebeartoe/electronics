@@ -1,0 +1,50 @@
+
+Overview
+
+    This project is a break light application using Adafruit Circuit Playground Classic.
+
+
+Acknowledgments
+
+
+    It borrows ideas from these two guides:
+
+          https://www.digikey.com/en/maker/projects/circuit-playground-bike-light/
+
+          https://learn.adafruit.com/circuit-playground-lesson-number-0/accelerometer
+
+    It also borrows from the Arduino examples for Circuit Playground
+
+        demo 
+
+        mega_demo
+
+    It also borrows form this Adafruit Learn guide for the acceleration code:
+
+	https://learn.adafruit.com/circuit-playground-bluefruit-brake-light/circuitpython-setup-and-code
+
+
+Possible Enclosures
+
+    Fiber Optics Enclosure
+
+        https://www.thingiverse.com/thing:2122751
+
+    Snap Fit
+
+        Open Face
+
+            https://www.thingiverse.com/thing:3878226
+
+        Covered Face
+
+            https://www.thingiverse.com/thing:2071254
+
+        Empire
+
+            https://www.thingiverse.com/thing:3448305
+
+        Ghast
+
+            https://www.thingiverse.com/thing:3144934/files
+
