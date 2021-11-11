@@ -1,8 +1,13 @@
 
-wio_link_weather_station_grove
+wio_link_weather_station_bmp180
 
     This version uses Grove temperature and humidity sensor.
 
 wio_link_weather_station
 
     this is the original version that uses an Adafruit part for temperature sensing.
+
+
+wio_link_weather_station_dht11
+
+    This version has light and temperature sensors

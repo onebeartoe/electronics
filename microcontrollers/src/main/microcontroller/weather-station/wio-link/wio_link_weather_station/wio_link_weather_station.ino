@@ -23,8 +23,14 @@ const char* host = "www.adafruit.com";
 
 // set up the Adafruit IO temperature feed
 AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+
 AdafruitIO_Feed *temperatureFeed = io.feed("rainmaker-backyard-bottom-temperature");
 AdafruitIO_Feed *lightFeed = io.feed("rainmaker-backyard-bottom-light");
+//TODO: use these instead
+//AdafruitIO_Feed *temperatureFeed = io.feed("oakdale-backyard-temperature");
+//AdafruitIO_Feed *lightFeed = io.feed("oakdale-backyard-light");
+
+
 void connectToWifiNetwork()
 {
   Serial.println();
