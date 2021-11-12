@@ -1,0 +1,43 @@
+
+This is the board used for this project:
+
+    https://www.seeedstudio.com/Wio-Link.html
+
+
+This is the Wiki for the board
+
+    https://wiki.seeedstudio.com/Wio_Link/
+
+
+
+This is the temperature sensor used:
+
+    https://www.adafruit.com/product/1782
+
+    MCP9808 Guide
+
+        https://learn.adafruit.com/adafruit-mcp9808-precision-i2c-temperature-sensor-guide?view=all#wiring
+
+
+Light Sensor
+
+    https://wiki.seeedstudio.com/Grove-Light_Sensor/
+
+
+Protoshield
+
+    https://www.seeedstudio.com/Grove-Protoshield.html
+
+
+Adafruit IO Arduino Examples
+    
+    https://learn.adafruit.com/adafruit-io/mqtt-api?view=all#arduino
+
+    https://learn.adafruit.com/adafruit-io-basics-digital-input/esp8266
+
+
+LED Matrix and Driver
+
+    https://www.adafruit.com/product/2946
+
+    https://www.adafruit.com/product/2973
