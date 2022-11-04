@@ -1,3 +1,5 @@
+//#include <Adafruit_ESP8266.h>
+
 
 #include "DHT.h"
 
