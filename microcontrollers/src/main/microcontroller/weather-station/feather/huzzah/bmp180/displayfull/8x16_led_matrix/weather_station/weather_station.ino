@@ -13,16 +13,16 @@
 
 #include "configuration.h"
 
-#include "AdafruitIO_WiFi.h"
+//#include "AdafruitIO_WiFi.h"
 
 #include "Adafruit_BMP085.h"
 
 #include "Adafruit_LEDBackpack.h"
 
 #include <Adafruit_GFX.h>
-#include <Wire.h>
+//#include <Wire.h>
 
-AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
+//AdafruitIO_WiFi io(ADAFRUIT_USERNAME, AIO_KEY, wifi_ssid, wifi_password);
  
 Adafruit_BMP085 bmp;
 
@@ -33,8 +33,8 @@ float degreesFahrenheit;
 float pressureReading;
 
 // set up the Adafruit IO 'temperature' and 'humidity' feeds
-AdafruitIO_Feed *temperature = io.feed("oakdale-backyard-temperature");
-AdafruitIO_Feed *humidity = io.feed("oakdale-backyard-pressure");
+// AdafruitIO_Feed *temperature = io.feed("oakdale-backyard-temperature");
+// AdafruitIO_Feed *humidity = io.feed("oakdale-backyard-pressure");
 
 // AIO post interval settings
 unsigned long aioPostPreviousMillis = 0;
@@ -70,13 +70,13 @@ void aioPost(unsigned long currentMillis)
         aioPostPreviousMillis = currentMillis;
 
         // save fahrenheit (or celsius) to Adafruit IO
-        temperature->save(degreesFahrenheit);
+//        temperature->save(degreesFahrenheit);
 
         Serial.println("posting to Adafruit IO");
         Serial.println();
 
         // save humidity to Adafruit IO
-        humidity->save(pressureReading);
+//        humidity->save(pressureReading);
     }    
 }
 
@@ -134,13 +134,13 @@ void sensorReading()
 
 void loop() 
 {
-    io.run();
+//    io.run();
   
     unsigned long currentMillis = millis();
 
     serialOutput(currentMillis);
     
-    aioPost(currentMillis);
+//    aioPost(currentMillis);
     
     ledDisplay(currentMillis);
 }
@@ -176,30 +176,30 @@ void setup()
     // initialize the temperature and pressure sensor
     bmp.begin();
 
-    setupAdafruitIo();
+//    setupAdafruitIo();
     
     setupLedMatrix();
 }
 
-void setupAdafruitIo()
-{
-    // connect to io.adafruit.com
-    Serial.println("\n\n");
-    Serial.println("\n\n");  
-    Serial.print("Connecting to Adafruit IO");
-    io.connect();
+// void setupAdafruitIo()
+// {
+//     // connect to io.adafruit.com
+//     Serial.println("\n\n");
+//     Serial.println("\n\n");  
+//     Serial.print("Connecting to Adafruit IO");
+//     io.connect();
 
-    // wait for a connection
-    while(io.status() < AIO_CONNECTED) 
-    {
-      Serial.print(".");
-      delay(500);
-    }
+//     // wait for a connection
+//     while(io.status() < AIO_CONNECTED) 
+//     {
+//       Serial.print(".");
+//       delay(500);
+//     }
 
-    // we are connected
-    Serial.println();
-    Serial.println(io.statusText());    
-}
+//     // we are connected
+//     Serial.println();
+//     Serial.println(io.statusText());    
+// }
 
 void setupLedMatrix()
 {
