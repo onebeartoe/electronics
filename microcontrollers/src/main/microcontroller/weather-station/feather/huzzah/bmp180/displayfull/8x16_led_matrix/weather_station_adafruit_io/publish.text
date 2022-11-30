@@ -1,0 +1,17 @@
+
+
+Mom’s Weather Station
+  - [ ] oneweb
+          org 
+            link to github/onebearttoe/3d-modeling -> the rounded corner end cap
+  - [ ] Mount to eave
+  - [ ] update firmware for Oakdale
+  - [ ] mounting hardware
+  - [x] enclosure for All Electronics
+  - [x] E6000  for all connections
+  - [x]Try to fix the Verter
+    + Resolder the USB connection again, again
+    + Side breakouts
+        * Put header on the side breakouts that do have voltage
+        * Make a power connection for the Feather Huzzah from the Verter headers
+    + It seems to work, but I am not sure the Verter is actually doing anything for the whole circuit.
