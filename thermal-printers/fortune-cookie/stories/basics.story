@@ -9,4 +9,5 @@ The printer is connection to power and
 the printer turns on with the red light lit and
 the feed button actually feeds the paper and
 holding the button on power prints the test page and
-the test page shows the printer's baud rate.
+the test page shows the printer's baud rate and
+the Adafruit Arduino sample code works with the printer.
