@@ -17,7 +17,7 @@
     <artifactId>spi-8x8-led-matrix-web-app</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>onebeartoe-spi-8x8-led-matrix-web-app</name>
+    <name>onebeartoe-electroncis-max7219-led-matrix-webapp</name>
 
     <description>Demo project for Spring Boot to read and write GPIO's</description>
 
@@ -30,7 +30,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,9 +146,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
-        </dependency>
-        
-        
+        </dependency>        
     </dependencies>
 
     <build>
