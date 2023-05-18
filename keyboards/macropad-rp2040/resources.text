@@ -1,0 +1,10 @@
+
+This code is from the Adafruit Learn Guide for the Macropad RP2040 Hotkeys.
+
+	It uses the CircuitPython 8.x dependencies.
+
+	Specifically, it uses this binary UF2 file
+
+				adafruit-circuitpython-adafruit_macropad_rp2040-en_US-8.0.2.uf2
+
+	https://learn.adafruit.com/macropad-hotkeys/project-code
