@@ -33,13 +33,15 @@ const long serialInterval = 5000; // five seconds
 
 // LED display interval settings
 unsigned long ledDisplayPreviousMillis = 0;
-const long ledDisplayInterval = 100;  // one tenth of a second
+const long ledDisplayInterval = 500;  // one tenth of a second
 
 Adafruit_8x16minimatrix matrix = Adafruit_8x16minimatrix();
 
 // these next three hold values for the text scrolling
 int8_t x=7;
+
 int8_t xStart = 7;
+
 int8_t xMin = -46;
 
 String scrollText = "--temp";
@@ -115,7 +117,7 @@ void serialOutput(unsigned long currentMillis)
         serialPreviousMillis = currentMillis;
         
         degreesCelsius = bmp.readTemperature();
-        Serial.print("Temperature = ");
+        Serial.print("-Temperature = ");
         Serial.print(degreesCelsius);
         Serial.println(" *C");
 
