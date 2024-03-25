@@ -181,6 +181,9 @@ while True:
                         macropad.stop_tone()
                 elif 'play' in item:
                     macropad.play_file(item['play'])
+                elif 'soundBoard' in item:
+                    print("play clip on soundboard")
+                    macropad.play_file('happy.mp3')
     else:
         # Release any still-pressed keys, consumer codes, mouse buttons
         # Keys and mouse buttons are individually released this way (rather
