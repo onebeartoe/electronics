@@ -184,6 +184,9 @@ while True:
                 elif 'soundBoard' in item:
                     print("play clip on soundboard")
                     macropad.play_file('happy.mp3')
+                    # I stopped here once I saw
+                    # 		the Adafrujit Macropad only plays one sound at a time,
+                    #		and cannot be interrupted once started
     else:
         # Release any still-pressed keys, consumer codes, mouse buttons
         # Keys and mouse buttons are individually released this way (rather
