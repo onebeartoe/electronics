@@ -5,10 +5,9 @@ import org.onebeartoe.electronics.spi.manager.SpiException;
 import org.onebeartoe.electronics.spi.manager.SpiManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.slf4j.event.Level;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ModeController 
