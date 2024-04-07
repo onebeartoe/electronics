@@ -35,7 +35,7 @@ public class ModeControllerIT
     @BeforeEach
     public void setUp() throws Exception 
     {
-        this.base = new URL("http://localhost:" + port + "/api/mode");
+        this.base = new URL("http://localhost:" + port + "/api/mode/WEATHER");
     }
 
 //TODO: give this a better name    
@@ -45,6 +45,6 @@ public class ModeControllerIT
         ResponseEntity<String> response = template
                 .getForEntity(base.toString(), String.class);
     
-        assertThat(response.getBody()).isEqualTo("Greetings from Spring Boot!");
+        assertThat(response.getBody()).isEqualTo("Greetings, WEATHER from Spring Boot!");
     }
 }
