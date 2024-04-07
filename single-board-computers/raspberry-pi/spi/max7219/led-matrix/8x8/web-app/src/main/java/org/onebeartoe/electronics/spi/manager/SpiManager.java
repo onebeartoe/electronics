@@ -90,7 +90,6 @@ public class SpiManager
         {
             char[] toCharArray = text.toCharArray();
             for(char ascii : toCharArray)
-//            for (int ascii = 32; ascii <= 126; ascii++) 
             {
                 AsciiCharacter asciiCharacter = AsciiCharacter.getByAscii(ascii);
                 if (asciiCharacter != null) 

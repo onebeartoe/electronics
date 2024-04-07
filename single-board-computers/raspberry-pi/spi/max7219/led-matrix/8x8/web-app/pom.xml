@@ -77,13 +77,18 @@
   <scope>provided</scope> 
 </dependency>
 
+
         <dependency>
             <groupId>com.pi4j</groupId>
             <artifactId>pi4j-core</artifactId>
             <version>1.2</version>
+<!--
+SPI on version 2.3 did not seem to work on the Raspberry Pi model B           
+            <version>2.3.0</version>
+-->
             <scope>compile</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>

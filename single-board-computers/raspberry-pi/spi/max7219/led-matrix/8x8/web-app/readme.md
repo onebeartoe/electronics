@@ -1,5 +1,17 @@
 
 
+This Project Uses a Raspberry Pi Model B
+
+and
+
+depends on Pi4J version 1.2
+
+    Pi4J version 3.2 was tried but SPI did not seem to work with a Model B 
+
+        and gave the following error with version 3.2
+
+            UnsatisfiedLinkError = libpi4j-pigpio.so
+
 
 Debugging in Netbeans
 
