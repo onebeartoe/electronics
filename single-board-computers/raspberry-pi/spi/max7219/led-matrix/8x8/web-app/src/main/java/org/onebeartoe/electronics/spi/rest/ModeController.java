@@ -1,6 +1,7 @@
 
 package org.onebeartoe.electronics.spi.rest;
 
+import org.onebeartoe.electronics.spi.DisplayModes;
 import org.onebeartoe.electronics.spi.manager.SpiException;
 import org.onebeartoe.electronics.spi.manager.SpiManager;
 import org.slf4j.Logger;
@@ -20,8 +21,6 @@ public class ModeController
     public ModeController(SpiManager manager)
     {
         this.manager = manager;
-        
-        System.out.println("manager = " + this.manager);
     }
 
     
@@ -33,11 +32,31 @@ public class ModeController
     {
         try 
         {
+            var displayMode = DisplayModes.valueOf(mode);
             
-            
-            String text = "BEST AT BAT";
-            
-            manager.scrollUserText(text);
+            switch(displayMode)
+            {
+                case USER_TEXT:
+                {
+                    var text = "BEST AT BAT";
+
+                    manager.scrollUserText(text); 
+                    
+                    break;
+                }
+                case WEATHER:
+                {
+                    var degrees = 78;
+                    
+                    var text = "Temp: " + degrees;
+                    
+                    manager.scrollUserText(text);
+                    
+                    break;
+                }
+                    
+                default: System.err.println(displayMode + " is not ready!");
+            }
         } 
         catch (SpiException ex) 
         {
