@@ -23,11 +23,7 @@ public class ModeController
         this.manager = manager;
     }
 
-    
-//TODO: make this a POST!!!
-//TODO:     NO, make this its own GET an have the update be a separate POST.      
     @RequestMapping(value = "/api/mode/{mode}", method = GET)
-//    @RequestMapping(value = "/api/mode", method = POST)
     public String getCurrentMode(@PathVariable(required = true) String mode) 
     {
         try 
@@ -54,8 +50,10 @@ public class ModeController
                     
                     break;
                 }
-                    
-                default: System.err.println(displayMode + " is not ready!");
+                default: 
+                {
+                    System.err.println(displayMode + " is not ready!");
+                }
             }
         } 
         catch (SpiException ex) 
