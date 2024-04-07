@@ -9,7 +9,7 @@ function updateMode(mode)
     {
         logServerResponse(xmlhttp);
     }
-    var url = "/api/mode";
+    var url = "/api/mode/" + mode;
 //TODO: make this a post!!    
     xmlhttp.open("GET", url, true);
 //    xmlhttp.open("POST", url, true);
