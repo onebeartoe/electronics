@@ -2,29 +2,43 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head> 
-        <title>Inventory</title> 
+        <title>SPI LED Matrix with Spring Boot</title> 
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         
         <link rel="stylesheet" href="/layout.css" />
     	<link rel="stylesheet" href="/style.css" />
+        
+<!--TODO: Figure out how to allow the .css files from the login page.
+            I am aware of .ignoring() but I think it is not supported int his version of Spring Boot Security.
+-->        
+        <style>
+            body
+            {
+                align-content: center;
+                background-color: grey;
+                margin-left: auto;
+                margin-right: auto;
+                width: 80%;
+            }
+
+            .centeredDiv
+            {
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 2%;
+                width: 60%;
+            }            
+        </style>
     </head>
 
     <body>
-                
-        <h1>Welcome Here!</h1>
-        
-        <div class="navigation">
-            <a href="/controls">Controls</a>
-        </div>
-        
-        
-        
-       
-        
-        <div id="logs" class="logs">
-            
+        <div class="centeredDiv">
+            <h1>Welcome SPI LED Matrix Fans!</h1>
+
+            <h1>
+                <a href="/controls">Click Here for Controls</a>
+            </h1>
         </div>          
     </body>
 </html>
-
