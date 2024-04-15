@@ -13,13 +13,9 @@
     <body>                        
         <script type="text/javascript" src="/controls.js"></script>
         
-        <script type="text/javascript" >
-//            displayUserText(false);
-        </script>
+
 
         <div class="navigation">
-            <a href="/products">Products</a>
-
             <form th:action="@{/logout}" method="post">
 Hello [[${#httpServletRequest.remoteUser}]]!
 

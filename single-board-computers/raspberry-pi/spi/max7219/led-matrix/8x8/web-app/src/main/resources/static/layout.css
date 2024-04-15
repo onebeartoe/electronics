@@ -16,10 +16,21 @@ body
     width: 40%;
 }
 
+.logs
+{
+    margin-top: 2%;
+}
+
 .navigation
 {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 3%;
+    text-align: right;
+}
+
+.modeSelect
+{
+    margin-bottom: 3%;
 }
