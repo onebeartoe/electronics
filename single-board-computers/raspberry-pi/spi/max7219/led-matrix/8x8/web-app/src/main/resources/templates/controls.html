@@ -10,15 +10,13 @@
     	<link rel="stylesheet" href="/style.css" />
     </head>
 
-    <body>
-        <script type="text/javascript" src="/logs.js"></script>
-                        
+    <body>                        
         <script type="text/javascript" src="/controls.js"></script>
         
         <script type="text/javascript" >
-            refreshInventory();
+//            displayUserText(false);
         </script>
-        
+
         <div class="navigation">
             <a href="/products">Products</a>
 
@@ -29,27 +27,11 @@ Hello [[${#httpServletRequest.remoteUser}]]!
             </form>
         </div>
         
-        <h1>Inventory</h1>
-        
-        <div id="newProduct" class="products newProduct">
-            [[${title}]]!
+        <h1>[[${title}]]!</h1>
 
-            <br>
-            <br>
-            
-            <label for="newProductName">Name</label>
-            
-            <input id="newProductName" type="text">
-            
-            <label for="newProductQuantity">Quantity</label>
-            
-            <input id="newProductQuantity" type="text">
-            
-            <button onclick="submitNewProduct()" >Add</button>
-        </div>
-        
         <div>
             <select id="modeOptions"
+                    class='modeSelect'
                     onchange="updateMode(this.value);">
                 <option value="WEATHER">Weather</option>
                 <option value="USER_TEXT">User Text</option>
@@ -71,8 +53,13 @@ Hello [[${#httpServletRequest.remoteUser}]]!
         <div id="logs" class="logs">
             
         </div>          
-        
                 
         <div th:include="fragments/footer :: footer"></div>
+        
+
+        <script> 
+            window.onload = displayUserText(false);
+        </script>
+                
     </body>
 </html>

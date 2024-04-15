@@ -1,39 +1,31 @@
 
-
 function updateMode(mode)
 {
-    alert ("we got: " + mode);
+    var textfield = document.getElementById("userText");
     
     if(mode === "USER_TEXT")
     {
-        var textfield = document.getElementById("userText");
-        alert("suer text is selected");
         
-        if (textfield.style.display === "none")
+        
+        var isVisible = textfield.checkVisibility();
+
+        if(isVisible)
         {
-          textfield.style.display = "block";
-          
-          var textButton = document.getElementById("textButton");
-          
-          textButton.style.display = "block";
-        } 
-        else 
+            // the call came from the button
+
+            sendRequest(mode, textfield);
+        }
+        else
         {
-          x.style.display = "none";
+            displayUserText(true);
         }
     }
-    
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange=function()
+    else
     {
-        logServerResponse(xmlhttp);
+        displayUserText(false);
+
+        sendRequest(mode, textfield);
     }
-    var url = "/api/mode/" + mode;
-//TODO: make this a post!!    
-    xmlhttp.open("GET", url, true);
-//    xmlhttp.open("POST", url, true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-    xmlhttp.send("?mode=" + mode + "&p=3");    
 }
 
 function displayUserText(visible)
@@ -72,4 +64,26 @@ function logEvent(message)
     var logs = message + "<br/>" + e.innerHTML;
     
     e.innerHTML = logs;
+}
+
+function sendRequest(mode, textfield)
+{
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange=function()
+    {
+        logServerResponse(xmlhttp);
+    }
+
+    var queryString = "?mode=" + mode + "&userText=" + textfield.value;
+    
+
+    var url = "/api/mode/" + mode + queryString;
+    
+//TODO: make this a post!!    
+    xmlhttp.open("GET", url, true);
+//    xmlhttp.open("POST", url, true);
+
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    
+    xmlhttp.send("");    
 }

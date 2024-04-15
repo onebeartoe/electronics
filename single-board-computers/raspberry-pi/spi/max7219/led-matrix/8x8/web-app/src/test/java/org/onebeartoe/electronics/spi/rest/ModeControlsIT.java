@@ -78,7 +78,9 @@ public class ModeControlsIT
                                             );
         String body = response.getBody();
         
-        assertThat(body).contains("New Product");
+        var expectedContent = "SPI LED Matrix with Spring Boot";
+        
+        assertThat(body).contains(expectedContent);
 
         Document doc = Jsoup.parse(body);
         Element modesSelect = doc.getElementById("modeOptions");

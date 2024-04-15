@@ -26,9 +26,12 @@ public class ModeController
 
     @RequestMapping(value = "/api/mode/{mode}", method = GET)
     public String getCurrentMode(@PathVariable(required = true) String mode,
-                                 @RequestParam(name="userText", required=false, defaultValue="AINT-GOT-NO-TEXT") String userText) 
-    {
-        System.out.println("get cuttent mote inter...............");
+                                 @RequestParam(name="userText", required=false, 
+                                               defaultValue="AINT-GOT-NO-TEXT") String userText) 
+    {        
+        System.out.println("userText: " + userText);
+
+        var exceptionMessage = "";
 
         try 
         {
@@ -56,7 +59,9 @@ public class ModeController
                 }
                 default: 
                 {
-                    System.err.println(displayMode + " is not ready!");
+                    exceptionMessage = " - " + displayMode + " is not ready!";
+                    
+                    System.err.println(exceptionMessage);
                 }
             }
         } 
@@ -65,6 +70,6 @@ public class ModeController
             logger.error(ex.getMessage(), ex);
         }
         
-        return "Greetings, " + mode + " from Spring Boot!";
+        return "Greetings, " + mode + " from Spring Boot!   "  + exceptionMessage;
     }
 }

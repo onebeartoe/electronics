@@ -43,7 +43,7 @@ public class SecurityIT
     
         String body = response.getBody();
         
-        assertThat(body).contains("Welcome Here!");
+        assertThat(body).contains("Welcome SPI LED Matrix Fans!");
     }
     
     @Test
