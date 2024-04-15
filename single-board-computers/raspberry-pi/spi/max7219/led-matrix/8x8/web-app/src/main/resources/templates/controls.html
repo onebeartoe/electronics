@@ -2,7 +2,7 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
     <head> 
-        <title>Inventory</title> 
+        <title>[[${title}]]!</title> 
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         
@@ -14,17 +14,17 @@
         <script type="text/javascript" src="/logs.js"></script>
                         
         <script type="text/javascript" src="/controls.js"></script>
-
+        
         <script type="text/javascript" >
             refreshInventory();
-        </script>        
-
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+        </script>
         
         <div class="navigation">
             <a href="/products">Products</a>
 
             <form th:action="@{/logout}" method="post">
+Hello [[${#httpServletRequest.remoteUser}]]!
+
                 <input type="submit" value="Sign Out"/>
             </form>
         </div>
@@ -32,8 +32,8 @@
         <h1>Inventory</h1>
         
         <div id="newProduct" class="products newProduct">
-            New Product
-            
+            [[${title}]]!
+
             <br>
             <br>
             
@@ -55,7 +55,13 @@
                 <option value="USER_TEXT">User Text</option>
                 <option value="TIME">Time</option>
                 <option value="ROTATE">Rotate</option>
-              </select>
+            </select>
+            
+            <input id="userText"
+                   type="text"/>
+            
+            <button id=textButton
+                    onclick="updateMode('USER_TEXT')" >Add</button>
         </div>
         
         <div id="inventory" class="products">

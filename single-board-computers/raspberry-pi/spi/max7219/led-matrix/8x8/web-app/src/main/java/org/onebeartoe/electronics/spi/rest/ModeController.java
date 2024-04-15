@@ -26,7 +26,7 @@ public class ModeController
 
     @RequestMapping(value = "/api/mode/{mode}", method = GET)
     public String getCurrentMode(@PathVariable(required = true) String mode,
-                                 @RequestParam(name="userText", required=false, defaultValue="BAINT-GOT-NO-TEXT") String userText) 
+                                 @RequestParam(name="userText", required=false, defaultValue="AINT-GOT-NO-TEXT") String userText) 
     {
         System.out.println("get cuttent mote inter...............");
 
