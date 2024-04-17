@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+//TODO: remove this if it not used!!!!!!
+
 @RestController
 @Deprecated
 public class InventoryListingController
