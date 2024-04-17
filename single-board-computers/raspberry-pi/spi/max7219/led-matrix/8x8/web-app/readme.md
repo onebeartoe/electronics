@@ -1,14 +1,53 @@
-
-
 <div class="copyspace">
-<h3>Java Controlled LED Matrix via an MAX7219 SPI Controller</h3>
+<h3>Java Controlled LED Matrix via a MAX7219 SPI Controller</h3>
 
 <div class="featuredProject">
 <h3>Overview</h3>
 
 <p>
 <helper:RandomGreeting /> &nbsp;
+This project uses Java to interface with a MAX7219 SPI device to control
+an LED matrix from a Raspberry Pi.
 </p>
+
+<p>
+This project is inspired by Frank Delporte's code (see the link in
+the 'Resources' section below), but differs in that it is Web-enabled via
+Spring Boot.
+</p>
+
+<p>
+Originally, I intended for this project to be a 'weather station'.
+But once I had the LED matrix Web enabled (IoT?), I realized that the
+Pi4J and combination of Raspberry Pi used was not compatible with
+the latest I2C API for the BMP280.  See the 'Going Further section'
+for a couple details on this.
+</p>
+
+<p>
+So this project just showcases the MAX7219 controlling an LED
+matrix.
+</p>
+</div>
+
+<div class="featuredProject">
+<h3>Demos</h3>
+
+<img src="documentation/screencast-2024-04-17-06-54-18.gif"
+alt="Wiring Diagram"
+width="50%"
+height="50%"/>
+
+<br/>
+<br/>
+
+<img src="documentation/20240417_070549.gif"
+alt="Wiring Diagram"
+width="50%"
+height="50%"/>
+
+<br/>
+<br/>
 </div>
 
 <div class="featuredProject">
@@ -128,7 +167,6 @@ Wiring Diagram
 alt="Wiring Diagram"
 width="50%"
 height="50%"/>
-![Wiring Diagram](documentation/wiring-diagram.png "Wiring Diagram")
 
 <br/>
 <br/>
@@ -174,7 +212,7 @@ spring-boot:run
 
 
 Set Properties:
-spring-boot.run.jvmArguments=-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=
+spring-boot.run.jvmArguments=-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address}
 jpda.listen=true
 </pre>
 </p>
@@ -189,21 +227,6 @@ $ mvn integration-test
 </div>
 
 <div class="featuredProject">
-<h3>other</h3>
-
-<p>
-
-</p>
-
-<ul>
-<li>
-<a href="" >
-</a>
-</li>
-</ul>
-</div>
-
-<div class="featuredProject">
 <h3>Going Further</h3>
 
 <ul>
@@ -213,8 +236,6 @@ Add an I2C controlled
 <a href="https://www.adafruit.com/product/2651">
 Adafruit BMP280 Temperature Sensor
 </a>
-
-(just bought 3 of them)
 
 <ul>
 <li>
@@ -244,7 +265,7 @@ Pi4J I2C Support</a>
 <ul>
 <li>
 <a href="https://www.hackerspacetech.com/raspberry-pi-and-spi-8x8-led-matrix-example-with-java-and-pi4j/" >
-SPI 8x8 LED Matrix Pi4J Example</a>
+SPI 8x8 LED Matrix Pi4J Example</a> - Frank Delporte's example
 </li>
 
 <li>
