@@ -7,7 +7,7 @@ Acceptance Criteria
 
 [] A wiring diagram exists for the LED matrix and the Raspberry Pi.
 
-[] Setup a development environment with IDE and hardware.
+[x] Setup a development environment with IDE and hardware.
 
 [] AC1 The display shows sensor location and sensor value and !!!! how is this tested?
 
