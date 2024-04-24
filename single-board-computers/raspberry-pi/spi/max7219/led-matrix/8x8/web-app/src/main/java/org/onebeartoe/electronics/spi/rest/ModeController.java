@@ -70,6 +70,6 @@ public class ModeController
             logger.error(ex.getMessage(), ex);
         }
         
-        return "Greetings, " + mode + " from Spring Boot!   "  + exceptionMessage;
+        return "Greetings, " + mode + " from Spring Boot!"  + exceptionMessage;
     }
 }
