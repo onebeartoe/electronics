@@ -1,6 +1,9 @@
 
 Adafruit Temperature & Humidity Sensor Trinkey
 
+
+-------------------move below section to CircuitPython--------------
+
     Hardware - SHT41 Trinkey - USB Temperature and Humidity Sensor
 
         https://www.adafruit.com/product/5912
@@ -23,3 +26,10 @@ Adafruit Temperature & Humidity Sensor Trinkey
         Plotting
 
             https://learn.adafruit.com/make-it-graph-plot/circuitpython-and-mu
+
+
+--------------move above section to CircuitPython--------------
+
+
+
+
