@@ -12,12 +12,10 @@
 
 /haptic-motor-controller/datasheet-waveform-list-parser/target/
 /haptic-motor-controller/desktop-haptic-controller/target/
-
 /rpi-rgb-led-matrix-webapp/target/
 /fiesta-medals/target/
 /microcontrollers/target/
-/microcontroller/trinkey/sht41/digital-display/target/
 /neje-engrave/target/
 /weather-station/relay/cli/target/
+/microcontrollers/src/main/microcontroller/adafruit/trinkey/sht41/digital-display/target/
 /single-board-computers/raspberry-pi/spi/max7219/led-matrix/8x8/web-app/target/
-/microcontrollers/src/main/microcontroller/trinkey/sht41/digital-display/target/
