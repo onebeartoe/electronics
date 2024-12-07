@@ -3,11 +3,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-<!--    <parent>
-        <artifactId>onebeartoe-electronics-parent</artifactId>
-        <groupId>org.onebeartoe</groupId>
-        <version>0.0.1-SNAPSHOT</version>
-    </parent>-->
+
     
     <groupId>org.onebeartoe</groupId>
     <artifactId>digital-dislpay</artifactId>
@@ -19,31 +15,18 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     
-    <dependencies>
-<!--        <dependency>
-            <groupId>org.onebeartoe</groupId>
-            <artifactId>onebeartoe-system</artifactId>
-            <version>1.0</version>
-        </dependency> -->
-               
+    <dependencies>               
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
         </dependency>
-    
-<!--        <dependency>
-            <groupId>org.rxtx</groupId>
-            <artifactId>rxtx</artifactId>
-            <version>2.1.7</version>
-        </dependency>-->
         
-<dependency>
-	<groupId>com.fazecast</groupId>
-	<artifactId>jSerialComm</artifactId>
-	<version>2.11.0</version>
-</dependency>        
-        
+        <dependency>
+                <groupId>com.fazecast</groupId>
+                <artifactId>jSerialComm</artifactId>
+                <version>2.11.0</version>
+        </dependency>        
     </dependencies>
     
     <build>
@@ -85,7 +68,6 @@
                         <configuration>
                             <options>
                                 <option>-agentlib:jdwp=transport=dt_socket,server=n,address=${jpda.address}</option>
-<!--<option>-Djava.library.path=/usr/lib/jni</option>-->
                             </options>
                         </configuration>
                     </execution>
