@@ -113,7 +113,7 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
         comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
 //ADD this BACK!!!!!!        
-//        comPort.addDataListener(this);
+        comPort.addDataListener(this);
     }
 
     @Override
