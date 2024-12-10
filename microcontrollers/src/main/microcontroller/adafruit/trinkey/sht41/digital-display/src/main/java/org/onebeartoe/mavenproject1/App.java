@@ -31,7 +31,6 @@ import javafx.stage.Stage;
  */
 public class App extends Application implements SerialPortDataListener
 {
-
     private BufferedReader input;
 
     private Logger logger;
@@ -39,41 +38,50 @@ public class App extends Application implements SerialPortDataListener
     private SerialPort comPort;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) throws Exception 
+    {
         logger = Logger.getLogger(getClass().getName());
 
         var javaVersion = SystemInfo.javaVersion();
         var javafxVersion = SystemInfo.javafxVersion();        
-        var versionsMessage = "Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".";
+        var versionsMessage = "JavaFX " + javafxVersion + " is running on Java " + javaVersion + ".";
         System.out.println(versionsMessage);
         
         var temperatureLabel = new Label("Temperature");
-        LedNumber ledNumber = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
+        var hideDot = false;
+        var temperatureTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
+        var temperatureOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
+        var temperatureTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         HBox temperatureHBox = new HBox();
         temperatureHBox.setSpacing(10);
         temperatureHBox.setAlignment(Pos.CENTER);        
-        temperatureHBox.getChildren().addAll(
-                temperatureLabel, 
-                ledNumber,
+        temperatureHBox.getChildren().addAll(temperatureLabel, 
+                temperatureTensLed,
+                    temperatureOnesLed,
+                    temperatureTenthsLed,
                     new Label("c"));
 
  
-        LedNumber humidityNumber = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
+        var humidityTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
+        var humidityOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
+        var humidityTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
         humidityHBox.setAlignment(Pos.CENTER);        
-        humidityHBox.getChildren().addAll( new Label("Humidity"),
-                                    humidityNumber,
+        humidityHBox.getChildren().addAll(new Label("    Humidity"),
+                                    humidityTensLed,
+                                    humidityOnesLed,
+                                    humidityTenthsLed,
                                     new Label("%"));
         
         var separator = new Separator();
-        var style = """
-                    .Separator .line {
-                        -fx-border-color: #e79423;
-                        -fx-border-width: 2;    
-                    }
-        """;
-//        var style = "-fx-border-color:#D2691E; -fx-border-width:2";
+//        var style = """
+//                    .Separator .line {
+//                        -fx-border-color: #e79423;
+//                        -fx-border-width: 2;    
+//                    }
+//        """;
+        var style = "-fx-border-color:#D2691E; -fx-border-width:2";
         
         separator.setStyle(style);
         var mainVbox = new VBox();
@@ -84,16 +92,15 @@ public class App extends Application implements SerialPortDataListener
                         humidityHBox);
         
         var scene = new Scene(mainVbox, 640, 480);
-//        var scene = new Scene(new StackPane(temperatureHBox), 640, 480);
 
         stage.setScene(scene);
 
         stage.show();
         
-ledNumber.highlight(HighlightType.FOUR.FOUR);        
+temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
 
-// the SHT41 Trinkey appears as this port name        
-//        var portName = "/dev/ttyACM0";
+        // the SHT41 Trinkey appears as this port name        
+        var portName = "/dev/ttyACM0";
         comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
 //ADD this BACK!!!!!!        
@@ -102,31 +109,25 @@ ledNumber.highlight(HighlightType.FOUR.FOUR);
 
     @Override
     public int getListeningEvents() {
-                return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
-//           SerialPort.LISTENING_EVENT_DATA_RECEIVED;
+        return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
     }
 
     @Override
     public synchronized void serialEvent(SerialPortEvent event) 
     {
-                if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) 
-                {
-                    return;
-                }
+        if (event.getEventType() != SerialPort.LISTENING_EVENT_DATA_AVAILABLE) 
+        {
+            return;
+        }
 
-//      byte[] newData = new byte[comPort.bytesAvailable()];
-//      int numRead = comPort.readBytes(newData, newData.length);
-//      System.out.println("Read " + numRead + " bytes.-. " + new String(newData));
-                var instream = comPort.getInputStream();
-                var buffStream = new BufferedReader(new InputStreamReader(instream));
-                try {
-                    String line = buffStream.readLine();
-                    System.out.println("one = " + line);
-
-//      System.out.println("Read " + numRead + " bytes.-. " + new String(newData));
-                } catch (IOException ex) {
-                    Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        var instream = comPort.getInputStream();
+        var buffStream = new BufferedReader(new InputStreamReader(instream));
+        try {
+            String line = buffStream.readLine();
+            System.out.println("one = " + line);
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
     public static void main(String[] args) 
