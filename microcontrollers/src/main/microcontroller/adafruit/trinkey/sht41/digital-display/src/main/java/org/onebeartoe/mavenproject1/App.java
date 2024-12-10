@@ -37,6 +37,12 @@ public class App extends Application implements SerialPortDataListener
     private Logger logger;
     
     private SerialPort comPort;
+    
+    @Override
+    public void init()
+    {
+        
+    }
 
     @Override
     public void start(Stage stage) throws Exception 
@@ -71,6 +77,8 @@ public class App extends Application implements SerialPortDataListener
         var humidityTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         var humidityOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
         var humidityTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
+        var percentLabel = new Label("%");
+        percentLabel.setFont(labelFont);
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
         humidityHBox.setAlignment(Pos.CENTER);        
@@ -78,7 +86,7 @@ public class App extends Application implements SerialPortDataListener
                                     humidityTensLed,
                                     humidityOnesLed,
                                     humidityTenthsLed,
-                                    new Label("%"));
+                                    percentLabel);
         humidityHBox.setStyle("-fx-border-color:#D2691E; -fx-border-width:2; font-size:LARGE");
         
         var separator = new Separator();
