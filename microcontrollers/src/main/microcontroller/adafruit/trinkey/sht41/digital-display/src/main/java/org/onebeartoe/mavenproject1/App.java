@@ -24,6 +24,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -48,6 +49,10 @@ public class App extends Application implements SerialPortDataListener
         System.out.println(versionsMessage);
         
         var temperatureLabel = new Label("Temperature");
+        var fontSize = 48.0f;
+        var labelFont = new Font(fontSize);
+//        temperatureLabel.setStyle("-fx-border-color:#D2691E; -fx-border-width:2; font-size:80;");
+        temperatureLabel.setFont(labelFont);
         var hideDot = false;
         var temperatureTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         var temperatureOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
@@ -61,18 +66,20 @@ public class App extends Application implements SerialPortDataListener
                     temperatureTenthsLed,
                     new Label("c"));
 
- 
+        var humidityLabel = new Label("       Humidity");
+        humidityLabel.setFont(labelFont);
         var humidityTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         var humidityOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
         var humidityTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
         humidityHBox.setAlignment(Pos.CENTER);        
-        humidityHBox.getChildren().addAll(new Label("    Humidity"),
+        humidityHBox.getChildren().addAll(humidityLabel,
                                     humidityTensLed,
                                     humidityOnesLed,
                                     humidityTenthsLed,
                                     new Label("%"));
+        humidityHBox.setStyle("-fx-border-color:#D2691E; -fx-border-width:2; font-size:LARGE");
         
         var separator = new Separator();
 //        var style = """
@@ -90,8 +97,10 @@ public class App extends Application implements SerialPortDataListener
         mainVbox.getChildren().addAll(temperatureHBox,
                         separator,
                         humidityHBox);
+        mainVbox.setStyle("-fx-background-color: grey;");
         
         var scene = new Scene(mainVbox, 640, 480);
+        
 
         stage.setScene(scene);
 
@@ -108,7 +117,8 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
     }
 
     @Override
-    public int getListeningEvents() {
+    public int getListeningEvents() 
+    {
         return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
     }
 
@@ -122,10 +132,13 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
 
         var instream = comPort.getInputStream();
         var buffStream = new BufferedReader(new InputStreamReader(instream));
-        try {
+        try 
+        {
             String line = buffStream.readLine();
             System.out.println("one = " + line);
-        } catch (IOException ex) {
+        } 
+        catch (IOException ex) 
+        {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
     }    
