@@ -7,6 +7,8 @@
     <artifactId>digital-dislpay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     
+    <name>onebeartoe-electronics-microcontrollers-trinkey-sht41-digital-display</name>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>15</maven.compiler.source>
@@ -48,7 +50,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>org.onebeartoe.mavenproject1.App</mainClass>
+                    <mainClass>org.onebeartoe.sht41.trinkey.App</mainClass>
                 </configuration>
                 <executions>
                     <execution>
@@ -92,5 +94,4 @@
             </plugin>
         </plugins>
     </build>
-    <name>onebeartoe-electronics-microcontrollers-trinkey-sht41-digital-display</name>
 </project>
