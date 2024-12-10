@@ -1,4 +1,4 @@
-package org.onebeartoe.mavenproject1;
+package org.onebeartoe.sht41.trinkey;
 
 public class SystemInfo {
 

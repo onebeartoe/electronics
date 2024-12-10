@@ -8,5 +8,5 @@ module org.onebeartoe.mavenproject1
 
     requires com.fazecast.jSerialComm;
     
-    exports org.onebeartoe.mavenproject1;
+    exports org.onebeartoe.sht41.trinkey;
 }
