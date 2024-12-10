@@ -4,7 +4,8 @@ module org.onebeartoe.mavenproject1
     
     requires javafx.controls;
 
-//    requires onebeartoe.system;
+    requires be.webtechie.javafxlednumberdisplay;
+
     requires com.fazecast.jSerialComm;
     
     exports org.onebeartoe.mavenproject1;
