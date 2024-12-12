@@ -7,6 +7,7 @@ import be.webtechie.javafxlednumberdisplay.definition.HighlightType;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
+import com.fazecast.jSerialComm.SerialPortTimeoutException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,12 +37,14 @@ public class App extends Application implements SerialPortDataListener
 
     private Logger logger;
     
+    private LedNumber temperatureTensLed;
+    
     private SerialPort comPort;
     
     @Override
     public void init()
     {
-        
+        temperatureTensLed = initializeLedNumber();
     }
 
     @Override
@@ -54,13 +57,9 @@ public class App extends Application implements SerialPortDataListener
         var versionsMessage = "JavaFX " + javafxVersion + " is running on Java " + javaVersion + ".";
         System.out.println(versionsMessage);
         
-        var temperatureLabel = new Label("Temperature");
-        var fontSize = 48.0f;
-        var labelFont = new Font(fontSize);
-//        temperatureLabel.setStyle("-fx-border-color:#D2691E; -fx-border-width:2; font-size:80;");
-        temperatureLabel.setFont(labelFont);
+        var temperatureLabel = initializeLabel("Temperature");
         var hideDot = false;
-        var temperatureTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
+        
         var temperatureOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
         var temperatureTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         HBox temperatureHBox = new HBox();
@@ -70,15 +69,13 @@ public class App extends Application implements SerialPortDataListener
                 temperatureTensLed,
                     temperatureOnesLed,
                     temperatureTenthsLed,
-                    new Label("c"));
+                    initializeLabel("c"));
 
-        var humidityLabel = new Label("       Humidity");
-        humidityLabel.setFont(labelFont);
+        var humidityLabel = initializeLabel("       Humidity");
         var humidityTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         var humidityOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
         var humidityTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
-        var percentLabel = new Label("%");
-        percentLabel.setFont(labelFont);
+        var percentLabel = initializeLabel("%");
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
         humidityHBox.setAlignment(Pos.CENTER);        
@@ -139,16 +136,56 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
         }
 
         var instream = comPort.getInputStream();
-        var buffStream = new BufferedReader(new InputStreamReader(instream));
+
         try 
         {
+            var buffStream = new BufferedReader(new InputStreamReader(instream));            
+
             String line = buffStream.readLine();
+
             System.out.println("one = " + line);
         } 
-        catch (IOException ex) 
+        catch (IOException  ex) 
         {
-            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+            var message = ex.getMessage();
+
+            logger.log(Level.SEVERE, message, ex);
         }
+//        catch (SerialPortTimeoutException  ex) 
+//        {
+//            var message = ex.getMessage();
+//
+//            logger.log(Level.SEVERE, message, ex);
+//        }
+    }    
+    
+    private Label initializeLabel(String text)
+    {
+        var label = new Label(text);
+        
+        var fontSize = 48.0f;
+        
+        var labelFont = new Font(fontSize);      
+        
+        label.setFont(labelFont);
+        
+        label.setTextFill(Color.WHITE);        
+        
+        return label;
+    }
+    
+    private LedNumber initializeLedNumber()
+    {
+        var showDot = false;
+        
+        return initializeLedNumber(showDot);
+    }
+    
+    private LedNumber initializeLedNumber(boolean showDot)
+    {
+        var ledNumber = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, showDot);
+               
+        return ledNumber;
     }    
     
     public static void main(String[] args) 
