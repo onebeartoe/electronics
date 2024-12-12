@@ -7,7 +7,6 @@ import be.webtechie.javafxlednumberdisplay.definition.HighlightType;
 import com.fazecast.jSerialComm.SerialPort;
 import com.fazecast.jSerialComm.SerialPortDataListener;
 import com.fazecast.jSerialComm.SerialPortEvent;
-import com.fazecast.jSerialComm.SerialPortTimeoutException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,6 +37,12 @@ public class App extends Application implements SerialPortDataListener
     private Logger logger;
     
     private LedNumber temperatureTensLed;
+    private LedNumber temperatureOnesLed;
+    private LedNumber temperatureTenthsLed;
+    
+    private LedNumber humidityTensLed;
+    private LedNumber humidityOnesLed;
+    private LedNumber humidityTenthsLed;
     
     private SerialPort comPort;
     
@@ -45,6 +50,12 @@ public class App extends Application implements SerialPortDataListener
     public void init()
     {
         temperatureTensLed = initializeLedNumber();
+        temperatureOnesLed = initializeLedNumber(true);
+        temperatureTenthsLed = initializeLedNumber();
+        
+        humidityTensLed = initializeLedNumber();
+        humidityOnesLed = initializeLedNumber(true);
+        humidityTenthsLed = initializeLedNumber();
     }
 
     @Override
@@ -60,8 +71,6 @@ public class App extends Application implements SerialPortDataListener
         var temperatureLabel = initializeLabel("Temperature");
         var hideDot = false;
         
-        var temperatureOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
-        var temperatureTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         HBox temperatureHBox = new HBox();
         temperatureHBox.setSpacing(10);
         temperatureHBox.setAlignment(Pos.CENTER);        
@@ -72,9 +81,6 @@ public class App extends Application implements SerialPortDataListener
                     initializeLabel("c"));
 
         var humidityLabel = initializeLabel("       Humidity");
-        var humidityTensLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
-        var humidityOnesLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED);
-        var humidityTenthsLed = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, hideDot);
         var percentLabel = initializeLabel("%");
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
@@ -84,31 +90,22 @@ public class App extends Application implements SerialPortDataListener
                                     humidityOnesLed,
                                     humidityTenthsLed,
                                     percentLabel);
-        humidityHBox.setStyle("-fx-border-color:#D2691E; -fx-border-width:2; font-size:LARGE");
         
-        var separator = new Separator();
-//        var style = """
-//                    .Separator .line {
-//                        -fx-border-color: #e79423;
-//                        -fx-border-width: 2;    
-//                    }
-//        """;
-        var style = "-fx-border-color:#D2691E; -fx-border-width:2";
-        
+        var separator = new Separator();        
+        var style = "-fx-border-color:#FFFFFF; -fx-border-width:2";        
         separator.setStyle(style);
+
         var mainVbox = new VBox();
         mainVbox.setSpacing(25);
         mainVbox.setPadding(new Insets(10));
+        mainVbox.setStyle("-fx-background-color: black;");
         mainVbox.getChildren().addAll(temperatureHBox,
-                        separator,
-                        humidityHBox);
-        mainVbox.setStyle("-fx-background-color: grey;");
+                                    separator,
+                                    humidityHBox);
         
         var scene = new Scene(mainVbox, 640, 480);
         
-
         stage.setScene(scene);
-
         stage.show();
         
 temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
@@ -117,7 +114,6 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
         var portName = "/dev/ttyACM0";
         comPort = SerialPort.getCommPorts()[0];
         comPort.openPort();
-//ADD this BACK!!!!!!        
         comPort.addDataListener(this);
     }
 
@@ -151,12 +147,6 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
 
             logger.log(Level.SEVERE, message, ex);
         }
-//        catch (SerialPortTimeoutException  ex) 
-//        {
-//            var message = ex.getMessage();
-//
-//            logger.log(Level.SEVERE, message, ex);
-//        }
     }    
     
     private Label initializeLabel(String text)
@@ -183,7 +173,11 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
     
     private LedNumber initializeLedNumber(boolean showDot)
     {
-        var ledNumber = new LedNumber(DisplaySkin.CLASSIC, Color.BLUEVIOLET, Color.DARKGRAY, Color.RED, showDot);
+        var ledNumber = new LedNumber(DisplaySkin.CLASSIC, 
+                                   Color.BLACK, 
+                                        Color.DARKGRAY, 
+                                     Color.RED, 
+                                                showDot);
                
         return ledNumber;
     }    
