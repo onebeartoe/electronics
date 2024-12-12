@@ -108,6 +108,7 @@ public class App extends Application implements SerialPortDataListener
         stage.setScene(scene);
         stage.show();
         
+//TODO: remove
 temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
 
         // the SHT41 Trinkey appears as this port name        
@@ -140,6 +141,23 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
             String line = buffStream.readLine();
 
             System.out.println("one = " + line);
+            
+            SensorReading reading = parseLine(line);
+            
+            if(reading instanceof TemperatureReading)
+            {
+                updateTemperatureLeds(reading);
+            }
+            else if(reading instanceof HumidityReading)
+            {
+                updateHumidityLed(reading);
+            }
+            else
+            {
+// TODO: maybe change the LEDs to show an error???
+                var message = String.format("There was an error with >%s<", line);
+                System.err.println(message);
+            }
         } 
         catch (IOException  ex) 
         {
@@ -158,15 +176,12 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
     }    
     
     private Label initializeLabel(String text)
-    {
-        var label = new Label(text);
-        
-        var fontSize = 56.0f;
-        
+    {                
+        var fontSize = 56.0f;        
         var labelFont = new Font(fontSize);      
         
-        label.setFont(labelFont);
-        
+        var label = new Label(text);
+        label.setFont(labelFont);        
         label.setTextFill(Color.WHITE);        
         
         return label;
@@ -181,17 +196,31 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
     
     private LedNumber initializeLedNumber(boolean showDot)
     {
-        var ledNumber = new LedNumber(DisplaySkin.CLASSIC, 
-                                   Color.BLACK, 
-                                        Color.DARKGRAY, 
-                                     Color.RED, 
-                                                showDot);
-               
-        return ledNumber;
+        return new LedNumber(DisplaySkin.CLASSIC, 
+                          Color.BLACK, 
+                               Color.DARKGRAY, 
+                            Color.RED, 
+                                       showDot);
     }    
     
     public static void main(String[] args) 
     {
         launch();
+    }
+
+    private SensorReading parseLine(String line) 
+    {
+        SensorReading reading = SensorReadings.parseLine(line);
+        
+        return reading;        
+    }
+
+    private void updateTemperatureLeds(SensorReading reading) {
+        
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void updateHumidityLed(SensorReading reading) {
+//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
