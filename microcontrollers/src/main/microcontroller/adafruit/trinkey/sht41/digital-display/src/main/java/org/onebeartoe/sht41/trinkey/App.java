@@ -80,7 +80,7 @@ public class App extends Application implements SerialPortDataListener
                     temperatureTenthsLed,
                     initializeLabel("c"));
 
-        var humidityLabel = initializeLabel("       Humidity");
+        var humidityLabel = initializeLabel("      Humidity");
         var percentLabel = initializeLabel("%");
         HBox humidityHBox = new HBox();
         humidityHBox.setSpacing(10);
@@ -103,7 +103,7 @@ public class App extends Application implements SerialPortDataListener
                                     separator,
                                     humidityHBox);
         
-        var scene = new Scene(mainVbox, 640, 480);
+        var scene = new Scene(mainVbox, 640, 300);
         
         stage.setScene(scene);
         stage.show();
@@ -161,7 +161,7 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
     {
         var label = new Label(text);
         
-        var fontSize = 48.0f;
+        var fontSize = 56.0f;
         
         var labelFont = new Font(fontSize);      
         
