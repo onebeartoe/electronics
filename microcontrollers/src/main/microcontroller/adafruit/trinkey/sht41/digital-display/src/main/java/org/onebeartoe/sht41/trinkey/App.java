@@ -44,7 +44,7 @@ public class App extends Application implements SerialPortDataListener
     private LedNumber humidityOnesLed;
     private LedNumber humidityTenthsLed;
     
-    private SerialPort comPort;
+    private SerialPort serialPort;
     
     @Override
     public void init()
@@ -112,9 +112,9 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
 
         // the SHT41 Trinkey appears as this port name        
         var portName = "/dev/ttyACM0";
-        comPort = SerialPort.getCommPorts()[0];
-        comPort.openPort();
-        comPort.addDataListener(this);
+        serialPort = SerialPort.getCommPorts()[0];
+        serialPort.openPort();
+        serialPort.addDataListener(this);
     }
 
     @Override
@@ -131,7 +131,7 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
             return;
         }
 
-        var instream = comPort.getInputStream();
+        var instream = serialPort.getInputStream();
 
         try 
         {
@@ -147,6 +147,14 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
 
             logger.log(Level.SEVERE, message, ex);
         }
+    }    
+
+    @Override
+    public void stop()
+    {
+        System.out.println("buh buy");
+        serialPort.closePort();
+        // Save file
     }    
     
     private Label initializeLabel(String text)
