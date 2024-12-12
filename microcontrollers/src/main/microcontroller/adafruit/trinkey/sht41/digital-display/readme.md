@@ -5,3 +5,8 @@ Adafruit Temperature & Humidity Sensor Trinkey
 
         https://github.com/FDelporte/javafx-jar-template
 
+
+The look for the display was inspired by this real life temperature and humidity product:
+
+    https://www.largedigitdisplays.com/large-digital-temperature-humidity-displays/
+
