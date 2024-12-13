@@ -4,6 +4,11 @@
         https://circuitpython.org/board/adafruit_sht4x_trinkey_m0/
 
 
+        Image
+
+            adafruit-circuitpython-adafruit_sht4x_trinkey_m0-en_US-9.2.1.uf2	
+
+
     Learn
 
         temp & humididy

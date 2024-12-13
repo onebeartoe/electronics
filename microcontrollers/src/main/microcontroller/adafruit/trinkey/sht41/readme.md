@@ -16,10 +16,4 @@ For serial communication, this project uses jSerialComm
     https://github.com/Fazecast/jSerialComm/wiki/Installation
 
 
--------------------------------------------------------------
-
-
-Circuit Python Image
-
-    adafruit-circuitpython-adafruit_sht4x_trinkey_m0-en_US-9.2.1.uf2	
 
