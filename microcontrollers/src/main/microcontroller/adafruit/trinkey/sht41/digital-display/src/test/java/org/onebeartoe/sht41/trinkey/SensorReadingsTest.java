@@ -6,8 +6,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import org.testng.annotations.Test;
 
-//import static org.onebeartoe.sht41.trinkey.SensorReadings.parseTwoDigitOneDecimal;
-
 /**
  *
  */

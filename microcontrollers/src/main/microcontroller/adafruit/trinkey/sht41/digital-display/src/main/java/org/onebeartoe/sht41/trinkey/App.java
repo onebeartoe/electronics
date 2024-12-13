@@ -109,7 +109,7 @@ public class App extends Application implements SerialPortDataListener
         stage.show();
         
 //TODO: remove
-temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
+//temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
 
         // the SHT41 Trinkey appears as this port name        
         var portName = "/dev/ttyACM0";
@@ -144,13 +144,13 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
             
             SensorReading reading = parseLine(line);
             
-            if(reading instanceof TemperatureReading)
+            if(reading instanceof TemperatureReading tempReading)
             {
-                updateTemperatureLeds(reading);
+                updateTemperatureLeds(tempReading);
             }
-            else if(reading instanceof HumidityReading)
+            else if(reading instanceof HumidityReading humidityReading)
             {
-                updateHumidityLed(reading);
+                updateHumidityLed(humidityReading);
             }
             else
             {
@@ -215,12 +215,42 @@ temperatureTensLed.highlight(HighlightType.FOUR.FOUR);
         return reading;        
     }
 
-    private void updateTemperatureLeds(SensorReading reading) {
+    private void updateTemperatureLeds(TemperatureReading reading) 
+    {
+        var value = reading.temperature();
         
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int intCast = (int) value;
+        
+        int tensDigit = Integer.MIN_VALUE;
+
+        if(value < 10)
+        {
+            temperatureTensLed.highlight(HighlightType.CLEAR.CLEAR);
+        }
+        else
+        {            
+            tensDigit = intCast / 10;
+
+            var highlights = HighlightType.getByNumber(tensDigit);
+
+            temperatureTensLed.highlight(highlights);
+            
+        }
+        
+        int onesValue = intCast % 10;
+        var onesHightLights = HighlightType.getByNumber(onesValue);
+        temperatureOnesLed.highlight(onesHightLights);
+        
+        float floatingPart = value - (int) value;
+        int tenths = (int) (floatingPart * 100);
+        var tenthsHighLights = HighlightType.getByNumber(tenths);
+        temperatureTenthsLed.highlight(tenthsHighLights);
+        
+        String tempOut = String.format("reading to temp LEDs: %d%d%d", tensDigit, onesValue, tenths);
+        System.out.println(tempOut);
     }
 
-    private void updateHumidityLed(SensorReading reading) {
+    private void updateHumidityLed(HumidityReading reading) {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
