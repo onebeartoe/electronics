@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="java-libraries-system-test-suite" parallel="none">
+    <test name="system-unit-tests">
+        <packages>    
+            <package name="org.onebeartoe.sht41.trinkey"/>
+            <package name="org.onebeartoe.none.here"/>
+        </packages>
+    </test>    
+</suite>
