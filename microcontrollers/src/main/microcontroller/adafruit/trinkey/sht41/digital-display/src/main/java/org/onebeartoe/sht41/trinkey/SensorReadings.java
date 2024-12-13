@@ -6,6 +6,11 @@ package org.onebeartoe.sht41.trinkey;
  */
 public class SensorReadings 
 {
+    private SensorReadings()
+    {
+        
+    }
+
     public static SensorReading parseLine(String line) 
     {
         SensorReading reading;

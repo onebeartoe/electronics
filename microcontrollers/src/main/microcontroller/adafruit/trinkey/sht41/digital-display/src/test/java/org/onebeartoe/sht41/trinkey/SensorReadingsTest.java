@@ -1,13 +1,10 @@
 
 package org.onebeartoe.sht41.trinkey;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import static org.assertj.core.api.Assertions.*;
 
 import org.testng.annotations.Test;
-
-import org.onebeartoe.sht41.trinkey.SensorReadings;
 
 //import static org.onebeartoe.sht41.trinkey.SensorReadings.parseTwoDigitOneDecimal;
 
@@ -99,6 +96,16 @@ public class SensorReadingsTest
     public void parseLine_badReading_blank()
     {
         var line = "\n \n";
+        
+        var reading = SensorReadings.parseLine(line);
+        
+        assertThat(reading).isInstanceOf(BadReading.class);        
+    }
+
+    @Test
+    public void parseLine_badReading_badFormat()
+    {
+        var line = "\n__\n";
         
         var reading = SensorReadings.parseLine(line);
         
