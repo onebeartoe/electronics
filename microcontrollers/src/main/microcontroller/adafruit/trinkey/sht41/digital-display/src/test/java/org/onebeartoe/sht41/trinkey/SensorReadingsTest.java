@@ -1,8 +1,11 @@
 
 package org.onebeartoe.sht41.trinkey;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.assertj.core.api.Assertions.*;
+
+import org.testng.annotations.Test;
 
 import org.onebeartoe.sht41.trinkey.SensorReadings;
 
@@ -10,30 +13,126 @@ import org.onebeartoe.sht41.trinkey.SensorReadings;
 
 /**
  *
- * @author roberto
  */
 public class SensorReadingsTest 
-{
-    
-    public SensorReadingsTest() 
+{    
+    @Test
+    public void parseLine_temperature_oneDigit()
     {
+        var line = "Temperature 1.3 c";
         
+        var reading = SensorReadings.parseLine(line);
+        
+        Float value = null;
+        
+        if(reading instanceof TemperatureReading r)
+        {
+            value = r.temperature();
+        }
+        
+        assertThat(value).isEqualTo(1.3f);
     }
     
     @Test
+    public void parseLIne_temperature_twoDigit()
+    {
+        var line = "Temperature 12.8 c";
+        
+        var reading = SensorReadings.parseLine(line);
+        
+        Float value = null;
+        
+        if(reading instanceof TemperatureReading r)
+        {
+            value = r.temperature();
+        }
+        
+        assertThat(value).isEqualTo(12.8f);        
+    }
+    
+
+    @Test
+    public void parseLine_humidity_oneDigit()
+    {
+        var line = "Humidity 2.8 %";
+        
+        var reading = SensorReadings.parseLine(line);
+        
+        Float value = null;
+        
+        if(reading instanceof HumidityReading r)
+        {
+            value = r.humidity();
+        }
+        
+        assertThat(value).isEqualTo(2.8f);
+    }
+    
+    @Test
+    public void parseLine_humidity_twoDigit()
+    {
+        var line = "Humidity 12.8 %";
+
+        var reading = SensorReadings.parseLine(line);
+        
+        Float value = null;
+        
+        if(reading instanceof HumidityReading r)
+        {
+            value = r.humidity();
+        }
+        
+        assertThat(value).isEqualTo(12.8f);        
+    }
+    
+    @Test
+    public void parseLine_badReading()
+    {
+        var line = "Temp: 20.2 c";
+        
+        var reading = SensorReadings.parseLine(line);
+        
+        assertThat(reading).isInstanceOf(BadReading.class);
+    }
+    
+    @Test
+    public void parseLine_badReading_blank()
+    {
+        var line = "\n \n";
+        
+        var reading = SensorReadings.parseLine(line);
+        
+        assertThat(reading).isInstanceOf(BadReading.class);        
+    }    
+    
+    @Test(expectedExceptions = {IllegalArgumentException.class})
     public void parseTwoDigitOneDecimal_badReading()
     {        
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-            SensorReadings.parseTwoDigitOneDecimal("dlkaj")
-        );                
+        SensorReadings.parseTwoDigitOneDecimal("dlkaj");
+    }
+
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void parseTwoDigitOneDecimal_badReading_correctLength_butBadFormat()
+    {        
+        SensorReadings.parseTwoDigitOneDecimal("1.00");                
     }
     
-    @Test
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void parseTwoDigitOneDecimal_badReading_correctLength_blank()
+    {        
+        SensorReadings.parseTwoDigitOneDecimal("\t \n");
+    }    
+    
+    @Test(expectedExceptions = {IllegalArgumentException.class})
     public void parseTwoDigitOneDecimal_badReading_tooLarge()
     {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-            SensorReadings.parseTwoDigitOneDecimal("101.9")
-        );
+        SensorReadings.parseTwoDigitOneDecimal("101.9");
+    } 
+        
+    @Test(expectedExceptions = {IllegalArgumentException.class})
+    public void parseTwoDigitOneDecimal_badReading_noDecimal()
+    {
+        SensorReadings.parseTwoDigitOneDecimal(".9");
     } 
    
     @Test
@@ -43,7 +142,7 @@ public class SensorReadingsTest
 
         var expected = 2.5f;
 
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }    
    
     @Test
@@ -53,7 +152,6 @@ public class SensorReadingsTest
 
         var expected = 82.3f;
 
-        assertEquals(expected, actual);        
-    }    
-    
+        assertThat(actual).isEqualTo(expected);
+    }   
 }

@@ -8,9 +8,43 @@ public class SensorReadings
 {
     public static SensorReading parseLine(String line) 
     {
+        SensorReading reading;
         
+        if(line == null || line.isBlank())
+        {
+            reading = new BadReading(line);
+        }
+        else
+        {
+            String [] split = line.split("\\s+");  // split by whitespace 
+            
+            if(split.length != 3)
+            {
+                reading = new BadReading(line);
+            }
+            else if(line.startsWith("Temperature ") && line.endsWith("c"))
+            {
+                var s = split[1];
 
-        return null;
+                float temp = Float.parseFloat(s);                    
+
+                reading = new TemperatureReading(temp);
+            }
+            else if(line.startsWith("Humidity ") && line.endsWith("%"))
+            {
+                var s = split[1];
+
+                var humidity = Float.valueOf(s);                    
+
+                reading = new HumidityReading(humidity);
+            }
+            else
+            {
+                reading = new BadReading(line);
+            }
+        }
+
+        return reading;
     }
     
     /**
