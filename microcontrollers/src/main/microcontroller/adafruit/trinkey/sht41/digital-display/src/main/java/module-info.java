@@ -1,4 +1,4 @@
-module org.onebeartoe.mavenproject1 
+module org.onebeartoe.sht41.trinkey
 {
     requires java.logging;
     
@@ -10,3 +10,4 @@ module org.onebeartoe.mavenproject1
     
     exports org.onebeartoe.sht41.trinkey;
 }
+
