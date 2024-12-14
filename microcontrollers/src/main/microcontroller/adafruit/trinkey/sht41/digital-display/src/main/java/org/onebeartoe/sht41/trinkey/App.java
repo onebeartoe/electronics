@@ -107,12 +107,10 @@ public class App extends Application implements SerialPortDataListener
         
         stage.setScene(scene);
         stage.show();
-        
-//TODO: remove
-//temperatureTensLed.highlight(HighlightType.FOUR.FOUR);        
 
         // the SHT41 Trinkey appears as this port name        
         var portName = "/dev/ttyACM0";
+//        serialPort = SerialPort.getCommPort(portName);
         serialPort = SerialPort.getCommPorts()[0];
         serialPort.openPort();
         serialPort.addDataListener(this);
@@ -242,15 +240,49 @@ public class App extends Application implements SerialPortDataListener
         temperatureOnesLed.highlight(onesHightLights);
         
         float floatingPart = value - (int) value;
-        int tenths = (int) (floatingPart * 100);
+System.out.println("floatingPart = " + floatingPart);        
+        int tenths = (int) (floatingPart * 10);
+System.out.println("tenths = " + tenths);        
         var tenthsHighLights = HighlightType.getByNumber(tenths);
         temperatureTenthsLed.highlight(tenthsHighLights);
         
-        String tempOut = String.format("reading to temp LEDs: %d%d%d", tensDigit, onesValue, tenths);
+        String tempOut = String.format("reading to temperature LEDs: %d-%d-%d", tensDigit, onesValue, tenths);
         System.out.println(tempOut);
     }
 
     private void updateHumidityLed(HumidityReading reading) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        var value = reading.humidity();
+        
+        int intCast = (int) value;
+        
+        int tensDigit = Integer.MIN_VALUE;
+
+        if(value < 10)
+        {
+            humidityTensLed.highlight(HighlightType.CLEAR.CLEAR);
+        }
+        else
+        {            
+            tensDigit = intCast / 10;
+
+            var highlights = HighlightType.getByNumber(tensDigit);
+
+            humidityTensLed.highlight(highlights);
+            
+        }
+        
+        int onesValue = intCast % 10;
+        var onesHightLights = HighlightType.getByNumber(onesValue);
+        humidityOnesLed.highlight(onesHightLights);
+        
+        float floatingPart = value - (int) value;
+System.out.println("floatingPart = " + floatingPart);        
+        int tenths = (int) (floatingPart * 10);
+System.out.println("tenths = " + tenths);        
+        var tenthsHighLights = HighlightType.getByNumber(tenths);
+        humidityTenthsLed.highlight(tenthsHighLights);
+        
+        String humidityOut = String.format("reading to humidity LEDs: %d-%d-%d", tensDigit, onesValue, tenths);
+        System.out.println(humidityOut);
     }
 }
