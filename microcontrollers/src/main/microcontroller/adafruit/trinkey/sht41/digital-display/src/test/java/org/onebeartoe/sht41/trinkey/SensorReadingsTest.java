@@ -14,7 +14,7 @@ public class SensorReadingsTest
     @Test
     public void parseLine_temperature_oneDigit()
     {
-        var line = "Temperature 1.3 c";
+        var line = "Temperature: 1.3 C";
         
         var reading = SensorReadings.parseLine(line);
         
@@ -31,7 +31,7 @@ public class SensorReadingsTest
     @Test
     public void parseLIne_temperature_twoDigit()
     {
-        var line = "Temperature 12.8 c";
+        var line = "Temperature: 12.8 C";
         
         var reading = SensorReadings.parseLine(line);
         
@@ -49,7 +49,7 @@ public class SensorReadingsTest
     @Test
     public void parseLine_humidity_oneDigit()
     {
-        var line = "Humidity 2.8 %";
+        var line = "Humidity: 2.8 %";
         
         var reading = SensorReadings.parseLine(line);
         
@@ -66,7 +66,7 @@ public class SensorReadingsTest
     @Test
     public void parseLine_humidity_twoDigit()
     {
-        var line = "Humidity 12.8 %";
+        var line = "Humidity: 12.8 %";
 
         var reading = SensorReadings.parseLine(line);
         

@@ -27,7 +27,7 @@ public class SensorReadings
             {
                 reading = new BadReading(line);
             }
-            else if(line.startsWith("Temperature ") && line.endsWith("c"))
+            else if(line.startsWith("Temperature: ") && line.endsWith("C"))
             {
                 var s = split[1];
 
@@ -35,7 +35,7 @@ public class SensorReadings
 
                 reading = new TemperatureReading(temp);
             }
-            else if(line.startsWith("Humidity ") && line.endsWith("%"))
+            else if(line.startsWith("Humidity: ") && line.endsWith("%"))
             {
                 var s = split[1];
 
