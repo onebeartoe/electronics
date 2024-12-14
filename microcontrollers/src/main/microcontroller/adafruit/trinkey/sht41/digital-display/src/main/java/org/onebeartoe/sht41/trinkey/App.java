@@ -196,7 +196,7 @@ public class App extends Application implements SerialPortDataListener
     {
         return new LedNumber(DisplaySkin.CLASSIC, 
                           Color.BLACK, 
-                               Color.DARKGRAY, 
+                               Color.BLACK, 
                             Color.RED, 
                                        showDot);
     }    
@@ -237,7 +237,7 @@ public class App extends Application implements SerialPortDataListener
         
         int onesValue = intCast % 10;
         var onesHightLights = HighlightType.getByNumber(onesValue);
-        temperatureOnesLed.highlight(onesHightLights);
+        temperatureOnesLed.highlight(onesHightLights, true);
         
         float floatingPart = value - (int) value;
 System.out.println("floatingPart = " + floatingPart);        
@@ -273,7 +273,7 @@ System.out.println("tenths = " + tenths);
         
         int onesValue = intCast % 10;
         var onesHightLights = HighlightType.getByNumber(onesValue);
-        humidityOnesLed.highlight(onesHightLights);
+        humidityOnesLed.highlight(onesHightLights, true);
         
         float floatingPart = value - (int) value;
 System.out.println("floatingPart = " + floatingPart);        
