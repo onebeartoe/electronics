@@ -46,6 +46,10 @@ public class App extends Application implements SerialPortDataListener
     
     private SerialPort serialPort;
     
+    private boolean convertToFahrenheit = false;
+    
+    private Label tempUnitLabel;
+    
     @Override
     public void init()
     {
@@ -56,6 +60,21 @@ public class App extends Application implements SerialPortDataListener
         humidityTensLed = initializeLedNumber();
         humidityOnesLed = initializeLedNumber(true);
         humidityTenthsLed = initializeLedNumber();
+        
+        tempUnitLabel = initializeLabel("c");
+        tempUnitLabel.setOnMouseClicked((event) -> 
+        {
+            if(convertToFahrenheit)
+            {
+                tempUnitLabel.setText("c");
+            }
+            else
+            {
+                tempUnitLabel.setText("f");
+            }
+
+            convertToFahrenheit = !convertToFahrenheit;
+        });
     }
 
     @Override
@@ -78,7 +97,7 @@ public class App extends Application implements SerialPortDataListener
                 temperatureTensLed,
                     temperatureOnesLed,
                     temperatureTenthsLed,
-                    initializeLabel("c"));
+                    tempUnitLabel);
 
         var humidityLabel = initializeLabel("      Humidity");
         var percentLabel = initializeLabel("%");
@@ -206,6 +225,7 @@ public class App extends Application implements SerialPortDataListener
         launch();
     }
 
+//TODO: remove this method and inline the call to SensorReadings#parseLine
     private SensorReading parseLine(String line) 
     {
         SensorReading reading = SensorReadings.parseLine(line);
@@ -216,6 +236,12 @@ public class App extends Application implements SerialPortDataListener
     private void updateTemperatureLeds(TemperatureReading reading) 
     {
         var value = reading.temperature();
+        
+        if(convertToFahrenheit)
+        {
+            // T(oF) = (T(oC) × (9/5)) + 32
+            value = (value * (9.0f/5.0f)) + 32;
+        }
         
         int intCast = (int) value;
         
