@@ -45,23 +45,30 @@ intro
 			parsing sensor value and assigning to LEDNumbers
 
 	Demo
-		plugin SHT41 Trinket
+            plugin SHT41 Trinket
 
-		Run in IDE 
+            Run in IDE 
 
-		show running console output
+            show running console output
 
-		flip between Celsius and Fahrenheit 
+            flip between Celsius and Fahrenheit 
 
-		tests
+            tests
 
-			breath -> colder + more humid
+                    breath -> colder + more humid
 
-			hot air gun -> hotter
+                    hot air gun -> hotter
 
-			
-		Run with JavaFX enabled JVM
 
-			mvn package
-			/opt/javafx/zulu21.32.17-ca-fx-jre21.0.2-linux_x64/bin/java -jar target/digital-dislpay-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+            Run with JavaFX enabled JVM
+
+                    mvn package
+                    /opt/javafx/zulu21.32.17-ca-fx-jre21.0.2-linux_x64/bin/java -jar target/digital-dislpay-0.0.1-SNAPSHOT-jar-with-dependencies.jar
 		
+        Going Further
+
+            Use a dedicated computer to display the application
+            
+                Raspberry Pi
+
+            Provide an enclosure for the microcontroller
