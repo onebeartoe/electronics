@@ -1,13 +1,14 @@
 
 intro
 
-	in this video I demonstrate a Javafx application that communicates with temperature sensor
-		and displays the values onscreen.
+	In this video I demonstrate a Javafx application that communicates with 
+            a temperature and humidiy sensor
+            and displays the values onscreen.
 
 
 	As a weather enthusiast, 
 	I need an app to communicate with a microcrontorller
-	so that it can display temperature and humidity reading on screen.
+	so that it can display temperature and humidity readings on screen.
 
 	Show photo of digital display product
 
