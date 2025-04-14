@@ -115,7 +115,7 @@ void sdErrorCheck(void)
 void setup() 
 {
   Serial.begin(9600);
-  Serial.println("Trellis Demo");
+  Serial.println("Trellis Demo - osa");
 
   // INT pin requires a pullup
   pinMode(INTPIN, INPUT);
