@@ -72,9 +72,12 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.4</version>
+                <version>0.0.8</version>
                 <configuration>
                     <mainClass>org.onebeartoe.sht41.trinkey.App</mainClass>
+<options>
+     <option>--enable-preview</option>
+</options>
                 </configuration>
                 <executions>
                     <execution>
