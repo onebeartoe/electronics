@@ -158,6 +158,32 @@ Pro Trinket and Lipo Backpack</a>
 </div>
 
 <div class="featuredProject">
+<h3>Fritzing Diagram</h3>
+
+<p>
+&nbsp;Here is a wiring diagram done in Fritzing
+</p>
+
+<img src="tps61169-with-pro-trinket.png"
+alt="Fritzing diagram of the TPS61169 and a Pro Trinket"
+width="50%"
+height="50%">
+
+<ul>
+<li>
+<a href="" >
+</a>
+</li>
+</ul>
+
+<p>
+Here is a decent-to-nice explanation that Google provided on how
+to make the connection between the electronic components used in
+this project.
+</p>
+</div>
+
+<div class="featuredProject">
 <h3>Faceplate</h3>
 
 <p>
