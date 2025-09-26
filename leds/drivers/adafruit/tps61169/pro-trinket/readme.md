@@ -10,14 +10,52 @@
 TPS61169 LED driver to light up a name sign for family member's
 graduation gift.
 </p>
+
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/nRwP4QgfvkM?si=27SZZYWzKNczMmJV&amp;start=1758"
+title="YouTube video player" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
+
+
+<div class="featuredProject">
+<h3>Design Concepts</h3>
+
+<p>
+&nbsp;Initially I was just going to power it with a portable
+battery pack.  And I got that going.  But then I realized I
+wanted the sign  to have some more features.
+</p>
+
+<ul>
+<li>
+An on/off switch
+</li>
+
+<li>
+A way adjust the dimness/brightness
+</li>
+
+<li>
+Built in battery and recharging
+</li>
+</ul>
+
+<p>
+For the new features, I originally prototyped with a Feather
+Huzzah.  But then I realized it didn't make sense to use it in
+a project that does not use any WiFi features.  Although you
+can
+
+<a href="https://github.com/onebeartoe/electronics/blob/master/microcontrollers/src/main/microcontroller/weather-station/feather/huzzah/dht11/displayfull/quad-alphanumeric/weather_station/weather_station.ino" >
+turn off the Wifi module</a>
+</p>
+</div>
+
 
 <div class="featuredProject">
 <h3>Order of Operations/Objectives</h3>
-
-<p>
-&nbsp;
-</p>
 
 <ul>
 <li>
@@ -34,22 +72,11 @@ Take photos
 </li>
 
 <li>
-Design enclosure
-
+Ask if family member if they wants the lightning bolt
 </li>
 
 <li>
-<a href="" >
-</a>
-[] Ask if he wants the lightning bolt
-
-
-</li>
-
-<li>
-<a href="" >
-</a>
-[] Assemble the electronics and enclosure -
+Assemble the electronics and enclosure -
 
 <p>
 Prototype the enclosure around the faceplate and electronics
@@ -57,36 +84,23 @@ Prototype the enclosure around the faceplate and electronics
 </li>
 
 <li>
-<a href="" >
-</a>
-Figure out layout (LED count)
+Design enclosure
+</li>
 
+<li>
+Figure out layout (LED count)
 
 <ul>
 <li>
-<a href="" >
-</a>
 Make images
-
 </li>
+
 <li>
-<a href="" >
-</a>
 Ask Family Mmembver which they like
 </li>
-<li>
-<a href="" >
-</a>
-</li>
+
 </ul>
 </li>
-
-<li>
-<a href="" >
-</a>
-
-</li>
-
 </ul>
 </div>
 
@@ -139,10 +153,6 @@ Adafruit Pro Trinket - 3V 12MHz</a>
 Pro Trinket and Lipo Backpack</a>
 </li>
 
-
-
-
-
 <li>
 <a href="" >
 </a>
@@ -152,9 +162,61 @@ Pro Trinket and Lipo Backpack</a>
 <a href="" >
 </a>
 </li>
-
-
 </ul>
+</div>
+
+<div class="featuredProject">
+<h3>Along the Way</h3>
+
+<img src="20250910_213521-resized.jpg" width="50%" heigth="50%" alt="20250910_213521-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_131327-resized.jpg" width="50%" heigth="50%" alt="20250923_131327-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_131547-resized.jpg" width="50%" heigth="50%" alt="20250923_131547-resized.jpg" />
+<br>
+</br>
+
+<img src="20250911_100643-resized.jpg" width="50%" heigth="50%" alt="20250911_100643-resized.jpg" />
+<br>
+</br>
+
+<img src="20250922_190329-resized.jpg" width="50%" heigth="50%" alt="20250922_190329-resized.jpg" />
+<br>
+</br>
+
+<img src="20250911_130700-resized.jpg" width="50%" heigth="50%" alt="20250911_130700-resized.jpg" />
+<br>
+</br>
+
+<img src="20250911_130740-resized.jpg" width="50%" heigth="50%" alt="20250911_130740-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_204718-resized.jpg" width="50%" heigth="50%" alt="20250923_204718-resized.jpg" />
+<br>
+</br>
+
+<img src="20250822_162158-resized.jpg" width="50%" heigth="50%" alt="20250822_162158-resized.jpg" />
+
+<img src="20250923_210029-resized.jpg" width="50%" heigth="50%" alt="20250923_210029-resized.jpg" />
+<br>
+</br>
+
+<img src="20250922_190313-resized.jpg" width="50%" heigth="50%" alt="20250922_190313-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_210203-resized.jpg" width="50%" heigth="50%" alt="20250923_210203-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_204739-resized.jpg" width="50%" heigth="50%" alt="20250923_204739-resized.jpg" />
+
+
 </div>
 
 <div class="featuredProject">
@@ -270,28 +332,19 @@ Switch
 13mm vertical
 </li>
 </ul>
-
-
-
-<br/>
-!!!!!!!!ADD AND IMAGE!!!!!!!!
 </li>
 
 <li>
 Potentiometer - 9.5mm x 9.5mm
+</li>
+</ul>
 
 <br/>
-!!!!!!!!ADD AND IMAGE!!!!!!!!
-</li>
 
-</ul>
+<img src="20250923_131522-resized.jpg" width="50%" heigth="50%" alt="20250923_131522-resized.jpg" />
 
-<ul>
-<li>
-<a href="" >
-</a>
-</li>
-</ul>
+
+
 </div>
 
 <div class="featuredProject">
@@ -314,9 +367,6 @@ I also had to chop off part of the USB port area, so that
 it would fit into the 'control panel' cutout.  Thank you,
 flush cutters!
 </p>
-
-<br/>
-!!!!!!!!ADD AND IMAGE!!!!!!!!
 </li>
 
 <li>
@@ -328,25 +378,108 @@ project I used the
 3D printable models</a>
 provided by Adafruit on the product page. Only the
 bottom part of the model is used in this project.
-
-<br/>
-!!!!!!!!ADD AND IMAGE!!!!!!!!
-</li>
-
-<li>
-<a href="" >
-</a>
-</li>
-<li>
-<a href="" >
-</a>
-</li>
-<li>
-<a href="" >
-</a>
 </li>
 </ul>
 </div>
+
+
+<div class="featuredProject">
+<h3>Adding a Potentiometer</h3>
+
+<p>
+&nbsp;I was not sure how to interface the TPS61169's PWM pin with
+a microcontroller.  So I placed the following 'prompt' into
+Google's  artifical intelligence.
+</p>
+
+<p>
+<b>
+'tps61169 pwm arduino potentiometer example'
+</b>
+</p>
+
+
+<p>
+It gave the
+<a href="https://github.com/onebeartoe/electronics/blob/master/leds/drivers/adafruit/tps61169/pro-trinket/pro-trinket.ino" >
+Arduino code used in this project</a>
+.
+</p>
+
+<p>
+It even gave a decent-to-good explanation of the connection details:
+
+
+</p>
+
+<p>
+TPS61169 PWM Dimming Instructions
+
+To use an Arduino with a potentiometer to control a TPS61169 LED driver, which utilizes PWM for brightness control, the following setup and code can be implemented:
+<br/>
+<pre>
+Circuit Setup:
+Potentiometer Connection:
+Connect one outer pin of the potentiometer to Arduino's 5V.
+Connect the other outer pin of the potentiometer to Arduino's GND.
+Connect the middle pin (wiper) of the potentiometer to an analog input pin on the Arduino (e.g., A0).
+TPS61169 Connection:
+Connect the TPS61169's VIN to your power source (e.g., 5V from Arduino or an external supply).
+Connect the TPS61169's GND to the common ground with the Arduino.
+Connect the TPS61169's CTRL pin (or EN/DIM pin, depending on the specific breakout board) to an Arduino PWM-capable digital pin (e.g., pin 9 or 10, marked with a ~).
+Connect your LED(s) to the appropriate output pins of the TPS61169 according to its datasheet and your LED configuration (e.g., anode to OUT+, cathode to OUT-).
+</pre>
+
+
+</p>
+
+</div>
+
+
+<div class="featuredProject">
+<h3>Software - OpenSCAD and Arduino C</h3>
+
+<p>
+&nbsp;The 3D models for this project were created using
+OpenSCAD.  The Pro Trinket is programmed in Arduino C.
+</p>
+
+<ul>
+<li>
+<a href="https://github.com/onebeartoe/3D-Modeling/tree/master/openscad/models/src/main/openscad/electronics/led/letters-symbols" >
+OpenSCAD</a> - this section of the repository has the
+source code for the faceplate and side panels, as well as
+the .stl files used for 3D printing.
+</li>
+
+<li>
+<a href="https://github.com/onebeartoe/electronics/tree/master/leds/drivers/adafruit/tps61169/pro-trinket" >
+Arduino C</a>
+</li>
+</ul>
+</div>
+
+
+<div class="featuredProject">
+<h3>Output</h3>
+
+<p>
+&nbsp;
+</p>
+
+<img src="20250923_204751-resized.jpg" width="50%" heigth="50%" alt="20250923_204751-resized.jpg" />
+<br>
+</br>
+
+<img src="20250923_210145-resized.jpg" width="50%" heigth="50%" alt="20250923_210145-resized.jpg" />
+<br>
+
+<img src="20250923_204812-resized.jpg" width="50%" heigth="50%" alt="20250923_204812-resized.jpg" />
+<br>
+</br>
+
+</div>
+
 
 <div class="featuredProject">
 <h3>Retrospective</h3>
@@ -375,34 +508,21 @@ But I did not have one handy.
 </div>
 
 <div class="featuredProject">
-<h3>Resources</h3>
+<h3>Going Further</h3>
 
 <p>
-&nbsp;
+Going further with this this project, I would like to add somehow
+add sound to it&nbsp;
 </p>
-
-<ul>
-<li>
-<a href="" >
-</a>
-</li>
-</ul>
 </div>
 
-<div class="featuredProject">
-<h3>Resources</h3>
 
-<p>
-&nbsp;
-</p>
+<ploop>
 
-<ul>
-<li>
-<a href="" >
-</a>
-</li>
-</ul>
-</div>
+
+
+</ploop>
+
 
 <div class="featuredProject">
 <h3>Resources</h3>
@@ -427,16 +547,6 @@ LED Letters Datasheet</a>
 <li>
 <a href="https://cdn-shop.adafruit.com/product-files/6096/M0010331LZ-C21532-001_-_A.pdf" >
 Lightning Bolt Datasheet</a>
-</li>
-
-<li>
-<a href="" >
-</a>
-</li>
-
-<li>
-<a href="" >
-</a>
 </li>
 </ul>
 </div>
