@@ -19,7 +19,8 @@ referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 </iframe>
 
 <a href="https://www.youtube.com/embed/nRwP4QgfvkM?start=1758">
-<img src="https://www.youtube.com/embed/nRwP4QgfvkM/0.jpg" style="width:100%;">
+<img src="https://www.youtube.com/embed/nRwP4QgfvkM/0.jpg"
+style="width:100%;">
 </a>
 </div>
 
