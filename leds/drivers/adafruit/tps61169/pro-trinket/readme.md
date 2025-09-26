@@ -12,15 +12,16 @@ graduation gift.
 </p>
 
 <iframe width="560" height="315"
-src="https://www.youtube.com/embed/nRwP4QgfvkM?si=27SZZYWzKNczMmJV&amp;start=1758"
+src="https://www.youtube.com/embed/nRwP4QgfvkM?start=1758"
 title="YouTube video player" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-</div>
+referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+</iframe>
 
-https://www.youtube.com/embed/nRwP4QgfvkM?si=27SZZYWzKNczMmJV&amp;start=1758
-[![TPS61169 Name Sign on Show & Tell
-](https://www.youtube.com/embed/nRwP4QgfvkM?si=27SZZYWzKNczMmJV&amp;start=1758/0.jpg)](https://www.youtube.com/embed/nRwP4QgfvkM?si=27SZZYWzKNczMmJV&amp;start=1758 "Mask of Masaka on Show & Tell")
+<a href="https://www.youtube.com/embed/nRwP4QgfvkM?start=1758">
+<img src="https://www.youtube.com/embed/nRwP4QgfvkM?start=1758/0.jpg" style="width:100%;">
+</a>
+</div>
 
 
 <div class="featuredProject">
