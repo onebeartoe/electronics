@@ -18,6 +18,8 @@ allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; pic
 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
 </iframe>
 
+https://www.youtube.com/watch?v=nRwP4QgfvkM&t=1760s
+
 <a href="https://www.youtube.com/embed/nRwP4QgfvkM?start=1758">
 <img src="https://www.youtube.com/embed/nRwP4QgfvkM/0.jpg"
 style="width:100%;">
