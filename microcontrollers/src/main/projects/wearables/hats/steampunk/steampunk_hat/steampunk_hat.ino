@@ -1,3 +1,10 @@
+
+#include <Arduino.h>
+
+#include "Mister.h"
+
+//#include "Mister.cpp"
+
 /*
   Fade
 
@@ -12,14 +19,23 @@ int led = LED_BUILTIN; // the PWM pin the LED is attached to
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 
+
+Mister mister;
+
+
+
 // the setup routine runs once when you press reset:
 void setup() {
   // declare pin to be an output:
   pinMode(led, OUTPUT);
+
+  Serial.begin(9600);
 }
 
 // the loop routine runs over and over again forever:
-void loop() {
+void loop() 
+{
+
   // set the brightness
   analogWrite(led, brightness);
 
@@ -30,6 +46,11 @@ void loop() {
   if (brightness <= 0 || brightness >= 255) {
     fadeAmount = -fadeAmount;
   }
+
+//TODO: get rid of this
   // wait for 30 milliseconds to see the dimming effect
   delay(30);
+
+  mister.loop();
+  // mister.oneLoop();
 }
