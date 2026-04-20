@@ -43,7 +43,8 @@ void loop()
   brightness = brightness + fadeAmount;
 
   // reverse the direction of the fading at the ends of the fade:
-  if (brightness <= 0 || brightness >= 255) {
+  if (brightness <= 0 || brightness >= 255) 
+  {
     fadeAmount = -fadeAmount;
   }
 
@@ -52,5 +53,4 @@ void loop()
   delay(30);
 
   mister.loop();
-  // mister.oneLoop();
 }
