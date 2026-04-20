@@ -20,9 +20,7 @@ class ArduinoLoopTask
         /**
          * Call this method in the Arduino's sketch's loop() function.
          */
-// this was just added
-virtual      
-        void loop()
+        virtual void loop()
         {
             unsigned long currentMillis = millis();
  
