@@ -3,7 +3,7 @@
 
 #include "Mister.h"
 
-//#include "Mister.cpp"
+#include "Gear.h"
 
 /*
   Fade
@@ -22,10 +22,11 @@ int fadeAmount = 5;    // how many points to fade the LED by
 
 Mister mister;
 
-
+Gear gear;
 
 // the setup routine runs once when you press reset:
-void setup() {
+void setup() 
+{
   // declare pin to be an output:
   pinMode(led, OUTPUT);
 
@@ -48,9 +49,11 @@ void loop()
     fadeAmount = -fadeAmount;
   }
 
-//TODO: get rid of this
+//TODO: refactor this to use timing variables
   // wait for 30 milliseconds to see the dimming effect
   delay(30);
 
   mister.loop();
+
+  gear.loop();
 }

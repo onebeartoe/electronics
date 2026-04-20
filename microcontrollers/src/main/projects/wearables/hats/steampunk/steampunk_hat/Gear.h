@@ -1,16 +1,16 @@
 
-#ifndef onebeartoe_Mister_h
-#define onebeartoe_Mister_h
+#ifndef onebeartoe_Gear_h
+#define onebeartoe_Gear_h
 
 #include "/home/luke/Versioning/owner/github/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
-class Mister : public ArduinoLoopTask
+class Gear : public ArduinoLoopTask
 {
     public:
         
         int sure; 
 
-        Mister();
+        Gear();
 
         virtual void oneLoop();
 };
