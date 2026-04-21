@@ -5,10 +5,11 @@
 
 Mister::Mister()
 {
-    interval = 1000 * 5; // every five seconds
+//    interval = 1000 * 5; // every five seconds
+
 }
 
-void Mister::oneLoop()
+void Mister::doTheThing()
 {
-    Serial.println("do nothing in Mister::oneLoop() ");   
+    Serial.println("doing the thing in Mister");   
 }

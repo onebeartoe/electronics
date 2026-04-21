@@ -15,16 +15,31 @@ void IntervalArduinoLoopTask::oneLoop()
 {
     Serial.println("do nothing in IntervalArduinoLoopTask::oneLoop() ");   
 
+    unsigned long currentMillis = millis();
 
+    // check if the interval has started
+    if(currentMillis - intervalStart > intervalDuration) 
+    {
+        active = true;
 
-    checkStart();
+        intervalStart = currentMillis;
+    }
 
+    if(active)
+    {
+        doTheThing();
+    }
 
-    doTheThing();
+    // check if the interval has ended
+    currentMillis = millis();
+    if(intervalStart + intervalDuration >= currentMillis) 
+    {
+        active = false;
 
-    turnOffTheThing();
+        intervalStart = currentMillis + inactiveDuration;
+    }
 
-    checkEnd();
+    
 }
 
 

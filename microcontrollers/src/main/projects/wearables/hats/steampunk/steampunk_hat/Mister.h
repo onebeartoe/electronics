@@ -2,9 +2,10 @@
 #ifndef onebeartoe_Mister_h
 #define onebeartoe_Mister_h
 
-#include "/home/luke/Versioning/owner/github/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
+#include "/home/luke/Versioning/owner/github/electronics/microcontrollers/src/main/projects/internet-clock/src/IntervalArduinoLoopTask.h"
+//#include "/home/luke/Versioning/owner/github/electronics/microcontrollers/src/main/projects/internet-clock/src/ArduinoLoopTask.h"
 
-class Mister : public ArduinoLoopTask
+class Mister : public IntervalArduinoLoopTask
 {
     public:
         
@@ -12,7 +13,10 @@ class Mister : public ArduinoLoopTask
 
         Mister();
 
-        virtual void oneLoop();
+        virtual void doTheThing();   
+    
+
+//        virtual void oneLoop();
 };
 
 #endif
