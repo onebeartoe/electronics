@@ -11,36 +11,7 @@ IntervalArduinoLoopTask::IntervalArduinoLoopTask()
 
 virtual void doTheThing();
 
-void IntervalArduinoLoopTask::oneLoop()
-{
-    Serial.println("do nothing in IntervalArduinoLoopTask::oneLoop() ");   
 
-    unsigned long currentMillis = millis();
-
-    // check if the interval has started
-    if(currentMillis - intervalStart > intervalDuration) 
-    {
-        active = true;
-
-        intervalStart = currentMillis;
-    }
-
-    if(active)
-    {
-        doTheThing();
-    }
-
-    // check if the interval has ended
-    currentMillis = millis();
-    if(intervalStart + intervalDuration >= currentMillis) 
-    {
-        active = false;
-
-        intervalStart = currentMillis + inactiveDuration;
-    }
-
-    
-}
 
 
 

@@ -1,13 +1,22 @@
 
 #include <Arduino.h>
 
+//!!!!
+#include "/home/roberto/Versioning/owner/github/electronics/microcontrollers/src/main/projects/internet-clock/src/IntervalArduinoLoopTask.h"
+
+
 #include "Mister.h"
+
+
 
 Mister::Mister()
 {
-//    interval = 1000 * 5; // every five seconds
-
 }
+
+// void Mister::oneLoop()
+// {
+//     IntervalArduinoLoopTask::oneLoop();
+// }
 
 void Mister::doTheThing()
 {

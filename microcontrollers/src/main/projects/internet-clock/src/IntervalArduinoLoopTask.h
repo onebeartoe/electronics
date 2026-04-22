@@ -20,7 +20,45 @@ class IntervalArduinoLoopTask : public ArduinoLoopTask
 
         long inactiveDuration = 1000 * 10; // ten seconds
 
-        virtual void oneLoop();
+
+
+//        virtual void oneLoop();
+
+virtual void doTheThing();
+
+    virtual 
+    void oneLoop()
+//    void IntervalArduinoLoopTask::oneLoop()
+    {
+        Serial.println("do nothing in IntervalArduinoLoopTask::oneLoop() ");   
+
+        unsigned long currentMillis = millis();
+
+        // check if the interval has started
+        if(currentMillis - intervalStart > intervalDuration) 
+        {
+            active = true;
+
+            intervalStart = currentMillis;
+        }
+
+        if(active)
+        {
+            doTheThing();
+        }
+
+        // check if the interval has ended
+        currentMillis = millis();
+        if(intervalStart + intervalDuration >= currentMillis) 
+        {
+            active = false;
+
+            intervalStart = currentMillis + inactiveDuration;
+        }   
+    }
+
+
+
 };
 
 #endif
