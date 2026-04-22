@@ -4,15 +4,10 @@
 #include "IntervalArduinoLoopTask.h"
 
 
-IntervalArduinoLoopTask::IntervalArduinoLoopTask()
-{
-    interval = 5; // very small milliseconds interval so that the loop is always checking the timing
-}
+// IntervalArduinoLoopTask::IntervalArduinoLoopTask()
+// {
+//     interval = 5; // very small milliseconds interval so that the loop is always checking the timing
+// }
 
-virtual void doTheThing();
+//virtual void doTheThing();
 
-
-
-
-
-#endif

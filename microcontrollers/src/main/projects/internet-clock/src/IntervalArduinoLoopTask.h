@@ -10,7 +10,7 @@ class IntervalArduinoLoopTask : public ArduinoLoopTask
 {
     public:
         
-        IntervalArduinoLoopTask();
+//        IntervalArduinoLoopTask();
 
         boolean active = true; //on by default
         
@@ -21,6 +21,12 @@ class IntervalArduinoLoopTask : public ArduinoLoopTask
         long inactiveDuration = 1000 * 10; // ten seconds
 
 
+
+IntervalArduinoLoopTask()
+//IntervalArduinoLoopTask::IntervalArduinoLoopTask()
+{
+    interval = 5; // very small milliseconds interval so that the loop is always checking the timing
+}        
 
 //        virtual void oneLoop();
 
