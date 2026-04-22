@@ -13,6 +13,8 @@ class Mister : public IntervalArduinoLoopTask
         Mister();
 
         virtual void doTheThing();   
+
+        virtual void stopTheThing();
 };
 
 #endif

@@ -11,5 +11,10 @@ Mister::Mister()
 
 void Mister::doTheThing()
 {
-    Serial.println("doing the thing in Mister");   
+    Serial.println("Doing the thing in Mister");   
+}
+
+void Mister::stopTheThing()
+{
+    Serial.println("Stopping the thing in Mister");   
 }

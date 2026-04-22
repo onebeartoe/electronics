@@ -28,6 +28,8 @@ class IntervalArduinoLoopTask : public ArduinoLoopTask
 
         virtual void doTheThing();
 
+        virtual void stopTheThing();
+
         virtual void oneLoop()
         {
 //            Serial.println("do nothing in IntervalArduinoLoopTask::oneLoop() ");   
@@ -60,6 +62,8 @@ class IntervalArduinoLoopTask : public ArduinoLoopTask
                 intervalStart = currentMillis + inactiveDuration;
 
                 Serial.println("Interval Duration Inactived");
+
+                stopTheThing();
             }   
         }
 };
