@@ -10,5 +10,5 @@ Gear::Gear()
 
 void Gear::oneLoop()
 {
-    Serial.println("do nothing in Gear::oneLoop() ");   
+    Serial.println("Grear ->>>>>> oneLoop() ");   
 }
