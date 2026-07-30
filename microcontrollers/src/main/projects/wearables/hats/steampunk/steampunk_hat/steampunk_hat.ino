@@ -18,17 +18,22 @@
 int led = LED_BUILTIN; // the PWM pin the LED is attached to
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
-
+const int BUTTON_PIN = 21;
 
 Mister mister;
 
 Gear gear;
 
 // the setup routine runs once when you press reset:
-void setup() 
+void setup()
 {
   // declare pin to be an output:
   pinMode(led, OUTPUT);
+
+  // set up button pin with internal pull-up and attach ISR on button release (RISING edge)
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), activateGear, FALLING);
+//  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), activateGear, RISING);
 
   Serial.begin(9600);
 }
@@ -56,4 +61,13 @@ void loop()
   mister.loop();
 
   gear.loop();
+}
+
+void activateGear() 
+{
+  Serial.println("Activating gear...");
+
+  gear.oneLoop();
+
+  Serial.println("... deactivating gear");
 }
