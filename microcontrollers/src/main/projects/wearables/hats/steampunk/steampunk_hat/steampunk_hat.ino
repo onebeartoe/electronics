@@ -18,10 +18,11 @@
 int led = LED_BUILTIN; // the PWM pin the LED is attached to
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
-const int GEAR_BUTTON_PIN = 21;
-unsigned long lastGearDebounceTime = 0;
 
-const unsigned long debounceDelay = 300;
+const int GEAR_BUTTON_PIN = 21;
+volatile unsigned long lastGearDebounceTime = 0;
+
+const unsigned long DEBOUNCE_DELAY = 300; // milliseconds
 
 Mister mister;
 
@@ -43,7 +44,15 @@ void setup()
 // the loop routine runs over and over again forever:
 void loop() 
 {
+  ledLoop();
 
+  mister.loop();
+
+  gear.loop();
+}
+
+void ledLoop()
+{
   // set the brightness
   analogWrite(led, brightness);
 
@@ -59,22 +68,30 @@ void loop()
 //TODO: refactor this to use timing variables
   // wait for 30 milliseconds to see the dimming effect
   delay(30);
+}
 
-  mister.loop();
+bool isDebounced(volatile unsigned long *lastTime) 
+{
+    unsigned long currentTime = millis();
 
-  gear.loop();
+    if (currentTime - *lastTime > DEBOUNCE_DELAY) 
+    {
+        *lastTime = currentTime;
+
+        return true;
+    }
+
+    return false;
 }
 
 void activateGear() 
 {
-  if ((millis() - lastGearDebounceTime) > debounceDelay)
+  if( isDebounced(&lastGearDebounceTime) )
   {
     Serial.println("Activating gear...");
 
     gear.oneLoop();
 
     Serial.println("... deactivating gear");
-
-    lastGearDebounceTime = millis();
   }
 }
