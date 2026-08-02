@@ -19,6 +19,9 @@ int led = LED_BUILTIN; // the PWM pin the LED is attached to
 int brightness = 0;    // how bright the LED is
 int fadeAmount = 5;    // how many points to fade the LED by
 const int GEAR_BUTTON_PIN = 21;
+unsigned long lastGearDebounceTime = 0;
+
+const unsigned long debounceDelay = 300;
 
 Mister mister;
 
@@ -64,9 +67,14 @@ void loop()
 
 void activateGear() 
 {
-  Serial.println("Activating gear...");
+  if ((millis() - lastGearDebounceTime) > debounceDelay)
+  {
+    Serial.println("Activating gear...");
 
-  gear.oneLoop();
+    gear.oneLoop();
 
-  Serial.println("... deactivating gear");
+    Serial.println("... deactivating gear");
+
+    lastGearDebounceTime = millis();
+  }
 }
