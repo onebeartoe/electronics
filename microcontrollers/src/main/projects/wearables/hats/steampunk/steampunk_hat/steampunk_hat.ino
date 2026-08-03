@@ -22,6 +22,9 @@ int fadeAmount = 5;    // how many points to fade the LED by
 const int GEAR_BUTTON_PIN = 21;
 volatile unsigned long lastGearDebounceTime = 0;
 
+const int MISTER_BUTTON_PIN = 20;
+volatile unsigned long lastMisterDebounceTime = 0;
+
 const unsigned long DEBOUNCE_DELAY = 300; // milliseconds
 
 Mister mister;
@@ -37,6 +40,9 @@ void setup()
   // set up button pin with internal pull-up and attach ISR on button release (RISING edge)
   pinMode(GEAR_BUTTON_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(GEAR_BUTTON_PIN), activateGear, FALLING);
+
+  pinMode(MISTER_BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(MISTER_BUTTON_PIN), activateMister, FALLING);
 
   Serial.begin(9600);
 }
@@ -93,5 +99,17 @@ void activateGear()
     gear.oneLoop();
 
     Serial.println("... deactivating gear");
+  }
+}
+
+void activateMister()
+{
+  if( isDebounced(&lastMisterDebounceTime) )
+  {
+    Serial.println("Activating mister...");
+
+    mister.doTheThing();
+
+    Serial.println("... deactivating mister");
   }
 }
